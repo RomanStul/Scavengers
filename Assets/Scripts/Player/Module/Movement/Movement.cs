@@ -9,8 +9,8 @@ namespace Player.Module.Movement
         //================================================================
         [SerializeField] protected Module.MovementConstants movementVariables;
         
-        [SerializeField] protected Rigidbody2D rigid;
-        [SerializeField] protected GameObject moduleBodyRigid;
+        [SerializeField] protected Rigidbody2D rigid, rotationRigid;
+        [SerializeField] protected GameObject moduleBody;
         //================================================================
         public float ThrustInput { get; set; } = 0f;
         public float RotationInput { get; set; } = 0f;
@@ -21,7 +21,7 @@ namespace Player.Module.Movement
         {
             if (ThrustInput > 0)
             {
-                rigid.AddForce(moduleBodyRigid.transform.up * (ThrustInput * movementVariables.Thrust));
+                rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust));
                 float speed = rigid.velocity.magnitude;
                 if (speed > movementVariables.MaxSpeed)
                 {
@@ -29,10 +29,9 @@ namespace Player.Module.Movement
                 }
             }
 
-            //TODO add speed build up and deceleration
             if (Mathf.Abs(RotationInput) > 0)
             {
-                moduleBodyRigid.transform.rotation *= Quaternion.AngleAxis(RotationInput * movementVariables.RotationThrust, Vector3.forward);
+                rotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust);
             }
         }
     }

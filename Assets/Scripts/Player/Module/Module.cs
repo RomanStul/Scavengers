@@ -14,9 +14,16 @@ namespace Player.Module
         }
 
         [Serializable]
-        public class DrillConstants
+        public class DrillControllerConstants
         {
             public float RotationSpeed;
+        }
+
+        [Serializable]
+        public class DrillConstants
+        {
+            public float range;
+            public float chargeTime;
         }
 
         [Serializable]

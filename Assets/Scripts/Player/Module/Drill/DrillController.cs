@@ -1,13 +1,14 @@
 using System;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.Module.Drill
 {
     public class DrillController : ModuleBaseScript
     {
         //================================================================
-        [SerializeField] protected Player.Module.Module.DrillConstants drillConstants;
+        [SerializeField] protected Player.Module.Module.DrillControllerConstants drillControllerConstants;
         [SerializeField] protected GameObject drillGameObject;
         [SerializeField] protected Player.Module.Drill.Drill drill;
         //================================================================
@@ -20,7 +21,7 @@ namespace Player.Module.Drill
             Vector3 targetPosition = Convertor.Vec2ToVec3(DrillTargetPosition - new Vector2(Screen.width / 2, Screen.height / 2));
             Vector3 relative = targetPosition;
             Quaternion rotation = Quaternion.LookRotation(relative, Vector3.forward);
-            drillGameObject.transform.rotation = Quaternion.Lerp( drillGameObject.transform.rotation, rotation, Time.deltaTime * drillConstants.RotationSpeed);
+            drillGameObject.transform.rotation = Quaternion.Lerp( drillGameObject.transform.rotation, rotation, Time.deltaTime * drillControllerConstants.RotationSpeed);
             
         }
 
