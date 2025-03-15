@@ -18,7 +18,7 @@ namespace Player.Module
 
         public void DrillPositionInput(InputAction.CallbackContext context)
         {
-            ModuleRef.scripts.drillScript.DrillPosition = context.ReadValue<Vector2>();
+            ModuleRef.scripts.drillScript.DrillTargetPosition = context.ReadValue<Vector2>();
         }
 
         public void DrillUseInput(InputAction.CallbackContext context)

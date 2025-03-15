@@ -14,6 +14,12 @@ namespace Player.Module
         }
 
         [Serializable]
+        public class DrillConstants
+        {
+            public float RotationSpeed;
+        }
+
+        [Serializable]
 
         public class Scripts
         {
