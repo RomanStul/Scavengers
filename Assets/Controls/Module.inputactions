@@ -13,6 +13,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "DrillMovement",
+                    "type": "Value",
+                    "id": "d097bccd-63f5-421a-a5fe-85f1bd003135",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "DrillUse",
+                    "type": "Button",
+                    "id": "90058d4d-e142-488f-8c94-cda150e7223f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -70,6 +88,28 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "c839a3ca-6997-418f-8b2e-bdea133fa84c",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DrillMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fbf2ab2-a051-4f1f-99e1-7c5ad3ddfb88",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "DrillUse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -47,9 +47,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
-    <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleBaseScript.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />
     <Compile Include="Assets\Scripts\Convertor.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Projektíky\UnityEditor\2022.3.49f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

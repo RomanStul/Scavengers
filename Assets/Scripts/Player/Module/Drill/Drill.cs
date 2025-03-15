@@ -1,16 +1,16 @@
 using UnityEngine;
 
-namespace Player.Module
+namespace Player.Module.Drill
 {
-    public class ModuleBaseScript : MonoBehaviour
+    public class Drill : MonoBehaviour
     {
         //================================================================
-        protected Player.Module.Module ModuleRef;
         //================================================================
         //================================================================
-        public void SetModule(Player.Module.Module module)
+    
+        public void Use(bool start)
         {
-            this.ModuleRef = module;
+            transform.GetComponent<SpriteRenderer>().color = start ? Color.yellow: Color.red;
         }
     }
 }
