@@ -24,6 +24,8 @@ namespace Player.Module
         {
             public float range;
             public float chargeTime;
+            public float hitsPerSecond;
+            public float extensionTime;
         }
 
         [Serializable]
