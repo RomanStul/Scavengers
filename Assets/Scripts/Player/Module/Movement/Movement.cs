@@ -6,8 +6,16 @@ namespace Player.Module.Movement
 {
     public class Movement : Player.Module.ModuleBaseScript
     {
+        [Serializable]
+        public class MovementConstants
+        {
+            public float Thrust;
+            public float RotationThrust;
+            public float MaxSpeed;
+        }
+        
         //================================================================
-        [SerializeField] protected Module.MovementConstants movementVariables;
+        [SerializeField] protected MovementConstants movementVariables;
         
         [SerializeField] protected Rigidbody2D rigid, rotationRigid;
         [SerializeField] protected GameObject moduleBody;

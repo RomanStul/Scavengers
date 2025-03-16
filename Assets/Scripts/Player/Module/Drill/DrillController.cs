@@ -7,8 +7,13 @@ namespace Player.Module.Drill
 {
     public class DrillController : ModuleBaseScript
     {
+        [Serializable]
+        public class DrillControllerConstants
+        {
+            public float RotationSpeed;
+        }
         //================================================================
-        [SerializeField] protected Player.Module.Module.DrillControllerConstants drillControllerConstants;
+        [SerializeField] protected DrillControllerConstants drillControllerConstants;
         [SerializeField] protected GameObject drillGameObject;
         [SerializeField] protected Player.Module.Drill.Drill drill;
         //================================================================

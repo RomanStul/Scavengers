@@ -11,8 +11,18 @@ namespace Player.Module.Drill
         private static readonly int InUse = Animator.StringToHash("inUse");
         private static readonly int ExtensionMultiplier = Animator.StringToHash("ExtensionMultiplier");
 
+        
+        [Serializable]
+        public class DrillConstants
+        {
+            public float range;
+            public float chargeTime;
+            public float hitsPerSecond;
+            public int damage;
+            public float extensionTime;
+        }
         //================================================================
-        [SerializeField] protected Player.Module.Module.DrillConstants drillConstants;
+        [SerializeField] protected DrillConstants drillConstants;
         [SerializeField] protected DrillController drillController;
         [SerializeField] protected Animator animator;
         [SerializeField] protected Transform[] laserOrigins;
@@ -86,11 +96,16 @@ namespace Player.Module.Drill
             }
         }
 
+        //Called from animation of drill
         public void DamageTarget()
         {
             if (_target == null) return;
 
-            Debug.Log("Damaging target " + _target.gameObject.name);
+            Entities.HealthBar healthBar = _target.GetComponent<Entities.HealthBar>();
+            if (healthBar != null)
+            {
+                healthBar.takeDamage(drillConstants.damage);
+            }
         }
     }
 }

@@ -5,28 +5,6 @@ namespace Player.Module
 {
     public class Module : MonoBehaviour
     {
-        [Serializable]
-        public class MovementConstants
-        {
-            public float Thrust;
-            public float RotationThrust;
-            public float MaxSpeed;
-        }
-
-        [Serializable]
-        public class DrillControllerConstants
-        {
-            public float RotationSpeed;
-        }
-
-        [Serializable]
-        public class DrillConstants
-        {
-            public float range;
-            public float chargeTime;
-            public float hitsPerSecond;
-            public float extensionTime;
-        }
 
         [Serializable]
 
