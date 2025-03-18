@@ -24,10 +24,7 @@ namespace Player.Module.Drill
         {
             //TODO make follow body of module
             Vector3 targetPosition = Convertor.Vec2ToVec3(DrillTargetPosition - new Vector2(Screen.width / 2, Screen.height / 2));
-            Vector3 relative = targetPosition;
-            Quaternion rotation = Quaternion.LookRotation(relative, Vector3.forward);
-            drillGameObject.transform.rotation = Quaternion.Lerp( drillGameObject.transform.rotation, rotation, Time.deltaTime * drillControllerConstants.RotationSpeed);
-            
+            Convertor.Lerp2D(targetPosition, drillGameObject.transform, drillControllerConstants.RotationSpeed);
         }
 
         public void UseDrill(bool isDrilling)

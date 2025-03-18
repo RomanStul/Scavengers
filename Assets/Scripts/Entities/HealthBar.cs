@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Player.Module;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,16 +9,19 @@ namespace Entities
     public class HealthBar : MonoBehaviour
     {
         [Serializable]
-
+        public class HealthBarEvent : UnityEvent<Transform> { }
+        
+        [Serializable]
         public class HealthBarConstants
         {
             public int maxHealth, currentHealth;
-            public bool maxAsStarting;
+            public bool maxAsStarting = true;
         }
         //================================================================
         [SerializeField] protected HealthBarConstants healthBarConstants;
         //TODO add material SO
-        [SerializeField] protected UnityEvent onDestroyed;
+        [SerializeField] protected HealthBarEvent onHealthChangedEvent;
+        [SerializeField] protected HealthBarEvent onDestroyedEvent;
         //================================================================
         //================================================================
 
@@ -28,18 +33,28 @@ namespace Entities
             }
         }
 
-        public int takeDamage(int damage)
+        public int TakeDamage(int damage)
         {
             //TODO add material damage multiplier
             healthBarConstants.currentHealth -= damage;
             if (healthBarConstants.currentHealth <= 0)
             {
-                onDestroyed?.Invoke();
+                onDestroyedEvent?.Invoke(transform);
+            }
+            else
+            {
+                onHealthChangedEvent?.Invoke(transform);
             }
             return healthBarConstants.currentHealth;
         }
 
     
-    
+        //============================================
+        //HELPER FUNCTIONS
+
+        public void DestroySelf(Transform target)
+        {
+            Destroy(target.gameObject);
+        }
     }
 }

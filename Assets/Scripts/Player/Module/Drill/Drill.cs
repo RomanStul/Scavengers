@@ -1,11 +1,18 @@
 using System;
 using System.Collections;
+using HelpScripts;
 using UnityEngine;
 
 namespace Player.Module.Drill
 {
     public class Drill : MonoBehaviour
     {
+        /*##########################################################
+         * When activated drill starts animation that periodically
+         * calls 'DamageTarget'.
+         * Direction of lasers is changed in 'Update'.
+         ##########################################################*/
+        
         private static readonly int HitsPerSecond = Animator.StringToHash("HitsPerSecond");
         private static readonly int ChargeTime = Animator.StringToHash("ChargeTime");
         private static readonly int InUse = Animator.StringToHash("inUse");
@@ -20,6 +27,7 @@ namespace Player.Module.Drill
             public float hitsPerSecond;
             public int damage;
             public float extensionTime;
+            public float drillOriginRotation = 1;
         }
         //================================================================
         [SerializeField] protected DrillConstants drillConstants;
@@ -58,12 +66,14 @@ namespace Player.Module.Drill
             if(!start) ToggleLaser(false);
         }
 
-        public void FindTarget()
+        private void FindTarget()
         {
             _targetPosition = transform.position;
-            
-            if (Physics.Raycast(transform.position, transform.up, out RaycastHit hit, drillConstants.range))
+
+            RaycastHit2D hit = MyRaycast.RaycastCollider(Convertor.Vec3ToVec2(transform.position), Convertor.Vec3ToVec2(transform.up), drillConstants.range);
+            if (hit)
             {
+                Debug.Log(hit.collider.gameObject.name);
                 _targetPosition = hit.point;
                 _target = hit.transform;
             }
@@ -81,30 +91,32 @@ namespace Player.Module.Drill
                 foreach (var origin in laserOrigins)
                 {
                     Vector3 scale = origin.localScale;
-                    origin.localScale = new Vector3(scale.x, scale.y, 0);
+                    origin.localScale = new Vector3(scale.x, 0, scale.z);
                 }
                 return;
             }
             
-            //TODO lerp the rotation of lasers instead of lookAT
+            //TODO change length of lasers during lerp not before
             foreach (var origin in laserOrigins)
             {
-                origin.LookAt(_targetPosition, Vector3.forward);
                 float distance = Vector3.Distance(_targetPosition, origin.position);
                 Vector3 scale = origin.localScale;
-                origin.localScale = new Vector3(scale.x, scale.y, distance * laserExtended);
+                origin.localScale = new Vector3(scale.x, distance * laserExtended, 0);
+                
+                Vector3 targetPositionMod = _targetPosition - origin.position;
+                Convertor.Lerp2D(targetPositionMod, origin, drillConstants.drillOriginRotation);
             }
         }
 
-        //Called from animation of drill
+        //Called from drill animation 'Using'
         public void DamageTarget()
         {
             if (_target == null) return;
-
+            
             Entities.HealthBar healthBar = _target.GetComponent<Entities.HealthBar>();
             if (healthBar != null)
             {
-                healthBar.takeDamage(drillConstants.damage);
+                healthBar.TakeDamage(drillConstants.damage);
             }
         }
     }
