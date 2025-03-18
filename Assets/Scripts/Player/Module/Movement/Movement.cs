@@ -1,29 +1,27 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.Module.Movement
 {
     public class Movement : Player.Module.ModuleBaseScript
     {
-        //================================================================
         [Serializable]
-        protected class Constants
+        public class MovementConstants
         {
             public float Thrust;
             public float RotationThrust;
             public float MaxSpeed;
         }
-
+        
         //================================================================
-        [SerializeField] protected Constants MovementVariables;
+        [SerializeField] protected MovementConstants movementVariables;
         
-        [SerializeField] protected Rigidbody2D rigid;
-        [SerializeField] protected GameObject moduleBodyRigid;
-        
+        [SerializeField] protected Rigidbody2D rigid, rotationRigid;
+        [SerializeField] protected GameObject moduleBody;
         //================================================================
         public float ThrustInput { get; set; } = 0f;
         public float RotationInput { get; set; } = 0f;
-        
         //================================================================
         
 
@@ -31,17 +29,17 @@ namespace Player.Module.Movement
         {
             if (ThrustInput > 0)
             {
-                rigid.AddForce(moduleBodyRigid.transform.up * (ThrustInput * MovementVariables.Thrust));
+                rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust));
                 float speed = rigid.velocity.magnitude;
-                if (speed > MovementVariables.MaxSpeed)
+                if (speed > movementVariables.MaxSpeed)
                 {
-                    rigid.velocity = rigid.velocity.normalized * MovementVariables.MaxSpeed;
+                    rigid.velocity = rigid.velocity.normalized * movementVariables.MaxSpeed;
                 }
             }
 
             if (Mathf.Abs(RotationInput) > 0)
             {
-                moduleBodyRigid.transform.rotation *= Quaternion.AngleAxis(RotationInput * MovementVariables.RotationThrust, Vector3.forward);
+                rotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust);
             }
         }
     }

@@ -5,13 +5,26 @@ namespace Player.Module
 {
     public class Module : MonoBehaviour
     {
-        public Player.Module.Input inputScript;
-        public Player.Module.Movement.Movement movementScript;
+
+        [Serializable]
+
+        public class Scripts
+        {
+            public Player.Module.Input inputScript;
+            public Player.Module.Movement.Movement movementScript;
+            public Player.Module.Drill.DrillController drillScript;
+        }
+        //================================================================
+
+        public Scripts scripts;
+        //================================================================
+        //================================================================
 
         private void Awake()
         {
-            inputScript.SetModule(this);
-            movementScript.SetModule(this);
+            scripts.inputScript.SetModule(this);
+            scripts.movementScript.SetModule(this);
+            scripts.drillScript.SetModule(this);
         }
     }
 }
