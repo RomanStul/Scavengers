@@ -16,6 +16,7 @@ namespace Player.Module
             public Player.Module.Drill.DrillController drillScript;
             public Player.Module.CollisionHandler collisionScript;
             public Player.Module.Storage storageScript;
+            public Player.Module.HealthBar healthBarScript;
         }
         //================================================================EDITOR VARIABLES
 

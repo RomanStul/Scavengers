@@ -15,7 +15,7 @@ namespace Entities
         [Serializable]
         public class HealthBarConstants
         {
-            public int maxHealth, currentHealth;
+            public float maxHealth, currentHealth;
             public bool maxAsStarting = true;
         }
         //================================================================EDITOR VARIABLES
@@ -35,7 +35,7 @@ namespace Entities
             }
         }
 
-        public int TakeDamage(int damage)
+        public float TakeDamage(float damage)
         {
             //TODO add material damage multiplier
             healthBarConstants.currentHealth -= damage;

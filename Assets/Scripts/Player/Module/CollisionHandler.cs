@@ -6,7 +6,14 @@ namespace Player.Module
     public class CollisionHandler : ModuleBaseScript
     {
         //================================================================CLASSES
+        [Serializable]
+        public class CollisionConstants
+        {
+            public float maxCollisionDamage;
+            public float collisionDamageMultiplier;
+        }
         //================================================================EDITOR VARIABLES
+        [SerializeField] private CollisionConstants collisionConstants;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
@@ -20,7 +27,11 @@ namespace Player.Module
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log("collision " + collision.relativeVelocity);
+            Vector2 relativePosition = Convertor.Vec3ToVec2(transform.position) - collision.contacts[0].point;
+            Vector2 velocity = collision.relativeVelocity;
+            float magnitude = Vector2.Dot(velocity, relativePosition);
+            Debug.Log(magnitude * collisionConstants.collisionDamageMultiplier);
+            ModuleRef.scripts.healthBarScript.TakeDamage(magnitude * collisionConstants.collisionDamageMultiplier);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

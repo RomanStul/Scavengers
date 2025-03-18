@@ -55,6 +55,7 @@
     <Compile Include="Assets\Scripts\Entities\Dropper.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleBaseScript.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />
