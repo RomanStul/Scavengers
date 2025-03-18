@@ -18,7 +18,7 @@ namespace Player.Module.Drill
         private static readonly int InUse = Animator.StringToHash("inUse");
         private static readonly int ExtensionMultiplier = Animator.StringToHash("ExtensionMultiplier");
 
-        
+        //================================================================CLASSES
         [Serializable]
         public class DrillConstants
         {
@@ -29,15 +29,16 @@ namespace Player.Module.Drill
             public float extensionTime;
             public float drillOriginRotation = 1;
         }
-        //================================================================
+        //================================================================EDITOR VARIABLES
         [SerializeField] protected DrillConstants drillConstants;
         [SerializeField] protected DrillController drillController;
         [SerializeField] protected Animator animator;
         [SerializeField] protected Transform[] laserOrigins;
 
         public float laserExtended;
-        //================================================================
-        //================================================================
+        //================================================================GETTER SETTER
+        //================================================================FUNCTIONALITY
+
         private Vector3 _targetPosition;
         private bool _currentlyUsing;
         private Transform _target;
@@ -73,7 +74,6 @@ namespace Player.Module.Drill
             RaycastHit2D hit = MyRaycast.RaycastCollider(Convertor.Vec3ToVec2(transform.position), Convertor.Vec3ToVec2(transform.up), drillConstants.range);
             if (hit)
             {
-                Debug.Log(hit.collider.gameObject.name);
                 _targetPosition = hit.point;
                 _target = hit.transform;
             }

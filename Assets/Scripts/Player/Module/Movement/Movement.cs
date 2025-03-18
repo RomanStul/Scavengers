@@ -6,6 +6,7 @@ namespace Player.Module.Movement
 {
     public class Movement : Player.Module.ModuleBaseScript
     {
+        //================================================================CLASSES
         [Serializable]
         public class MovementConstants
         {
@@ -14,32 +15,38 @@ namespace Player.Module.Movement
             public float MaxSpeed;
         }
         
-        //================================================================
+        //================================================================EDITOR VARIABLES
         [SerializeField] protected MovementConstants movementVariables;
         
-        [SerializeField] protected Rigidbody2D rigid, rotationRigid;
         [SerializeField] protected GameObject moduleBody;
-        //================================================================
+        //================================================================GETTER SETTER
         public float ThrustInput { get; set; } = 0f;
         public float RotationInput { get; set; } = 0f;
-        //================================================================
-        
+        public override void SetModule(Module module)
+        {
+            base.SetModule(module);
+            Rigid = ModuleRef.GetMoveRb();
+            RotationRigid = ModuleRef.GetRotateRb();
+        }
+        //================================================================FUNCTIONALITY
 
+        protected Rigidbody2D Rigid, RotationRigid;
+        
         private void Update()
         {
             if (ThrustInput > 0)
             {
-                rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust));
-                float speed = rigid.velocity.magnitude;
+                Rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust));
+                float speed = Rigid.velocity.magnitude;
                 if (speed > movementVariables.MaxSpeed)
                 {
-                    rigid.velocity = rigid.velocity.normalized * movementVariables.MaxSpeed;
+                    Rigid.velocity = Rigid.velocity.normalized * movementVariables.MaxSpeed;
                 }
             }
 
             if (Mathf.Abs(RotationInput) > 0)
             {
-                rotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust);
+                RotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust);
             }
         }
     }
