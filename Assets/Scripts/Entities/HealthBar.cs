@@ -8,6 +8,7 @@ namespace Entities
 {
     public class HealthBar : MonoBehaviour
     {
+        //================================================================CLASSES
         [Serializable]
         public class HealthBarEvent : UnityEvent<Transform> { }
         
@@ -17,13 +18,14 @@ namespace Entities
             public int maxHealth, currentHealth;
             public bool maxAsStarting = true;
         }
-        //================================================================
+        //================================================================EDITOR VARIABLES
         [SerializeField] protected HealthBarConstants healthBarConstants;
         //TODO add material SO
         [SerializeField] protected HealthBarEvent onHealthChangedEvent;
         [SerializeField] protected HealthBarEvent onDestroyedEvent;
-        //================================================================
-        //================================================================
+        //================================================================GETTER SETTER
+        //================================================================FUNCTIONALITY
+
 
         private void Awake()
         {

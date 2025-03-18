@@ -8,13 +8,16 @@ namespace Player.Module
     }
     public class ModuleBaseScript : MonoBehaviour, IBaseModule
     {
-        //================================================================
+        //================================================================CLASSES
+        //================================================================EDITOR VARIABLES
         protected Player.Module.Module ModuleRef;
-        //================================================================
-        //================================================================
-        public void SetModule(Player.Module.Module module)
+        //================================================================GETTER SETTER
+        public virtual void SetModule(Player.Module.Module module)
         {
             this.ModuleRef = module;
         }
+        //================================================================FUNCTIONALITY
+
+
     }
 }

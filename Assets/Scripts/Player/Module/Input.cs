@@ -5,7 +5,11 @@ namespace Player.Module
 {
     public class Input : Player.Module.ModuleBaseScript
     {
-        
+        //================================================================CLASSES
+        //================================================================EDITOR VARIABLES
+        //================================================================GETTER SETTER
+        //================================================================FUNCTIONALITY
+
         public void RotationInput(InputAction.CallbackContext context)
         {
             ModuleRef.scripts.movementScript.RotationInput = context.ReadValue<Vector2>().x;

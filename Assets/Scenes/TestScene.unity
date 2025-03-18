@@ -221,6 +221,8 @@ GameObject:
   - component: {fileID: 454761249}
   - component: {fileID: 454761248}
   - component: {fileID: 454761251}
+  - component: {fileID: 454761252}
+  - component: {fileID: 454761253}
   m_Layer: 0
   m_Name: Module
   m_TagString: Untagged
@@ -289,6 +291,10 @@ MonoBehaviour:
     inputScript: {fileID: 454761249}
     movementScript: {fileID: 454761248}
     drillScript: {fileID: 454761251}
+    collisionScript: {fileID: 454761252}
+    storageScript: {fileID: 454761253}
+  moveRb: {fileID: 454761245}
+  rotateRb: {fileID: 1555217004}
 --- !u!114 &454761248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,8 +311,6 @@ MonoBehaviour:
     Thrust: 5
     RotationThrust: 15
     MaxSpeed: 10
-  rigid: {fileID: 454761245}
-  rotationRigid: {fileID: 1555217004}
   moduleBody: {fileID: 1744532173}
 --- !u!114 &454761249
 MonoBehaviour:
@@ -426,6 +430,30 @@ MonoBehaviour:
     RotationSpeed: 2
   drillGameObject: {fileID: 1379742317}
   drill: {fileID: 1203918241}
+--- !u!114 &454761252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454761244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 561f6a5a17f0d8143abbdf5242146456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &454761253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 454761244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cee67c24cf043d4cb157ec3bbb4a3af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

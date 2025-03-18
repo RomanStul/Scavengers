@@ -7,18 +7,20 @@ namespace Player.Module.Drill
 {
     public class DrillController : ModuleBaseScript
     {
+        //================================================================CLASSES
         [Serializable]
         public class DrillControllerConstants
         {
             public float RotationSpeed;
         }
-        //================================================================
+        //================================================================EDITOR VARIABLES
         [SerializeField] protected DrillControllerConstants drillControllerConstants;
         [SerializeField] protected GameObject drillGameObject;
         [SerializeField] protected Player.Module.Drill.Drill drill;
-        //================================================================
+        //================================================================GETTER SETTER
         public Vector2 DrillTargetPosition { get; set; } = new Vector2(0,0);
-        //================================================================
+        //================================================================FUNCTIONALITY
+
 
         private void Update()
         {
