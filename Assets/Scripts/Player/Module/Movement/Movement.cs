@@ -34,7 +34,9 @@ namespace Player.Module.Movement
         
         private void Update()
         {
-            if (ThrustInput > 0)
+            //TODO add fuel consumption functionality
+            //TODO change if so that it doesn't go through with 0 as input
+            if (ThrustInput > 0 || ModuleRef.scripts.upgradesScript.IsActive(Upgrades.Upgrades.Ups.Reverse))
             {
                 Rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust));
                 float speed = Rigid.velocity.magnitude;
