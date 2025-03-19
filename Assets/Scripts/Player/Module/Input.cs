@@ -1,3 +1,4 @@
+using Player.Module.Drill;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,29 +13,29 @@ namespace Player.Module
 
         public void RotationInput(InputAction.CallbackContext context)
         {
-            ModuleRef.scripts.movementScript.RotationInput = context.ReadValue<Vector2>().x;
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).RotationInput = context.ReadValue<Vector2>().x;
         }
 
         public void ThrustInput(InputAction.CallbackContext context)
         {
-            ModuleRef.scripts.movementScript.ThrustInput = context.ReadValue<Vector2>().y;
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).ThrustInput = context.ReadValue<Vector2>().y;
         }
 
         public void DrillPositionInput(InputAction.CallbackContext context)
         {
-            ModuleRef.scripts.drillScript.DrillTargetPosition = context.ReadValue<Vector2>();
+            ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).DrillTargetPosition = context.ReadValue<Vector2>();
         }
 
         public void DrillUseInput(InputAction.CallbackContext context)
         {
             if (context.started)
             {
-                ModuleRef.scripts.drillScript.UseDrill(true);
+                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(true);
             }
 
             if (context.canceled)
             {
-                ModuleRef.scripts.drillScript.UseDrill(false);
+                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
             }
         }
     }

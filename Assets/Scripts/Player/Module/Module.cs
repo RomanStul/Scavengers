@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.Module
 {
@@ -20,9 +21,22 @@ namespace Player.Module
             public Player.Module.Upgrades.Upgrades upgradesScript;
             public Player.Module.Upgrades.UpgradeVisuals upgradeVisualsScript;
         }
+
+        public enum ScriptNames
+        {
+            InputScript,
+            MovementScript,
+            DrillScript,
+            CollisionScript,
+            StorageScript,
+            HealthBarScript,
+            UpgradesScript,
+            UpgradeVisualsScript
+        }
         //================================================================EDITOR VARIABLES
 
-        public Scripts scripts;
+        //public Scripts scripts;
+        public Player.Module.BaseClass[] baseScripts;
         public Rigidbody2D moveRb, rotateRb;
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
@@ -34,16 +48,27 @@ namespace Player.Module
         {
             return rotateRb;
         }
+
+        public T GetScript<T>(ScriptNames scriptName) where T : BaseClass
+        {
+            return (T)baseScripts[(int)scriptName];
+        }
         //================================================================FUNCTIONALITY
 
         private void Awake()
         {
-            scripts.inputScript.SetModule(this);
-            scripts.movementScript.SetModule(this);
-            scripts.drillScript.SetModule(this);
-            scripts.collisionScript.SetModule(this);
-            scripts.storageScript.SetModule(this);
-            scripts.upgradeVisualsScript.SetModule(this);
+            for (int i = 0; i < baseScripts.Length; i++)
+            {
+                baseScripts[i].SetModule(this);
+            }
+        }
+
+        public void ApplyUpgrades()
+        {
+            for (int i = 0; i < baseScripts.Length; i++)
+            {
+                baseScripts[i].ApplyUpgrades();
+            }
         }
     }
 }
