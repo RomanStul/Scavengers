@@ -9,7 +9,7 @@ namespace Player.Module
         [Serializable]
         public class CollisionConstants
         {
-            public float maxCollisionDamage;
+            public float armorDamageReduction;
             public float collisionDamageMultiplier;
         }
         //================================================================EDITOR VARIABLES
@@ -18,6 +18,15 @@ namespace Player.Module
         //================================================================FUNCTIONALITY
 
         protected Rigidbody2D MoveRigid;
+        private float _armorDamageReduction = 0f;
+
+        private void Awake()
+        {
+            if (ModuleRef.scripts.upgradesScript.IsActive(Upgrades.Upgrades.Ups.Armor))
+            {
+                _armorDamageReduction = collisionConstants.armorDamageReduction;
+            }
+        }
         
         public override void SetModule(Module module)
         {
@@ -30,8 +39,7 @@ namespace Player.Module
             Vector2 relativePosition = Convertor.Vec3ToVec2(transform.position) - collision.contacts[0].point;
             Vector2 velocity = collision.relativeVelocity;
             float magnitude = Vector2.Dot(velocity, relativePosition);
-            Debug.Log(magnitude * collisionConstants.collisionDamageMultiplier);
-            ModuleRef.scripts.healthBarScript.TakeDamage(magnitude * collisionConstants.collisionDamageMultiplier);
+            ModuleRef.scripts.healthBarScript.TakeDamage(magnitude * (collisionConstants.collisionDamageMultiplier - _armorDamageReduction));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

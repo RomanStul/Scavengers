@@ -17,6 +17,8 @@ namespace Player.Module
             public Player.Module.CollisionHandler collisionScript;
             public Player.Module.Storage storageScript;
             public Player.Module.HealthBar healthBarScript;
+            public Player.Module.Upgrades.Upgrades upgradesScript;
+            public Player.Module.Upgrades.UpgradeVisuals upgradeVisualsScript;
         }
         //================================================================EDITOR VARIABLES
 
@@ -41,6 +43,7 @@ namespace Player.Module
             scripts.drillScript.SetModule(this);
             scripts.collisionScript.SetModule(this);
             scripts.storageScript.SetModule(this);
+            scripts.upgradeVisualsScript.SetModule(this);
         }
     }
 }
