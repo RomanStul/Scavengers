@@ -1,3 +1,4 @@
+using ScriptableObjects.Item;
 using UnityEngine;
 
 namespace Entities

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using HelpScripts;
+using ScriptableObjects.Material;
 using UnityEngine;
 
 namespace Player.Module.Drill
@@ -116,7 +117,7 @@ namespace Player.Module.Drill
             Entities.HealthBar healthBar = _target.GetComponent<Entities.HealthBar>();
             if (healthBar != null)
             {
-                healthBar.TakeDamage(drillConstants.damage);
+                healthBar.TakeDamage(drillConstants.damage, MaterialSO.DamageType.Plasma);
             }
         }
     }

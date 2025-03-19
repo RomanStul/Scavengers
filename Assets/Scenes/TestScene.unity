@@ -566,6 +566,7 @@ MonoBehaviour:
     maxHealth: 100
     currentHealth: 0
     maxAsStarting: 1
+  material: {fileID: 11400000, guid: a1a472539dbe5564f95f62872ddf29ab, type: 2}
   onHealthChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -598,7 +599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _upgradeChanges:
-  - NeededUps: 00000000
+  - neededUps: 00000000
     toActivate:
     - {fileID: 268582728}
     toDeactivate: []
@@ -758,9 +759,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarConstants:
-    maxHealth: 20
+    maxHealth: 100
     currentHealth: 0
     maxAsStarting: 1
+  material: {fileID: 11400000, guid: 97af8aa5d6cf23c45a5f5cf25ce12cc2, type: 2}
   onHealthChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1594,7 +1596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1877503080
 Transform:
   m_ObjectHideFlags: 0
@@ -1720,9 +1722,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarConstants:
-    maxHealth: 20
+    maxHealth: 100
     currentHealth: 0
     maxAsStarting: 1
+  material: {fileID: 11400000, guid: 97af8aa5d6cf23c45a5f5cf25ce12cc2, type: 2}
   onHealthChangedEvent:
     m_PersistentCalls:
       m_Calls: []

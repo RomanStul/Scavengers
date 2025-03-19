@@ -2,12 +2,12 @@ using UnityEngine;
 
 namespace Player.Module
 {
-    public class HealthBar : Entities.HealthBar, Player.Module.IBaseModule
+    public class HealthBar : Entities.HealthBar
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
         //================================================================GETTER SETTER
-        public void SetModule(Module module)
+        public override void SetModule(Module module)
         {
             ModuleRef = module;
         }
@@ -16,9 +16,9 @@ namespace Player.Module
         protected Player.Module.Module ModuleRef;
         
         
-        public void ApplyUpgrades()
+        public override void ApplyUpgrades()
         {
-            
+           //TODO swap for armored material instead of original 
         }
     }
 }
