@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Player.Module;
+using ScriptableObjects.Material;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,7 +21,7 @@ namespace Entities
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] protected HealthBarConstants healthBarConstants;
-        //TODO add material SO
+        [SerializeField] protected ScriptableObjects.Material.MaterialSO material;
         [SerializeField] protected HealthBarEvent onHealthChangedEvent;
         [SerializeField] protected HealthBarEvent onDestroyedEvent;
         //================================================================GETTER SETTER
@@ -35,9 +36,14 @@ namespace Entities
             }
         }
 
-        public float TakeDamage(float damage)
+        public float TakeDamage(float damage, MaterialSO.DamageType damageType)
         {
-            //TODO add material damage multiplier
+            float realDamage = ApplyDamageMultiplier(damage, damageType);
+            if (realDamage <= 0)
+            {
+                return healthBarConstants.currentHealth;
+            }
+            
             healthBarConstants.currentHealth -= damage;
             if (healthBarConstants.currentHealth <= 0)
             {
@@ -48,6 +54,24 @@ namespace Entities
                 onHealthChangedEvent?.Invoke(transform);
             }
             return healthBarConstants.currentHealth;
+        }
+
+        protected virtual float ApplyDamageMultiplier(float damage, MaterialSO.DamageType damageType)
+        {
+            if (material == null || damageType == MaterialSO.DamageType.True)
+            {
+                return damage;
+            }
+
+            foreach (var multiplier in material.damageMultipliers)
+            {
+                if (multiplier.damageType == damageType)
+                {
+                    return damage * multiplier.damageMultiplier;
+                }
+            }
+
+            return material.defaultDamage1 ? damage : 0f;
         }
 
     

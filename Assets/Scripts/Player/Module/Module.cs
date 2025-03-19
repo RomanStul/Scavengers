@@ -8,19 +8,6 @@ namespace Player.Module
     {
         
         //================================================================CLASSES
-        [Serializable]
-
-        public class Scripts
-        {
-            public Player.Module.Input inputScript;
-            public Player.Module.Movement.Movement movementScript;
-            public Player.Module.Drill.DrillController drillScript;
-            public Player.Module.CollisionHandler collisionScript;
-            public Player.Module.Storage storageScript;
-            public Player.Module.HealthBar healthBarScript;
-            public Player.Module.Upgrades.Upgrades upgradesScript;
-            public Player.Module.Upgrades.UpgradeVisuals upgradeVisualsScript;
-        }
 
         public enum ScriptNames
         {
@@ -51,6 +38,7 @@ namespace Player.Module
 
         public T GetScript<T>(ScriptNames scriptName) where T : BaseClass
         {
+            //TODO make so that order of script either doesn't matter or is fixed to correct one
             return (T)baseScripts[(int)scriptName];
         }
         //================================================================FUNCTIONALITY

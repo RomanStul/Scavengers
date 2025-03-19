@@ -1,4 +1,5 @@
 using System;
+using ScriptableObjects.Material;
 using UnityEngine;
 
 namespace Player.Module
@@ -18,15 +19,6 @@ namespace Player.Module
         //================================================================FUNCTIONALITY
 
         protected Rigidbody2D MoveRigid;
-        private float _armorDamageReduction = 0f;
-
-        public override void ApplyUpgrades()
-        {
-            if (ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Armor))
-            {
-                _armorDamageReduction = collisionConstants.armorDamageReduction;
-            }
-        }
         
         public override void SetModule(Module module)
         {
@@ -39,7 +31,10 @@ namespace Player.Module
             Vector2 relativePosition = Convertor.Vec3ToVec2(transform.position) - collision.contacts[0].point;
             Vector2 velocity = collision.relativeVelocity;
             float magnitude = Vector2.Dot(velocity, relativePosition);
-            ModuleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).TakeDamage(magnitude * (collisionConstants.collisionDamageMultiplier - _armorDamageReduction));
+            ModuleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).TakeDamage(magnitude * (collisionConstants.collisionDamageMultiplier), MaterialSO.DamageType.Kinetic);
+
+            Entities.HealthBar bar = collision.gameObject.transform.GetComponent<Entities.HealthBar>();
+            if(bar != null) bar.TakeDamage(magnitude, MaterialSO.DamageType.Kinetic);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

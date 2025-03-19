@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.Module.Upgrades
 {
@@ -9,7 +10,7 @@ namespace Player.Module.Upgrades
         [Serializable]
         public class VisualChange
         {
-            public Upgrades.Ups[] NeededUps;
+            public Upgrades.Ups[] neededUps;
             public GameObject[] toActivate;
             public GameObject[] toDeactivate;
             public bool changed;
@@ -18,14 +19,8 @@ namespace Player.Module.Upgrades
         [SerializeField] private VisualChange[] _upgradeChanges;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
-        
-        public override void SetModule(Module module)
-        {
-            base.SetModule(module);
-            UpdateVisuals();
-        }
 
-        private void UpdateVisuals()
+        public override void ApplyUpgrades()
         {
             for (int i = 0; i < _upgradeChanges.Length; i++)
             {
@@ -47,7 +42,7 @@ namespace Player.Module.Upgrades
 
         private bool CheckConditions(int i)
         {
-            foreach (var condition in _upgradeChanges[i].NeededUps)
+            foreach (var condition in _upgradeChanges[i].neededUps)
             {
                 if (!ModuleRef.GetScript<Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(condition))
                 {
