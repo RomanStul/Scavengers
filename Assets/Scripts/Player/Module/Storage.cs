@@ -17,7 +17,7 @@ namespace Player.Module
         
         public void AddItem(Entities.Item item, int amount)
         {
-            //TODO make it so that item starts moving toward moudule, despawning on collision
+            //TODO make it so that item starts moving toward module, despawning on collision
             if (itemsStored < storageCapacity)
             {
                 itemStorage[(int)item.GetItemData().itemType] += amount;
