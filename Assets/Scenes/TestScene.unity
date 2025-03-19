@@ -222,7 +222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &268582729
 Transform:
   m_ObjectHideFlags: 0
@@ -374,15 +374,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b140f7021d888ce4cb4fa38f46cb97ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scripts:
-    inputScript: {fileID: 454761249}
-    movementScript: {fileID: 454761248}
-    drillScript: {fileID: 454761251}
-    collisionScript: {fileID: 454761252}
-    storageScript: {fileID: 454761253}
-    healthBarScript: {fileID: 454761254}
-    upgradesScript: {fileID: 454761255}
-    upgradeVisualsScript: {fileID: 454761256}
+  baseScripts:
+  - {fileID: 454761249}
+  - {fileID: 454761248}
+  - {fileID: 454761251}
+  - {fileID: 454761252}
+  - {fileID: 454761253}
+  - {fileID: 454761254}
+  - {fileID: 454761255}
+  - {fileID: 454761256}
   moveRb: {fileID: 454761245}
   rotateRb: {fileID: 1555217004}
 --- !u!114 &454761248

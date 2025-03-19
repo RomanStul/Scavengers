@@ -7,12 +7,18 @@ namespace Player.Module
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
         //================================================================GETTER SETTER
-        //================================================================FUNCTIONALITY
-        protected Player.Module.Module ModuleRef;
-        
         public void SetModule(Module module)
         {
             ModuleRef = module;
+        }
+
+        //================================================================FUNCTIONALITY
+        protected Player.Module.Module ModuleRef;
+        
+        
+        public void ApplyUpgrades()
+        {
+            
         }
     }
 }

@@ -22,6 +22,12 @@ namespace Player.Module.Upgrades
         public bool[] upgrades = new bool [Enum.GetValues(typeof(Ups)).Length];
         
         //================================================================GETTER SETTER
+
+        public void LoadUpgrades(bool[] loaded)
+        {
+            upgrades = loaded;
+        }
+        
         //================================================================FUNCTIONALITY
 
         public bool IsActive(Ups up)

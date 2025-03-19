@@ -20,9 +20,9 @@ namespace Player.Module
         protected Rigidbody2D MoveRigid;
         private float _armorDamageReduction = 0f;
 
-        private void Awake()
+        public override void ApplyUpgrades()
         {
-            if (ModuleRef.scripts.upgradesScript.IsActive(Upgrades.Upgrades.Ups.Armor))
+            if (ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Armor))
             {
                 _armorDamageReduction = collisionConstants.armorDamageReduction;
             }
@@ -39,7 +39,7 @@ namespace Player.Module
             Vector2 relativePosition = Convertor.Vec3ToVec2(transform.position) - collision.contacts[0].point;
             Vector2 velocity = collision.relativeVelocity;
             float magnitude = Vector2.Dot(velocity, relativePosition);
-            ModuleRef.scripts.healthBarScript.TakeDamage(magnitude * (collisionConstants.collisionDamageMultiplier - _armorDamageReduction));
+            ModuleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).TakeDamage(magnitude * (collisionConstants.collisionDamageMultiplier - _armorDamageReduction));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -47,7 +47,7 @@ namespace Player.Module
             GameObject col = collision.gameObject;
             if (col.layer == LayerMask.NameToLayer("Item"))
             {
-                ModuleRef.scripts.storageScript.AddItem(col.transform.GetComponent<Entities.Item>(), 1);
+                ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).AddItem(col.transform.GetComponent<Entities.Item>(), 1);
             }
         }
     }

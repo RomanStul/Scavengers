@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Entities
 {
-    public class HealthBar : MonoBehaviour
+    public class HealthBar : BaseClass
     {
         //================================================================CLASSES
         [Serializable]

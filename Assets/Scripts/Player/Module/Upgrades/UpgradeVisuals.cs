@@ -49,7 +49,7 @@ namespace Player.Module.Upgrades
         {
             foreach (var condition in _upgradeChanges[i].NeededUps)
             {
-                if (!ModuleRef.scripts.upgradesScript.IsActive(condition))
+                if (!ModuleRef.GetScript<Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(condition))
                 {
                     return false; 
                 }
