@@ -35,7 +35,7 @@ namespace Player.Module.Drill
         [SerializeField] protected DrillController drillController;
         [SerializeField] protected Animator animator;
         [SerializeField] protected Transform[] laserOrigins;
-
+        
         public float laserExtended;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
@@ -101,7 +101,7 @@ namespace Player.Module.Drill
             foreach (var origin in laserOrigins)
             {
                 Vector3 targetPositionMod = _targetPosition - origin.position;
-                Convertor.Lerp2D(targetPositionMod, origin, drillConstants.drillOriginRotation);
+                Convertor.Rotate2D(targetPositionMod, origin, drillConstants.drillOriginRotation);
                 
                 
                 float distance = DistanceToIntersectionPoint(Convertor.Vec3ToVec2(origin.position), Convertor.Vec3ToVec2(origin.up),Convertor.Vec3ToVec2(transform.position), Convertor.Vec3ToVec2(transform.up));
