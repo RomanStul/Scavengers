@@ -1,3 +1,4 @@
+using ScriptableObjects.Material;
 using UnityEngine;
 
 namespace Player.Module
@@ -6,6 +7,7 @@ namespace Player.Module
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
+        [SerializeField] protected MaterialSO armorMaterial;
         //================================================================GETTER SETTER
         public override void SetModule(Module module)
         {
@@ -18,7 +20,10 @@ namespace Player.Module
         
         public override void ApplyUpgrades()
         {
-           //TODO swap for armored material instead of original 
+            if (ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Armor))
+            {
+                material = armorMaterial;
+            }
         }
     }
 }

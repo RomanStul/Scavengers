@@ -97,7 +97,6 @@ namespace Player.Module.Drill
                 return;
             }
             
-            //TODO change length of lasers during lerp not before
             foreach (var origin in laserOrigins)
             {
                 Vector3 targetPositionMod = _targetPosition - origin.position;
