@@ -196,7 +196,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -359,6 +359,7 @@ Transform:
   m_Children:
   - {fileID: 1555217003}
   - {fileID: 519420032}
+  - {fileID: 1379742318}
   - {fileID: 1744532174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -517,7 +518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drillControllerConstants:
-    RotationSpeed: 2
+    RotationSpeed: 3
   drillGameObject: {fileID: 1379742317}
   drill: {fileID: 1203918241}
 --- !u!114 &454761252
@@ -725,7 +726,7 @@ Transform:
   m_GameObject: {fileID: 623715728}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 17.099998, z: 0}
+  m_LocalPosition: {x: -0.2, y: 3.0999985, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -759,7 +760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarConstants:
-    maxHealth: 100
+    maxHealth: 10000
     currentHealth: 0
     maxAsStarting: 1
   material: {fileID: 11400000, guid: 97af8aa5d6cf23c45a5f5cf25ce12cc2, type: 2}
@@ -1050,7 +1051,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1166,7 +1167,7 @@ MonoBehaviour:
     hitsPerSecond: 10
     damage: 5
     extensionTime: 0.1
-    drillOriginRotation: 5
+    drillOriginRotation: 25
   drillController: {fileID: 454761251}
   animator: {fileID: 1203918242}
   laserOrigins:
@@ -1250,13 +1251,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379742317}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1203918239}
-  m_Father: {fileID: 1744532174}
+  m_Father: {fileID: 454761246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1438630852
 GameObject:
@@ -1466,7 +1467,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1438630853}
-  - {fileID: 1379742318}
   - {fileID: 268582729}
   m_Father: {fileID: 454761246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1606,7 +1606,7 @@ Transform:
   m_GameObject: {fileID: 1877503079}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.01, y: 11.4, z: 0}
+  m_LocalPosition: {x: -1.01, y: -2.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
