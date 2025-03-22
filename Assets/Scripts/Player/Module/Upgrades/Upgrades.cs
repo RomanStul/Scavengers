@@ -23,9 +23,17 @@ namespace Player.Module.Upgrades
         
         //================================================================GETTER SETTER
 
-        public void LoadUpgrades(bool[] loaded)
+        public void LoadUpgrades(bool[] loaded = null)
         {
-            upgrades = loaded;
+            if (loaded == null)
+            {
+                loaded = new bool[Enum.GetValues(typeof(Ups)).Length];
+            }
+            else
+            {
+                upgrades = loaded;
+            }
+            ModuleRef.ApplyUpgrades();
         }
         
         //================================================================FUNCTIONALITY

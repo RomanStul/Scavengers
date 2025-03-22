@@ -18,7 +18,8 @@ namespace Player.Module
             StorageScript,
             HealthBarScript,
             UpgradesScript,
-            UpgradeVisualsScript
+            UpgradeVisualsScript,
+            UIControlsScript,
         }
         //================================================================EDITOR VARIABLES
 
@@ -49,6 +50,7 @@ namespace Player.Module
             {
                 baseScripts[i].SetModule(this);
             }
+            GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).LoadUpgrades();
         }
 
         public void ApplyUpgrades()

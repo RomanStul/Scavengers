@@ -36,16 +36,17 @@ namespace Player.Module.Movement
 
         protected Rigidbody2D Rigid, RotationRigid;
 
-        private void Awake()
+        public override void ApplyUpgrades()
         {
+            //TODO space for fuel space increase
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)movementVariables.MaxFuel, UI.UIController.BarsNames.FuelBar, true);
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
             Refuel();
         }
 
 
         private void Update()
         {
-            //TODO add fuel consumption functionality
-            Debug.Log(currentFuel);
             if (currentFuel <= 0)
             {
                 return;
@@ -67,6 +68,7 @@ namespace Player.Module.Movement
                 currentFuel -= Mathf.Abs(RotationInput) *movementVariables.fuelPerSecond * Time.deltaTime;
                 RotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust);
             }
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
         }
 
         public void Refuel(float amount = -1)
@@ -79,7 +81,7 @@ namespace Player.Module.Movement
             {
                 currentFuel += amount;
             }
-            
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
         }
     }
 }

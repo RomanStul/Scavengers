@@ -36,7 +36,7 @@ namespace Entities
             }
         }
 
-        public float TakeDamage(float damage, MaterialSO.DamageType damageType)
+        public virtual float TakeDamage(float damage, MaterialSO.DamageType damageType)
         {
             float realDamage = ApplyDamageMultiplier(damage, damageType);
             if (realDamage <= 0)
