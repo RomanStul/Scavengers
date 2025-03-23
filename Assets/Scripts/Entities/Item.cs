@@ -44,6 +44,7 @@ namespace Entities
 
         private void Update()
         {
+            //TODO fix that player can run from item
             if (_pickUpTarget != null)
             {
                 transform.Translate((_pickUpTarget.position-transform.position) * (itemConstants.itemTravelSpeed * Time.deltaTime), Space.World);

@@ -26,9 +26,9 @@ namespace Player.UI
         private void UpdateFill()
         {
             //TODO fix that bars seem empty first
-            float yValue = (thisRect.anchoredPosition.y + thisRect.sizeDelta.y * (value / maxValue));
-            Debug.Log(thisRect.anchoredPosition.y + " + " + thisRect.sizeDelta.y + " * " + (value / maxValue) + " = " +yValue);
-            fill.anchoredPosition = new Vector2(fill.anchoredPosition.x, yValue);
+            float yValue = (thisRect.position.y + thisRect.sizeDelta.y * (value / maxValue));
+            Debug.Log(thisRect.position.y + " + " + thisRect.sizeDelta.y + " * " + (value / maxValue) + " = " +yValue);
+            fill.position = new Vector2(fill.position.x, yValue);
         }
     }
 }
