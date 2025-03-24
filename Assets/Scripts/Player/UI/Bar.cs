@@ -25,9 +25,8 @@ namespace Player.UI
 
         private void UpdateFill()
         {
-            //TODO fix that bars seem empty first
             float yValue = (thisRect.position.y + thisRect.sizeDelta.y * (value / maxValue));
-            Debug.Log(thisRect.position.y + " + " + thisRect.sizeDelta.y + " * " + (value / maxValue) + " = " +yValue);
+            //Debug.Log(thisRect.position.y + " + " + thisRect.sizeDelta.y + " * " + (value / maxValue) + " = " +yValue);
             fill.position = new Vector2(fill.position.x, yValue);
         }
     }

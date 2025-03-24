@@ -15,11 +15,28 @@ namespace Player.Module.Upgrades
         public enum Ups
         {
             Reverse,
-            Armor
+            Armor,
+            Stop,
+            Dash,
+            DashSideWays
+        }
+
+        [Serializable]
+        public class UpgradeObject
+        {
+            [HideInInspector]
+            public string Name;
+            public bool unlocked;
+
+            public UpgradeObject(string name, bool unlocked)
+            {
+                this.Name = name;
+                this.unlocked = unlocked;
+            }
         }
         
         //================================================================EDITOR VARIABLES
-        public bool[] upgrades = new bool [Enum.GetValues(typeof(Ups)).Length];
+        public UpgradeObject[] upgradesObject = new UpgradeObject[Enum.GetValues(typeof(Ups)).Length];
         
         //================================================================GETTER SETTER
 
@@ -29,10 +46,7 @@ namespace Player.Module.Upgrades
             {
                 loaded = new bool[Enum.GetValues(typeof(Ups)).Length];
             }
-            else
-            {
-                upgrades = loaded;
-            }
+            
             ModuleRef.ApplyUpgrades();
         }
         
@@ -40,27 +54,27 @@ namespace Player.Module.Upgrades
 
         public bool IsActive(Ups up)
         {
-            return upgrades[(int)up];
+            return upgradesObject[(int)up].unlocked;
         }
 
         public void CreateUpgradeArray()
         {
-            bool[] updatedUpgrades = new bool[Enum.GetValues(typeof(Ups)).Length];
+            UpgradeObject[] updatedUpgrades = new UpgradeObject[Enum.GetValues(typeof(Ups)).Length];
 
-            for (int i = 0; i < Mathf.Min(upgrades.Length, updatedUpgrades.Length); i++)
+            for (int i = 0; i < Mathf.Min(upgradesObject.Length, updatedUpgrades.Length); i++)
             {
-                updatedUpgrades[i] = upgrades[i];
+                updatedUpgrades[i] = upgradesObject[i];
             }
 
-            if (updatedUpgrades.Length > upgrades.Length)
+            if (updatedUpgrades.Length > upgradesObject.Length)
             {
-                for (int i = upgrades.Length; i < updatedUpgrades.Length; i++)
+                for (int i = upgradesObject.Length; i < updatedUpgrades.Length; i++)
                 {
-                    updatedUpgrades[i] = false;
+                    updatedUpgrades[i] = new UpgradeObject(Enum.GetNames(typeof(Ups))[i], false);
                 }
             }
 
-            upgrades = updatedUpgrades;
+            upgradesObject = updatedUpgrades;
         }
     }
 }

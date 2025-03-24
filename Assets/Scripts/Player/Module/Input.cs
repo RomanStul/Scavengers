@@ -38,5 +38,13 @@ namespace Player.Module
                 ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
             }
         }
+
+        public void DashInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Dash();
+            }
+        }
     }
 }

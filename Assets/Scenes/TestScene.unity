@@ -775,11 +775,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVariables:
-    Thrust: 5
-    RotationThrust: 15
+    Thrust: 250
+    RotationThrust: 600
     MaxSpeed: 10
     fuelPerSecond: 1
     MaxFuel: 100
+  dashConstants:
+    DashFuelConsumption: 10
+    DashPower: 400
+    DashLength: 0.2
+    DashCooldown: 3
   moduleBody: {fileID: 1744532173}
   currentFuel: 0
 --- !u!114 &454761249
@@ -879,6 +884,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 90058d4d-e142-488f-8c94-cda150e7223f
     m_ActionName: Module/DrillUse[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 454761249}
+        m_TargetAssemblyTypeName: Player.Module.Input, Assembly-CSharp
+        m_MethodName: DashInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9aff7e73-24db-4125-837d-573859343c72
+    m_ActionName: Module/Dash[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Module
