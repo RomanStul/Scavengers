@@ -11,6 +11,7 @@ namespace Entities
         public class ItemConstants
         {
             public float itemTravelSpeed;
+            public float maxSpeed;
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] protected SpriteRenderer spriteRenderer;
@@ -44,10 +45,10 @@ namespace Entities
 
         private void Update()
         {
-            //TODO fix that player can run from item
             if (_pickUpTarget != null)
             {
-                transform.Translate((_pickUpTarget.position-transform.position) * (itemConstants.itemTravelSpeed * Time.deltaTime), Space.World);
+                transform.Translate((_pickUpTarget.position-transform.position).normalized * (itemConstants.itemTravelSpeed * Time.deltaTime), Space.World);
+                itemConstants.itemTravelSpeed += (itemConstants.maxSpeed - itemConstants.itemTravelSpeed) * Time.deltaTime;
             }
         }
     }
