@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Player\UI\Bar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\Cooldown.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\UpgradeVisuals.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />

@@ -7,23 +7,23 @@ namespace Player.UI
         //================================================================CLASSES
     
         //================================================================EDITOR VARIABLES
-        [SerializeField] private float value, maxValue;
-        [SerializeField] private RectTransform thisRect, fill;
+        [SerializeField] protected float value, maxValue;
+        [SerializeField] protected RectTransform thisRect, fill;
         //TODO add outline for full bar and cross for empty
         //================================================================GETTER SETTER
-        public void SetValue(int barValue)
+        public virtual void SetValue(float barValue)
         {
             value = barValue;
             UpdateFill();
         }
 
-        public void SetMaxValue(int barValue)
+        public virtual void SetMaxValue(float barValue)
         {
             maxValue = barValue;
         }
         //================================================================FUNCTIONALITY
 
-        private void UpdateFill()
+        protected virtual void UpdateFill()
         {
             float yValue = (thisRect.position.y + thisRect.sizeDelta.y * (value / maxValue));
             //Debug.Log(thisRect.position.y + " + " + thisRect.sizeDelta.y + " * " + (value / maxValue) + " = " +yValue);

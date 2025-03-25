@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Player.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -148,6 +149,8 @@ namespace Player.Module.Movement
             currentFuel -= dashConstants.DashFuelConsumption;
             Rigid.AddForce(moduleBody.transform.up * (dashConstants.DashPower));
             
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(dashConstants.DashCooldown, UIController.Cooldowns.Dash);
+            
             yield return new WaitForSeconds(dashConstants.DashLength);
             takeInput = true;
             yield return new WaitForSeconds(dashConstants.DashCooldown - dashConstants.DashLength);
@@ -170,16 +173,20 @@ namespace Player.Module.Movement
            float endTime = Time.time + stopConstants.stopLength;
            float useTimeModifier = (1 / stopConstants.stopLength) *1.5f;
 
+           
+           ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(stopConstants.stopCooldown, UIController.Cooldowns.Stop);
+           
            float velocityMagnitude = Rigid.velocity.magnitude;
            while (endTime > Time.time && currentFuel > 0 && Rigid.velocity.magnitude > 0.05f)
            {
+               currentFuel -= velocityMagnitude * stopConstants.fuelConsumptionMultiplier * Time.deltaTime;
                Rigid.AddForce(-Rigid.velocity * (useTimeModifier * Time.deltaTime * Rigid.velocity.magnitude), ForceMode2D.Impulse);
                yield return null;
            }
            
-           Rigid.AddForce(-Rigid.velocity, ForceMode2D.Impulse);
            
-           currentFuel -= velocityMagnitude * stopConstants.fuelConsumptionMultiplier;
+           Rigid.AddForce(-Rigid.velocity.normalized * Mathf.Min(Rigid.velocity.magnitude, currentFuel), ForceMode2D.Impulse);
+           
            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
            
            takeInput = true;
@@ -204,8 +211,8 @@ namespace Player.Module.Movement
 
             currentFuel -= dashSidewaysConstants.fuelConsumption;
             Rigid.AddForce(moduleBody.transform.right * (direction.x * (dashSidewaysConstants.strength)));
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(dashSidewaysConstants.cooldown, UIController.Cooldowns.SideDash);
             yield return new WaitForSeconds(dashSidewaysConstants.length);
-            Rigid.AddForce(-moduleBody.transform.right * (direction.x * (dashSidewaysConstants.strength)*0.5f));
             takeInput = true;
             yield return new WaitForSeconds(dashSidewaysConstants.cooldown - dashSidewaysConstants.length);
             dashSidewaysReady = true;
