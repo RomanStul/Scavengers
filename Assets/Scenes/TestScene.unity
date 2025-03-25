@@ -775,8 +775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVariables:
-    Thrust: 250
-    RotationThrust: 600
+    Thrust: 450
+    RotationThrust: 1350
     MaxSpeed: 10
     fuelPerSecond: 1
     MaxFuel: 100
@@ -785,6 +785,10 @@ MonoBehaviour:
     DashPower: 400
     DashLength: 0.2
     DashCooldown: 3
+  stopConstants:
+    fuelConsumptionMultiplier: 1
+    stopLength: 0.2
+    stopCooldown: 3
   moduleBody: {fileID: 1744532173}
   currentFuel: 0
 --- !u!114 &454761249
@@ -900,6 +904,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9aff7e73-24db-4125-837d-573859343c72
     m_ActionName: Module/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 454761249}
+        m_TargetAssemblyTypeName: Player.Module.Input, Assembly-CSharp
+        m_MethodName: StopInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c87c545f-4945-44de-959d-37b658e9be80
+    m_ActionName: Module/Stop[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Module
@@ -987,7 +1007,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5adc9d412aa325d49a15949187b51460, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgrades: 0000
+  upgradesObject:
+  - Name: Reverse
+    unlocked: 0
+  - Name: Armor
+    unlocked: 0
+  - Name: Stop
+    unlocked: 1
+  - Name: Dash
+    unlocked: 0
+  - Name: DashSideWays
+    unlocked: 0
 --- !u!114 &454761256
 MonoBehaviour:
   m_ObjectHideFlags: 0

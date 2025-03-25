@@ -26,10 +26,20 @@ namespace Player.Module.Movement
             public float DashLength;
             public float DashCooldown;
         }
+
+        [Serializable]
+
+        public class StopConstants
+        {
+            public float fuelConsumptionMultiplier;
+            public float stopLength;
+            public float stopCooldown;
+        }
         
         //================================================================EDITOR VARIABLES
         [SerializeField] protected MovementConstants movementVariables;
         [SerializeField] protected DashConstants dashConstants;
+        [SerializeField] protected StopConstants stopConstants;
         
         [SerializeField] protected GameObject moduleBody;
 
@@ -46,20 +56,27 @@ namespace Player.Module.Movement
         //================================================================FUNCTIONALITY
 
         protected Rigidbody2D Rigid, RotationRigid;
-        private bool takeInput = true, dashReady = false;
+
+        private bool takeInput = true,
+            dashReady = false,
+            reverseAvailable = false,
+            stopReady = false;
 
         public override void ApplyUpgrades()
         {
             //TODO space for fuel space increase
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)movementVariables.MaxFuel, UI.UIController.BarsNames.FuelBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
-            ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Dash);
+            dashReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Dash);
+            reverseAvailable = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Reverse);
+            stopReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Stop);
             Refuel();
         }
 
 
         private void Update()
         {
+            
             if (!takeInput)
             {
                 return;
@@ -70,7 +87,7 @@ namespace Player.Module.Movement
                 return;
             }
             
-            if (ThrustInput > 0 || ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Reverse) && ThrustInput < 0)
+            if (ThrustInput > 0 || reverseAvailable && ThrustInput < 0)
             {
                 currentFuel -= Mathf.Abs(ThrustInput) * movementVariables.fuelPerSecond * Time.deltaTime;
                 Rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust * Time.deltaTime));
@@ -105,7 +122,7 @@ namespace Player.Module.Movement
 
         public void Dash()
         {
-            if (currentFuel >= dashConstants.DashFuelConsumption && dashReady)
+            if (currentFuel >= dashConstants.DashFuelConsumption && dashReady && takeInput)
                 StartCoroutine(DashExecute());
         }
 
@@ -123,5 +140,39 @@ namespace Player.Module.Movement
             dashReady = true;
         }
 
+        public void Stop()
+        {
+            if (stopReady && takeInput)
+            {
+                StartCoroutine(StopExecute());
+            }
+        }
+
+        private IEnumerator StopExecute()
+        {
+           stopReady = false;
+           takeInput = false;
+           
+           float endTime = Time.time + stopConstants.stopLength;
+           float useTimeModifier = (1 / stopConstants.stopLength) *1.5f;
+
+           float velocityMagnitude = Rigid.velocity.magnitude;
+           while (endTime > Time.time && currentFuel > 0 && Rigid.velocity.magnitude > 0.05f)
+           {
+               Rigid.AddForce(-Rigid.velocity * (useTimeModifier * Time.deltaTime * Rigid.velocity.magnitude), ForceMode2D.Impulse);
+               yield return null;
+           }
+           
+           Rigid.AddForce(-Rigid.velocity, ForceMode2D.Impulse);
+           
+           currentFuel -= velocityMagnitude * stopConstants.fuelConsumptionMultiplier;
+           ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
+           
+           takeInput = true;
+           yield return new WaitForSeconds(stopConstants.stopCooldown - stopConstants.stopLength);
+           stopReady = true;
+        }
+        
+        //TODO dash sideways
     }
 }

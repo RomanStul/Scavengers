@@ -52,6 +52,11 @@ namespace Player.Module.Upgrades
         
         //================================================================FUNCTIONALITY
 
+        public void Reset()
+        {
+            CreateUpgradeArray();
+        }
+
         public bool IsActive(Ups up)
         {
             return upgradesObject[(int)up].unlocked;

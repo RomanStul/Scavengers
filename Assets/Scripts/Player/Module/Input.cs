@@ -46,5 +46,13 @@ namespace Player.Module
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Dash();
             }
         }
+
+        public void StopInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Stop();
+            }
+        }
     }
 }
