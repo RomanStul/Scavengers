@@ -1,6 +1,7 @@
 using Player.Module.Drill;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 namespace Player.Module
 {
@@ -53,6 +54,20 @@ namespace Player.Module
             {
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Stop();
             }
+        }
+
+        public void DashRightInput(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+            
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).DashSideways(Vector2.right);
+        }
+
+        public void DashLeftInput(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+            
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).DashSideways(Vector2.left);
         }
     }
 }

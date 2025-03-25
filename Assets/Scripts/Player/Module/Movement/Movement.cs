@@ -35,11 +35,22 @@ namespace Player.Module.Movement
             public float stopLength;
             public float stopCooldown;
         }
+
+        [Serializable]
+
+        public class DashSidewaysConstants
+        {
+            public float strength;
+            public float fuelConsumption;
+            public float length;
+            public float cooldown;
+        }
         
         //================================================================EDITOR VARIABLES
         [SerializeField] protected MovementConstants movementVariables;
         [SerializeField] protected DashConstants dashConstants;
         [SerializeField] protected StopConstants stopConstants;
+        [SerializeField] protected DashSidewaysConstants dashSidewaysConstants;
         
         [SerializeField] protected GameObject moduleBody;
 
@@ -60,7 +71,8 @@ namespace Player.Module.Movement
         private bool takeInput = true,
             dashReady = false,
             reverseAvailable = false,
-            stopReady = false;
+            stopReady = false,
+            dashSidewaysReady = false;
 
         public override void ApplyUpgrades()
         {
@@ -70,6 +82,8 @@ namespace Player.Module.Movement
             dashReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Dash);
             reverseAvailable = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Reverse);
             stopReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Stop);
+            dashSidewaysReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.DashSideWays);
+
             Refuel();
         }
 
@@ -174,5 +188,28 @@ namespace Player.Module.Movement
         }
         
         //TODO dash sideways
+
+        public void DashSideways(Vector2 direction)
+        {
+            if (takeInput && dashSidewaysReady && currentFuel >= dashSidewaysConstants.fuelConsumption)
+            {
+                StartCoroutine(DashSidewaysExecute(direction));
+            }
+        }
+
+        private IEnumerator DashSidewaysExecute(Vector2 direction)
+        {
+            takeInput = false;
+            dashSidewaysReady = false;
+
+            currentFuel -= dashSidewaysConstants.fuelConsumption;
+            Rigid.AddForce(moduleBody.transform.right * (direction.x * (dashSidewaysConstants.strength)));
+            yield return new WaitForSeconds(dashSidewaysConstants.length);
+            Rigid.AddForce(-moduleBody.transform.right * (direction.x * (dashSidewaysConstants.strength)*0.5f));
+            takeInput = true;
+            yield return new WaitForSeconds(dashSidewaysConstants.cooldown - dashSidewaysConstants.length);
+            dashSidewaysReady = true;
+            
+        }
     }
 }
