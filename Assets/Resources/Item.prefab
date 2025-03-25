@@ -195,3 +195,4 @@ MonoBehaviour:
   itemData: {fileID: 0}
   itemConstants:
     itemTravelSpeed: 1
+    maxSpeed: 15
