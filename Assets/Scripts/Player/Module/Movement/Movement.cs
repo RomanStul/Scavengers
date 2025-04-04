@@ -206,6 +206,7 @@ namespace Player.Module.Movement
 
         private IEnumerator DashSidewaysExecute(Vector2 direction)
         {
+            //TODO try removing velocity and adding it after execute concludes
             takeInput = false;
             dashSidewaysReady = false;
 
