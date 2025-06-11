@@ -159,6 +159,8 @@ namespace Player.Module.Movement
 
         private IEnumerator DashExecute()
         {
+            VisualizeThrust(1.0f, 0.0f);
+            
             dashReady = false;
             takeInput = false;
 
