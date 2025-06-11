@@ -46,6 +46,18 @@ namespace Player.Module.Movement
             public float length;
             public float cooldown;
         }
+
+        [Serializable]
+        
+        public class ThrustVisuals
+        {
+            public GameObject backMotor;
+            public GameObject frontMotor;
+            public GameObject leftFrontMotor;
+            public GameObject rightFrontMotor;
+            public GameObject leftRearMotor;
+            public GameObject rightRearMotor;
+        }
         
         //================================================================EDITOR VARIABLES
         [SerializeField] protected MovementConstants movementVariables;
@@ -53,6 +65,7 @@ namespace Player.Module.Movement
         [SerializeField] protected StopConstants stopConstants;
         [SerializeField] protected DashSidewaysConstants dashSidewaysConstants;
         
+        [SerializeField] protected ThrustVisuals thrustVisuals;
         [SerializeField] protected GameObject moduleBody;
 
         [SerializeField] protected float currentFuel;
@@ -119,6 +132,9 @@ namespace Player.Module.Movement
                 currentFuel -= Mathf.Abs(RotationInput) *movementVariables.fuelPerSecond * Time.deltaTime;
                 RotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust * Time.deltaTime);
             }
+            
+            VisualizeThrust(ThrustInput, RotationInput);
+            
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
         }
 
@@ -218,6 +234,19 @@ namespace Player.Module.Movement
             yield return new WaitForSeconds(dashSidewaysConstants.cooldown - dashSidewaysConstants.length);
             dashSidewaysReady = true;
             
+        }
+
+
+        private void VisualizeThrust(float thrustInput, float rotationInput)
+        {
+            thrustVisuals.backMotor.SetActive(thrustInput > 0);
+            thrustVisuals.frontMotor.SetActive(thrustInput < 0 && reverseAvailable);
+            
+            thrustVisuals.leftFrontMotor.SetActive(rotationInput > 0);
+            thrustVisuals.rightRearMotor.SetActive(rotationInput > 0);
+
+            thrustVisuals.rightFrontMotor.SetActive(rotationInput < 0);
+            thrustVisuals.leftRearMotor.SetActive(rotationInput < 0);
         }
     }
 }
