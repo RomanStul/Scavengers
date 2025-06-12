@@ -112,6 +112,7 @@ namespace Player.Module.Movement
             
             if (currentFuel <= 0)
             {
+                VisualizeThrust(0.0f, 0.0f);
                 return;
             }
             
@@ -177,7 +178,7 @@ namespace Player.Module.Movement
 
         public void Stop()
         {
-            if (stopReady && takeInput)
+            if (currentFuel >= dashConstants.DashFuelConsumption && stopReady && takeInput)
             {
                 StartCoroutine(StopExecute());
             }
