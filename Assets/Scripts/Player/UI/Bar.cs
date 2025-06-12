@@ -27,11 +27,6 @@ namespace Player.UI
         protected virtual void UpdateFill()
         {
             fill.anchoredPosition = new Vector2(fill.anchoredPosition.x, (value/maxValue * (maxFillY - minFillY)) + minFillY);
-            return;
-            
-            float yValue = (thisRect.position.y + thisRect.sizeDelta.y * (value / maxValue));
-            //Debug.Log(thisRect.position.y + " + " + thisRect.sizeDelta.y + " * " + (value / maxValue) + " = " +yValue);
-            fill.position = new Vector2(fill.position.x, yValue);
         }
     }
 }

@@ -43,13 +43,14 @@ namespace Player.Module
             return (T)baseScripts[(int)scriptName];
         }
         //================================================================FUNCTIONALITY
-
+        
         private void Awake()
         {
             for (int i = 0; i < baseScripts.Length; i++)
             {
                 baseScripts[i].SetModule(this);
             }
+            //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attatched
             GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).LoadUpgrades();
         }
 
