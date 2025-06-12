@@ -485,7 +485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &268582729
 Transform:
   m_ObjectHideFlags: 0
@@ -1702,15 +1702,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradesObject:
   - Name: Reverse
-    unlocked: 1
+    unlocked: 0
   - Name: Armor
     unlocked: 0
   - Name: Stop
-    unlocked: 1
+    unlocked: 0
   - Name: Dash
-    unlocked: 1
+    unlocked: 0
   - Name: DashSideWays
-    unlocked: 1
+    unlocked: 0
 --- !u!114 &454761256
 MonoBehaviour:
   m_ObjectHideFlags: 0
