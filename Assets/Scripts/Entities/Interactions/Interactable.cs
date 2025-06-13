@@ -1,17 +1,20 @@
 using Player.Module;
 using UnityEngine;
+using UnityEngine.Events;
 
-namespace Entities
+namespace Entities.Interactions
 {
     public class Interactable : MonoBehaviour
     {
         //================================================================CLASSES
+        
         //================================================================EDITOR VARIABLES
         
         [SerializeField] private GameObject[] activeVisuals;
         [SerializeField] private GameObject useVisualCue;
         [SerializeField] private InteractionHandler.InteractionType interactionType;
         [SerializeField] private bool usedRepeatably;
+        [SerializeField] private UnityEvent<Module> onUse;
         
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
@@ -46,7 +49,9 @@ namespace Entities
             }
             used = true;
             //TODO play event or something pass moduleRef into event
-
+            onUse.Invoke(moduleRef);
+            
+            
             if (!usedRepeatably)
             {
                 Activate(false, moduleRef);

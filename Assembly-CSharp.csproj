@@ -52,6 +52,7 @@
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemSO.cs" />
     <Compile Include="Assets\Scripts\Entities\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\RepairShop.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\MyRaycast.cs" />
     <Compile Include="Assets\Scripts\Entities\Item.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\Upgrades.cs" />
@@ -64,12 +65,12 @@
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Cooldown.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\UpgradeVisuals.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />
     <Compile Include="Assets\ScriptableObjects\Material\MaterialSO.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Storage.cs" />
-    <Compile Include="Assets\Scripts\Entities\Interactible.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Projektíky\UnityEditor\2022.3.49f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

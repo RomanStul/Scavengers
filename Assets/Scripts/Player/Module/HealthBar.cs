@@ -40,5 +40,11 @@ namespace Player.Module
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
             return health;
         }
+
+        public override void HealHealth(float health = -1)
+        {
+            base.HealHealth(health);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
+        }
     }
 }

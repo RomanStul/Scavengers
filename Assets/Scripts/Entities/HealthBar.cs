@@ -74,6 +74,21 @@ namespace Entities
             return material.defaultDamage1 ? damage : 0f;
         }
 
+        public virtual void HealHealth(float health = -1)
+        {
+            if (health < 0)
+            {
+                healthBarConstants.currentHealth = healthBarConstants.maxHealth;
+                return;
+            }
+            
+            healthBarConstants.currentHealth += health;
+            if (healthBarConstants.currentHealth > healthBarConstants.maxHealth)
+            {
+                healthBarConstants.currentHealth = healthBarConstants.maxHealth;
+            }
+        }
+
     
         //============================================
         //HELPER FUNCTIONS

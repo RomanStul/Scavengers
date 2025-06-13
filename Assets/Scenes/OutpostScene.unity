@@ -339,6 +339,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1374157556658431923, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1720089791246684810, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.14225292
@@ -491,7 +495,8 @@ GameObject:
   - component: {fileID: 1417714551}
   - component: {fileID: 1417714552}
   - component: {fileID: 1417714554}
-  - component: {fileID: 1417714553}
+  - component: {fileID: 1417714556}
+  - component: {fileID: 1417714555}
   m_Layer: 7
   m_Name: Refuel
   m_TagString: Untagged
@@ -508,7 +513,7 @@ Transform:
   m_GameObject: {fileID: 1417714550}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -5.41, z: -0.0045833252}
+  m_LocalPosition: {x: 0.2, y: -5.41, z: -1}
   m_LocalScale: {x: 5, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -568,23 +573,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1417714553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1417714550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06089834308f8644a90e80f33e87b0bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeVisuals:
-  - {fileID: 840026482}
-  useVisualCue: {fileID: 1062406800}
-  interactionType: 1
-  usedRepeatably: 1
 --- !u!61 &1417714554
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -630,6 +618,62 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1417714555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417714550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7320bc0ffda92dc4c91542a0ceb08437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1417714556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417714550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06089834308f8644a90e80f33e87b0bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeVisuals:
+  - {fileID: 840026482}
+  useVisualCue: {fileID: 1062406800}
+  interactionType: 1
+  usedRepeatably: 1
+  onUse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1417714555}
+        m_TargetAssemblyTypeName: Entities.Interactions.RepairShop, Assembly-CSharp
+        m_MethodName: Refuel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1417714555}
+        m_TargetAssemblyTypeName: Entities.Interactions.RepairShop, Assembly-CSharp
+        m_MethodName: Repair
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1679317067
 GameObject:
   m_ObjectHideFlags: 0

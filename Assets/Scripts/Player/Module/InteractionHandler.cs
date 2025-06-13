@@ -1,4 +1,5 @@
 using Entities;
+using Entities.Interactions;
 using UnityEngine;
 
 namespace Player.Module

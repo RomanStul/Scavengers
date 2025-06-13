@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Entities;
+using Entities.Interactions;
 using ScriptableObjects.Material;
 using UnityEditor;
 using UnityEngine;
