@@ -69,5 +69,12 @@ namespace Player.Module
             
             ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).DashSideways(Vector2.left);
         }
+
+        public void InteractInput(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+            
+            ModuleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).UseEntity();
+        }
     }
 }

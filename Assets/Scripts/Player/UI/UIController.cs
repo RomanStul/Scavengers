@@ -1,8 +1,10 @@
 using UnityEngine;
+using Player.Module.Upgrades;
+using Player.Module;
 
 namespace Player.UI
 {
-    public class UIController : Module.BaseClass
+    public class UIController : Module.ModuleBaseScript
     {
         public enum BarsNames
         {
@@ -18,7 +20,7 @@ namespace Player.UI
             SideDash
         }
         //================================================================CLASSES
-    
+
         //================================================================EDITOR VARIABLES
         [SerializeField] private Bar HealthBar, FuelBar, StorageBar;
         [SerializeField] private Cooldown Dash, Stop, SideDash;
@@ -26,7 +28,17 @@ namespace Player.UI
 
         //================================================================FUNCTIONALITY
 
-        public void SetBar(int value, BarsNames barName, bool isMax = false)
+        public override void ApplyUpgrades()
+        {
+            Dash.transform.gameObject.SetActive(
+                    ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.Dash)
+                );
+            Stop.transform.gameObject.SetActive(
+                ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.Stop)
+            );
+        }
+
+    public void SetBar(int value, BarsNames barName, bool isMax = false)
         {
             Bar targetBar = null;
 

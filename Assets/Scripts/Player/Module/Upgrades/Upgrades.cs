@@ -62,6 +62,8 @@ namespace Player.Module.Upgrades
             return upgradesObject[(int)up].unlocked;
         }
 
+        
+        //TODO make this static function in separate script 
         public void CreateUpgradeArray()
         {
             UpgradeObject[] updatedUpgrades = new UpgradeObject[Enum.GetValues(typeof(Ups)).Length];

@@ -48,6 +48,7 @@
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\Scripts\Player\Module\CollisionHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ToolHolder.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\InteractionHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemSO.cs" />
     <Compile Include="Assets\Scripts\Entities\HealthBar.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />
     <Compile Include="Assets\ScriptableObjects\Material\MaterialSO.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Storage.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactible.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Projektíky\UnityEditor\2022.3.49f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

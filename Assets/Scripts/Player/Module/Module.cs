@@ -20,6 +20,7 @@ namespace Player.Module
             UpgradesScript,
             UpgradeVisualsScript,
             UIControlsScript,
+            InteractionScript,
         }
         //================================================================EDITOR VARIABLES
 
@@ -50,7 +51,7 @@ namespace Player.Module
             {
                 baseScripts[i].SetModule(this);
             }
-            //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attatched
+            //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attached
             GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).LoadUpgrades();
         }
 
