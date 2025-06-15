@@ -84,6 +84,16 @@ namespace Player.Module.Movement
         {
             return movementVariables.MaxFuel - currentFuel;
         }
+
+        public float GetFuel()
+        {
+            return currentFuel;
+        }
+
+        public void SetFuel(float fuel)
+        {
+            currentFuel = fuel;
+        }
         //================================================================FUNCTIONALITY
 
         protected Rigidbody2D Rigid, RotationRigid;

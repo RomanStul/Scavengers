@@ -47,7 +47,24 @@ namespace Player.Module.Upgrades
                 loaded = new bool[Enum.GetValues(typeof(Ups)).Length];
             }
             
+            upgradesObject = new UpgradeObject[Enum.GetValues(typeof(Ups)).Length];
+
+            for (int i = 0; i < upgradesObject.Length; i++)
+            {
+                upgradesObject[i] = new UpgradeObject(Enum.GetNames(typeof(Ups))[i], loaded[i]);
+            }
+            
             ModuleRef.ApplyUpgrades();
+        }
+
+        public bool[] GetUpgrades()
+        {
+            bool[] toSave = new bool[Enum.GetValues(typeof(Ups)).Length];
+            for (int i = 0; i < upgradesObject.Length; i++)
+            {
+                toSave[i] = upgradesObject[i].unlocked;
+            }
+            return toSave;
         }
         
         //================================================================FUNCTIONALITY

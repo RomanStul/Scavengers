@@ -21,6 +21,12 @@ namespace Player.Module
             //CAN be altered with upgrade for easier repairs
             return healthBarConstants.maxHealth - healthBarConstants.currentHealth;
         }
+
+        public override void SetHealth(float health)
+        {
+            base.SetHealth(health);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
+        }
         //================================================================FUNCTIONALITY
         protected Player.Module.Module ModuleRef;
         

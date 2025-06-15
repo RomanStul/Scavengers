@@ -2337,6 +2337,7 @@ MonoBehaviour:
   storageCapacity: 10
   itemsStored: 0
   itemStorage: 00000000
+  currency: 0
 --- !u!114 &7421670379239451658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,7 +2353,7 @@ MonoBehaviour:
   healthBarConstants:
     maxHealth: 100
     currentHealth: 0
-    maxAsStarting: 1
+    maxAsStarting: 0
   material: {fileID: 11400000, guid: a1a472539dbe5564f95f62872ddf29ab, type: 2}
   onHealthChangedEvent:
     m_PersistentCalls:

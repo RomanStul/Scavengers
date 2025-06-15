@@ -14,6 +14,10 @@ namespace Player.Module
         [SerializeField] private int[] itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
         [SerializeField] private int currency = 0;
         //================================================================GETTER SETTER
+        
+        public int[] ItemStorage { get { return itemStorage; } set { itemStorage = value; } }
+        public int Currency { get { return currency; } set { currency = value; } }
+        
         //================================================================FUNCTIONALITY
         
         public override void ApplyUpgrades()
@@ -57,8 +61,12 @@ namespace Player.Module
             currency += amount;
         }
 
-        public int GetCurrency(int amount)
+        public int GetCurrency(int amount = -1)
         {
+            if (amount == -1)
+            {
+                return currency;
+            }
             int toReturn = currency;
             currency -= amount;
             if (currency <= 0)

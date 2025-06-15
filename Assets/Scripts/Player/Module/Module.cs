@@ -27,6 +27,7 @@ namespace Player.Module
         //public Scripts scripts;
         public Player.Module.BaseClass[] baseScripts;
         public Rigidbody2D moveRb, rotateRb;
+        public static ModuleState savedState;
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
         {
@@ -47,12 +48,16 @@ namespace Player.Module
         
         private void Awake()
         {
+            
+            
             for (int i = 0; i < baseScripts.Length; i++)
             {
                 baseScripts[i].SetModule(this);
             }
             //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attached
-            GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).LoadUpgrades();
+            GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).LoadUpgrades(savedState?.upgrades);
+            
+            LoadFromSave();
         }
 
         public void ApplyUpgrades()
@@ -60,6 +65,32 @@ namespace Player.Module
             for (int i = 0; i < baseScripts.Length; i++)
             {
                 baseScripts[i].ApplyUpgrades();
+            }
+        }
+
+        public void CreateStateObject()
+        {
+            savedState = new ModuleState();
+            savedState.health = GetScript<HealthBar>(ScriptNames.HealthBarScript).GetHealth();
+            savedState.fuel = GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).GetFuel();
+            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).GetCurrency();
+            savedState.itemStored = GetScript<Storage>(ScriptNames.StorageScript).ItemStorage;
+            savedState.upgrades = GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).GetUpgrades();
+        }
+
+        private void LoadFromSave()
+        {
+            //TODO if nul try loading from a file
+            if (savedState != null)
+            {
+                GetScript<HealthBar>(ScriptNames.HealthBarScript).SetHealth(savedState.health);
+                GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).SetFuel(savedState.fuel);
+                GetScript<Storage>(ScriptNames.StorageScript).Currency = savedState.currency;
+                GetScript<Storage>(ScriptNames.StorageScript).ItemStorage = savedState.itemStored;
+            }
+            else
+            {
+                GetScript<HealthBar>(ScriptNames.HealthBarScript).SetHealth(GetScript<HealthBar>(ScriptNames.HealthBarScript).GetMaxHealth());
             }
         }
     }

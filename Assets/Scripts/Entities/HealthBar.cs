@@ -36,6 +36,11 @@ namespace Entities
             return healthBarConstants.maxHealth;
         }
         
+        public virtual void SetHealth(float health)
+        {
+            healthBarConstants.currentHealth = health;
+        }
+        
         //================================================================FUNCTIONALITY
 
 
