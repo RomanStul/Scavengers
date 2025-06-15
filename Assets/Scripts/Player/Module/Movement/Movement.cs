@@ -3,6 +3,7 @@ using System.Collections;
 using Player.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Environment = Entities.Enviroment.Environment;
 
 namespace Player.Module.Movement
 {
@@ -78,6 +79,11 @@ namespace Player.Module.Movement
             Rigid = ModuleRef.GetMoveRb();
             RotationRigid = ModuleRef.GetRotateRb();
         }
+
+        public float GetMissingFuel()
+        {
+            return movementVariables.MaxFuel - currentFuel;
+        }
         //================================================================FUNCTIONALITY
 
         protected Rigidbody2D Rigid, RotationRigid;
@@ -118,7 +124,7 @@ namespace Player.Module.Movement
             
             if (ThrustInput > 0 || reverseAvailable && ThrustInput < 0)
             {
-                currentFuel -= Mathf.Abs(ThrustInput) * movementVariables.fuelPerSecond * Time.deltaTime;
+                currentFuel -= Mathf.Abs(ThrustInput) * movementVariables.fuelPerSecond * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
                 Rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust * Time.deltaTime));
                 float speed = Rigid.velocity.magnitude;
                 //TODO make it so that input interacts with dash momentum intuitively
@@ -130,7 +136,7 @@ namespace Player.Module.Movement
 
             if (Mathf.Abs(RotationInput) > 0)
             {
-                currentFuel -= Mathf.Abs(RotationInput) *movementVariables.fuelPerSecond * Time.deltaTime;
+                currentFuel -= Mathf.Abs(RotationInput) *movementVariables.fuelPerSecond * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
                 RotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust * Time.deltaTime);
             }
             
@@ -165,7 +171,7 @@ namespace Player.Module.Movement
             dashReady = false;
             takeInput = false;
 
-            currentFuel -= dashConstants.DashFuelConsumption;
+            currentFuel -= dashConstants.DashFuelConsumption * Environment.instance.fuelConsumptionMultiplier;
             Rigid.AddForce(moduleBody.transform.up * (dashConstants.DashPower));
             
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(dashConstants.DashCooldown, UIController.Cooldowns.Dash);
@@ -198,7 +204,7 @@ namespace Player.Module.Movement
            float velocityMagnitude = Rigid.velocity.magnitude;
            while (endTime > Time.time && currentFuel > 0 && Rigid.velocity.magnitude > 0.05f)
            {
-               currentFuel -= velocityMagnitude * stopConstants.fuelConsumptionMultiplier * Time.deltaTime;
+               currentFuel -= velocityMagnitude * stopConstants.fuelConsumptionMultiplier * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
                Rigid.AddForce(-Rigid.velocity * (useTimeModifier * Time.deltaTime * Rigid.velocity.magnitude), ForceMode2D.Impulse);
                yield return null;
            }
@@ -229,7 +235,7 @@ namespace Player.Module.Movement
             takeInput = false;
             dashSidewaysReady = false;
 
-            currentFuel -= dashSidewaysConstants.fuelConsumption;
+            currentFuel -= dashSidewaysConstants.fuelConsumption * Environment.instance.fuelConsumptionMultiplier;
             Rigid.AddForce(moduleBody.transform.right * (direction.x * (dashSidewaysConstants.strength)));
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(dashSidewaysConstants.cooldown, UIController.Cooldowns.SideDash);
             yield return new WaitForSeconds(dashSidewaysConstants.length);

@@ -48,7 +48,7 @@ namespace Player.Module
 
             if (col.layer == LayerMask.NameToLayer("Item"))
             {
-                ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).AddItem(col.transform.GetComponent<Entities.Item>(), 1);
+                ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).PickUpItem(col.transform.GetComponent<Entities.Item>(), 1);
                 return;
             }
 

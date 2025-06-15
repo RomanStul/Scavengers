@@ -12,6 +12,7 @@ namespace Player.Module
         [SerializeField] private int storageCapacity;
         [SerializeField] private int itemsStored;
         [SerializeField] private int[] itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
+        [SerializeField] private int currency = 0;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
         
@@ -22,9 +23,9 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
         }
         
-        public void AddItem(Entities.Item item, int amount)
+        public void PickUpItem(Entities.Item item, int amount)
         {
-            //TODO change to have functions to handle different types of items like  resources and fuel
+            //TODO change to have functions to handle different types of items like resources
             if(itemsStored < storageCapacity && item.StartCollecting(transform))
             {
                 itemStorage[(int)item.GetItemData().itemType] += amount;
@@ -32,6 +33,40 @@ namespace Player.Module
                 ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
                 Destroy(item.gameObject);
             }
+        }
+
+        public int RemoveItem(Entities.Item item, int amount = -1)
+        {
+            if (amount == -1)
+            {
+                itemStorage[(int)item.GetItemData().itemType] = 0;
+                return itemStorage[(int)item.GetItemData().itemType];
+            }
+            int toRemove = itemStorage[(int)item.GetItemData().itemType];
+            itemStorage[(int)item.GetItemData().itemType] -= amount;
+            if (itemStorage[(int)item.GetItemData().itemType] <= 0)
+            {
+                itemStorage[(int)item.GetItemData().itemType] = 0;
+                return toRemove;
+            }
+            return amount;
+        }
+
+        public void AddCurrency(int amount)
+        {
+            currency += amount;
+        }
+
+        public int GetCurrency(int amount)
+        {
+            int toReturn = currency;
+            currency -= amount;
+            if (currency <= 0)
+            {
+                currency = 0;
+                return toReturn;
+            }
+            return amount;
         }
     }
 }

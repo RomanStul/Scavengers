@@ -1,6 +1,7 @@
 using System;
 using Player.Module;
 using Player.Module.Movement;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Entities.Interactions
@@ -18,22 +19,40 @@ namespace Entities.Interactions
         }
         
         //================================================================EDITOR VARIABLES
+        [SerializeField] private RepairShopConstants constants;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
 
-        public static void Repair(Module module)
+        public void Repair(Module module)
         {
-            //TODO check against currency and heal for amount that can player afford
             Player.Module.HealthBar healthBar = module.GetScript<Player.Module.HealthBar>(Module.ScriptNames.HealthBarScript);
-            healthBar.HealHealth();
+            float missingHealth = healthBar.GetMissingHealth();
+            
+            healthBar.HealHealth(GetAmountToWork(module, missingHealth, constants.costPerHealth));
         }
 
-        public static void Refuel(Module module)
+        public void Refuel(Module module)
         {
-            //TODO check against currency and refuel for amount that can player afford
             Movement movement = module.GetScript<Movement>(Module.ScriptNames.MovementScript);
-            movement.Refuel();
+            float missing = movement.GetMissingFuel();
+            
+            movement.Refuel(GetAmountToWork(module, missing, constants.costPerFuel));
+        }
+
+        private float GetAmountToWork(Module module, float toFull, float perUnit)
+        {
+            if (toFull == 0)
+            {
+                return 0;
+            }
+            float cost = toFull * perUnit;
+            Storage storage = module.GetScript<Storage>(Module.ScriptNames.StorageScript);
+            float paid = storage.GetCurrency((int)cost);
+            
+            float toReturn = toFull * (paid / cost);
+            Debug.Log(toReturn);
+            return toReturn;
         }
     }
 }

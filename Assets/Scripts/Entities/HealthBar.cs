@@ -25,6 +25,17 @@ namespace Entities
         [SerializeField] protected HealthBarEvent onHealthChangedEvent;
         [SerializeField] protected HealthBarEvent onDestroyedEvent;
         //================================================================GETTER SETTER
+        
+        public float GetHealth()
+        {
+            return healthBarConstants.currentHealth;
+        }
+
+        public float GetMaxHealth()
+        {
+            return healthBarConstants.maxHealth;
+        }
+        
         //================================================================FUNCTIONALITY
 
 

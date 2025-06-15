@@ -131,6 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559034202}
+  - component: {fileID: 559034203}
   m_Layer: 0
   m_Name: Outpost
   m_TagString: Untagged
@@ -159,6 +160,20 @@ Transform:
   - {fileID: 1693147733}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &559034203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559034201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5b395d99b09d74c9548e35e6e07c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuelConsumptionMultiplier: 0
+  damageMultiplier: 0
 --- !u!1 &840026482
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +350,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 559034202}
     m_Modifications:
+    - target: {fileID: 1120797726417590459, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 113
+      objectReference: {fileID: 0}
     - target: {fileID: 1284908839601405028, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -386,6 +405,26 @@ PrefabInstance:
     - target: {fileID: 4144416073936824265, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4772124288078426473, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: currency
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492994607924267942, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492994607924267942, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492994607924267942, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.2784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492994607924267942, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8016691481368367125, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
       propertyPath: upgradesObject.Array.data[3].unlocked
@@ -630,6 +669,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7320bc0ffda92dc4c91542a0ceb08437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  constants:
+    costPerHealth: 5
+    costPerFuel: 5
 --- !u!114 &1417714556
 MonoBehaviour:
   m_ObjectHideFlags: 0
