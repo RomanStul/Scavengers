@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Player\Module\ModuleBaseScript.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIController.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\UpgradesShop.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Bar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
