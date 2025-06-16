@@ -25,6 +25,7 @@ namespace Player.Module
             //TODO space for storage space increase
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(storageCapacity, UI.UIController.BarsNames.StorageBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
         }
         
         public void PickUpItem(Entities.Item item, int amount)
@@ -41,40 +42,58 @@ namespace Player.Module
 
         public int RemoveItem(Entities.Item item, int amount = -1)
         {
+            int toRemove = 0;
             if (amount == -1)
             {
                 itemStorage[(int)item.GetItemData().itemType] = 0;
-                return itemStorage[(int)item.GetItemData().itemType];
+                toRemove = itemStorage[(int)item.GetItemData().itemType];
             }
-            int toRemove = itemStorage[(int)item.GetItemData().itemType];
-            itemStorage[(int)item.GetItemData().itemType] -= amount;
-            if (itemStorage[(int)item.GetItemData().itemType] <= 0)
+            else
             {
-                itemStorage[(int)item.GetItemData().itemType] = 0;
-                return toRemove;
+                toRemove = itemStorage[(int)item.GetItemData().itemType];
+                itemStorage[(int)item.GetItemData().itemType] -= amount;
+                if (itemStorage[(int)item.GetItemData().itemType] <= 0)
+                {
+                    itemStorage[(int)item.GetItemData().itemType] = 0;
+                    return toRemove;
+                }
+                else
+                {
+                    toRemove = amount;
+                }
+                
             }
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
             return amount;
         }
 
         public void AddCurrency(int amount)
         {
             currency += amount;
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
         }
 
         public int GetCurrency(int amount = -1)
         {
+            int toReturn = currency;
             if (amount == -1)
             {
-                return currency;
-            }
-            int toReturn = currency;
-            currency -= amount;
-            if (currency <= 0)
-            {
                 currency = 0;
-                return toReturn;
             }
-            return amount;
+            else
+            {
+                currency -= amount;
+                if (currency <= 0)
+                {
+                    currency = 0;
+                }
+                else
+                {
+                    toReturn = amount;
+                }
+            }
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
+            return toReturn;
         }
     }
 }

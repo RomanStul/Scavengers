@@ -24,6 +24,7 @@ namespace Player.UI
         //================================================================EDITOR VARIABLES
         [SerializeField] private Bar HealthBar, FuelBar, StorageBar;
         [SerializeField] private Cooldown Dash, Stop, SideDash;
+        [SerializeField] private CurrencyDisplay currencyDisplay;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
@@ -87,6 +88,11 @@ namespace Player.UI
             }
             
             targetCooldown.StartCooldown(time);
+        }
+
+        public void DisplayBalance(int balance)
+        {
+            currencyDisplay.DisplayBalance(balance);
         }
     }
 }

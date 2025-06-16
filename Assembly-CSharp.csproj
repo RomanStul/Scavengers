@@ -51,6 +51,7 @@
     <Compile Include="Assets\Scripts\Player\Module\Tools\ToolHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\InteractionHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\currencyDisplay.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemSO.cs" />
     <Compile Include="Assets\Scripts\Entities\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\RepairShop.cs" />
