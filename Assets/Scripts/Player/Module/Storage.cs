@@ -14,10 +14,38 @@ namespace Player.Module
         [SerializeField] private int[] itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
         [SerializeField] private int currency = 0;
         //================================================================GETTER SETTER
-        
-        public int[] ItemStorage { get { return itemStorage; } set { itemStorage = value; } }
-        public int Currency { get { return currency; } set { currency = value; } }
-        
+
+        public int[] ItemStorage
+        {
+            get
+            {
+                return itemStorage;
+            }
+            set
+            {
+                itemStorage = value;
+                for (int i = 0; i < itemStorage.Length; i++)
+                {
+                    itemsStored += itemStorage[i];
+                    ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).ItemAmountChange(i, itemStorage[i]);
+                }
+                ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
+            }
+        }
+
+        public int Currency
+        {
+            get
+            {
+                return currency;
+            }
+            set
+            {
+                currency = value;
+                ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
+            }
+        }
+
         //================================================================FUNCTIONALITY
         
         public override void ApplyUpgrades()
@@ -26,6 +54,7 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(storageCapacity, UI.UIController.BarsNames.StorageBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetStorageCapacity(storageCapacity);
         }
         
         public void PickUpItem(Entities.Item item, int amount)
@@ -36,6 +65,7 @@ namespace Player.Module
                 itemStorage[(int)item.GetItemData().itemType] += amount;
                 itemsStored++;
                 ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
+                ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).ItemAmountChange(item.GetItemData(), amount);
                 Destroy(item.gameObject);
             }
         }

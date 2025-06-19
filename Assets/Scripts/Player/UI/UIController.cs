@@ -1,6 +1,8 @@
 using UnityEngine;
 using Player.Module.Upgrades;
 using Player.Module;
+using Player.UI.Inventory;
+using ScriptableObjects.Item;
 
 namespace Player.UI
 {
@@ -25,6 +27,8 @@ namespace Player.UI
         [SerializeField] private Bar HealthBar, FuelBar, StorageBar;
         [SerializeField] private Cooldown Dash, Stop, SideDash;
         [SerializeField] private CurrencyDisplay currencyDisplay;
+
+        [SerializeField] private InventoryHandler inventory;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
@@ -93,6 +97,27 @@ namespace Player.UI
         public void DisplayBalance(int balance)
         {
             currencyDisplay.DisplayBalance(balance);
+        }
+
+        public void ItemAmountChange(ItemSO item, int amount)
+        {
+            if (amount > 0)
+            {
+                inventory.AddItem(item, amount);
+            }
+        }
+
+        public void ItemAmountChange(int item, int amount)
+        {
+            if (amount > 0)
+            {
+                inventory.AddItem(item, amount);
+            }
+        }
+
+        public void SetStorageCapacity(int capacity)
+        {
+            inventory.SetStorageCapacity(capacity);
         }
     }
 }

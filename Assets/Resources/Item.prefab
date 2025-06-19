@@ -192,7 +192,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7647979596868973771}
   detectTrigger: {fileID: 6479527676515280000}
   pickUpTrigger: {fileID: -1893987790158374718}
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 15149479c26fab947b2dd5ce605693c4, type: 2}
   itemConstants:
     itemTravelSpeed: 1
     maxSpeed: 15

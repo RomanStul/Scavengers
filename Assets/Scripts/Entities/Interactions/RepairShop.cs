@@ -51,7 +51,6 @@ namespace Entities.Interactions
             float paid = storage.GetCurrency((int)cost);
             
             float toReturn = toFull * (paid / cost);
-            Debug.Log(toReturn);
             return toReturn;
         }
     }
