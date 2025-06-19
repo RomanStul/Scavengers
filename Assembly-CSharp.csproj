@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\HelpScripts\MyRaycast.cs" />
     <Compile Include="Assets\Scripts\Entities\Item.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\Upgrades.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\ResourceShop.cs" />
     <Compile Include="Assets\Scripts\Entities\Dropper.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleBaseScript.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />

@@ -32,7 +32,7 @@ namespace Player.UI
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
-
+        
         public override void ApplyUpgrades()
         {
             Dash.transform.gameObject.SetActive(
@@ -118,6 +118,12 @@ namespace Player.UI
         public void SetStorageCapacity(int capacity)
         {
             inventory.SetStorageCapacity(capacity);
+        }
+
+        public void ToggleInventory()
+        {
+            //TODO add parameter to differentiate between inventory and resource shop
+            inventory.transform.gameObject.SetActive(!inventory.transform.gameObject.activeSelf);
         }
     }
 }

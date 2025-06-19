@@ -1,4 +1,5 @@
 using Player.Module.Drill;
+using Player.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
@@ -75,6 +76,13 @@ namespace Player.Module
             if(!context.started) return;
             
             ModuleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).UseEntity();
+        }
+
+        public void OpenInventoryInput(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+            
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ToggleInventory();
         }
     }
 }

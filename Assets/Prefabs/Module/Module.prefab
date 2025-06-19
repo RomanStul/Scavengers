@@ -2997,6 +2997,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fd83715b-3f15-4186-991f-041517534830
     m_ActionName: Module/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4024970329340988234}
+        m_TargetAssemblyTypeName: Player.Module.Input, Assembly-CSharp
+        m_MethodName: OpenInventoryInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7fea4d6f-3e4f-4b1d-93a9-5331b88c3f15
+    m_ActionName: Module/Inventory[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Module
