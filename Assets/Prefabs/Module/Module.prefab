@@ -2953,7 +2953,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4024970329340988234}
         m_TargetAssemblyTypeName: Player.Module.Input, Assembly-CSharp
-        m_MethodName: DashLeftInput
+        m_MethodName: MoveSidewaysInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2965,22 +2965,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 646beee2-0ac5-4727-8c07-cdb8c14e0da7
     m_ActionName: Module/DashLeft[/Keyboard/a]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4024970329340988234}
-        m_TargetAssemblyTypeName: Player.Module.Input, Assembly-CSharp
-        m_MethodName: DashRightInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 7fcfaa69-30f3-4215-ac9f-90c0b8b9cfcf
-    m_ActionName: Module/DashRight[/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4024970329340988234}
@@ -3109,11 +3093,11 @@ MonoBehaviour:
     fuelConsumptionMultiplier: 1
     stopLength: 0.2
     stopCooldown: 3
-  dashSidewaysConstants:
-    strength: 300
-    fuelConsumption: 10
-    length: 0.2
-    cooldown: 2
+  moveSidewaysConstants:
+    strength: 450
+    fuelConsumption: 1
+    length: 3
+    cooldown: 10
   thrustVisuals:
     backMotor: {fileID: 421759766667056681}
     frontMotor: {fileID: 4326107976802390916}
@@ -3454,6 +3438,10 @@ MonoBehaviour:
   storageCapacityText: {fileID: 7861692990421810098}
   itemsDB:
   - {fileID: 11400000, guid: 15149479c26fab947b2dd5ce605693c4, type: 2}
+  objectsForType:
+  - toEnable: []
+  - toEnable: []
+  - toEnable: []
 --- !u!1001 &973783475969307429
 PrefabInstance:
   m_ObjectHideFlags: 0

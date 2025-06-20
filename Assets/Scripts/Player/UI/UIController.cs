@@ -122,8 +122,12 @@ namespace Player.UI
 
         public void ToggleInventory()
         {
-            //TODO add parameter to differentiate between inventory and resource shop
-            inventory.transform.gameObject.SetActive(!inventory.transform.gameObject.activeSelf);
+            inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
+        }
+
+        public void ToggleResourceShop()
+        {
+            inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
         }
     }
 }

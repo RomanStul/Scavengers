@@ -51,22 +51,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DashLeft",
-                    "type": "Button",
+                    "name": "MoveSideways",
+                    "type": "Value",
                     "id": "646beee2-0ac5-4727-8c07-cdb8c14e0da7",
-                    "expectedControlType": "",
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "MultiTap",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "DashRight",
-                    "type": "Button",
-                    "id": "7fcfaa69-30f3-4215-ac9f-90c0b8b9cfcf",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "MultiTap",
-                    "initialStateCheck": false
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -188,26 +179,59 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "e78cd4bb-663d-4d3d-b50c-9bf924a55aa4",
-                    "path": "<Keyboard>/q",
+                    "name": "2D Vector",
+                    "id": "5409df64-a412-45f0-b1f6-a8786ea0a379",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "DashLeft",
-                    "isComposite": false,
+                    "groups": "",
+                    "action": "MoveSideways",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "2f18673f-99ca-4623-aee6-7257707c4b64",
+                    "name": "up",
+                    "id": "68faf666-b0ae-4415-a094-a06f04b05072",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveSideways",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "be531219-2856-473b-837b-75ba73ec7f81",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveSideways",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "3b479081-0c19-455c-84cd-b38451471372",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveSideways",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "15b17b6b-ea52-461f-9043-8246405c65a0",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "DashRight",
+                    "groups": "",
+                    "action": "MoveSideways",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",

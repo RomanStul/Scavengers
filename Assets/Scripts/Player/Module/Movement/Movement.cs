@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Timers;
 using Player.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -40,7 +41,7 @@ namespace Player.Module.Movement
 
         [Serializable]
 
-        public class DashSidewaysConstants
+        public class MoveSidewaysConstants
         {
             public float strength;
             public float fuelConsumption;
@@ -64,7 +65,7 @@ namespace Player.Module.Movement
         [SerializeField] protected MovementConstants movementVariables;
         [SerializeField] protected DashConstants dashConstants;
         [SerializeField] protected StopConstants stopConstants;
-        [SerializeField] protected DashSidewaysConstants dashSidewaysConstants;
+        [SerializeField] protected MoveSidewaysConstants moveSidewaysConstants;
         
         [SerializeField] protected ThrustVisuals thrustVisuals;
         [SerializeField] protected GameObject moduleBody;
@@ -73,6 +74,7 @@ namespace Player.Module.Movement
         //================================================================GETTER SETTER
         public float ThrustInput { get; set; } = 0f;
         public float RotationInput { get; set; } = 0f;
+        
         public override void SetModule(Module module)
         {
             base.SetModule(module);
@@ -102,7 +104,10 @@ namespace Player.Module.Movement
             dashReady = false,
             reverseAvailable = false,
             stopReady = false,
-            dashSidewaysReady = false;
+            moveSidewaysReady = false,
+            moveSidewaysEneabled = false;
+        
+        private float sidewaysInput = 0f;
 
         public override void ApplyUpgrades()
         {
@@ -112,15 +117,14 @@ namespace Player.Module.Movement
             dashReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Dash);
             reverseAvailable = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Reverse);
             stopReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Stop);
-            dashSidewaysReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.DashSideWays);
-
+            moveSidewaysReady = ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.DashSideWays);
+            
             Refuel();
         }
 
 
         private void Update()
         {
-            
             if (!takeInput)
             {
                 return;
@@ -148,6 +152,12 @@ namespace Player.Module.Movement
             {
                 currentFuel -= Mathf.Abs(RotationInput) *movementVariables.fuelPerSecond * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
                 RotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust * Time.deltaTime);
+            }
+
+            if (Mathf.Abs(sidewaysInput) > 0 && moveSidewaysEneabled)
+            {
+                currentFuel -= Mathf.Abs(sidewaysInput) * moveSidewaysConstants.fuelConsumption * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
+                Rigid.AddForce(moduleBody.transform.right * (sidewaysInput * moveSidewaysConstants.strength * Time.deltaTime));
             }
             
             VisualizeThrust(ThrustInput, RotationInput);
@@ -228,30 +238,28 @@ namespace Player.Module.Movement
            yield return new WaitForSeconds(stopConstants.stopCooldown - stopConstants.stopLength);
            stopReady = true;
         }
-        
-        //TODO dash sideways
 
-        public void DashSideways(Vector2 direction)
+        public void MoveSideways(Vector2 direction)
         {
-            if (takeInput && dashSidewaysReady && currentFuel >= dashSidewaysConstants.fuelConsumption)
+            if (moveSidewaysReady)
             {
-                StartCoroutine(DashSidewaysExecute(direction));
+                StartCoroutine(MoveSidewaysExecute());
             }
+
+            sidewaysInput = direction.x;
         }
 
-        private IEnumerator DashSidewaysExecute(Vector2 direction)
+        private IEnumerator MoveSidewaysExecute()
         {
-            //TODO try removing velocity and adding it after execute concludes
-            takeInput = false;
-            dashSidewaysReady = false;
-
-            currentFuel -= dashSidewaysConstants.fuelConsumption * Environment.instance.fuelConsumptionMultiplier;
-            Rigid.AddForce(moduleBody.transform.right * (direction.x * (dashSidewaysConstants.strength)));
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(dashSidewaysConstants.cooldown, UIController.Cooldowns.SideDash);
-            yield return new WaitForSeconds(dashSidewaysConstants.length);
-            takeInput = true;
-            yield return new WaitForSeconds(dashSidewaysConstants.cooldown - dashSidewaysConstants.length);
-            dashSidewaysReady = true;
+            moveSidewaysReady = false;
+            moveSidewaysEneabled = true;
+            
+            //TODO start reverse visual cooldown
+            yield return new WaitForSeconds(moveSidewaysConstants.length);
+            //ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(moveSidewaysConstants.cooldown, UIController.Cooldowns.SideDash);
+            moveSidewaysEneabled = false;
+            yield return new WaitForSeconds(moveSidewaysConstants.cooldown - moveSidewaysConstants.length);
+            moveSidewaysReady = true;
             
         }
 

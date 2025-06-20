@@ -47,8 +47,8 @@ namespace Entities.Interactions
             {
                 useVisualCue.SetActive(false);
             }
+
             used = true;
-            //TODO play event or something pass moduleRef into event
             onUse.Invoke(moduleRef);
             
             

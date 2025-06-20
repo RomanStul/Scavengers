@@ -13,7 +13,7 @@ namespace Entities.Interactions
 
         public void OpenResourceShop(Module module)
         {
-            module.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ToggleInventory();
+            module.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ToggleResourceShop();
         }
     }
 }

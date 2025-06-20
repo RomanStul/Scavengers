@@ -439,6 +439,22 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 144
       objectReference: {fileID: 0}
+    - target: {fileID: 1703780348144699452, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: moveSidewaysConstants.length
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703780348144699452, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: moveSidewaysConstants.cooldown
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703780348144699452, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: moveSidewaysConstants.strength
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703780348144699452, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: moveSidewaysConstants.fuelConsumption
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1720089791246684810, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.14225292

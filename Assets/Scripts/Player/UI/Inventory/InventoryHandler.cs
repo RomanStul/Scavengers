@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using ScriptableObjects.Item;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +10,19 @@ namespace Player.UI.Inventory
     public class InventoryHandler : MonoBehaviour
     {
         //================================================================CLASSES
+        
+        public enum WindowTypes
+        {
+            Closed,
+            Inventory,
+            ResourceShop
+        }
+
+        [Serializable]
+        public class ObjectsForType
+        {
+            public GameObject[] toEnable;
+        }
         //================================================================EDITOR VARIABLES
         
         [SerializeField] private ItemFrame itemFramePrefab;
@@ -16,6 +31,7 @@ namespace Player.UI.Inventory
         [SerializeField] private Text storageCapacityText;
 
         [SerializeField] private ItemSO[] itemsDB;
+        [SerializeField] private ObjectsForType[] objectsForType;
         //================================================================GETTER SETTER
 
         public void SetStorageCapacity(int capacity)
@@ -29,6 +45,43 @@ namespace Player.UI.Inventory
         private List<ItemFrame> itemFrames = new List<ItemFrame>();
         private int storageCapacity;
         private int storedItems;
+        private WindowTypes currentType = WindowTypes.Closed;
+
+
+        public void ToggleInventory(WindowTypes type)
+        {
+            if (type == WindowTypes.Closed)
+            {
+                currentType = WindowTypes.Closed;
+                transform.gameObject.SetActive(false);
+                return;
+            }
+            
+            if (currentType == type)
+            {
+                transform.gameObject.SetActive(false);
+                currentType = WindowTypes.Closed;
+                return;
+            }
+
+            transform.gameObject.SetActive(true);
+            SetWindowToStyle(type);
+            currentType = type;
+        }
+
+
+        private void SetWindowToStyle(WindowTypes type)
+        {
+            foreach (var toDisable in objectsForType[(int)currentType].toEnable)
+            {
+                toDisable.SetActive(false);
+            }
+
+            foreach (var toEnable in objectsForType[(int)type].toEnable)
+            {
+                toEnable.SetActive(true);
+            }
+        }
 
         public void AddItem(ItemSO item, int amount)
         {

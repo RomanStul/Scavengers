@@ -57,18 +57,9 @@ namespace Player.Module
             }
         }
 
-        public void DashRightInput(InputAction.CallbackContext context)
+        public void MoveSidewaysInput(InputAction.CallbackContext context)
         {
-            if(!context.started) return;
-            
-            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).DashSideways(Vector2.right);
-        }
-
-        public void DashLeftInput(InputAction.CallbackContext context)
-        {
-            if(!context.started) return;
-            
-            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).DashSideways(Vector2.left);
+                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).MoveSideways(context.ReadValue<Vector2>());
         }
 
         public void InteractInput(InputAction.CallbackContext context)
