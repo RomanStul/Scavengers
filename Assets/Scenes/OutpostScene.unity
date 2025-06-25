@@ -440,6 +440,10 @@ PrefabInstance:
       value: 144
       objectReference: {fileID: 0}
     - target: {fileID: 1703780348144699452, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: stopConstants.stopLength
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703780348144699452, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
       propertyPath: moveSidewaysConstants.length
       value: 3
       objectReference: {fileID: 0}
@@ -1061,6 +1065,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7721294376743568502, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016691481368367125, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: upgradesObject.Array.data[0].unlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016691481368367125, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: upgradesObject.Array.data[2].unlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8016691481368367125, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}
+      propertyPath: upgradesObject.Array.data[4].unlocked
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8164801407105686786, guid: 8f1d1fff09246e74f9d5c8f13af33e2b, type: 3}

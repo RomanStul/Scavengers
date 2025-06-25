@@ -132,7 +132,7 @@ namespace Player.Module.Movement
             
             if (currentFuel <= 0)
             {
-                VisualizeThrust(0.0f, 0.0f);
+                VisualizeThrust();
                 return;
             }
             
@@ -160,7 +160,7 @@ namespace Player.Module.Movement
                 Rigid.AddForce(moduleBody.transform.right * (sidewaysInput * moveSidewaysConstants.strength * Time.deltaTime));
             }
             
-            VisualizeThrust(ThrustInput, RotationInput);
+            VisualizeThrust(ThrustInput, RotationInput, sidewaysInput);
             
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
         }
@@ -186,7 +186,7 @@ namespace Player.Module.Movement
 
         private IEnumerator DashExecute()
         {
-            VisualizeThrust(1.0f, 0.0f);
+            VisualizeThrust(1.0f);
             
             dashReady = false;
             takeInput = false;
@@ -225,12 +225,14 @@ namespace Player.Module.Movement
            while (endTime > Time.time && currentFuel > 0 && Rigid.velocity.magnitude > 0.05f)
            {
                currentFuel -= velocityMagnitude * stopConstants.fuelConsumptionMultiplier * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
+               VisualizeStopThrust(-Rigid.velocity);
                Rigid.AddForce(-Rigid.velocity * (useTimeModifier * Time.deltaTime * Rigid.velocity.magnitude), ForceMode2D.Impulse);
                yield return null;
            }
            
            
            Rigid.AddForce(-Rigid.velocity.normalized * Mathf.Min(Rigid.velocity.magnitude, currentFuel), ForceMode2D.Impulse);
+           VisualizeStopThrust(new Vector2(0.0f, 0.0f));
            
            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
            
@@ -239,6 +241,28 @@ namespace Player.Module.Movement
            stopReady = true;
         }
 
+        private void VisualizeStopThrust(Vector2 stopDirection)
+        {
+            stopDirection.Normalize();
+            stopDirection.x = (stopDirection.x - stopDirection.x * 0.5f) * 2;
+            stopDirection.y = (stopDirection.y - stopDirection.y * 0.5f) * 2;
+            
+            Vector2 upThrust = stopDirection * moduleBody.transform.up;
+            float upSum = upThrust.x + upThrust.y;
+            Vector2 rightThrust = stopDirection * moduleBody.transform.right;
+            float rightSum = rightThrust.x + rightThrust.y;
+
+            thrustVisuals.backMotor.SetActive(upSum > 0.4f);
+            thrustVisuals.frontMotor.SetActive(upSum < -0.4 && reverseAvailable);
+
+            thrustVisuals.leftFrontMotor.SetActive(rightSum > 0.4f);
+            thrustVisuals.leftRearMotor.SetActive(rightSum > 0.4f);
+            
+            thrustVisuals.rightFrontMotor.SetActive(rightSum < -0.4f);
+            thrustVisuals.rightRearMotor.SetActive(rightSum < -0.4f);
+        }
+        
+        
         public void MoveSideways(Vector2 direction)
         {
             if (moveSidewaysReady)
@@ -255,25 +279,29 @@ namespace Player.Module.Movement
             moveSidewaysEneabled = true;
             
             //TODO start reverse visual cooldown
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartDuration(moveSidewaysConstants.length);
             yield return new WaitForSeconds(moveSidewaysConstants.length);
-            //ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(moveSidewaysConstants.cooldown, UIController.Cooldowns.SideDash);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(moveSidewaysConstants.cooldown, UIController.Cooldowns.SideDash);
             moveSidewaysEneabled = false;
+            
             yield return new WaitForSeconds(moveSidewaysConstants.cooldown - moveSidewaysConstants.length);
             moveSidewaysReady = true;
             
         }
 
-
-        private void VisualizeThrust(float thrustInput, float rotationInput)
+        //Passes parameters to prevent showing thrust when input is blocked (dashing, stopping)
+        private void VisualizeThrust(float thrustInputVar = 0.0f, float rotationInputVar = 0.0f, float sidewaysInputVar = 0.0f)
         {
-            thrustVisuals.backMotor.SetActive(thrustInput > 0);
-            thrustVisuals.frontMotor.SetActive(thrustInput < 0 && reverseAvailable);
-            
-            thrustVisuals.leftFrontMotor.SetActive(rotationInput > 0);
-            thrustVisuals.rightRearMotor.SetActive(rotationInput > 0);
+            thrustVisuals.backMotor.SetActive(thrustInputVar > 0);
+            thrustVisuals.frontMotor.SetActive(thrustInputVar < 0 && reverseAvailable);
 
-            thrustVisuals.rightFrontMotor.SetActive(rotationInput < 0);
-            thrustVisuals.leftRearMotor.SetActive(rotationInput < 0);
+            thrustVisuals.leftFrontMotor.SetActive(rotationInputVar > 0 || sidewaysInputVar > 0 && moveSidewaysEneabled);
+            thrustVisuals.rightRearMotor.SetActive(rotationInputVar > 0 || sidewaysInputVar < 0 && moveSidewaysEneabled);
+
+            thrustVisuals.rightFrontMotor.SetActive(rotationInputVar < 0 || sidewaysInputVar < 0 && moveSidewaysEneabled);
+            thrustVisuals.leftRearMotor.SetActive(rotationInputVar < 0 || sidewaysInputVar > 0 && moveSidewaysEneabled);
         }
+        
+        
     }
 }

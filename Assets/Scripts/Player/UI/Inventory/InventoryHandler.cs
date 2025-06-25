@@ -52,6 +52,7 @@ namespace Player.UI.Inventory
         {
             if (type == WindowTypes.Closed)
             {
+                SetWindowToStyle(type);
                 currentType = WindowTypes.Closed;
                 transform.gameObject.SetActive(false);
                 return;
@@ -59,6 +60,7 @@ namespace Player.UI.Inventory
             
             if (currentType == type)
             {
+                SetWindowToStyle(WindowTypes.Closed);
                 transform.gameObject.SetActive(false);
                 currentType = WindowTypes.Closed;
                 return;
@@ -109,9 +111,34 @@ namespace Player.UI.Inventory
             }
         }
 
+
+        public void RemoveItem(ItemSO item, int amount)
+        {
+            for (int i = 0; i < itemFrames.Count && (int)itemFrames[i].GetFramedItem().itemType < (int)item.itemType; i++)
+            {
+                if ((int)itemFrames[i].GetFramedItem().itemType < (int)item.itemType)
+                {
+                    itemFrames[i].RemoveFromFrame(amount);
+                }
+            }
+        }
+        
+
         public void AddItem(int index, int amount)
         {
             AddItem(itemsDB[index], amount);
+        }
+
+        public void RemoveAllItems()
+        {
+            storedItems = 0;
+            for (int i = 0; i < itemFrames.Count; i++)
+            {
+                itemFrames[0].transform.gameObject.SetActive(false);
+                itemFrames[i].RemoveFromFrame();
+            }
+            
+            SetCapacityText();
         }
 
         private int CreateFrame(ItemSO item, int amount, int frameIndex)

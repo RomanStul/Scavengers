@@ -41,5 +41,18 @@ namespace Player.UI.Inventory
             counter.text = heldItems.ToString();
             return toReturn;
         }
+
+        public int RemoveFromFrame(int count = -1)
+        {
+            if (count == -1 || count >= heldItems)
+            {
+                Destroy(transform.gameObject);
+                return heldItems;
+            }
+
+            heldItems = heldItems - count;
+            counter.text = heldItems.ToString();
+            return count;
+        }
     }
 }

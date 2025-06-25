@@ -41,6 +41,9 @@ namespace Player.UI
             Stop.transform.gameObject.SetActive(
                 ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.Stop)
             );
+            SideDash.transform.gameObject.SetActive(
+                ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.DashSideWays)
+            );
         }
 
     public void SetBar(int value, BarsNames barName, bool isMax = false)
@@ -94,6 +97,11 @@ namespace Player.UI
             targetCooldown.StartCooldown(time);
         }
 
+        public void StartDuration(float time, Cooldowns cooldownName = Cooldowns.SideDash)
+        {
+            SideDash.StartDuration(time);
+        }
+
         public void DisplayBalance(int balance)
         {
             currencyDisplay.DisplayBalance(balance);
@@ -123,6 +131,16 @@ namespace Player.UI
         public void ToggleInventory()
         {
             inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
+        }
+
+        public void RemoveAllItemsFromInventory()
+        {
+            inventory.RemoveAllItems();
+        }
+
+        public void RemoveItemFromInventory(ItemSO item, int amount)
+        {
+            inventory.RemoveItem(item, amount);
         }
 
         public void ToggleResourceShop()

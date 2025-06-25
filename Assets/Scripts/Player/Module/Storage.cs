@@ -93,10 +93,24 @@ namespace Player.Module
                 }
                 
             }
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveItemFromInventory(item.GetItemData(), toRemove);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
             return amount;
         }
 
+
+        public void RemoveAllItems()
+        {
+            itemsStored = 0;
+            for (int i = 0; i < itemStorage.Length; i++)
+            {
+                itemStorage[i] = 0;
+            }
+            
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveAllItemsFromInventory();
+        }
+
+            
         public void AddCurrency(int amount)
         {
             currency += amount;
