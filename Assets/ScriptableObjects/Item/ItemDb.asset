@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d518c0e0551556440b2b2f79b97f3ac7, type: 3}
-  m_Name: Dot
+  m_Script: {fileID: 11500000, guid: 42f37e6de2dd17b4daed0789938105fb, type: 3}
+  m_Name: ItemDb
   m_EditorClassIdentifier: 
-  image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  itemType: 0
-  price: 5
+  items:
+  - {fileID: 11400000, guid: 15149479c26fab947b2dd5ce605693c4, type: 2}

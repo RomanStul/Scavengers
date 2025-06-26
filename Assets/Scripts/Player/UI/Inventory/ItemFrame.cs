@@ -20,6 +20,11 @@ namespace Player.UI.Inventory
         {
             return framedItem;
         }
+
+        public int GetHeldItemsCount()
+        {
+            return heldItems;
+        }
         
         //================================================================FUNCTIONALITY
 
@@ -42,6 +47,8 @@ namespace Player.UI.Inventory
             return toReturn;
         }
 
+        
+        //Returns removed items
         public int RemoveFromFrame(int count = -1)
         {
             if (count == -1 || count >= heldItems)

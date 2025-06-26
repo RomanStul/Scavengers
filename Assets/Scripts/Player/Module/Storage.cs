@@ -13,6 +13,7 @@ namespace Player.Module
         [SerializeField] private int itemsStored;
         [SerializeField] private int[] itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
         [SerializeField] private int currency = 0;
+        [SerializeField] private ItemDBSO itemDBSO;
         //================================================================GETTER SETTER
 
         public int[] ItemStorage
@@ -138,6 +139,22 @@ namespace Player.Module
             }
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
             return toReturn;
+        }
+
+        public void SellItems(ItemSO item = null, int amount = -1)
+        {
+            if (item == null)
+            {
+                int total = 0;
+                for (int i = 0; i < itemStorage.Length; i++)
+                {
+                    total += itemStorage[i] * itemDBSO.items[i].price;
+                }
+                AddCurrency(total);
+                RemoveAllItems();
+            }
+            
+            
         }
     }
 }

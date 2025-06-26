@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ScriptableObjects.Item;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Player.UI.Inventory
@@ -30,8 +31,10 @@ namespace Player.UI.Inventory
 
         [SerializeField] private Text storageCapacityText;
 
-        [SerializeField] private ItemSO[] itemsDB;
+        [SerializeField] private ItemDBSO itemsDB;
         [SerializeField] private ObjectsForType[] objectsForType;
+
+        [SerializeField] private UnityEvent<ItemSO, int> sellEvent;
         //================================================================GETTER SETTER
 
         public void SetStorageCapacity(int capacity)
@@ -114,19 +117,25 @@ namespace Player.UI.Inventory
 
         public void RemoveItem(ItemSO item, int amount)
         {
-            for (int i = 0; i < itemFrames.Count && (int)itemFrames[i].GetFramedItem().itemType < (int)item.itemType; i++)
+            for (int i = itemFrames.Count-1; i >= 0 && (int)itemFrames[i].GetFramedItem().itemType > (int)item.itemType && amount > 0; i--)
             {
                 if ((int)itemFrames[i].GetFramedItem().itemType < (int)item.itemType)
                 {
-                    itemFrames[i].RemoveFromFrame(amount);
+                    //TODO check if frame was destroyed
+                    amount -= itemFrames[i].RemoveFromFrame(amount);
                 }
+            }
+
+            if (amount > 0)
+            {
+                throw new Exception("STORED ITEMS MISMATCH: Tried to remove more that is stored");
             }
         }
         
 
         public void AddItem(int index, int amount)
         {
-            AddItem(itemsDB[index], amount);
+            AddItem(itemsDB.items[index], amount);
         }
 
         public void RemoveAllItems()
@@ -137,6 +146,7 @@ namespace Player.UI.Inventory
                 itemFrames[0].transform.gameObject.SetActive(false);
                 itemFrames[i].RemoveFromFrame();
             }
+            itemFrames.Clear();
             
             SetCapacityText();
         }
@@ -153,6 +163,40 @@ namespace Player.UI.Inventory
         private void SetCapacityText()
         {
             storageCapacityText.text = storedItems.ToString() + "/" + storageCapacity.ToString();
+        }
+
+        
+        //Needed for selling slider to show worth of items to sell
+        private int CalculateWorth(ItemSO item = null, int amount = -1)
+        {
+            if (item == null)
+            {
+                int total = 0;
+                for (int i = 0; i < itemFrames.Count; i++)
+                {
+                    total += itemFrames[i].GetHeldItemsCount() * itemsDB.items[(int)itemFrames[i].GetFramedItem().itemType].price;
+                }
+                return total;
+            }
+            else
+            {
+                if (amount == -1)
+                {
+                    //for all
+                }
+                else
+                {
+                    //for amount
+                }
+            }
+
+            return 0;
+        }
+
+        public void SellItem(bool all)
+        {
+            Debug.Log("invoking event");
+            sellEvent.Invoke(null, -1);
         }
     }
 }
