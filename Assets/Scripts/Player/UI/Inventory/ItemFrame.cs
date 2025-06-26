@@ -25,10 +25,16 @@ namespace Player.UI.Inventory
         {
             return heldItems;
         }
-        
+
+
+        public void SetInventoryHandler(InventoryHandler handler)
+        {
+            inventoryHandler = handler;
+        }
         //================================================================FUNCTIONALITY
 
         private int heldItems = 0; 
+        private InventoryHandler inventoryHandler;
         
         
         public void Initialize(ItemSO itemToFrame, int count)
@@ -60,6 +66,12 @@ namespace Player.UI.Inventory
             heldItems = heldItems - count;
             counter.text = heldItems.ToString();
             return count;
+        }
+
+
+        public void ClickedFrame()
+        {
+            inventoryHandler.ClickedItem(this);
         }
     }
 }

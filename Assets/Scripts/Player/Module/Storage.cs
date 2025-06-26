@@ -71,22 +71,21 @@ namespace Player.Module
             }
         }
 
-        public int RemoveItem(Entities.Item item, int amount = -1)
+        public void RemoveItem(ItemSO item, int amount = -1)
         {
             int toRemove = 0;
             if (amount == -1)
             {
-                itemStorage[(int)item.GetItemData().itemType] = 0;
-                toRemove = itemStorage[(int)item.GetItemData().itemType];
+                itemStorage[(int)item.itemType] = 0;
+                toRemove = itemStorage[(int)item.itemType];
             }
             else
             {
-                toRemove = itemStorage[(int)item.GetItemData().itemType];
-                itemStorage[(int)item.GetItemData().itemType] -= amount;
-                if (itemStorage[(int)item.GetItemData().itemType] <= 0)
+                toRemove = itemStorage[(int)item.itemType];
+                itemStorage[(int)item.itemType] -= amount;
+                if (itemStorage[(int)item.itemType] <= 0)
                 {
-                    itemStorage[(int)item.GetItemData().itemType] = 0;
-                    return toRemove;
+                    itemStorage[(int)item.itemType] = 0;
                 }
                 else
                 {
@@ -94,9 +93,8 @@ namespace Player.Module
                 }
                 
             }
-            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveItemFromInventory(item.GetItemData(), toRemove);
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveItemFromInventory(item, toRemove);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
-            return amount;
         }
 
 
@@ -153,8 +151,19 @@ namespace Player.Module
                 AddCurrency(total);
                 RemoveAllItems();
             }
-            
-            
+            else
+            {
+                if (amount == -1)
+                {
+                    AddCurrency(item.price * itemStorage[(int)item.itemType]);
+                    
+                }
+                else
+                {
+                    AddCurrency(item.price * amount);
+                }
+                RemoveItem(item, amount);
+            }
         }
     }
 }

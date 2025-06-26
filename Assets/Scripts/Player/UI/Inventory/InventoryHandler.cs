@@ -11,7 +11,7 @@ namespace Player.UI.Inventory
     public class InventoryHandler : MonoBehaviour
     {
         //================================================================CLASSES
-        
+
         public enum WindowTypes
         {
             Closed,
@@ -25,7 +25,7 @@ namespace Player.UI.Inventory
             public GameObject[] toEnable;
         }
         //================================================================EDITOR VARIABLES
-        
+
         [SerializeField] private ItemFrame itemFramePrefab;
         [SerializeField] private Transform itemFrameContainer;
 
@@ -35,6 +35,13 @@ namespace Player.UI.Inventory
         [SerializeField] private ObjectsForType[] objectsForType;
 
         [SerializeField] private UnityEvent<ItemSO, int> sellEvent;
+        [SerializeField] private UnityEvent<ItemSO, int> dropEvent;
+
+
+        [SerializeField] private Text itemName;
+        [SerializeField] private Image itemIcon;
+        [SerializeField] private Text sliderCount;
+
         //================================================================GETTER SETTER
 
         public void SetStorageCapacity(int capacity)
@@ -42,13 +49,15 @@ namespace Player.UI.Inventory
             storageCapacity = capacity;
             SetCapacityText();
         }
-        
+
         //================================================================FUNCTIONALITY
-    
+
         private List<ItemFrame> itemFrames = new List<ItemFrame>();
         private int storageCapacity;
         private int storedItems;
         private WindowTypes currentType = WindowTypes.Closed;
+        private ItemFrame currentlySelectedItemFrame;
+        private int selectedAmount = 1;
 
 
         public void ToggleInventory(WindowTypes type)
@@ -60,7 +69,7 @@ namespace Player.UI.Inventory
                 transform.gameObject.SetActive(false);
                 return;
             }
-            
+
             if (currentType == type)
             {
                 SetWindowToStyle(WindowTypes.Closed);
@@ -92,21 +101,25 @@ namespace Player.UI.Inventory
         {
             storedItems = Mathf.Min(storageCapacity, storedItems + amount);
             SetCapacityText();
-            
-            int j = 0;
-                for (; j < itemFrames.Count && amount > 0; j++)
-                {
-                    if (itemFrames[j].GetFramedItem().itemType == item.itemType)
-                    {
-                        int remaining = itemFrames[j].AddToFrame(amount);
-                        amount = remaining;
-                    }
 
-                    if ((int)item.itemType > (int)itemFrames[j].GetFramedItem().itemType)
+            int j = 0;
+            for (; j < itemFrames.Count && amount > 0; j++)
+            {
+                if (itemFrames[j].GetFramedItem().itemType == item.itemType)
+                {
+                    int remaining = itemFrames[j].AddToFrame(amount);
+                    if (itemFrames[j] == currentlySelectedItemFrame)
                     {
-                        amount = CreateFrame(item, amount, j);
+                        SetSliderCountText();
                     }
+                    amount = remaining;
                 }
+
+                if ((int)item.itemType > (int)itemFrames[j].GetFramedItem().itemType)
+                {
+                    amount = CreateFrame(item, amount, j);
+                }
+            }
 
             while (amount > 0)
             {
@@ -117,21 +130,39 @@ namespace Player.UI.Inventory
 
         public void RemoveItem(ItemSO item, int amount)
         {
-            for (int i = itemFrames.Count-1; i >= 0 && (int)itemFrames[i].GetFramedItem().itemType > (int)item.itemType && amount > 0; i--)
+            for (int i = itemFrames.Count - 1; i >= 0 && (int)itemFrames[i].GetFramedItem().itemType >= (int)item.itemType && amount > 0; i--)
             {
-                if ((int)itemFrames[i].GetFramedItem().itemType < (int)item.itemType)
+                if ((int)itemFrames[i].GetFramedItem().itemType == (int)item.itemType)
                 {
-                    //TODO check if frame was destroyed
-                    amount -= itemFrames[i].RemoveFromFrame(amount);
+                    int inFrame = (int)itemFrames[i].GetHeldItemsCount();
+                    
+                    int removed = itemFrames[i].RemoveFromFrame(amount);
+                    amount -= removed;
+                    if (inFrame - removed <= 0)
+                    {
+                        if (currentlySelectedItemFrame == itemFrames[i])
+                        {
+                            //TODO change to default frame
+                        }
+                        Destroy(itemFrames[i].gameObject);
+                        itemFrames.RemoveAt(i);
+                    }
+                    else
+                    {
+                        if (currentlySelectedItemFrame == itemFrames[i])
+                        {
+                            SetSliderCountText();
+                        }
+                    }
                 }
             }
 
             if (amount > 0)
             {
-                throw new Exception("STORED ITEMS MISMATCH: Tried to remove more that is stored");
+                throw new Exception("STORED ITEMS MISMATCH: Tried to remove more than is stored");
             }
         }
-        
+
 
         public void AddItem(int index, int amount)
         {
@@ -146,8 +177,9 @@ namespace Player.UI.Inventory
                 itemFrames[0].transform.gameObject.SetActive(false);
                 itemFrames[i].RemoveFromFrame();
             }
+
             itemFrames.Clear();
-            
+
             SetCapacityText();
         }
 
@@ -157,6 +189,7 @@ namespace Player.UI.Inventory
             itemFrames.Insert(frameIndex, inserted);
             inserted.Initialize(item, amount);
             inserted.transform.SetSiblingIndex(frameIndex);
+            inserted.SetInventoryHandler(this);
             return amount - 99;
         }
 
@@ -165,7 +198,7 @@ namespace Player.UI.Inventory
             storageCapacityText.text = storedItems.ToString() + "/" + storageCapacity.ToString();
         }
 
-        
+
         //Needed for selling slider to show worth of items to sell
         private int CalculateWorth(ItemSO item = null, int amount = -1)
         {
@@ -174,8 +207,10 @@ namespace Player.UI.Inventory
                 int total = 0;
                 for (int i = 0; i < itemFrames.Count; i++)
                 {
-                    total += itemFrames[i].GetHeldItemsCount() * itemsDB.items[(int)itemFrames[i].GetFramedItem().itemType].price;
+                    total += itemFrames[i].GetHeldItemsCount() *
+                             itemsDB.items[(int)itemFrames[i].GetFramedItem().itemType].price;
                 }
+
                 return total;
             }
             else
@@ -195,8 +230,30 @@ namespace Player.UI.Inventory
 
         public void SellItem(bool all)
         {
-            Debug.Log("invoking event");
             sellEvent.Invoke(null, -1);
         }
-    }
+
+        public void ClickedItem(ItemFrame frame)
+        {
+            itemName.text = frame.GetFramedItem().itemType.ToString();
+            itemIcon.sprite = frame.GetFramedItem().image;
+            currentlySelectedItemFrame = frame;
+            SetSliderCountText();
+        }
+
+        public void SellSelectedItem(bool all)
+        {
+            sellEvent.Invoke(currentlySelectedItemFrame.GetFramedItem(), all ? currentlySelectedItemFrame.GetHeldItemsCount() : selectedAmount);
+        }
+
+        public void DropSelectedItem(bool all)
+        {
+            dropEvent.Invoke(currentlySelectedItemFrame.GetFramedItem(), all ? currentlySelectedItemFrame.GetHeldItemsCount(): selectedAmount);
+        }
+
+        private void SetSliderCountText()
+        {
+            sliderCount.text = selectedAmount + "/" + currentlySelectedItemFrame.GetHeldItemsCount();
+        }
+}
 }
