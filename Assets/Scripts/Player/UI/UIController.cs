@@ -23,6 +23,15 @@ namespace Player.UI
         }
         //================================================================CLASSES
 
+        public enum WindowType
+        {
+            None,
+            Inventory,
+            Resources,
+            Upgrades,
+            Items
+        }
+        
         //================================================================EDITOR VARIABLES
         [SerializeField] private Bar HealthBar, FuelBar, StorageBar;
         [SerializeField] private Cooldown Dash, Stop, SideDash;
@@ -32,6 +41,8 @@ namespace Player.UI
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
+        
+        private UIWindow currentOpponentWindow;
         
         public override void ApplyUpgrades()
         {
@@ -128,11 +139,6 @@ namespace Player.UI
             inventory.SetStorageCapacity(capacity);
         }
 
-        public void ToggleInventory()
-        {
-            inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
-        }
-
         public void RemoveAllItemsFromInventory()
         {
             inventory.RemoveAllItems();
@@ -143,9 +149,27 @@ namespace Player.UI
             inventory.RemoveItem(item, amount);
         }
 
-        public void ToggleResourceShop()
+        public void OpenWindow(WindowType win)
         {
-            inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
+            //TODO close currently opened window
+            
+            switch (win)
+            {
+                case WindowType.Inventory:
+                    inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
+                    currentOpponentWindow = inventory;
+                    break;
+                
+                case WindowType.Resources:
+                    inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
+                    currentOpponentWindow = inventory;
+                    break;
+            }
+
+            if (currentOpponentWindow.blocksInput)
+            {
+                //TODO set flag in module ref to block input
+            }
         }
     }
 }

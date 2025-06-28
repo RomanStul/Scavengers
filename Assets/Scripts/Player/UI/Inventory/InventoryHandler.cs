@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Player.UI.UIComponent;
 using ScriptableObjects.Item;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Player.UI.Inventory
 {
-    public class InventoryHandler : MonoBehaviour
+    public class InventoryHandler : UIWindow
     {
         //================================================================CLASSES
 
@@ -41,6 +42,7 @@ namespace Player.UI.Inventory
         [SerializeField] private Text itemName;
         [SerializeField] private Image itemIcon;
         [SerializeField] private Text sliderCount;
+        [SerializeField] private SliderController countSlider;
 
         //================================================================GETTER SETTER
 
@@ -238,6 +240,7 @@ namespace Player.UI.Inventory
             itemName.text = frame.GetFramedItem().itemType.ToString();
             itemIcon.sprite = frame.GetFramedItem().image;
             currentlySelectedItemFrame = frame;
+                countSlider.SetMaxValue(frame.GetHeldItemsCount());
             SetSliderCountText();
         }
 
@@ -254,6 +257,12 @@ namespace Player.UI.Inventory
         private void SetSliderCountText()
         {
             sliderCount.text = selectedAmount + "/" + currentlySelectedItemFrame.GetHeldItemsCount();
+        }
+
+        public void SetSliderCount(Single value)
+        {
+            selectedAmount = (int)value;
+            SetSliderCountText();
         }
 }
 }

@@ -1,19 +1,24 @@
-using Player.Module;
-using Player.UI;
 using UnityEngine;
 
-namespace Entities.Interactions
+namespace Player.UI
 {
-    public class ResourceShop : MonoBehaviour
+    public class UIWindow : MonoBehaviour
     {
         //================================================================CLASSES
+
         //================================================================EDITOR VARIABLES
+
+        public bool blocksInput = true;
+
         //================================================================GETTER SETTER
+
+        
+        
         //================================================================FUNCTIONALITY
 
-        public void OpenResourceShop(Module module)
+        public virtual void CloseWindow()
         {
-            module.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Resources);
+            transform.gameObject.SetActive(false);
         }
     }
 }

@@ -1,19 +1,27 @@
-using Player.Module;
-using Player.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
-namespace Entities.Interactions
+namespace Player.UI.UIComponent
 {
-    public class ResourceShop : MonoBehaviour
+    public class SliderController : MonoBehaviour
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
+        
+        [SerializeField] private Slider slider;
+        
         //================================================================GETTER SETTER
+
+        public void SetMaxValue(int maxValue)
+        {
+            slider.maxValue = maxValue;
+        }
+        
         //================================================================FUNCTIONALITY
 
-        public void OpenResourceShop(Module module)
+        public void MoveSlider(int offset)
         {
-            module.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Resources);
+            slider.value += offset;
         }
     }
 }

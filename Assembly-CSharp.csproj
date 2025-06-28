@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Cooldown.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\UpgradeVisuals.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\UIComponent\SliderController.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />
     <Compile Include="Assets\ScriptableObjects\Material\MaterialSO.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Storage.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\UIWindow.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\InventoryHandler.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\SceneTransfer.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

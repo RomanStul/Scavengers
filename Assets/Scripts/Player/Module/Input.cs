@@ -73,7 +73,7 @@ namespace Player.Module
         {
             if(!context.started) return;
             
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ToggleInventory();
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Inventory);
         }
     }
 }
