@@ -1,3 +1,4 @@
+using Entities.Enviroment;
 using Player.UI;
 using ScriptableObjects.Material;
 using UnityEngine;
@@ -15,6 +16,17 @@ namespace Player.Module
             ModuleRef = module;
         }
 
+        public float GetMissingHealth()
+        {
+            //CAN be altered with upgrade for easier repairs
+            return healthBarConstants.maxHealth - healthBarConstants.currentHealth;
+        }
+
+        public override void SetHealth(float health)
+        {
+            base.SetHealth(health);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
+        }
         //================================================================FUNCTIONALITY
         protected Player.Module.Module ModuleRef;
         
@@ -36,9 +48,15 @@ namespace Player.Module
 
         public override float TakeDamage(float damage, MaterialSO.DamageType damageType)
         {
-            float health = base.TakeDamage(damage, damageType);
+            float health = base.TakeDamage(damage * Environment.instance.damageMultiplier, damageType);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
             return health;
+        }
+
+        public override void HealHealth(float health = -1)
+        {
+            base.HealHealth(health);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
         }
     }
 }

@@ -9,15 +9,32 @@ namespace Player.UI
         {
             SetMaxValue(time);
             SetValue(0);
-            StartCoroutine(Countdown(time));
+            StartCoroutine(CountUp(time));
         }
 
-        private IEnumerator Countdown(float time)
+        public void StartDuration(float time)
+        {
+            SetMaxValue(time);
+            SetValue(time);
+            StartCoroutine(CountDown());
+        }
+
+        private IEnumerator CountUp(float time)
         {
             while (value < maxValue)
             {
                 yield return new WaitForSeconds(0.1f);
                 value += 0.1f;
+                UpdateFill();
+            }
+        }
+
+        private IEnumerator CountDown()
+        {
+            while (value > 0)
+            {
+                yield return new WaitForSeconds(0.1f);
+                value -= 0.1f;
                 UpdateFill();
             }
         }

@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using Entities;
+using Entities.Interactions;
 using ScriptableObjects.Material;
 using UnityEditor;
 using UnityEngine;
@@ -43,9 +45,26 @@ namespace Player.Module
         private void OnTriggerEnter2D(Collider2D collision)
         {
             GameObject col = collision.gameObject;
+
             if (col.layer == LayerMask.NameToLayer("Item"))
             {
-                ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).AddItem(col.transform.GetComponent<Entities.Item>(), 1);
+                ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).PickUpItem(col.transform.GetComponent<Entities.Item>(), 1);
+                return;
+            }
+
+            if (col.layer == LayerMask.NameToLayer("Interactible"))
+            {
+                ModuleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).SetInteractableEntity(col.transform.GetComponent<Interactable>());
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            GameObject col = collision.gameObject;
+
+            if (col.layer == LayerMask.NameToLayer("Interactible"))
+            {
+                ModuleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).ResetInteractableEntity(col.transform.GetComponent<Interactable>());
             }
         }
     }

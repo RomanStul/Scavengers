@@ -12,5 +12,6 @@ namespace ScriptableObjects.Item
     
         public Sprite image;
         public Items itemType;
+        public int price;
     }
 }

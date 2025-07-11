@@ -25,6 +25,22 @@ namespace Entities
         [SerializeField] protected HealthBarEvent onHealthChangedEvent;
         [SerializeField] protected HealthBarEvent onDestroyedEvent;
         //================================================================GETTER SETTER
+        
+        public float GetHealth()
+        {
+            return healthBarConstants.currentHealth;
+        }
+
+        public float GetMaxHealth()
+        {
+            return healthBarConstants.maxHealth;
+        }
+        
+        public virtual void SetHealth(float health)
+        {
+            healthBarConstants.currentHealth = health;
+        }
+        
         //================================================================FUNCTIONALITY
 
 
@@ -72,6 +88,21 @@ namespace Entities
             }
 
             return material.defaultDamage1 ? damage : 0f;
+        }
+
+        public virtual void HealHealth(float health = -1)
+        {
+            if (health < 0)
+            {
+                healthBarConstants.currentHealth = healthBarConstants.maxHealth;
+                return;
+            }
+            
+            healthBarConstants.currentHealth += health;
+            if (healthBarConstants.currentHealth > healthBarConstants.maxHealth)
+            {
+                healthBarConstants.currentHealth = healthBarConstants.maxHealth;
+            }
         }
 
     

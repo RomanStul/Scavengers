@@ -1,8 +1,13 @@
 using UnityEngine;
+using Player.Module.Upgrades;
+using Player.Module;
+using Player.UI.Inventory;
+using ScriptableObjects.Item;
+using Input = Player.Module.Input;
 
 namespace Player.UI
 {
-    public class UIController : Module.BaseClass
+    public class UIController : Module.ModuleBaseScript
     {
         public enum BarsNames
         {
@@ -18,15 +23,43 @@ namespace Player.UI
             SideDash
         }
         //================================================================CLASSES
-    
+
+        public enum WindowType
+        {
+            None,
+            Inventory,
+            Resources,
+            Upgrades,
+            Items
+        }
+        
         //================================================================EDITOR VARIABLES
         [SerializeField] private Bar HealthBar, FuelBar, StorageBar;
         [SerializeField] private Cooldown Dash, Stop, SideDash;
+        [SerializeField] private CurrencyDisplay currencyDisplay;
+
+        [SerializeField] private InventoryHandler inventory;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
+        
+        private UIWindow currentOppenedWindow;
+        private WindowType currentWindowType;
+        
+        public override void ApplyUpgrades()
+        {
+            Dash.transform.gameObject.SetActive(
+                    ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.Dash)
+                );
+            Stop.transform.gameObject.SetActive(
+                ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.Stop)
+            );
+            SideDash.transform.gameObject.SetActive(
+                ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.DashSideWays)
+            );
+        }
 
-        public void SetBar(int value, BarsNames barName, bool isMax = false)
+    public void SetBar(int value, BarsNames barName, bool isMax = false)
         {
             Bar targetBar = null;
 
@@ -75,6 +108,87 @@ namespace Player.UI
             }
             
             targetCooldown.StartCooldown(time);
+        }
+
+        public void StartDuration(float time, Cooldowns cooldownName = Cooldowns.SideDash)
+        {
+            SideDash.StartDuration(time);
+        }
+
+        public void DisplayBalance(int balance)
+        {
+            currencyDisplay.DisplayBalance(balance);
+        }
+
+        public void ItemAmountChange(ItemSO item, int amount)
+        {
+            if (amount > 0)
+            {
+                inventory.AddItem(item, amount);
+            }
+        }
+
+        public void ItemAmountChange(int item, int amount)
+        {
+            if (amount > 0)
+            {
+                inventory.AddItem(item, amount);
+            }
+        }
+
+        public void SetStorageCapacity(int capacity)
+        {
+            inventory.SetStorageCapacity(capacity);
+        }
+
+        public void RemoveAllItemsFromInventory()
+        {
+            inventory.RemoveAllItems();
+        }
+
+        public void RemoveItemFromInventory(ItemSO item, int amount)
+        {
+            inventory.RemoveItem(item, amount);
+        }
+
+        public void OpenWindow(WindowType win)
+        {
+            if(currentOppenedWindow != null)
+                currentOppenedWindow.CloseWindow();
+
+            if (win == currentWindowType)
+            {
+                currentWindowType = WindowType.None;
+                currentOppenedWindow = null;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = true;
+                return;
+            }
+            
+            switch (win)
+            {
+                case WindowType.Inventory:
+                    inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
+                    currentOppenedWindow = inventory.IsOpened() ? inventory : null;
+                    break;
+                
+                case WindowType.Resources:
+                    inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
+                    currentOppenedWindow = inventory.IsOpened() ? inventory : null;
+                    break;
+            }
+            
+            
+
+            if (currentOppenedWindow != null)
+            {
+                currentWindowType = currentOppenedWindow.IsOpened() ? WindowType.Inventory : WindowType.None;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = !currentOppenedWindow.blocksInput;
+            }
+            else
+            {
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = true;
+                currentWindowType = WindowType.None;
+            }
         }
     }
 }
