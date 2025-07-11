@@ -3,6 +3,7 @@ using Player.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.Serialization;
 
 namespace Player.Module
 {
@@ -10,40 +11,50 @@ namespace Player.Module
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
+
+        public bool takeInput = true;
+        
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
+        
         public void RotationInput(InputAction.CallbackContext context)
         {
-            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).RotationInput = context.ReadValue<Vector2>().x;
+            if(takeInput) 
+                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).RotationInput = context.ReadValue<Vector2>().x;
         }
 
         public void ThrustInput(InputAction.CallbackContext context)
         {
-            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).ThrustInput = context.ReadValue<Vector2>().y;
+            if(takeInput)
+                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).ThrustInput = context.ReadValue<Vector2>().y;
         }
 
         public void DrillPositionInput(InputAction.CallbackContext context)
         {
-            ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).DrillTargetPosition = context.ReadValue<Vector2>();
+            if(takeInput)
+                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).DrillTargetPosition = context.ReadValue<Vector2>();
         }
 
         public void DrillUseInput(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (takeInput)
             {
-                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(true);
-            }
+                if (context.started)
+                {
+                    ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(true);
+                }
 
-            if (context.canceled)
-            {
-                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
+                if (context.canceled)
+                {
+                    ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
+                } 
             }
         }
 
         public void DashInput(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (takeInput && context.started)
             {
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Dash();
             }
@@ -51,7 +62,7 @@ namespace Player.Module
 
         public void StopInput(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (takeInput && context.started)
             {
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Stop();
             }
@@ -59,6 +70,7 @@ namespace Player.Module
 
         public void MoveSidewaysInput(InputAction.CallbackContext context)
         {
+            if(takeInput)
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).MoveSideways(context.ReadValue<Vector2>());
         }
 

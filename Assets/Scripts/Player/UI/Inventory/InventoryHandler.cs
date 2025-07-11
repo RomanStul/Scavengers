@@ -43,6 +43,7 @@ namespace Player.UI.Inventory
         [SerializeField] private Image itemIcon;
         [SerializeField] private Text sliderCount;
         [SerializeField] private SliderController countSlider;
+        [SerializeField] private GameObject highlightItem;
 
         //================================================================GETTER SETTER
 
@@ -80,9 +81,21 @@ namespace Player.UI.Inventory
                 return;
             }
 
+            ToggleHighlightedItem();
             transform.gameObject.SetActive(true);
             SetWindowToStyle(type);
             currentType = type;
+        }
+
+        public override void CloseWindow()
+        {
+            ToggleInventory(WindowTypes.Closed);
+        }
+
+
+        public override bool IsOpened()
+        {
+            return currentType != WindowTypes.Closed;
         }
 
 
@@ -132,6 +145,7 @@ namespace Player.UI.Inventory
 
         public void RemoveItem(ItemSO item, int amount)
         {
+            storedItems -= amount;
             for (int i = itemFrames.Count - 1; i >= 0 && (int)itemFrames[i].GetFramedItem().itemType >= (int)item.itemType && amount > 0; i--)
             {
                 if ((int)itemFrames[i].GetFramedItem().itemType == (int)item.itemType)
@@ -144,7 +158,8 @@ namespace Player.UI.Inventory
                     {
                         if (currentlySelectedItemFrame == itemFrames[i])
                         {
-                            //TODO change to default frame
+                            currentlySelectedItemFrame = null;
+                            ToggleHighlightedItem();
                         }
                         Destroy(itemFrames[i].gameObject);
                         itemFrames.RemoveAt(i);
@@ -163,6 +178,8 @@ namespace Player.UI.Inventory
             {
                 throw new Exception("STORED ITEMS MISMATCH: Tried to remove more than is stored");
             }
+            
+            SetCapacityText();
         }
 
 
@@ -180,6 +197,8 @@ namespace Player.UI.Inventory
                 itemFrames[i].RemoveFromFrame();
             }
 
+            currentlySelectedItemFrame = null;
+            ToggleHighlightedItem();
             itemFrames.Clear();
 
             SetCapacityText();
@@ -240,7 +259,8 @@ namespace Player.UI.Inventory
             itemName.text = frame.GetFramedItem().itemType.ToString();
             itemIcon.sprite = frame.GetFramedItem().image;
             currentlySelectedItemFrame = frame;
-                countSlider.SetMaxValue(frame.GetHeldItemsCount());
+            ToggleHighlightedItem();
+            countSlider.SetMaxValue(frame.GetHeldItemsCount());
             SetSliderCountText();
         }
 
@@ -263,6 +283,12 @@ namespace Player.UI.Inventory
         {
             selectedAmount = (int)value;
             SetSliderCountText();
+        }
+
+
+        private void ToggleHighlightedItem()
+        {
+            highlightItem.SetActive(currentlySelectedItemFrame != null);
         }
 }
 }

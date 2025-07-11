@@ -3,6 +3,7 @@ using Player.Module.Upgrades;
 using Player.Module;
 using Player.UI.Inventory;
 using ScriptableObjects.Item;
+using Input = Player.Module.Input;
 
 namespace Player.UI
 {
@@ -42,7 +43,8 @@ namespace Player.UI
 
         //================================================================FUNCTIONALITY
         
-        private UIWindow currentOpponentWindow;
+        private UIWindow currentOppenedWindow;
+        private WindowType currentWindowType;
         
         public override void ApplyUpgrades()
         {
@@ -151,24 +153,41 @@ namespace Player.UI
 
         public void OpenWindow(WindowType win)
         {
-            //TODO close currently opened window
+            if(currentOppenedWindow != null)
+                currentOppenedWindow.CloseWindow();
+
+            if (win == currentWindowType)
+            {
+                currentWindowType = WindowType.None;
+                currentOppenedWindow = null;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = true;
+                return;
+            }
             
             switch (win)
             {
                 case WindowType.Inventory:
                     inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
-                    currentOpponentWindow = inventory;
+                    currentOppenedWindow = inventory.IsOpened() ? inventory : null;
                     break;
                 
                 case WindowType.Resources:
                     inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
-                    currentOpponentWindow = inventory;
+                    currentOppenedWindow = inventory.IsOpened() ? inventory : null;
                     break;
             }
+            
+            
 
-            if (currentOpponentWindow.blocksInput)
+            if (currentOppenedWindow != null)
             {
-                //TODO set flag in module ref to block input
+                currentWindowType = currentOppenedWindow.IsOpened() ? WindowType.Inventory : WindowType.None;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = !currentOppenedWindow.blocksInput;
+            }
+            else
+            {
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = true;
+                currentWindowType = WindowType.None;
             }
         }
     }
