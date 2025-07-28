@@ -130,7 +130,7 @@ namespace Player.UI.Inventory
                     amount = remaining;
                 }
 
-                if ((int)item.itemType > (int)itemFrames[j].GetFramedItem().itemType)
+                if ((int)item.itemType < (int)itemFrames[j].GetFramedItem().itemType)
                 {
                     amount = CreateFrame(item, amount, j);
                 }
@@ -256,7 +256,7 @@ namespace Player.UI.Inventory
 
         public void ClickedItem(ItemFrame frame)
         {
-            itemName.text = frame.GetFramedItem().itemType.ToString();
+            itemName.text = frame.GetFramedItem().itemType.ToString().Replace("_", " ");
             itemIcon.sprite = frame.GetFramedItem().image;
             currentlySelectedItemFrame = frame;
             ToggleHighlightedItem();

@@ -48,7 +48,7 @@ namespace Entities.Interactions
             }
             float cost = toFull * perUnit;
             Storage storage = module.GetScript<Storage>(Module.ScriptNames.StorageScript);
-            float paid = storage.GetCurrency((int)cost);
+            float paid = storage.PayWithCurrency((int)cost);
             
             float toReturn = toFull * (paid / cost);
             return toReturn;

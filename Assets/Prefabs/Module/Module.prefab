@@ -2883,7 +2883,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.0752492, g: 0.115692124, b: 0.1792453, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -4611,7 +4611,7 @@ Rigidbody2D:
   m_LinearDrag: 0.05
   m_AngularDrag: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4ff3963445d314b48b6afbd67d6b2947, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -4746,7 +4746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageCapacity: 10
   itemsStored: 0
-  itemStorage: 00000000
+  itemStorage: 0000000000000000
   currency: 100
   itemDBSO: {fileID: 11400000, guid: 0126cd85fa420474c84f7fef2cc03a6b, type: 2}
 --- !u!114 &7421670379239451658
