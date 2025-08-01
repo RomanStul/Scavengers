@@ -1,6 +1,8 @@
 using System;
+using Entities.Environment;
 using ScriptableObjects.Item;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Entities
@@ -18,12 +20,27 @@ namespace Entities
         private static Item _itemPrefab;
         //================================================================EDITOR VARIABLES
         [SerializeField] protected Drop[] drops;
+
+        [SerializeField] private int dropperID;
+
+        [SerializeField] private bool respawns = false;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
+        private void Reset()
+        {
+            dropperID = Random.Range(0, Int32.MaxValue);
+        }
+
+        private void OnValidate()
+        {
+            dropperID = Random.Range(0, Int32.MaxValue);
+        }
 
         private void Awake()
         {
+            gameObject.SetActive(!OreManager.instance.CheckForOre(dropperID));
+            
             if (_itemPrefab == null)
             {
                 _itemPrefab = Resources.Load<Item>("Item");
@@ -32,11 +49,13 @@ namespace Entities
 
         public void DropItems()
         {
+            if(!respawns) OreManager.instance.AddOre(dropperID);   
+            
             foreach (var drop in drops)
             {
                 for (int j = 0; j < drop.amount; j++)
                 {
-                    Vector3 offset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), _itemPrefab.transform.position.z);
+                    Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), _itemPrefab.transform.position.z);
                     Item spawned = Instantiate(_itemPrefab, transform.position + offset, Quaternion.identity); 
                     spawned.SetItemData(drop.item);
                 }

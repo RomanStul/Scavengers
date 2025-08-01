@@ -4,7 +4,7 @@ using System.Timers;
 using Player.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Environment = Entities.Enviroment.Environment;
+using Environment = Entities.Environment.Environment;
 
 namespace Player.Module.Movement
 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Entities.Enviroment
+namespace Entities.Environment
 {
     public class Environment : MonoBehaviour
     {
