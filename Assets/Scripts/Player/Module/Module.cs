@@ -48,7 +48,8 @@ namespace Player.Module
         
         private void Awake()
         {
-            
+            Debug.Log("awake");
+            DontDestroyOnLoad(gameObject);
             
             for (int i = 0; i < baseScripts.Length; i++)
             {
@@ -92,6 +93,13 @@ namespace Player.Module
             {
                 GetScript<HealthBar>(ScriptNames.HealthBarScript).SetHealth(GetScript<HealthBar>(ScriptNames.HealthBarScript).GetMaxHealth());
             }
+        }
+
+        public void PrepareForSceneTransfer()
+        {
+            transform.position = Vector3.zero;
+            moveRb.velocity = Vector2.zero;
+            rotateRb.velocity = Vector2.zero;
         }
     }
 }

@@ -4401,7 +4401,7 @@ GameObject:
   - component: {fileID: 4333326056327341647}
   m_Layer: 0
   m_Name: Module
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4659,7 +4659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385e0353871811343a3910a170bbeffc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  takeInput: 1
 --- !u!114 &1703780348144699452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4786,15 +4785,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradesObject:
-  - Name: Reverse
+  - name: Reverse
     unlocked: 0
-  - Name: Armor
+  - name: Armor
     unlocked: 0
-  - Name: Stop
+  - name: Stop
     unlocked: 0
-  - Name: Dash
+  - name: Dash
     unlocked: 0
-  - Name: DashSideWays
+  - name: DashSideWays
     unlocked: 0
 --- !u!114 &734926099107183956
 MonoBehaviour:
