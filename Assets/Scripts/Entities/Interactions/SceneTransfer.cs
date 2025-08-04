@@ -15,6 +15,7 @@ namespace Entities.Interactions
         public void LoadScene(Module module)
         {
             module.CreateStateObject();
+            module.PrepareForSceneTransfer();
             SceneManager.LoadScene(sceneToLoad);
         }
     }

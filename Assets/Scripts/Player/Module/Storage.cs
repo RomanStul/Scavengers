@@ -56,6 +56,7 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetStorageCapacity(storageCapacity);
+            itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
         }
         
         public void PickUpItem(Entities.Item item, int amount)
@@ -74,13 +75,16 @@ namespace Player.Module
         public void RemoveItem(ItemSO item, int amount = -1)
         {
             int toRemove = 0;
+            
             if (amount == -1)
             {
+                itemsStored -= itemStorage[(int)item.itemType];
                 itemStorage[(int)item.itemType] = 0;
                 toRemove = itemStorage[(int)item.itemType];
             }
             else
             {
+                itemsStored -= amount;
                 toRemove = itemStorage[(int)item.itemType];
                 itemStorage[(int)item.itemType] -= amount;
                 if (itemStorage[(int)item.itemType] <= 0)
@@ -116,7 +120,7 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
         }
 
-        public int GetCurrency(int amount = -1)
+        public int PayWithCurrency(int amount = -1)
         {
             int toReturn = currency;
             if (amount == -1)

@@ -160,7 +160,7 @@ namespace Player.UI
             {
                 currentWindowType = WindowType.None;
                 currentOppenedWindow = null;
-                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = true;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
                 return;
             }
             
@@ -182,11 +182,11 @@ namespace Player.UI
             if (currentOppenedWindow != null)
             {
                 currentWindowType = currentOppenedWindow.IsOpened() ? WindowType.Inventory : WindowType.None;
-                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = !currentOppenedWindow.blocksInput;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
             }
             else
             {
-                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).takeInput = true;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
                 currentWindowType = WindowType.None;
             }
         }

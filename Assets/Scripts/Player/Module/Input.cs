@@ -12,28 +12,33 @@ namespace Player.Module
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
 
-        public bool takeInput = true;
+        private bool takeInput = true;
         
         //================================================================GETTER SETTER
+
+        public void SetTakeInput(bool takeInputValue)
+        {
+            this.takeInput = takeInputValue;
+        }
+        
         //================================================================FUNCTIONALITY
 
         
         public void RotationInput(InputAction.CallbackContext context)
         {
-            if(takeInput) 
-                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).RotationInput = context.ReadValue<Vector2>().x;
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).RotationInput = takeInput ? context.ReadValue<Vector2>().x : 0.0f;
         }
 
         public void ThrustInput(InputAction.CallbackContext context)
         {
-            if(takeInput)
-                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).ThrustInput = context.ReadValue<Vector2>().y;
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).ThrustInput = takeInput ? context.ReadValue<Vector2>().y : 0.0f;
         }
 
         public void DrillPositionInput(InputAction.CallbackContext context)
         {
             if(takeInput)
                 ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).DrillTargetPosition = context.ReadValue<Vector2>();
+                
         }
 
         public void DrillUseInput(InputAction.CallbackContext context)
@@ -49,6 +54,10 @@ namespace Player.Module
                 {
                     ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
                 } 
+            }
+            else
+            {
+                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
             }
         }
 
@@ -70,8 +79,8 @@ namespace Player.Module
 
         public void MoveSidewaysInput(InputAction.CallbackContext context)
         {
-            if(takeInput)
-                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).MoveSideways(context.ReadValue<Vector2>());
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript)
+                .MoveSideways(takeInput ? context.ReadValue<Vector2>() : Vector2.zero);
         }
 
         public void InteractInput(InputAction.CallbackContext context)

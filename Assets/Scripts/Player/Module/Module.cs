@@ -48,7 +48,8 @@ namespace Player.Module
         
         private void Awake()
         {
-            
+            Debug.Log("awake");
+            DontDestroyOnLoad(gameObject);
             
             for (int i = 0; i < baseScripts.Length; i++)
             {
@@ -73,7 +74,7 @@ namespace Player.Module
             savedState = new ModuleState();
             savedState.health = GetScript<HealthBar>(ScriptNames.HealthBarScript).GetHealth();
             savedState.fuel = GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).GetFuel();
-            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).GetCurrency();
+            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency();
             savedState.itemStored = GetScript<Storage>(ScriptNames.StorageScript).ItemStorage;
             savedState.upgrades = GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).GetUpgrades();
         }
@@ -92,6 +93,13 @@ namespace Player.Module
             {
                 GetScript<HealthBar>(ScriptNames.HealthBarScript).SetHealth(GetScript<HealthBar>(ScriptNames.HealthBarScript).GetMaxHealth());
             }
+        }
+
+        public void PrepareForSceneTransfer()
+        {
+            transform.position = Vector3.zero;
+            moveRb.velocity = Vector2.zero;
+            rotateRb.velocity = Vector2.zero;
         }
     }
 }

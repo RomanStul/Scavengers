@@ -1,4 +1,4 @@
-using Entities.Enviroment;
+using Entities.Environment;
 using Player.UI;
 using ScriptableObjects.Material;
 using UnityEngine;

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.Module.Upgrades
 {
@@ -24,13 +25,13 @@ namespace Player.Module.Upgrades
         [Serializable]
         public class UpgradeObject
         {
-            [HideInInspector]
-            public string Name;
+            [FormerlySerializedAs("Name")] [HideInInspector]
+            public string name;
             public bool unlocked;
 
             public UpgradeObject(string name, bool unlocked)
             {
-                this.Name = name;
+                this.name = name;
                 this.unlocked = unlocked;
             }
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Entities.Enviroment
+namespace Entities.Environment
 {
     public class Environment : MonoBehaviour
     {
@@ -8,6 +8,8 @@ namespace Entities.Enviroment
         //================================================================EDITOR VARIABLES
         [SerializeField] public float fuelConsumptionMultiplier = 1.0f;
         [SerializeField] public float damageMultiplier = 1.0f;
+
+        [SerializeField] public GameObject module;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
         public static Environment instance;
@@ -15,6 +17,11 @@ namespace Entities.Enviroment
         void Awake()
         {
             instance = this;
+            if (GameObject.FindGameObjectsWithTag("Player").Length == 0)
+            {
+                Instantiate(module);
+            }
         }
+        
     }
 }
