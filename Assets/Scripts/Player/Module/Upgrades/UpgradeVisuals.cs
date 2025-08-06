@@ -10,7 +10,7 @@ namespace Player.Module.Upgrades
         [Serializable]
         public class VisualChange
         {
-            public Upgrades.Ups[] neededUps;
+            public ModuleUpgrades.Ups[] neededUps;
             public GameObject[] toActivate;
             public GameObject[] toDeactivate;
             public bool changed;
@@ -44,7 +44,7 @@ namespace Player.Module.Upgrades
         {
             foreach (var condition in _upgradeChanges[i].neededUps)
             {
-                if (!ModuleRef.GetScript<Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(condition))
+                if (!ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(condition))
                 {
                     return false; 
                 }

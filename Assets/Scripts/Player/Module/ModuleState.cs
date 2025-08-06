@@ -16,7 +16,7 @@ namespace Player.Module
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
-        public void SaveUpgrades(Upgrades.Upgrades.UpgradeObject[] upgradesToSave)
+        public void SaveUpgrades(Upgrades.ModuleUpgrades.UpgradeObject[] upgradesToSave)
         {
             upgrades = new bool[upgradesToSave.Length];
             for (int i = 0; i < upgradesToSave.Length; i++)

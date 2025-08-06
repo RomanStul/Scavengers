@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Editor
 {
-    [CustomEditor(typeof(Upgrades))]
+    [CustomEditor(typeof(ModuleUpgrades))]
 // ^ This is the script we are making a custom editor for.
     public class UpgradesEditor : UnityEditor.Editor
     {
@@ -12,7 +12,7 @@ namespace Editor
         public override void OnInspectorGUI(){
             DrawDefaultInspector();
             
-            Upgrades up = (Upgrades)target;
+            ModuleUpgrades up = (ModuleUpgrades)target;
             
             if(GUILayout.Button("Create Upgrade Array")){
                 up.CreateUpgradeArray();

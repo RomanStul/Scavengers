@@ -33,7 +33,7 @@ namespace Player.Module
         
         public override void ApplyUpgrades()
         {
-            if (ModuleRef.GetScript<Upgrades.Upgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Upgrades.Ups.Armor))
+            if (ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Armor_I))
             {
                 material = armorMaterial;
             }
