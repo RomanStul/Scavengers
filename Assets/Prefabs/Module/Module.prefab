@@ -1937,7 +1937,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_Spacing: 8
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -2693,7 +2693,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6489998040289440576
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2729,14 +2729,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2469819fe16894889b846ae16a67c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blocksInput: 1
   upgrades:
   - {fileID: 11400000, guid: 93748d4310c4afd49889f54f8f8abf76, type: 2}
   - {fileID: 11400000, guid: 26b9bb5db7b0f3449936895311058942, type: 2}
   - {fileID: 11400000, guid: e6c44acf3696ec640a9b73eea1c78410, type: 2}
   - {fileID: 11400000, guid: 8d9b7ea83024fe3439d8e25ab6d1e718, type: 2}
   - {fileID: 11400000, guid: 628e46246a8e8714f878818bcb8bac5d, type: 2}
-  buttonPrefab: {fileID: -3011400080795860118, guid: 1679126138397974b9f3918634e8346a, type: 3}
-  buttonContainer: {fileID: 3007485303084961989}
+  leftSide:
+    buttonPrefab: {fileID: -3011400080795860118, guid: 1679126138397974b9f3918634e8346a, type: 3}
+    buttonContainer: {fileID: 3007485303084961989}
+  rightSide:
+    upgradeName: {fileID: 4503620018092166741}
+    upgradeDescription: {fileID: 1062409323615695593}
+    costPrefab: {fileID: 2879745011854470444, guid: bd799189daf0c234f8945b6b8814b4e1, type: 3}
+    costContainer: {fileID: 498301601239287348}
+    currencyIcon: {fileID: 21300000, guid: 3df83c3376f58fe4e956038003232db2, type: 3}
+    installButton: {fileID: 8261536717192714626}
+    installEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8016691481368367125}
+          m_TargetAssemblyTypeName: Player.Module.Upgrades.ModuleUpgrades, Assembly-CSharp
+          m_MethodName: InstallUpgrades
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &4812059021889757404
 GameObject:
   m_ObjectHideFlags: 0
@@ -4638,12 +4662,12 @@ GameObject:
   - component: {fileID: 9176454459214859676}
   - component: {fileID: 8579766333873250604}
   m_Layer: 0
-  m_Name: DropButton
+  m_Name: InstallButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8020896662233285147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4689,7 +4713,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0.7019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -4707,7 +4731,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8579766333873250604}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4497869286145621476}
+        m_TargetAssemblyTypeName: Player.UI.Upgrades.UpgradeWindowController, Assembly-CSharp
+        m_MethodName: InstallUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &9176454459214859676
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5699,10 +5735,10 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_Spacing: 4
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -5720,7 +5756,7 @@ GameObject:
   - component: {fileID: 7977714327058968170}
   - component: {fileID: 4503620018092166741}
   m_Layer: 0
-  m_Name: ItemName
+  m_Name: UpgradeName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5786,7 +5822,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Upgrade name
+  m_Text: 
 --- !u!1 &8825158973389676736
 GameObject:
   m_ObjectHideFlags: 0
@@ -5859,13 +5895,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Allows module to move backwards.
+  m_Text: 
 --- !u!1 &9205628177520375433
 GameObject:
   m_ObjectHideFlags: 0

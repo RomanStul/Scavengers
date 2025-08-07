@@ -1,4 +1,6 @@
 using Player.Module;
+using Player.UI;
+using Player.UI.Upgrades;
 using UnityEngine;
 
 namespace Entities.Interactions
@@ -12,7 +14,11 @@ namespace Entities.Interactions
 
         public void ApplyUpgrades(Module module)
         {
-            module.ApplyUpgrades();
+            UIWindow window = module.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Upgrades);
+            if (window != null)
+            {
+                ((UpgradeWindowController)window).SetStorage(module.GetScript<Storage>(Module.ScriptNames.StorageScript));
+            }
         }
     }
 }

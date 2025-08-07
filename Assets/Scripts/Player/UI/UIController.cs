@@ -160,7 +160,7 @@ namespace Player.UI
             inventory.RemoveItem(item, amount);
         }
 
-        public void OpenWindow(WindowType win)
+        public UIWindow OpenWindow(WindowType win)
         {
             if(currentOppenedWindow != null)
                 currentOppenedWindow.CloseWindow();
@@ -170,7 +170,7 @@ namespace Player.UI
                 currentWindowType = WindowType.None;
                 currentOppenedWindow = null;
                 ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
-                return;
+                return null;
             }
             
             switch (win)
@@ -183,6 +183,11 @@ namespace Player.UI
                 case WindowType.Resources:
                     inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
                     currentOppenedWindow = inventory.IsOpened() ? inventory : null;
+                    break;
+                
+                case WindowType.Upgrades:
+                    upgradeController.ToggleWindow();
+                    currentOppenedWindow = upgradeController.IsOpened() ? upgradeController : null;
                     break;
             }
             
@@ -198,6 +203,8 @@ namespace Player.UI
                 ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
                 currentWindowType = WindowType.None;
             }
+
+            return currentOppenedWindow;
         }
     }
 }

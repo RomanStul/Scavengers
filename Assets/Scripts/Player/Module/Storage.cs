@@ -169,5 +169,10 @@ namespace Player.Module
                 RemoveItem(item, amount);
             }
         }
+
+        public bool HasAtleast(int item, int amount)
+        {
+            return itemStorage[item] >= amount; 
+        }
     }
 }

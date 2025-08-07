@@ -99,5 +99,11 @@ namespace Player.Module.Upgrades
 
             upgradesObject = updatedUpgrades;
         }
+
+        public void InstallUpgrades(int upgrade)
+        {
+            upgradesObject[upgrade].unlocked = true;
+            ModuleRef.ApplyUpgrades();
+        }
     }
 }

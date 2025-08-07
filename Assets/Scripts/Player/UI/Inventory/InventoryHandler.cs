@@ -125,7 +125,7 @@ namespace Player.UI.Inventory
                     int remaining = itemFrames[j].AddToFrame(amount);
                     if (itemFrames[j] == currentlySelectedItemFrame)
                     {
-                        SetSliderCountText();
+                        ClickedItem(currentlySelectedItemFrame);
                     }
                     amount = remaining;
                 }
@@ -168,7 +168,7 @@ namespace Player.UI.Inventory
                     {
                         if (currentlySelectedItemFrame == itemFrames[i])
                         {
-                            SetSliderCountText();
+                            ClickedItem(currentlySelectedItemFrame);   
                         }
                     }
                 }
