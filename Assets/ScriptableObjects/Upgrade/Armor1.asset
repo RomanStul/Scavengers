@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Armor1
   m_EditorClassIdentifier: 
   cost: 10
-  item:
+  neededItems:
   - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
     amount: 6
   neededUpgrades: 

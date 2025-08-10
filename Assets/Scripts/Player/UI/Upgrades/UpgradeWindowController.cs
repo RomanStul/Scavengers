@@ -166,6 +166,7 @@ namespace Player.UI.Upgrades
             rightSide.upgradeName.text = "";
             rightSide.upgradeDescription.text = "";
             rightSide.installButton.gameObject.SetActive(false);
+            rightSide.installButton.interactable = false;
             for (int i = 0; i < costs.Count; i++)
             {
                 costs[i].gameObject.SetActive(false);

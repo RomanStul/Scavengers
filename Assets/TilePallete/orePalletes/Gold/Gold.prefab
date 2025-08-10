@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 6208200147926651131}
   - component: {fileID: 1150529882748701851}
   m_Layer: 0
-  m_Name: Sulfur
+  m_Name: Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2002774154685550255}
   - component: {fileID: 8064430147207447307}
   m_Layer: 6
-  m_Name: SulfurOrePrefab
+  m_Name: goldOrePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,8 +101,8 @@ MonoBehaviour:
   drops:
   - item: {fileID: 11400000, guid: 408d82833ec24c540bc378f2600d5cd6, type: 2}
     amount: 1
-  dropperID: 1088612255
-  respawns: 1
+  dropperID: 587491025
+  respawns: 0
 --- !u!1 &2416541740221238656
 GameObject:
   m_ObjectHideFlags: 0

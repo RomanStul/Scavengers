@@ -9,7 +9,7 @@ namespace ScriptableObjects.Item
         {
             Test_Item,
             Titanium_Ore,
-            Sulfur_Ore
+            Gold_Ore
         }
     
         public Sprite image;

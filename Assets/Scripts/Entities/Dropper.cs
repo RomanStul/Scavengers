@@ -32,11 +32,6 @@ namespace Entities
             dropperID = Random.Range(0, Int32.MaxValue);
         }
 
-        private void OnValidate()
-        {
-            dropperID = Random.Range(0, Int32.MaxValue);
-        }
-
         private void Awake()
         {
             gameObject.SetActive(!OreManager.instance.CheckForOre(dropperID));

@@ -856,8 +856,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constants:
-    costPerHealth: 5
-    costPerFuel: 5
+    costPerHealth: 1
+    costPerFuel: 1
 --- !u!114 &1417714556
 MonoBehaviour:
   m_ObjectHideFlags: 0
