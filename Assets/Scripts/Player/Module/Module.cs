@@ -48,7 +48,6 @@ namespace Player.Module
         
         private void Awake()
         {
-            Debug.Log("awake");
             DontDestroyOnLoad(gameObject);
             
             for (int i = 0; i < baseScripts.Length; i++)
@@ -56,7 +55,7 @@ namespace Player.Module
                 baseScripts[i].SetModule(this);
             }
             //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attached
-            GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).LoadUpgrades(savedState?.upgrades);
+            GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).LoadUpgrades(savedState?.upgrades);
             
             LoadFromSave();
         }
@@ -76,7 +75,7 @@ namespace Player.Module
             savedState.fuel = GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).GetFuel();
             savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency();
             savedState.itemStored = GetScript<Storage>(ScriptNames.StorageScript).ItemStorage;
-            savedState.upgrades = GetScript<Upgrades.Upgrades>(ScriptNames.UpgradesScript).GetUpgrades();
+            savedState.upgrades = GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).GetUpgrades();
         }
 
         private void LoadFromSave()

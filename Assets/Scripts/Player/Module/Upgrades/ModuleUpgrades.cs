@@ -10,16 +10,16 @@ namespace Player.Module.Upgrades
     //Example:  if(upgrades[upgrade_id]) multiplier = 1.5f;     <- set in Awake or other tart function
     //          if(ThrustInput > 0 || upgrades[upgrade_id])     <- in unction as active variable
     //##############################################################################*/
-    public class Upgrades : ModuleBaseScript
+    public class ModuleUpgrades : ModuleBaseScript
     {
         //================================================================CLASSES
         public enum Ups
         {
             Reverse,
-            Armor,
+            Armor_I,
             Stop,
             Dash,
-            DashSideWays
+            Sideways_Thrust
         }
 
         [Serializable]
@@ -98,6 +98,12 @@ namespace Player.Module.Upgrades
             }
 
             upgradesObject = updatedUpgrades;
+        }
+
+        public void InstallUpgrades(int upgrade)
+        {
+            upgradesObject[upgrade].unlocked = true;
+            ModuleRef.ApplyUpgrades();
         }
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: sulfurBackground_6
+  m_Name: goldBackground_7
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1513865082, guid: 0ea5718fb91c65841ae2d714d2dbcacf, type: 3}
+  m_Sprite: {fileID: 687152277, guid: 0ea5718fb91c65841ae2d714d2dbcacf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

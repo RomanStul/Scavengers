@@ -1,7 +1,8 @@
 using UnityEngine;
-using Player.Module.Upgrades;
 using Player.Module;
+using Player.Module.Upgrades;
 using Player.UI.Inventory;
+using Player.UI.Upgrades;
 using ScriptableObjects.Item;
 using Input = Player.Module.Input;
 
@@ -39,6 +40,7 @@ namespace Player.UI
         [SerializeField] private CurrencyDisplay currencyDisplay;
 
         [SerializeField] private InventoryHandler inventory;
+        [SerializeField] private UpgradeWindowController upgradeController;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
@@ -48,15 +50,22 @@ namespace Player.UI
         
         public override void ApplyUpgrades()
         {
+            ModuleUpgrades upgradesScript = ModuleRef.GetScript<ModuleUpgrades>(Module.Module.ScriptNames.UpgradesScript);
+            
             Dash.transform.gameObject.SetActive(
-                    ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.Dash)
+                upgradesScript.IsActive(ModuleUpgrades.Ups.Dash)
                 );
             Stop.transform.gameObject.SetActive(
-                ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.Stop)
+                upgradesScript.IsActive(ModuleUpgrades.Ups.Stop)
             );
             SideDash.transform.gameObject.SetActive(
-                ModuleRef.GetScript<Upgrades>(Module.Module.ScriptNames.UpgradesScript).IsActive(Upgrades.Ups.DashSideWays)
+                upgradesScript.IsActive(ModuleUpgrades.Ups.Sideways_Thrust)
             );
+            
+            //TODO pass upgrades to windows {storage expansion into inventory and so on}
+            
+            upgradeController.SetUpUpgrades(upgradesScript.upgradesObject);
+
         }
 
     public void SetBar(int value, BarsNames barName, bool isMax = false)
@@ -151,7 +160,7 @@ namespace Player.UI
             inventory.RemoveItem(item, amount);
         }
 
-        public void OpenWindow(WindowType win)
+        public UIWindow OpenWindow(WindowType win)
         {
             if(currentOppenedWindow != null)
                 currentOppenedWindow.CloseWindow();
@@ -161,7 +170,7 @@ namespace Player.UI
                 currentWindowType = WindowType.None;
                 currentOppenedWindow = null;
                 ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
-                return;
+                return null;
             }
             
             switch (win)
@@ -175,13 +184,18 @@ namespace Player.UI
                     inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
                     currentOppenedWindow = inventory.IsOpened() ? inventory : null;
                     break;
+                
+                case WindowType.Upgrades:
+                    upgradeController.ToggleWindow();
+                    currentOppenedWindow = upgradeController.IsOpened() ? upgradeController : null;
+                    break;
             }
             
             
 
             if (currentOppenedWindow != null)
             {
-                currentWindowType = currentOppenedWindow.IsOpened() ? WindowType.Inventory : WindowType.None;
+                currentWindowType = currentOppenedWindow.IsOpened() ? win : WindowType.None;
                 ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
             }
             else
@@ -189,6 +203,8 @@ namespace Player.UI
                 ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
                 currentWindowType = WindowType.None;
             }
+
+            return currentOppenedWindow;
         }
     }
 }

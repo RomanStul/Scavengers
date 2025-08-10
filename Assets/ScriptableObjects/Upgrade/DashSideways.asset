@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d518c0e0551556440b2b2f79b97f3ac7, type: 3}
-  m_Name: TitaniumOre
+  m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
+  m_Name: DashSideways
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 89869d176501ecd4aacb3da211da6650, type: 3}
-  itemType: 1
-  price: 10
+  cost: 20
+  item:
+  - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
+    amount: 2
+  neededUpgrades: 
+  description: Allows module to move side to side.
+  tag: 4
