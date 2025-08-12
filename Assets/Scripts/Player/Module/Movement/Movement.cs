@@ -79,7 +79,6 @@ namespace Player.Module.Movement
         {
             base.SetModule(module);
             Rigid = ModuleRef.GetMoveRb();
-            RotationRigid = ModuleRef.GetRotateRb();
         }
 
         public float GetMissingFuel()
@@ -98,7 +97,7 @@ namespace Player.Module.Movement
         }
         //================================================================FUNCTIONALITY
 
-        protected Rigidbody2D Rigid, RotationRigid;
+        protected Rigidbody2D Rigid;
 
         private bool takeInput = true,
             dashReady = false,
@@ -151,7 +150,7 @@ namespace Player.Module.Movement
             if (Mathf.Abs(RotationInput) > 0)
             {
                 currentFuel -= Mathf.Abs(RotationInput) *movementVariables.fuelPerSecond * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
-                RotationRigid.AddTorque(-RotationInput * movementVariables.RotationThrust * Time.deltaTime);
+                Rigid.AddTorque(-RotationInput * movementVariables.RotationThrust * Time.deltaTime);
             }
 
             if (Mathf.Abs(sidewaysInput) > 0 && moveSidewaysEneabled)
