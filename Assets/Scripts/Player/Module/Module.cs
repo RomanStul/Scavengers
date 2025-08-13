@@ -68,7 +68,7 @@ namespace Player.Module
             savedState = new ModuleState();
             savedState.health = GetScript<HealthBar>(ScriptNames.HealthBarScript).GetHealth();
             savedState.fuel = GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).GetFuel();
-            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency();
+            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).Currency;
             savedState.itemStored = GetScript<Storage>(ScriptNames.StorageScript).ItemStorage;
             savedState.upgrades = GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).GetUpgrades();
         }

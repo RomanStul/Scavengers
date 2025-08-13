@@ -27,7 +27,7 @@ namespace Entities.Interactions
 
         public void RefuelAndRepair(Module module)
         {
-
+            StartCoroutine(Visuals(module));
         }
 
         private IEnumerator Visuals(Module module)

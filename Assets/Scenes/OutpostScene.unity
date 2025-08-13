@@ -306,12 +306,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1693147733}
     m_Modifications:
     - target: {fileID: 558053743193313242, guid: 7f3e4bf6fd61e584291ca85b2ab9eb2d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 558053743193313242, guid: 7f3e4bf6fd61e584291ca85b2ab9eb2d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 558053743193313242, guid: 7f3e4bf6fd61e584291ca85b2ab9eb2d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0000000029802323
+      value: -0.26
       objectReference: {fileID: 0}
     - target: {fileID: 558053743193313242, guid: 7f3e4bf6fd61e584291ca85b2ab9eb2d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.72
       objectReference: {fileID: 0}
     - target: {fileID: 558053743193313242, guid: 7f3e4bf6fd61e584291ca85b2ab9eb2d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1135,6 +1143,7 @@ GameObject:
   - component: {fileID: 1693147737}
   - component: {fileID: 1693147736}
   - component: {fileID: 1693147735}
+  - component: {fileID: 1693147738}
   m_Layer: 7
   m_Name: SellResources
   m_TagString: Untagged
@@ -1151,8 +1160,8 @@ Transform:
   m_GameObject: {fileID: 1693147732}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: -5.41, z: -1}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: -8.9, y: -4.7, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1178848311}
@@ -1199,8 +1208,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.14983091, g: 0.8584906, b: 0.18466406, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 22d8314647088954f8afbea5e425752b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1285,18 +1294,63 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.30427766, y: 1.6768168}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 8.125, y: 5.625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.4869533, y: 2.253987}
+  m_EdgeRadius: 0
+--- !u!61 &1693147738
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693147732}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.30841112, y: -0.5615227}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.125, y: 5.625}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.5081778, y: 2.240273}
   m_EdgeRadius: 0
 --- !u!1 &1808185968
 GameObject:

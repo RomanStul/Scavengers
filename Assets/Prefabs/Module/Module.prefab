@@ -5360,7 +5360,6 @@ MonoBehaviour:
   - {fileID: 5391066163527320230}
   - {fileID: 4333326056327341647}
   moveRb: {fileID: 4037315529061463069}
-  rotateRb: {fileID: 4037315529061463069}
 --- !u!114 &4024970329340988234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5460,7 +5459,7 @@ MonoBehaviour:
   storageCapacity: 10
   itemsStored: 0
   itemStorage: 0000000000000000
-  currency: 100
+  currency: 0
   itemDBSO: {fileID: 11400000, guid: 0126cd85fa420474c84f7fef2cc03a6b, type: 2}
 --- !u!114 &7421670379239451658
 MonoBehaviour:

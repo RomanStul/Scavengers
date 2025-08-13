@@ -42,6 +42,7 @@ namespace Player.Module
             }
             set
             {
+                Debug.Log("setting currency");
                 currency = value;
                 ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
             }
