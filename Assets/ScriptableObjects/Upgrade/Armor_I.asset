@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
-  m_Name: DashSideways
+  m_Name: Armor_I
   m_EditorClassIdentifier: 
-  cost: 20
-  item:
+  cost: 10
+  neededItems:
   - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
-    amount: 2
+    amount: 6
   neededUpgrades: 
-  description: Allows module to move side to side.
-  tag: 4
+  description: Reduces damage from kinetic impacts and collisions.
+  tag: 1

@@ -8,3 +8,4 @@ Ore
 - ItemSO enum type
 - ItemSo drop
 - ore prefab
+- add to ItemDBSo

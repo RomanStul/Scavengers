@@ -82,7 +82,7 @@ namespace Player.UI.Upgrades
                         continue;
                     }
                     buttons[i] = Instantiate(leftSide.buttonPrefab, leftSide.buttonContainer);
-                    buttons[i].SetText(upgrades[i].name);
+                    buttons[i].SetText(upgrades[i].name.Replace("_", " "));
                     buttons[i].SetController(this);
                     buttons[i].SetUpgrade(upgrades[i]);
                 }

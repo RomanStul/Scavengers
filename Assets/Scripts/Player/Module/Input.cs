@@ -96,5 +96,12 @@ namespace Player.Module
             
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Inventory);
         }
+
+        public void CloseWindow(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+            
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.None);
+        }
     }
 }
