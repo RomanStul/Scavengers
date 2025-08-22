@@ -1,0 +1,11 @@
+Ore
+
+- Icon
+- Ore texture
+- background texture
+- tile pallete
+- sprite Atlas
+- ItemSO enum type
+- ItemSo drop
+- ore prefab
+- add to ItemDBSo

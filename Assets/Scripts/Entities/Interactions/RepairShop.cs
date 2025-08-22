@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Player.Module;
 using Player.Module.Movement;
 using Unity.VisualScripting;
@@ -8,7 +9,7 @@ namespace Entities.Interactions
 {
     public class RepairShop : MonoBehaviour
     {
-        
+
         //================================================================CLASSES
 
         [Serializable]
@@ -17,14 +18,27 @@ namespace Entities.Interactions
             public float costPerHealth;
             public float costPerFuel;
         }
-        
+
         //================================================================EDITOR VARIABLES
         [SerializeField] private RepairShopConstants constants;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
 
-        public void Repair(Module module)
+        public void RefuelAndRepair(Module module)
+        {
+            StartCoroutine(Visuals(module));
+        }
+
+        private IEnumerator Visuals(Module module)
+        {
+            yield return null;
+            Refuel(module);
+            Repair(module);
+        }
+
+
+    public void Repair(Module module)
         {
             Player.Module.HealthBar healthBar = module.GetScript<Player.Module.HealthBar>(Module.ScriptNames.HealthBarScript);
             float missingHealth = healthBar.GetMissingHealth();

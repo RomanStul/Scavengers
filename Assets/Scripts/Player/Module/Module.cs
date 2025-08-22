@@ -26,17 +26,12 @@ namespace Player.Module
 
         //public Scripts scripts;
         public Player.Module.BaseClass[] baseScripts;
-        public Rigidbody2D moveRb, rotateRb;
+        public Rigidbody2D moveRb;
         public static ModuleState savedState;
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
         {
             return moveRb;
-        }
-
-        public Rigidbody2D GetRotateRb()
-        {
-            return rotateRb;
         }
 
         public T GetScript<T>(ScriptNames scriptName) where T : BaseClass
@@ -73,7 +68,7 @@ namespace Player.Module
             savedState = new ModuleState();
             savedState.health = GetScript<HealthBar>(ScriptNames.HealthBarScript).GetHealth();
             savedState.fuel = GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).GetFuel();
-            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency();
+            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).Currency;
             savedState.itemStored = GetScript<Storage>(ScriptNames.StorageScript).ItemStorage;
             savedState.upgrades = GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).GetUpgrades();
         }
@@ -98,7 +93,6 @@ namespace Player.Module
         {
             transform.position = Vector3.zero;
             moveRb.velocity = Vector2.zero;
-            rotateRb.velocity = Vector2.zero;
         }
     }
 }
