@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Player.Module
@@ -93,6 +94,13 @@ namespace Player.Module
         {
             transform.position = Vector3.zero;
             moveRb.velocity = Vector2.zero;
+        }
+
+        public void Evacuate()
+        {
+            PrepareForSceneTransfer();
+            GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency(30);
+            SceneManager.LoadScene("OutpostScene");
         }
     }
 }
