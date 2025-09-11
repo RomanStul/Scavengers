@@ -25,6 +25,11 @@ namespace Entities
 
         [SerializeField] private bool respawns = false;
         //================================================================GETTER SETTER
+
+        public void SetId()
+        {
+            dropperID = Random.Range(0, Int32.MaxValue);
+        }
         //================================================================FUNCTIONALITY
 
         private void Reset()

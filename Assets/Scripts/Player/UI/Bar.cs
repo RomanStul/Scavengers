@@ -10,7 +10,6 @@ namespace Player.UI
         [SerializeField] protected float value, maxValue;
         [SerializeField] protected RectTransform thisRect, fill;
         [SerializeField] protected float minFillY, maxFillY;
-        //TODO add outline for full bar and cross for empty
         //================================================================GETTER SETTER
         public virtual void SetValue(float barValue)
         {

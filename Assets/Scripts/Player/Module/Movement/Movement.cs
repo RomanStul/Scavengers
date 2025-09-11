@@ -104,7 +104,8 @@ namespace Player.Module.Movement
             reverseAvailable = false,
             stopReady = false,
             moveSidewaysReady = false,
-            moveSidewaysEneabled = false;
+            moveSidewaysEneabled = false,
+            appliedUpgrades = false;
         
         private float sidewaysInput = 0f;
 
@@ -117,8 +118,8 @@ namespace Player.Module.Movement
             reverseAvailable = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Reverse);
             stopReady = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Stop);
             moveSidewaysReady = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Sideways_Thrust);
-            
-            Refuel();
+            if(!appliedUpgrades) Refuel();
+            appliedUpgrades = true;
         }
 
 
@@ -129,7 +130,7 @@ namespace Player.Module.Movement
                 return;
             }
             
-            if (currentFuel <= 0)
+            if (currentFuel <= 0 && Environment.instance.fuelConsumptionMultiplier != 0)
             {
                 VisualizeThrust();
                 return;

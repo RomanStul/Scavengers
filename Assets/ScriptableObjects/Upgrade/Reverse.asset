@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Reverse
   m_EditorClassIdentifier: 
   cost: 30
-  item:
+  neededItems:
   - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
-    amount: 5
+    amount: 3
   neededUpgrades: 
   description: Enables reverse thrust.
   tag: 0

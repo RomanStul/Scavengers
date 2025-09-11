@@ -11,6 +11,7 @@ namespace Entities.Environment
         
         public static OreManager instance;
         
+        //TODO change to check by scenes
         private HashSet<int> oreHashSet = new HashSet<int>();
         //================================================================FUNCTIONALITY
 

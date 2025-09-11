@@ -48,6 +48,7 @@
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeWindowController.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\ModuleUpgrades.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Enviroment.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\OreHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemDBSO.cs" />
     <Compile Include="Assets\Scripts\Player\Module\CollisionHandler.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\TilesManager.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\OreManager.cs" />
     <Compile Include="Assets\ScriptableObjects\Material\MaterialSO.cs" />

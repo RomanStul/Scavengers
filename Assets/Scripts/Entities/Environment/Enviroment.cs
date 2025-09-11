@@ -8,6 +8,7 @@ namespace Entities.Environment
         //================================================================EDITOR VARIABLES
         [SerializeField] public float fuelConsumptionMultiplier = 1.0f;
         [SerializeField] public float damageMultiplier = 1.0f;
+        [SerializeField] private Vector2 moduleSpawnLocation = new Vector2(0,0);
 
         [SerializeField] public GameObject module;
         //================================================================GETTER SETTER
@@ -19,7 +20,7 @@ namespace Entities.Environment
             instance = this;
             if (GameObject.FindGameObjectsWithTag("Player").Length == 0)
             {
-                Instantiate(module);
+                Instantiate(module, new Vector3(moduleSpawnLocation.x, moduleSpawnLocation.y, 0), Quaternion.identity);
             }
         }
         
