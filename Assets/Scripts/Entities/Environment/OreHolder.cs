@@ -8,7 +8,7 @@ namespace Entities.Environment
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                ItemDropper id = transform.GetChild(i).GetComponent<ItemDropper>();
+                Destructible id = transform.GetChild(i).GetComponent<Destructible>();
                 if (id != null)
                 {
                     id.SetId();

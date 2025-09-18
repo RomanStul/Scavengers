@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Entities
 {
-    public class ItemDropper : MonoBehaviour
+    public class ItemDropper : Destructible
     {
         //================================================================CLASSES
         [Serializable]
@@ -20,27 +20,13 @@ namespace Entities
         private static Item _itemPrefab;
         //================================================================EDITOR VARIABLES
         [SerializeField] protected Drop[] drops;
-
-        [SerializeField] private int dropperID;
-
-        [SerializeField] private bool respawns = false;
         //================================================================GETTER SETTER
-
-        public void SetId()
-        {
-            dropperID = Random.Range(0, Int32.MaxValue);
-        }
         //================================================================FUNCTIONALITY
 
-        private void Reset()
+        public override void Awake()
         {
-            dropperID = Random.Range(0, Int32.MaxValue);
-        }
+            base.Awake();
 
-        private void Awake()
-        {
-            gameObject.SetActive(!OreManager.instance.CheckForOre(dropperID));
-            
             if (_itemPrefab == null)
             {
                 _itemPrefab = Resources.Load<Item>("Item");
@@ -49,7 +35,7 @@ namespace Entities
 
         public void DropItems()
         {
-            if(!respawns) OreManager.instance.AddOre(dropperID);   
+            if(!respawns) DestructionManager.instance.AddOre(destructibleId);   
             
             foreach (var drop in drops)
             {
