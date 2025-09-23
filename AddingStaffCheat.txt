@@ -9,3 +9,13 @@ Ore
 - ItemSo drop
 - ore prefab
 - add to ItemDBSo
+
+
+Upgrade
+
+- Visuals
+- UpgradeEnum in module Upgrades
+- UpgradeSO
+- Create upgrade array (ModuleUpgradesButton) <- can be bugget make sure that is saved to prefab
+- Add Upgrade SO to upgrade window in module
+

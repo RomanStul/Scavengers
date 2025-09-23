@@ -25,8 +25,8 @@ namespace Entities
 
         public override void Awake()
         {
-            base.Awake();
-
+            gameObject.SetActive(!DestructionManager.instance.CheckForOre(destructibleId));
+            
             if (_itemPrefab == null)
             {
                 _itemPrefab = Resources.Load<Item>("Item");

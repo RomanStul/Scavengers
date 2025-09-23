@@ -178,6 +178,15 @@ namespace Player.Module.Movement
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
         }
 
+        private void UseFuel(float amount)
+        {
+            currentFuel -= amount;
+            if (currentFuel <= 0)
+            {
+                
+            }
+        }
+
         public void Dash()
         {
             if (currentFuel >= dashConstants.DashFuelConsumption && dashReady && takeInput)

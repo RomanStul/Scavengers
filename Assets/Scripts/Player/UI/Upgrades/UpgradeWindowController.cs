@@ -71,6 +71,7 @@ namespace Player.UI.Upgrades
         
         public void SetUpUpgrades(ModuleUpgrades.UpgradeObject[] upgradesInfo)
         {
+            int buttonsTotal = 0;
             if (buttons.Length == 0)
             {
                 buttons = new UpgradeSelectButton[upgrades.Length];
@@ -81,15 +82,18 @@ namespace Player.UI.Upgrades
                     {
                         continue;
                     }
-                    buttons[i] = Instantiate(leftSide.buttonPrefab, leftSide.buttonContainer);
-                    buttons[i].SetText(upgrades[i].name.Replace("_", " "));
-                    buttons[i].SetController(this);
-                    buttons[i].SetUpgrade(upgrades[i]);
+
+                    buttons[buttonsTotal] = Instantiate(leftSide.buttonPrefab, leftSide.buttonContainer);
+                    buttons[buttonsTotal].SetText(upgrades[i].name.Replace("_", " "));
+                    buttons[buttonsTotal].SetController(this);
+                    buttons[buttonsTotal].SetUpgrade(upgrades[i]);
+                    buttonsTotal++;
                 }
             }
             
-            for (int i = 0; i < upgrades.Length; i++)
+            for (int i = 0; i < buttonsTotal; i++)
             {
+                
                 buttons[i].gameObject.SetActive(true);
                 for (int j = 0; j < upgrades[i].neededUpgrades.Length; j++)
                 {
