@@ -1257,7 +1257,8 @@ MonoBehaviour:
   - {fileID: 556414547572552186}
   - {fileID: 3794100323168229739}
   - {fileID: 2825492190779803617}
-  dot: {fileID: 7567386899072138414}
+  dot: {fileID: 21300000, guid: baa85c5cbcba50043948864db5bf23ea, type: 3}
+  minus: {fileID: 21300000, guid: 2a22b015e4e815048bac79cf157bf75b, type: 3}
 --- !u!1 &1401546136878749688
 GameObject:
   m_ObjectHideFlags: 0
