@@ -131,11 +131,7 @@ namespace Player.Module
             else
             {
                 currency -= amount;
-                if (currency <= 0)
-                {
-                    currency = 0;
-                }
-                else
+                if (currency > 0)
                 {
                     toReturn = amount;
                 }

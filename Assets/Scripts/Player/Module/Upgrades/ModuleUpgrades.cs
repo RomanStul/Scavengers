@@ -19,7 +19,8 @@ namespace Player.Module.Upgrades
             Armor_I,
             Stop,
             Dash,
-            Sideways_Thrust
+            Sideways_Thrust,
+            Fluorescent_Lights
         }
 
         [Serializable]

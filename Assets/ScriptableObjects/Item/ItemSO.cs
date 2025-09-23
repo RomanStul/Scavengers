@@ -10,7 +10,8 @@ namespace ScriptableObjects.Item
             Test_Item,
             Titanium_Ore,
             Gold_Ore,
-            Purpura_Fungi
+            Purpura_Fungi,
+            Lucene_Fungi,
         }
     
         public Sprite image;

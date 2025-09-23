@@ -15,7 +15,7 @@ MonoBehaviour:
   cost: 10
   neededItems:
   - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
-    amount: 6
+    amount: 2
   neededUpgrades: 
   description: Reduces damage from kinetic impacts and collisions.
   tag: 1

@@ -16,8 +16,9 @@ namespace Player.UI
         
         public void DisplayBalance(int balance)
         {
-            //TODO display by thousands and millions
+            //TODO display by thousands and millions and negative
             int i = 0;
+            if (balance < 0) balance = 0;
             while (i < displaySegments.Length)
             {
                 if (balance > 0 || i == 0)

@@ -50,6 +50,13 @@ namespace Player.Module
         {
             float health = base.TakeDamage(damage * Environment.instance.damageMultiplier, damageType);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
+
+            if (health < 0)
+            {
+                ModuleRef.Evacuate();
+                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
+                return 0;
+            }
             return health;
         }
 

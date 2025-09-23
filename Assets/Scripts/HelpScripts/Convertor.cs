@@ -27,7 +27,7 @@ public class Convertor : MonoBehaviour
         toRotate.transform.rotation = Quaternion.Lerp( toRotate.transform.rotation, rotation, Time.deltaTime * speed);
     }
 
-    private static Quaternion RotationConversion(Vector3 targetPosition, Transform toRotate)
+    public static Quaternion RotationConversion(Vector3 targetPosition, Transform toRotate)
     {
         targetPosition = new Vector3(targetPosition.x, 0, targetPosition.y);
         Quaternion rotation = Quaternion.LookRotation(targetPosition, Vector3.up);
