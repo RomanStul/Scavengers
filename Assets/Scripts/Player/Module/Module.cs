@@ -103,7 +103,7 @@ namespace Player.Module
                 return;
             }
             PrepareForSceneTransfer(Vector3.zero);
-            GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency(30);
+            GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency(30, true);
             //TODO make it so that is there is not enough money some items will be sold to pay
             SceneManager.LoadScene("OutpostScene");
         }

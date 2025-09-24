@@ -22,16 +22,21 @@ namespace Entities.Environment.Traps_and_puzzles
         
         [SerializeField] private Animator animator;
         [SerializeField] private GrabberConstants grabberConstants;
+        [SerializeField] private bool lookingForTarget = true;
         
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
         
         private Transform target;
-
+        
         public void OnTriggerStay2D(Collider2D other)
         {
-            target = other.transform;
-            animator.SetTrigger(Target);
+            if (lookingForTarget)
+            {
+                target = other.transform;
+                animator.SetTrigger(Target);
+                lookingForTarget = false;
+            }
         }
 
         public void OnCollisionEnter2D(Collision2D other)
@@ -56,6 +61,11 @@ namespace Entities.Environment.Traps_and_puzzles
         public void ResetRotation()
         {
             transform.rotation = Quaternion.Euler(0,0,0);
+        }
+
+        public void SetLookingForTarget()
+        {
+            lookingForTarget = true;
         }
     }
 

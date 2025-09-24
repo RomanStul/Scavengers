@@ -121,7 +121,7 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
         }
 
-        public int PayWithCurrency(int amount = -1)
+        public int PayWithCurrency(int amount = -1, bool overpay = false)
         {
             int toReturn = currency;
             if (amount == -1)
@@ -130,11 +130,20 @@ namespace Player.Module
             }
             else
             {
-                currency -= amount;
-                if (currency > 0)
+                if (overpay)
                 {
-                    toReturn = amount;
+                   currency -= amount;
+                   if (currency > 0)
+                   {
+                       toReturn = amount;
+                   } 
                 }
+                else
+                {
+                    toReturn = Math.Min(amount, currency);
+                    currency = Math.Max(0, currency - amount);
+                }
+
             }
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
             return toReturn;

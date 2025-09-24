@@ -56,13 +56,14 @@ namespace Entities.Interactions
 
         private float GetAmountToWork(Module module, float toFull, float perUnit)
         {
+            //TODO make window for repair shop
             if (toFull == 0)
             {
                 return 0;
             }
             float cost = toFull * perUnit;
             Storage storage = module.GetScript<Storage>(Module.ScriptNames.StorageScript);
-            float paid = storage.PayWithCurrency((int)cost);
+            float paid = storage.PayWithCurrency((int)cost, false);
             
             float toReturn = toFull * (paid / cost);
             return toReturn;
