@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Entities\Interactions\UpgradesShop.cs" />
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\RepairRefuel\RepairRefuel.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SliderController.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />

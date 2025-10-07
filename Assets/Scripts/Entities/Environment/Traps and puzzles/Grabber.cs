@@ -60,7 +60,7 @@ namespace Entities.Environment.Traps_and_puzzles
 
         public void ResetRotation()
         {
-            transform.rotation = Quaternion.Euler(0,0,0);
+            transform.rotation = transform.parent.rotation;
         }
 
         public void SetLookingForTarget()

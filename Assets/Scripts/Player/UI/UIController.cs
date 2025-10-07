@@ -31,7 +31,8 @@ namespace Player.UI
             Inventory,
             Resources,
             Upgrades,
-            Items
+            Items,
+            Repair
         }
         
         //================================================================EDITOR VARIABLES
@@ -41,6 +42,7 @@ namespace Player.UI
 
         [SerializeField] private InventoryHandler inventory;
         [SerializeField] private UpgradeWindowController upgradeController;
+        [SerializeField] private RepairRefuel.RepairRefuel repairRefuel;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
@@ -160,6 +162,11 @@ namespace Player.UI
             inventory.RemoveItem(item, amount);
         }
 
+        public void PassRepairParameters(RepairRefuel.RepairRefuel.RepairWindowParameters repairRefuelParameters)
+        {
+            repairRefuel.SetParameters(repairRefuelParameters);
+        }
+
         public UIWindow OpenWindow(WindowType win)
         {
             if(currentOppenedWindow != null)
@@ -189,6 +196,12 @@ namespace Player.UI
                     upgradeController.ToggleWindow();
                     currentOppenedWindow = upgradeController.IsOpened() ? upgradeController : null;
                     break;
+                
+                case WindowType.Repair:
+                    repairRefuel.ToggleWindow();
+                    currentOppenedWindow = repairRefuel.IsOpened() ? repairRefuel : null;
+                    break;
+                    
             }
             
             

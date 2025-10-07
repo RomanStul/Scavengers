@@ -968,8 +968,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   constants:
-    costPerHealth: 1
-    costPerFuel: 1
+    costPerHealth: 0.75
+    costPerFuel: 0.5
 --- !u!114 &1417714556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,7 +991,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1417714555}
         m_TargetAssemblyTypeName: Entities.Interactions.RepairShop, Assembly-CSharp
-        m_MethodName: RefuelAndRepair
+        m_MethodName: OpenRepairShop
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
