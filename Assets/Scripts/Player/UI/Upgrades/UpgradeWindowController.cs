@@ -184,7 +184,7 @@ namespace Player.UI.Upgrades
                 return;
             }
             
-            storage.PayWithCurrency(selectedUpgradeButton.GetUpgrade().cost);
+            storage.PayWithCurrency(selectedUpgradeButton.GetUpgrade().cost, false);
             foreach (var t in selectedUpgradeButton.GetUpgrade().neededItems)
             {
                 storage.RemoveItem(t.item, t.amount);

@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using Player.Module;
 using Player.Module.Movement;
+using Player.UI;
+using Player.UI.RepairRefuel;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -25,47 +27,20 @@ namespace Entities.Interactions
         //================================================================FUNCTIONALITY
 
 
-        public void RefuelAndRepair(Module module)
+        public void OpenRepairShop(Module module)
         {
-            StartCoroutine(Visuals(module));
-        }
-
-        private IEnumerator Visuals(Module module)
-        {
-            yield return null;
-            Refuel(module);
-            Repair(module);
-        }
-
-
-    public void Repair(Module module)
-        {
-            Player.Module.HealthBar healthBar = module.GetScript<Player.Module.HealthBar>(Module.ScriptNames.HealthBarScript);
-            float missingHealth = healthBar.GetMissingHealth();
-            
-            healthBar.HealHealth(GetAmountToWork(module, missingHealth, constants.costPerHealth));
-        }
-
-        public void Refuel(Module module)
-        {
-            Movement movement = module.GetScript<Movement>(Module.ScriptNames.MovementScript);
-            float missing = movement.GetMissingFuel();
-            
-            movement.Refuel(GetAmountToWork(module, missing, constants.costPerFuel));
-        }
-
-        private float GetAmountToWork(Module module, float toFull, float perUnit)
-        {
-            if (toFull == 0)
+            UIController ui = module.GetScript<UIController>(Module.ScriptNames.UIControlsScript);
+            RepairRefuel.RepairWindowParameters rwp = new RepairRefuel.RepairWindowParameters
             {
-                return 0;
-            }
-            float cost = toFull * perUnit;
-            Storage storage = module.GetScript<Storage>(Module.ScriptNames.StorageScript);
-            float paid = storage.PayWithCurrency((int)cost);
+                moduleRef = module,
+                refuelCost = constants.costPerFuel,
+                repairCost = constants.costPerHealth
+            };
+
+            ui.PassRepairParameters(rwp);
+            ui.OpenWindow(UIController.WindowType.Repair);
+            Debug.Log("should open");
             
-            float toReturn = toFull * (paid / cost);
-            return toReturn;
         }
     }
 }

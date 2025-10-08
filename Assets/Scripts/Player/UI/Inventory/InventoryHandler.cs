@@ -41,7 +41,7 @@ namespace Player.UI.Inventory
 
         [SerializeField] private Text itemName;
         [SerializeField] private Image itemIcon;
-        [SerializeField] private Text sliderCount;
+        [SerializeField] private Text sliderCount, totalWorthText;
         [SerializeField] private SliderController countSlider;
         [SerializeField] private GameObject highlightItem;
 
@@ -242,7 +242,7 @@ namespace Player.UI.Inventory
                 }
                 else
                 {
-                    //for amount
+                    return itemsDB.items[(int)item.itemType].price * amount;
                 }
             }
 
@@ -261,7 +261,7 @@ namespace Player.UI.Inventory
             currentlySelectedItemFrame = frame;
             ToggleHighlightedItem();
             countSlider.SetMaxValue(frame.GetHeldItemsCount());
-            SetSliderCountText();
+            SetSliderCount(1);
         }
 
         public void SellSelectedItem(bool all)
@@ -279,10 +279,16 @@ namespace Player.UI.Inventory
             sliderCount.text = selectedAmount + "/" + currentlySelectedItemFrame.GetHeldItemsCount();
         }
 
+        private void SetTotalWorthText()
+        {
+            totalWorthText.text = CalculateWorth(currentlySelectedItemFrame.GetFramedItem(), selectedAmount).ToString();
+        }
+
         public void SetSliderCount(Single value)
         {
             selectedAmount = (int)value;
             SetSliderCountText();
+            SetTotalWorthText();
         }
 
 

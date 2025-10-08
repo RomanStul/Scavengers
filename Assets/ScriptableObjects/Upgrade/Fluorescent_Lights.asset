@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
   m_Name: Fluorescent_Lights
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 20
   neededItems:
   - item: {fileID: 11400000, guid: 28d89a58693420c4b9a7c4ea03574a3d, type: 2}
-    amount: 0
+    amount: 4
   neededUpgrades: 
   description: Uses fluorescent fungi to get energy free lights.
   tag: 5
