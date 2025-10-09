@@ -18,6 +18,7 @@ namespace Player.UI.RepairRefuel
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
         [SerializeField] private Text repairCostText, refuelCostText;
+        [SerializeField] private Button repairRefuelButton;
         [SerializeField] private Slider repairAmountSlider, refuelAmountSlider;
         //================================================================GETTER SETTER
 
@@ -46,12 +47,19 @@ namespace Player.UI.RepairRefuel
 
         public override bool ToggleWindow()
         {
-                ScaleRepairSlider(parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript).GetMissingHealth());
-                ScaleRefuelSlider(parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript).GetMissingFuel());
-                SetRepairAmount(0);
-                SetRefuelAmount(0);
+            HealthBar hb = parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript);
+            Movement mw = parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript);
+            
+            ScaleRepairSlider(hb.GetMissingHealth());
+            ScaleRefuelSlider(mw.GetMissingFuel());
+            SetRepairAmount(0);
+            SetRefuelAmount(0);
+            
+            Storage s = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript);
 
-                return base.ToggleWindow();
+            repairRefuelButton.interactable = mw.GetMissingFuel() * parameters.refuelCost + hb.GetMissingHealth() * parameters.repairCost <= s.Currency;
+
+            return base.ToggleWindow();
         }
         
         
@@ -83,6 +91,16 @@ namespace Player.UI.RepairRefuel
         private void ScaleRefuelSlider(float missingFuel)
         {
             refuelAmountSlider.maxValue = Mathf.Ceil(missingFuel);
+        }
+
+        public void RepairAndRefuel()
+        {
+            refuelAmount = refuelAmountSlider.maxValue;
+            repairAmount = repairAmountSlider.maxValue;
+            Repair();
+            Refuel();
+
+
         }
         
     }
