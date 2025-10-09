@@ -592,6 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemapRenderer: {fileID: 6950015760563707022}
+  tilemap: {fileID: 7587470134246577087}
 --- !u!66 &-2979524537307546802
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -628,7 +629,9 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 7376493316622474249}
+    m_ColliderPaths: []
   m_CompositePaths:
     m_Paths: []
   m_VertexDistance: 0.0005
