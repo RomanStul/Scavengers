@@ -56,7 +56,7 @@ namespace Entities.Environment.Traps_and_puzzles
                 if (m != null)
                 {
                     m.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).TakeDamage(landmineParameters.damage, landmineParameters.damageType);
-                    Vector2 forceDirection = trigger.transform.position - transform.position;
+                    Vector2 forceDirection = (trigger.transform.position - transform.position) * 0.3f + 0.7f * transform.up;
                     forceDirection.Normalize();
                     m.GetMoveRb().AddForce( forceDirection * landmineParameters.force);
                 }

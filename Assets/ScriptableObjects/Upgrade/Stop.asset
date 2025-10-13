@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
   m_Name: Stop
   m_EditorClassIdentifier: 
-  cost: 50
+  cost: 30
   neededItems:
   - item: {fileID: 11400000, guid: 408d82833ec24c540bc378f2600d5cd6, type: 2}
     amount: 1

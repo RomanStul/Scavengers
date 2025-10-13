@@ -32,6 +32,10 @@ namespace Player.Module
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Trap"))
+            {
+                return;
+            }
             //TODO add point to calculate collision magnitude from, take one that's closer to point of impact
             Vector2 relativePosition = Convertor.Vec3ToVec2(transform.position) - collision.contacts[0].point;
             Vector2 velocity = collision.relativeVelocity;

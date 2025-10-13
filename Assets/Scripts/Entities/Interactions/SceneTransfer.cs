@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Player.Module;
 using UnityEngine.SceneManagement;

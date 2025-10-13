@@ -13,33 +13,21 @@ namespace Entities.Environment
 
         [SerializeField] private TilemapRenderer tilemapRenderer;
         [SerializeField] private Tilemap tilemap;
+        [SerializeField] private Animator animator;
         
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
-        private float oppacity = 1f;
         
         
         public void OnTriggerEnter2D(Collider2D other)
         {
-            StartCoroutine(ChangeVisibility(false));
+            animator.SetBool("show", false);
         }
 
         public void OnTriggerExit2D(Collider2D other)
         {
-            StartCoroutine(ChangeVisibility(true));
+            animator.SetBool("show", true);
         }
-
-        private IEnumerator ChangeVisibility(bool shouldBeVisible)
-        {
-            while (!Mathf.Approximately(oppacity, (shouldBeVisible ? 1f : 0f)))
-            {
-                oppacity += shouldBeVisible ? Time.deltaTime*8 : -Time.deltaTime*8;
-                oppacity = Mathf.Clamp(oppacity, 0f, 1f);
-                tilemap.color = new Color(1f, 1f, 1f, oppacity);
-                yield return null;
-            }
-
-            
-        }
+        
     }
 }

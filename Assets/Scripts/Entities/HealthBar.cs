@@ -63,6 +63,7 @@ namespace Entities
             healthBarConstants.currentHealth -= damage;
             if (healthBarConstants.currentHealth <= 0)
             {
+                healthBarConstants.currentHealth = 0;
                 onDestroyedEvent?.Invoke(transform);
             }
             else

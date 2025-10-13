@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2183293257570123571}
   - component: {fileID: 524808863005108150}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: unexploded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 14132923e67102e4ea873ea2df1ff14a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6229280258720226507}
   - component: {fileID: 8373613621417319839}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: exploded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: e7f09abb4ea5dc440b6693742351c9c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -179,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7776282534958567492}
   - component: {fileID: 7040251602191234836}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 4312008202671764166}
   - component: {fileID: 9016175465260319533}
   - component: {fileID: 6781813975451208422}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sporeMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

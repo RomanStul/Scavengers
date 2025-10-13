@@ -121,6 +121,13 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
         }
 
+        
+        /**
+         * <para>Subtracts amount of currency and returns how much it subtracted.</para>
+         * <para>Parameters</para> 
+         * <para>int amount (-1 = all)</para>
+         * <para>bool overpay (true forces to go into negative to pay whole sum)</para>
+         */
         public int PayWithCurrency(int amount = -1, bool overpay = false)
         {
             int toReturn = currency;
@@ -140,6 +147,10 @@ namespace Player.Module
                 }
                 else
                 {
+                    if (currency <= 0)
+                    {
+                        return 0;
+                    }
                     toReturn = Math.Min(amount, currency);
                     currency = Math.Max(0, currency - amount);
                 }

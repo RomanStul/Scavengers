@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3066700502522679912}
   - component: {fileID: 7952091442863635896}
   - component: {fileID: -2979524537307546802}
+  - component: {fileID: 4968922145472620506}
   m_Layer: 9
   m_Name: disappearingTiles
   m_TagString: Untagged
@@ -593,6 +594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemapRenderer: {fileID: 6950015760563707022}
   tilemap: {fileID: 7587470134246577087}
+  animator: {fileID: 4968922145472620506}
 --- !u!66 &-2979524537307546802
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -638,3 +640,24 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 420559444721164541}
+--- !u!95 &4968922145472620506
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420559444721164541}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 816b619bb35187c4190b20f74a0997ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

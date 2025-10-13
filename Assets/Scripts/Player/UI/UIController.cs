@@ -201,7 +201,9 @@ namespace Player.UI
                     repairRefuel.ToggleWindow();
                     currentOppenedWindow = repairRefuel.IsOpened() ? repairRefuel : null;
                     break;
-                    
+                case WindowType.None:
+                    currentOppenedWindow = null;
+                    break;
             }
             
             

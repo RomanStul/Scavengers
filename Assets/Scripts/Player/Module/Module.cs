@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -92,8 +93,8 @@ namespace Player.Module
 
         public void PrepareForSceneTransfer(Vector3 position)
         {
-            transform.position = position;
             moveRb.velocity = Vector2.zero;
+            transform.position = position;
         }
 
         public void Evacuate()
