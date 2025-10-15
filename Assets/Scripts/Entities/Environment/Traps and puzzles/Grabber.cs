@@ -47,9 +47,12 @@ namespace Entities.Environment.Traps_and_puzzles
                 return;
             }
             HealthBar hb = m.GetScript<Player.Module.HealthBar>(Module.ScriptNames.HealthBarScript);
-            hb.TakeDamage(grabberConstants.damage, grabberConstants.damageType);
+            float health = hb.TakeDamage(grabberConstants.damage, grabberConstants.damageType);
             // -up  because texture is oriented upside down
-            m.GetMoveRb().AddForce(-transform.up * grabberConstants.throwForce);
+            if (health > 0)
+            {
+                m.GetMoveRb().AddForce(-transform.up * grabberConstants.throwForce);
+            }
         }
 
         public void AdjustRotation()

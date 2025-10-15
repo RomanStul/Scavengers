@@ -57,7 +57,8 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetStorageCapacity(storageCapacity);
-            itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
+            if(itemStorage == null)
+                itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
         }
         
         public void PickUpItem(Entities.Item item, int amount)
@@ -85,18 +86,9 @@ namespace Player.Module
             }
             else
             {
-                itemsStored -= amount;
-                toRemove = itemStorage[(int)item.itemType];
-                itemStorage[(int)item.itemType] -= amount;
-                if (itemStorage[(int)item.itemType] <= 0)
-                {
-                    itemStorage[(int)item.itemType] = 0;
-                }
-                else
-                {
-                    toRemove = amount;
-                }
-                
+                toRemove = Mathf.Min(itemStorage[(int)item.itemType], amount);
+                itemsStored -= toRemove;
+                itemStorage[(int)item.itemType] -= toRemove;
             }
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveItemFromInventory(item, toRemove);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
@@ -121,6 +113,13 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
         }
 
+        
+        /**
+         * <para>Subtracts amount of currency and returns how much it subtracted.</para>
+         * <para>Parameters</para> 
+         * <para>int amount (-1 = all)</para>
+         * <para>bool overpay (true forces to go into negative to pay whole sum)</para>
+         */
         public int PayWithCurrency(int amount = -1, bool overpay = false)
         {
             int toReturn = currency;
@@ -140,6 +139,10 @@ namespace Player.Module
                 }
                 else
                 {
+                    if (currency <= 0)
+                    {
+                        return 0;
+                    }
                     toReturn = Math.Min(amount, currency);
                     currency = Math.Max(0, currency - amount);
                 }

@@ -18,6 +18,7 @@ namespace Player.UI.RepairRefuel
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
         [SerializeField] private Text repairCostText, refuelCostText;
+        [SerializeField] private Button repairRefuelButton, repairButton, refuelButton;
         [SerializeField] private Slider repairAmountSlider, refuelAmountSlider;
         //================================================================GETTER SETTER
 
@@ -30,28 +31,41 @@ namespace Player.UI.RepairRefuel
         {
             repairAmountSlider.value = amount;
             repairAmount = amount;
-            repairCostText.text = ((int)(repairAmount * parameters.repairCost)).ToString();
+            float repairCostTotal = repairAmount * parameters.repairCost;
+            repairCostText.text = ((int)repairCostTotal).ToString();
+            repairButton.interactable = (int)repairCostTotal <= (int)currency;
         }
 
         public void SetRefuelAmount(Single amount)
         {
             refuelAmountSlider.value = amount;
             refuelAmount = amount;
-            refuelCostText.text = ((int)(refuelAmount * parameters.refuelCost)).ToString();
+            float refuelCostTotal = refuelAmount * parameters.refuelCost;
+            refuelCostText.text = ((int)refuelCostTotal).ToString();
+            refuelButton.interactable = (int)refuelCostTotal <= (int)currency;
         }
         //================================================================FUNCTIONALITY
 
         private RepairWindowParameters parameters;
         private float refuelAmount, repairAmount;
+        private float currency = 0;
 
         public override bool ToggleWindow()
         {
-                ScaleRepairSlider(parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript).GetMissingHealth());
-                ScaleRefuelSlider(parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript).GetMissingFuel());
-                SetRepairAmount(0);
-                SetRefuelAmount(0);
+            HealthBar hb = parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript);
+            Movement mw = parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript);
+            
+            ScaleRepairSlider(hb.GetMissingHealth());
+            ScaleRefuelSlider(mw.GetMissingFuel());
+            SetRepairAmount(0);
+            SetRefuelAmount(0);
+            
+            Storage s = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript);
+            currency = s.Currency;
 
-                return base.ToggleWindow();
+            repairRefuelButton.interactable = mw.GetMissingFuel() * parameters.refuelCost + hb.GetMissingHealth() * parameters.repairCost <= s.Currency;
+
+            return base.ToggleWindow();
         }
         
         
@@ -59,8 +73,9 @@ namespace Player.UI.RepairRefuel
         {
             HealthBar hb = parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript);
             
-            float repaired = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(repairAmount * parameters.repairCost)) / parameters.repairCost;
-            hb.HealHealth(repaired);
+            float paid = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(repairAmount * parameters.repairCost));
+            currency -= paid;
+            hb.HealHealth(paid / parameters.repairCost);
             SetRepairAmount(0);
             ScaleRepairSlider(hb.GetMissingHealth());
         }
@@ -69,8 +84,9 @@ namespace Player.UI.RepairRefuel
         {
             Movement mw =  parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript);
             
-            float refueled = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(refuelAmount * parameters.refuelCost)) / parameters.refuelCost;
-            mw.Refuel(refueled);
+            float paid = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(refuelAmount * parameters.refuelCost));
+            currency -= paid;
+            mw.Refuel(paid / parameters.refuelCost);
             SetRefuelAmount(0);
             ScaleRefuelSlider(mw.GetMissingFuel());
         }
@@ -83,6 +99,14 @@ namespace Player.UI.RepairRefuel
         private void ScaleRefuelSlider(float missingFuel)
         {
             refuelAmountSlider.maxValue = Mathf.Ceil(missingFuel);
+        }
+
+        public void RepairAndRefuel()
+        {
+            refuelAmount = refuelAmountSlider.maxValue;
+            repairAmount = repairAmountSlider.maxValue;
+            Repair();
+            Refuel();
         }
         
     }

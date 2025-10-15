@@ -1311,7 +1311,7 @@ GameObject:
   - component: {fileID: 4286054149025532742}
   - component: {fileID: 2089850975664711494}
   m_Layer: 8
-  m_Name: DropButton
+  m_Name: RefuelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1464,7 +1464,6 @@ Transform:
   m_Children:
   - {fileID: 8663076106649457032}
   - {fileID: 5503721918746436273}
-  - {fileID: 5092841137704207145}
   m_Father: {fileID: 1720089791246684810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &247046061449063895
@@ -2475,6 +2474,9 @@ MonoBehaviour:
   blocksInput: 1
   repairCostText: {fileID: 4578860251623443160}
   refuelCostText: {fileID: 2198973778715530820}
+  repairRefuelButton: {fileID: 2819311277795582937}
+  repairButton: {fileID: 2350947678024152963}
+  refuelButton: {fileID: 9026351677377507130}
   repairAmountSlider: {fileID: 5974856234197164198}
   refuelAmountSlider: {fileID: 1311825732301816796}
 --- !u!1 &2551836151734643343
@@ -3136,6 +3138,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5092841137704207145}
   - {fileID: 8446542420831190713}
   m_Father: {fileID: 1720089791246684810}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3603,7 +3606,7 @@ GameObject:
   - component: {fileID: 4637545500830553636}
   - component: {fileID: 5229983416365161493}
   m_Layer: 8
-  m_Name: DropButton
+  m_Name: RepairAndRefuelButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3672,7 +3675,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5229983416365161493}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 690532527218241291}
+        m_TargetAssemblyTypeName: Player.UI.RepairRefuel.RepairRefuel, Assembly-CSharp
+        m_MethodName: RepairAndRefuel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &4637545500830553636
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5298,7 +5313,7 @@ GameObject:
   - component: {fileID: 8398685609991294598}
   - component: {fileID: 5351831151005049975}
   m_Layer: 8
-  m_Name: DropButton
+  m_Name: RepairButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6374,11 +6389,11 @@ Transform:
   m_GameObject: {fileID: 7023670975861034181}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.854, z: 0}
+  m_LocalPosition: {x: 0, y: 1.246, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8496861405335619974}
+  m_Father: {fileID: 6850275087551822918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6161911114055903888
 MonoBehaviour:
@@ -6395,7 +6410,7 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.65
   m_Color: {r: 1, g: 0.95606154, b: 0.5707547, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
@@ -6419,7 +6434,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 48.94
   m_PointLightOuterAngle: 160
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 5.5
+  m_PointLightOuterRadius: 10
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -8077,9 +8092,9 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.6
   m_Color: {r: 0.9245283, g: 0.7830245, b: 0.30962977, a: 1}
-  m_Intensity: 0.05
+  m_Intensity: 0.03
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: f5136e90000000000bc1b3cf7dd703dc
@@ -8101,7 +8116,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 359.99997
   m_PointLightOuterAngle: 359.99997
   m_PointLightInnerRadius: 1.36
-  m_PointLightOuterRadius: 3
+  m_PointLightOuterRadius: 10
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

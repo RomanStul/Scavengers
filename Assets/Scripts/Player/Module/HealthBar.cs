@@ -1,3 +1,4 @@
+using System.Collections;
 using Entities.Environment;
 using Player.UI;
 using ScriptableObjects.Material;
@@ -11,6 +12,9 @@ namespace Player.Module
         //================================================================EDITOR VARIABLES
         [SerializeField] protected MaterialSO armorMaterial;
         //================================================================GETTER SETTER
+
+        private bool canTakeDamage = true;
+        
         public override void SetModule(Module module)
         {
             ModuleRef = module;
@@ -48,16 +52,26 @@ namespace Player.Module
 
         public override float TakeDamage(float damage, MaterialSO.DamageType damageType)
         {
+            if (!canTakeDamage) return healthBarConstants.currentHealth;
+            
             float health = base.TakeDamage(damage * Environment.instance.damageMultiplier, damageType);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
-
-            if (health < 0)
+            canTakeDamage = false;
+            StartCoroutine(InvincibilityTimer());
+            
+            if (health <= 0)
             {
                 ModuleRef.Evacuate();
                 ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
                 return 0;
             }
             return health;
+        }
+
+        private IEnumerator InvincibilityTimer()
+        {
+            yield return null;
+            canTakeDamage = true;
         }
 
         public override void HealHealth(float health = -1)

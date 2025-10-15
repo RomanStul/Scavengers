@@ -39,7 +39,6 @@ namespace Entities.Interactions
 
             ui.PassRepairParameters(rwp);
             ui.OpenWindow(UIController.WindowType.Repair);
-            Debug.Log("should open");
             
         }
     }
