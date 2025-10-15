@@ -57,7 +57,8 @@ namespace Player.Module
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetStorageCapacity(storageCapacity);
-            itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
+            if(itemStorage == null)
+                itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
         }
         
         public void PickUpItem(Entities.Item item, int amount)
@@ -85,18 +86,9 @@ namespace Player.Module
             }
             else
             {
-                itemsStored -= amount;
-                toRemove = itemStorage[(int)item.itemType];
-                itemStorage[(int)item.itemType] -= amount;
-                if (itemStorage[(int)item.itemType] <= 0)
-                {
-                    itemStorage[(int)item.itemType] = 0;
-                }
-                else
-                {
-                    toRemove = amount;
-                }
-                
+                toRemove = Mathf.Min(itemStorage[(int)item.itemType], amount);
+                itemsStored -= toRemove;
+                itemStorage[(int)item.itemType] -= toRemove;
             }
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveItemFromInventory(item, toRemove);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
