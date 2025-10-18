@@ -25,6 +25,7 @@ namespace Entities
 
         public override void Awake()
         {
+            Debug.Log("checking for id's");
             gameObject.SetActive(!DestructionManager.instance.CheckForOre(destructibleId));
             
             if (_itemPrefab == null)

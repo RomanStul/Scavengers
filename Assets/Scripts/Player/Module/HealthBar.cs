@@ -53,7 +53,7 @@ namespace Player.Module
         public override float TakeDamage(float damage, MaterialSO.DamageType damageType)
         {
             if (!canTakeDamage) return healthBarConstants.currentHealth;
-            
+
             float health = base.TakeDamage(damage * Environment.instance.damageMultiplier, damageType);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
             canTakeDamage = false;

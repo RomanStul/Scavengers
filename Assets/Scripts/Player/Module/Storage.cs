@@ -24,6 +24,7 @@ namespace Player.Module
             }
             set
             {
+                if(value == null) return;
                 itemStorage = value;
                 for (int i = 0; i < itemStorage.Length; i++)
                 {

@@ -7710,7 +7710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBarConstants:
     maxHealth: 100
-    currentHealth: 0
+    currentHealth: 100
     maxAsStarting: 0
   material: {fileID: 11400000, guid: a1a472539dbe5564f95f62872ddf29ab, type: 2}
   onHealthChangedEvent:

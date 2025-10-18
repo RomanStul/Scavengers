@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Player.Module;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Entities.Interactions
 {
@@ -10,14 +11,14 @@ namespace Entities.Interactions
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
         [SerializeField] private string sceneToLoad;
-        [SerializeField] private Vector3 position = Vector3.zero;
+        [FormerlySerializedAs("position")] [SerializeField] private Vector2 positionToSpawn = Vector2.zero;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
         public void LoadScene(Module module)
         {
-            module.CreateStateObject();
-            module.PrepareForSceneTransfer(position);
+            module.CreateStateObject(sceneToLoad, positionToSpawn);
+            module.PrepareForSceneTransfer(positionToSpawn);
             SceneManager.LoadScene(sceneToLoad);
         }
     }
