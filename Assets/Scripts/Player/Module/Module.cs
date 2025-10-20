@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Menu;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
@@ -30,6 +31,7 @@ namespace Player.Module
         //public Scripts scripts;
         public Player.Module.BaseClass[] baseScripts;
         public Rigidbody2D moveRb;
+        public PlayerInput playerInput;
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
         {
@@ -65,7 +67,6 @@ namespace Player.Module
 
         public void CreateStateObject(string scene, Vector2 position)
         {
-            Debug.Log("create state object " + SavesManager.Instance);
             if (SavesManager.Instance != null)
             {
                 SavesManager.Instance.CreateSaveObject(this, scene, position);
@@ -99,6 +100,13 @@ namespace Player.Module
             PrepareForSceneTransfer(Vector3.zero);
             GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency(30, true);
             SceneManager.LoadScene("OutpostScene");
+        }
+
+        public void SaveAndQuit()
+        {
+            CreateStateObject(SceneManager.GetActiveScene().name, transform.position);
+            Destroy(gameObject);
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

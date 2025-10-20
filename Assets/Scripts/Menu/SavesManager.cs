@@ -59,20 +59,22 @@ namespace Menu
     
         public static SavesManager Instance;
         private Save[] saves;
+        private bool dirtyLoad = false;
 
         private void Awake()
         {
             if (Instance == null)
             {
                 Instance = this;
-                saveNames = LoadSaveNames();
                 DontDestroyOnLoad(gameObject);
             }
+            
+            saveNames = LoadSaveNames();
         }
 
         public void WriteSaveIntoFile()
         {
-            Debug.Log("saving");
+            dirtyLoad = true;
             var json = JsonUtility.ToJson(currentSave);
             StreamWriter saveFile = File.CreateText("saves/"+currentSave.Name);
             saveFile.Write(json);
@@ -122,22 +124,25 @@ namespace Menu
 
         public Save[] GetAllSaves()
         {
-            if (saves != null)
+            if (saves != null && !dirtyLoad)
             {
                 return saves;
             }
-        
+
+            dirtyLoad = false;
             saves = new Save[saveNames.Count];
             int index = 0;
         
-            foreach (string name in saveNames)
+            foreach (string fileName in saveNames)
             {
-                saves[index] = JsonUtility.FromJson<Save>(File.ReadAllText("saves/" + name));
+                saves[index] = JsonUtility.FromJson<Save>(File.ReadAllText("saves/" + fileName));
                 index++;
             }
         
             return saves;
         }
+        
+        
 
         public void LoadSaveIntoModule(Module moduleRef)
         {

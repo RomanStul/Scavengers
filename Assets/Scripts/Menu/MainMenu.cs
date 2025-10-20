@@ -1,3 +1,5 @@
+using System;
+using Entities.Environment;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,6 +19,14 @@ namespace Menu
         [SerializeField] private Transform saveButtonScrollView;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
+
+        private void Awake()
+        {
+            if (DestructionManager.instance != null)
+            {
+                Destroy(DestructionManager.instance.gameObject);
+            }
+        }
 
         public void ChangeScene(string scene)
         {

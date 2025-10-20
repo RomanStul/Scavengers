@@ -42,7 +42,6 @@ namespace Entities.Environment
         {
             foreach (int oreId in ores)
             {
-                Debug.Log(oreId);
                 oreHashSet.Add(oreId);
             }
         }
