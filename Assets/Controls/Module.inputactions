@@ -276,6 +276,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "8804b0ed-fb22-48a6-9469-5341299b7316",
+            "actions": [
+                {
+                    "name": "closeWindow",
+                    "type": "Button",
+                    "id": "9e0952f1-b2a5-43dc-81a2-740cd4d1cd5b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "openInventory",
+                    "type": "Button",
+                    "id": "19b533a6-e692-423d-8558-a5abd743f172",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4750486b-8764-4cae-a03f-5ee370d89b11",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "closeWindow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31d4919d-6c01-4964-b278-37afc02cc8b6",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "openInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

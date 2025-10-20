@@ -32,7 +32,8 @@ namespace Player.UI
             Resources,
             Upgrades,
             Items,
-            Repair
+            Repair,
+            Pause
         }
         
         //================================================================EDITOR VARIABLES
@@ -43,6 +44,7 @@ namespace Player.UI
         [SerializeField] private InventoryHandler inventory;
         [SerializeField] private UpgradeWindowController upgradeController;
         [SerializeField] private RepairRefuel.RepairRefuel repairRefuel;
+        [SerializeField] private UIWindow pause;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
@@ -204,6 +206,10 @@ namespace Player.UI
                 case WindowType.None:
                     currentOppenedWindow = null;
                     break;
+                case WindowType.Pause:
+                    pause.ToggleWindow();
+                    currentOppenedWindow = pause.IsOpened() ? pause : null;
+                    break;
             }
             
             
@@ -220,6 +226,11 @@ namespace Player.UI
             }
 
             return currentOppenedWindow;
+        }
+
+        public void CloseCurrentWindow()
+        {
+            OpenWindow(WindowType.None);
         }
     }
 }

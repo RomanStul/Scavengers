@@ -12,13 +12,14 @@ namespace Player.Module
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
 
-        private bool takeInput = true;
+        private bool useModuleActionMap = true;
         
         //================================================================GETTER SETTER
 
         public void SetTakeInput(bool takeInputValue)
         {
-            this.takeInput = takeInputValue;
+            useModuleActionMap = takeInputValue;
+            ModuleRef.playerInput.SwitchCurrentActionMap(useModuleActionMap ? "Module": "UI");
         }
         
         //================================================================FUNCTIONALITY
@@ -26,36 +27,27 @@ namespace Player.Module
         
         public void RotationInput(InputAction.CallbackContext context)
         {
-            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).RotationInput = takeInput ? context.ReadValue<Vector2>().x : 0.0f;
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).RotationInput = context.ReadValue<Vector2>().x;
         }
 
         public void ThrustInput(InputAction.CallbackContext context)
         {
-            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).ThrustInput = takeInput ? context.ReadValue<Vector2>().y : 0.0f;
+            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).ThrustInput = context.ReadValue<Vector2>().y;
         }
 
         public void DrillPositionInput(InputAction.CallbackContext context)
         {
-            if(takeInput)
-                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).DrillTargetPosition = context.ReadValue<Vector2>();
-                
+            ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).DrillTargetPosition = context.ReadValue<Vector2>();
         }
 
         public void DrillUseInput(InputAction.CallbackContext context)
         {
-            if (takeInput)
+            if (context.started)
             {
-                if (context.started)
-                {
-                    ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(true);
-                }
-
-                if (context.canceled)
-                {
-                    ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
-                } 
+                ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(true);
             }
-            else
+
+            if (context.canceled)
             {
                 ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseDrill(false);
             }
@@ -63,7 +55,7 @@ namespace Player.Module
 
         public void DashInput(InputAction.CallbackContext context)
         {
-            if (takeInput && context.started)
+            if (context.started)
             {
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Dash();
             }
@@ -71,7 +63,7 @@ namespace Player.Module
 
         public void StopInput(InputAction.CallbackContext context)
         {
-            if (takeInput && context.started)
+            if (context.started)
             {
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Stop();
             }
@@ -80,7 +72,7 @@ namespace Player.Module
         public void MoveSidewaysInput(InputAction.CallbackContext context)
         {
             ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript)
-                .MoveSideways(takeInput ? context.ReadValue<Vector2>() : Vector2.zero);
+                .MoveSideways(context.ReadValue<Vector2>());
         }
 
         public void InteractInput(InputAction.CallbackContext context)
@@ -102,6 +94,13 @@ namespace Player.Module
             if(!context.started) return;
             
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.None);
+        }
+
+        public void Pause(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Pause);
         }
     }
 }

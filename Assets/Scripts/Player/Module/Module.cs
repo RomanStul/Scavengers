@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using Menu;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
@@ -29,7 +31,7 @@ namespace Player.Module
         //public Scripts scripts;
         public Player.Module.BaseClass[] baseScripts;
         public Rigidbody2D moveRb;
-        public static ModuleState savedState;
+        public PlayerInput playerInput;
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
         {
@@ -51,8 +53,6 @@ namespace Player.Module
             {
                 baseScripts[i].SetModule(this);
             }
-            //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attached
-            GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).LoadUpgrades(savedState?.upgrades);
             
             LoadFromSave();
         }
@@ -65,29 +65,23 @@ namespace Player.Module
             }
         }
 
-        public void CreateStateObject()
+        public void CreateStateObject(string scene, Vector2 position)
         {
-            savedState = new ModuleState();
-            savedState.health = GetScript<HealthBar>(ScriptNames.HealthBarScript).GetHealth();
-            savedState.fuel = GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).GetFuel();
-            savedState.currency = GetScript<Storage>(ScriptNames.StorageScript).Currency;
-            savedState.itemStored = GetScript<Storage>(ScriptNames.StorageScript).ItemStorage;
-            savedState.upgrades = GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).GetUpgrades();
+            if (SavesManager.Instance != null)
+            {
+                SavesManager.Instance.CreateSaveObject(this, scene, position);
+                SavesManager.Instance.WriteSaveIntoFile();
+            }
         }
 
         private void LoadFromSave()
         {
-            //TODO if nul try loading from a file
-            if (savedState != null)
+            if (SavesManager.Instance != null)
             {
-                GetScript<HealthBar>(ScriptNames.HealthBarScript).SetHealth(savedState.health);
-                GetScript<Player.Module.Movement.Movement>(ScriptNames.MovementScript).SetFuel(savedState.fuel);
-                GetScript<Storage>(ScriptNames.StorageScript).Currency = savedState.currency;
-                GetScript<Storage>(ScriptNames.StorageScript).ItemStorage = savedState.itemStored;
-            }
-            else
-            {
-                GetScript<HealthBar>(ScriptNames.HealthBarScript).SetHealth(GetScript<HealthBar>(ScriptNames.HealthBarScript).GetMaxHealth());
+                //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attached
+                GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).LoadUpgrades(SavesManager.Instance.GetSavedUpgrades());
+                //Load values and data after upgrades are applied
+                SavesManager.Instance.LoadSaveIntoModule(this);
             }
         }
 
@@ -106,6 +100,13 @@ namespace Player.Module
             PrepareForSceneTransfer(Vector3.zero);
             GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency(30, true);
             SceneManager.LoadScene("OutpostScene");
+        }
+
+        public void SaveAndQuit()
+        {
+            CreateStateObject(SceneManager.GetActiveScene().name, transform.position);
+            Destroy(gameObject);
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

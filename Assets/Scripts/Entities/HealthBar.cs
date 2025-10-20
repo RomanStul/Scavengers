@@ -60,7 +60,7 @@ namespace Entities
                 return healthBarConstants.currentHealth;
             }
             
-            healthBarConstants.currentHealth -= damage;
+            healthBarConstants.currentHealth -= realDamage;
             if (healthBarConstants.currentHealth <= 0)
             {
                 healthBarConstants.currentHealth = 0;
