@@ -68271,6 +68271,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1475755868}
     m_Modifications:
     - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
+      propertyPath: respawns
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
       propertyPath: destructibleId
       value: 798460614
       objectReference: {fileID: 0}
@@ -68877,6 +68881,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1475755868}
     m_Modifications:
+    - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
+      propertyPath: respawns
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
       propertyPath: destructibleId
       value: 2015396140
@@ -79318,6 +79326,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1475755868}
     m_Modifications:
     - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
+      propertyPath: respawns
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
       propertyPath: destructibleId
       value: 1488072487
       objectReference: {fileID: 0}
@@ -80515,6 +80527,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1475755868}
     m_Modifications:
+    - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
+      propertyPath: respawns
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2540872614468738737, guid: 06bf025f4b6ecf546b75e2fa8e5be954, type: 3}
       propertyPath: destructibleId
       value: 1636194493

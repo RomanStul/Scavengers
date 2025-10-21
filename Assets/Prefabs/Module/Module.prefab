@@ -8056,7 +8056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   storageCapacity: 10
   itemsStored: 0
-  itemStorage: 000000000000000000000000000000000000000000000000
+  itemStorage: 00000000000000000000000000000000
   currency: 0
   itemDBSO: {fileID: 11400000, guid: 0126cd85fa420474c84f7fef2cc03a6b, type: 2}
 --- !u!114 &7421670379239451658
