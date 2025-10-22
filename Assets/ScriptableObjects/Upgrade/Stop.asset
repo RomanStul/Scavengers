@@ -17,5 +17,5 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: 408d82833ec24c540bc378f2600d5cd6, type: 2}
     amount: 1
   neededUpgrades: 0000000004000000
-  description: System that uses combination
+  description: System that uses combination of all four thruster to stop module completely.
   tag: 2

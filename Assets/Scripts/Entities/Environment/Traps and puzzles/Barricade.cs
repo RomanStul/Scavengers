@@ -28,7 +28,7 @@ namespace Entities.Environment
             bool allSet = true;
             for (int i = 0; i < triggers.Length; i++)
             {
-                if (triggers[i].triggerObject == trigger)
+                if (triggers[i].triggerObject == trigger || triggers[i].triggerObject == null)
                 {
                     triggers[i].isSet = true;
                 }

@@ -7,11 +7,10 @@ namespace ScriptableObjects.Item
     {
         public enum Items
         {
-            Test_Item,
             Titanium_Ore,
             Gold_Ore,
             Purpura_Fungi,
-            Lucene_Fungi,
+            Lucene_Fungi
         }
     
         public Sprite image;
