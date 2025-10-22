@@ -83,6 +83,10 @@ namespace Player.Module
                 //Load values and data after upgrades are applied
                 SavesManager.Instance.LoadSaveIntoModule(this);
             }
+            else
+            {
+                ApplyUpgrades();
+            }
         }
 
         public void PrepareForSceneTransfer(Vector3 position)

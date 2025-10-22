@@ -28,6 +28,7 @@ namespace Menu
         {
             public float Health, Fuel;
             public int[] StoredItems;
+            public int Currency;
             public bool[] Upgrades;
             public string Scene;
             public Vector2 Position;
@@ -110,6 +111,7 @@ namespace Menu
             currentSave.ModuleData.Health = moduleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).GetHealth();
             currentSave.ModuleData.Fuel = moduleRef.GetScript<Movement>(Module.ScriptNames.MovementScript).GetFuel();
             currentSave.ModuleData.StoredItems = moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).ItemStorage;
+            currentSave.ModuleData.Currency = moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency;
             currentSave.ModuleData.Upgrades = moduleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).GetUpgrades();
             currentSave.ModuleData.Scene = scene;
             currentSave.ModuleData.Position = position;
@@ -154,6 +156,7 @@ namespace Menu
             moduleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).SetHealth(currentSave.ModuleData.Health);
             moduleRef.GetScript<Movement>(Module.ScriptNames.MovementScript).SetFuel(currentSave.ModuleData.Fuel);
             moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).ItemStorage = currentSave.ModuleData.StoredItems;
+            moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency = currentSave.ModuleData.Currency;
             moduleRef.transform.position = new Vector3(currentSave.ModuleData.Position.x, currentSave.ModuleData.Position.y, 0);
         
             DestructionManager.instance.SetDestroyedOres(currentSave.EnvironmentData.DestroyedOres);

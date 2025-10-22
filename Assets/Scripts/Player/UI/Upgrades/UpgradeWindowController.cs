@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Player.Module;
 using Player.Module.Upgrades;
 using ScriptableObjects.Upgrade;
@@ -90,14 +91,19 @@ namespace Player.UI.Upgrades
                     buttonsTotal++;
                 }
             }
-            
+
+            buttonsTotal = buttons.Length;
+
             for (int i = 0; i < buttonsTotal; i++)
             {
-                
-                buttons[i].gameObject.SetActive(true);
-                for (int j = 0; j < upgrades[i].neededUpgrades.Length; j++)
+                if (buttons[i] == null)
                 {
-                    if (!upgradesInfo[(int)upgrades[i].neededUpgrades[j]].unlocked)
+                    continue;
+                }
+                buttons[i].gameObject.SetActive(true);
+                for (int j = 0; j < buttons[i].GetUpgrade().neededUpgrades.Length; j++)
+                {
+                    if (!upgradesInfo[(int)buttons[i].GetUpgrade().neededUpgrades[j]].unlocked)
                     {
                         buttons[i].gameObject.SetActive(false);
                         break;
