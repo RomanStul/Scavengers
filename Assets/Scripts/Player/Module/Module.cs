@@ -25,6 +25,7 @@ namespace Player.Module
             UpgradeVisualsScript,
             UIControlsScript,
             InteractionScript,
+            ToolScript
         }
         //================================================================EDITOR VARIABLES
 
