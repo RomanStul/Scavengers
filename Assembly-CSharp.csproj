@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\Entities\Item.cs" />
     <Compile Include="Assets\Scripts\Entities\Dropper.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Tools\ModuleTool.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeCost.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Bar.cs" />
     <Compile Include="Assets\Scripts\Menu\SaveButton.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\ScriptableObjects\Material\MaterialSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIWindow.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\InventoryHandler.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\ToolDisplay.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\SceneTransfer.cs" />
     <Compile Include="Assets\ScriptableObjects\Tools\ToolSO.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

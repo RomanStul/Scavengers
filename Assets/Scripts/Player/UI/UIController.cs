@@ -4,6 +4,7 @@ using Player.Module.Upgrades;
 using Player.UI.Inventory;
 using Player.UI.Upgrades;
 using ScriptableObjects.Item;
+using ScriptableObjects.Tools;
 using Input = Player.Module.Input;
 
 namespace Player.UI
@@ -40,6 +41,7 @@ namespace Player.UI
         [SerializeField] private Bar HealthBar, FuelBar, StorageBar;
         [SerializeField] private Cooldown Dash, Stop, SideDash;
         [SerializeField] private CurrencyDisplay currencyDisplay;
+        [SerializeField] private ToolDisplay toolDisplay;
 
         [SerializeField] private InventoryHandler inventory;
         [SerializeField] private UpgradeWindowController upgradeController;
@@ -167,6 +169,11 @@ namespace Player.UI
         public void PassRepairParameters(RepairRefuel.RepairRefuel.RepairWindowParameters repairRefuelParameters)
         {
             repairRefuel.SetParameters(repairRefuelParameters);
+        }
+
+        public void SetTool(ToolSO tool, int count)
+        {
+            toolDisplay.SetTool(tool, count);
         }
 
         public UIWindow OpenWindow(WindowType win)
