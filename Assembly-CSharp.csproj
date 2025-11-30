@@ -48,6 +48,7 @@
     <Compile Include="Assets\Scripts\Menu\SavesManager.cs" />
     <Compile Include="Assets\Scripts\Player\Module\CollisionHandler.cs" />
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\Milestones\SceneMilestoneManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Destructible.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeSelectButton.cs" />
@@ -62,6 +63,8 @@
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
     <Compile Include="Assets\Scripts\Player\UI\RepairRefuel\RepairRefuel.cs" />
+    <Compile Include="Assets\Scripts\Milestones\MilestoneTriggers\MilestoneTrigger.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\Transmission.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SliderController.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemDBSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\ItemFrame.cs" />
+    <Compile Include="Assets\Scripts\Milestones\MilestoneTriggers\CollisionTrigger.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ToolHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\InteractionHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
@@ -119,6 +123,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\transmissions\transmissionText.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Menu;
+using Milestones;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -33,6 +34,7 @@ namespace Player.Module
         public Player.Module.BaseClass[] baseScripts;
         public Rigidbody2D moveRb;
         public PlayerInput playerInput;
+
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
         {
@@ -49,6 +51,7 @@ namespace Player.Module
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            SceneMilestoneManager.currentInstance.SetModule(this);
             
             for (int i = 0; i < baseScripts.Length; i++)
             {
