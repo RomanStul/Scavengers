@@ -10,7 +10,8 @@ namespace ScriptableObjects.Item
             Titanium_Ore,
             Gold_Ore,
             Purpura_Fungi,
-            Lucene_Fungi
+            Lucene_Fungi,
+            Circuit
         }
     
         public Sprite image;

@@ -1,4 +1,6 @@
 using System;
+using Milestones;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,7 +22,8 @@ namespace Player.Module.Upgrades
             Stop,
             Dash,
             Sideways_Thrust,
-            Fluorescent_Lights
+            Fluorescent_Lights,
+            Portal_passkey
         }
 
         [Serializable]
@@ -99,12 +102,16 @@ namespace Player.Module.Upgrades
             }
 
             upgradesObject = updatedUpgrades;
+#if UNITY_EDITOR
+            EditorUtility.SetDirty(this);
+#endif
         }
 
         public void InstallUpgrades(int upgrade)
         {
             upgradesObject[upgrade].unlocked = true;
             ModuleRef.ApplyUpgrades();
+            SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.Upgraded, upgrade));
         }
     }
 }

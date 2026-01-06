@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   cost: 30
-  item: []
-  neededUpgrades: 
+  neededItems: []
+  neededUpgrades: 06000000
   description: Allows module to quickly accelarate.
   tag: 3

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Player.Module;
 using Player.Module.Upgrades;
@@ -5,6 +6,8 @@ using Player.UI.Inventory;
 using Player.UI.Upgrades;
 using ScriptableObjects.Item;
 using ScriptableObjects.Tools;
+using Unity.VisualScripting;
+using UnityEngine.Events;
 using Input = Player.Module.Input;
 
 namespace Player.UI
@@ -25,7 +28,6 @@ namespace Player.UI
             SideDash
         }
         //================================================================CLASSES
-
         public enum WindowType
         {
             None,
@@ -34,7 +36,9 @@ namespace Player.UI
             Upgrades,
             Items,
             Repair,
-            Pause
+            Pause,
+            Transmission,
+            Help
         }
         
         //================================================================EDITOR VARIABLES
@@ -43,10 +47,9 @@ namespace Player.UI
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private ToolDisplay toolDisplay;
 
-        [SerializeField] private InventoryHandler inventory;
-        [SerializeField] private UpgradeWindowController upgradeController;
-        [SerializeField] private RepairRefuel.RepairRefuel repairRefuel;
-        [SerializeField] private UIWindow pause;
+        [SerializeField] private UIWindow[] windows;
+
+        public UnityEvent ee;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
@@ -70,105 +73,186 @@ namespace Player.UI
             
             //TODO pass upgrades to windows {storage expansion into inventory and so on}
             
-            upgradeController.SetUpUpgrades(upgradesScript.upgradesObject);
+            ((UpgradeWindowController)windows[(int)WindowType.Upgrades]).SetUpUpgrades(upgradesScript.upgradesObject);
 
         }
 
-    public void SetBar(int value, BarsNames barName, bool isMax = false)
-        {
-            Bar targetBar = null;
+        #region WindowFunctions
 
-            switch (barName)
-            {
-                case BarsNames.HealthBar:
-                    targetBar = HealthBar;
-                    break;
-                case BarsNames.FuelBar:
-                    targetBar = FuelBar;
-                    break;
-                case BarsNames.StorageBar:
-                    targetBar = StorageBar;
-                    break;
-                default:
-                    return;
-            }
+        public UIWindow OpenWindow(WindowType win)
+                {
+                    if(currentOppenedWindow != null)
+                        currentOppenedWindow.CloseWindow();
+        
+                    if (win == currentWindowType)
+                    {
+                        currentWindowType = WindowType.None;
+                        currentOppenedWindow = null;
+                        ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
+                        return null;
+                    }
+                    
+                    switch (win)
+                    {
+                        case WindowType.Inventory:
+                            InventoryHandler invHand = ((InventoryHandler)windows[(int)win]);
+                            invHand.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
+                            currentOppenedWindow = invHand.IsOpened() ? invHand : null;
+                            break;
+                        
+                        case WindowType.Resources:
+                            InventoryHandler resHand = ((InventoryHandler)windows[(int)win]);
+                            resHand.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
+                            currentOppenedWindow = resHand.IsOpened() ? resHand : null;
+                            break;
+                        
+                        case WindowType.None:
+                            currentOppenedWindow = null;
+                            break;
+                        
+                        default:
+                            windows[(int)win].ToggleWindow();
+                            currentOppenedWindow = windows[(int)win].IsOpened() ? windows[(int)win] : null;
+                            break;
+                    }
+                    
+                    
+        
+                    if (currentOppenedWindow != null)
+                    {
+                        currentWindowType = currentOppenedWindow.IsOpened() ? win : WindowType.None;
+                        ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
+                    }
+                    else
+                    {
+                        ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
+                        currentWindowType = WindowType.None;
+                    }
+        
+                    return currentOppenedWindow;
+                }
+        
+                public void CloseCurrentWindow()
+                {
+                    OpenWindow(WindowType.None);
+                }
 
-            if (isMax)
-            {
-                targetBar.SetMaxValue(value);
-            }
-            else
-            {
-                targetBar.SetValue(value);
-            }
-        }
+                public void CloseSpecificWindow(WindowType windowType)
+                {
+                    if (windows[(int)windowType].IsOpened())
+                    {
+                        OpenWindow(WindowType.None);
+                    }
+                }
 
-        public void StartCooldown(float time, Cooldowns cooldownName)
-        {
-            Cooldown targetCooldown = null;
+        #endregion
 
-            switch (cooldownName)
-            {
-                case Cooldowns.Dash:
-                    targetCooldown = Dash;
-                    break;
-                case Cooldowns.Stop:
-                    targetCooldown = Stop;
-                    break;
-                case Cooldowns.SideDash:
-                    targetCooldown = SideDash;
-                    break;
-                default:
-                    return;
-            }
-            
-            targetCooldown.StartCooldown(time);
-        }
+        #region Bars
 
-        public void StartDuration(float time, Cooldowns cooldownName = Cooldowns.SideDash)
-        {
-            SideDash.StartDuration(time);
-        }
+        public void SetBar(int value, BarsNames barName, bool isMax = false)
+                {
+                    Bar targetBar = null;
+        
+                    switch (barName)
+                    {
+                        case BarsNames.HealthBar:
+                            targetBar = HealthBar;
+                            break;
+                        case BarsNames.FuelBar:
+                            targetBar = FuelBar;
+                            break;
+                        case BarsNames.StorageBar:
+                            targetBar = StorageBar;
+                            break;
+                        default:
+                            return;
+                    }
+        
+                    if (isMax)
+                    {
+                        targetBar.SetMaxValue(value);
+                    }
+                    else
+                    {
+                        targetBar.SetValue(value);
+                    }
+                }
+        
+                public void StartCooldown(float time, Cooldowns cooldownName)
+                {
+                    Cooldown targetCooldown = null;
+        
+                    switch (cooldownName)
+                    {
+                        case Cooldowns.Dash:
+                            targetCooldown = Dash;
+                            break;
+                        case Cooldowns.Stop:
+                            targetCooldown = Stop;
+                            break;
+                        case Cooldowns.SideDash:
+                            targetCooldown = SideDash;
+                            break;
+                        default:
+                            return;
+                    }
+                    
+                    targetCooldown.StartCooldown(time);
+                }
+        
+                public void StartDuration(float time, Cooldowns cooldownName = Cooldowns.SideDash)
+                {
+                    SideDash.StartDuration(time);
+                }
+
+        #endregion
+
+        #region NonWindowUI
 
         public void DisplayBalance(int balance)
-        {
-            currencyDisplay.DisplayBalance(balance);
-        }
+                {
+                    currencyDisplay.DisplayBalance(balance);
+                }
+        
+                public void ItemAmountChange(ItemSO item, int amount)
+                {
+                    if (amount > 0)
+                    {
+                        ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
+                    }
+                }
+        
+                public void ItemAmountChange(int item, int amount)
+                {
+                    if (amount > 0)
+                    {
+                        ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
+                    }
+                }
+        
+                public void SetStorageCapacity(int capacity)
+                {
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).SetStorageCapacity(capacity);
+                }
+        
+                public void RemoveAllItemsFromInventory()
+                {
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveAllItems();
+                }
+        
+                public void RemoveItemFromInventory(ItemSO item, int amount)
+                {
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveItem(item, amount);
+                }
 
-        public void ItemAmountChange(ItemSO item, int amount)
-        {
-            if (amount > 0)
-            {
-                inventory.AddItem(item, amount);
-            }
-        }
+        #endregion
 
-        public void ItemAmountChange(int item, int amount)
-        {
-            if (amount > 0)
-            {
-                inventory.AddItem(item, amount);
-            }
-        }
 
-        public void SetStorageCapacity(int capacity)
-        {
-            inventory.SetStorageCapacity(capacity);
-        }
-
-        public void RemoveAllItemsFromInventory()
-        {
-            inventory.RemoveAllItems();
-        }
-
-        public void RemoveItemFromInventory(ItemSO item, int amount)
-        {
-            inventory.RemoveItem(item, amount);
-        }
+        #region WindowSpecificFunctions
 
         public void PassRepairParameters(RepairRefuel.RepairRefuel.RepairWindowParameters repairRefuelParameters)
         {
-            repairRefuel.SetParameters(repairRefuelParameters);
+            ((RepairRefuel.RepairRefuel)windows[(int)WindowType.Repair]).SetParameters(repairRefuelParameters);
         }
 
         public void SetTool(ToolSO tool, int count)
@@ -176,68 +260,21 @@ namespace Player.UI
             toolDisplay.SetTool(tool, count);
         }
 
-        public UIWindow OpenWindow(WindowType win)
+        public void ShowTransmission(string message)
         {
-            if(currentOppenedWindow != null)
-                currentOppenedWindow.CloseWindow();
-
-            if (win == currentWindowType)
-            {
-                currentWindowType = WindowType.None;
-                currentOppenedWindow = null;
-                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
-                return null;
-            }
-            
-            switch (win)
-            {
-                case WindowType.Inventory:
-                    inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
-                    currentOppenedWindow = inventory.IsOpened() ? inventory : null;
-                    break;
-                
-                case WindowType.Resources:
-                    inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
-                    currentOppenedWindow = inventory.IsOpened() ? inventory : null;
-                    break;
-                
-                case WindowType.Upgrades:
-                    upgradeController.ToggleWindow();
-                    currentOppenedWindow = upgradeController.IsOpened() ? upgradeController : null;
-                    break;
-                
-                case WindowType.Repair:
-                    repairRefuel.ToggleWindow();
-                    currentOppenedWindow = repairRefuel.IsOpened() ? repairRefuel : null;
-                    break;
-                case WindowType.None:
-                    currentOppenedWindow = null;
-                    break;
-                case WindowType.Pause:
-                    pause.ToggleWindow();
-                    currentOppenedWindow = pause.IsOpened() ? pause : null;
-                    break;
-            }
-            
-            
-
-            if (currentOppenedWindow != null)
-            {
-                currentWindowType = currentOppenedWindow.IsOpened() ? win : WindowType.None;
-                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
-            }
-            else
-            {
-                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
-                currentWindowType = WindowType.None;
-            }
-
-            return currentOppenedWindow;
+            ((Transmission)windows[(int)WindowType.Transmission]).WriteMessage(message);
         }
 
-        public void CloseCurrentWindow()
+        public void SetHelpWindowMode(HelpDisplay.DisplayModes mode)
         {
-            OpenWindow(WindowType.None);
+            ((HelpDisplay)windows[(int)WindowType.Help]).SetMode(mode);
         }
+            
+        #endregion
+
+
+        
+        
+       
     }
 }

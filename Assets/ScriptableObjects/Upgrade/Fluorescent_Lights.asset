@@ -16,6 +16,6 @@ MonoBehaviour:
   neededItems:
   - item: {fileID: 11400000, guid: 28d89a58693420c4b9a7c4ea03574a3d, type: 2}
     amount: 4
-  neededUpgrades: 
+  neededUpgrades: 06000000
   description: Uses fluorescent fungi to get energy free lights.
   tag: 5

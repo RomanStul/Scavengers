@@ -114,5 +114,17 @@ namespace Entities
         {
             Destroy(target.gameObject);
         }
+        
+        public void RespawnTimer(float delay)
+        {
+            StartCoroutine(Respawn(delay));
+        }
+
+        public IEnumerator Respawn(float delay)
+        {
+            
+            yield return new WaitForSeconds(delay);
+            gameObject.SetActive(true);
+        }
     }
 }

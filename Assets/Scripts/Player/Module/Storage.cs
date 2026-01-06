@@ -1,4 +1,5 @@
 using System;
+using Milestones;
 using ScriptableObjects.Item;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -71,6 +72,7 @@ namespace Player.Module
                 itemsStored++;
                 ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
                 ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).ItemAmountChange(item.GetItemData(), amount);
+                SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.PickedUp, (int)item.GetItemData().itemType));
                 Destroy(item.gameObject);
             }
         }

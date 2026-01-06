@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Menu;
+using Milestones;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -27,12 +28,24 @@ namespace Player.Module
             InteractionScript,
             ToolScript
         }
+
+        [Serializable]
+        public class EvacuateSettings
+        {
+            public int cost;
+            public Vector3 evacuatePosition;
+            public bool evacuateToSameScene;
+            public string sceneName;
+            public float costMultiplier = 1;
+        }
         //================================================================EDITOR VARIABLES
 
         //public Scripts scripts;
         public Player.Module.BaseClass[] baseScripts;
         public Rigidbody2D moveRb;
         public PlayerInput playerInput;
+        [SerializeField] private EvacuateSettings evacuateSettings;
+
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
         {
@@ -44,11 +57,17 @@ namespace Player.Module
             //TODO make so that order of script either doesn't matter or is fixed to correct one
             return (T)baseScripts[(int)scriptName];
         }
+
+        public EvacuateSettings GetEvacuateSettings()
+        {
+            return evacuateSettings;
+        }
         //================================================================FUNCTIONALITY
         
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
+            GlobalMilestoneManager.instance.ModuleRef = this;
             
             for (int i = 0; i < baseScripts.Length; i++)
             {
@@ -98,13 +117,20 @@ namespace Player.Module
 
         public void Evacuate()
         {
-            if (SceneManager.GetActiveScene().name == "OutpostScene")
+            if (SceneManager.GetActiveScene().name == evacuateSettings.sceneName && !evacuateSettings.evacuateToSameScene)
             {
                 return;
             }
             PrepareForSceneTransfer(Vector3.zero);
-            GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency(30, true);
-            SceneManager.LoadScene("OutpostScene");
+            GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency((int)(evacuateSettings.cost * evacuateSettings.costMultiplier), true);
+            if (SceneManager.GetActiveScene().name == evacuateSettings.sceneName)
+            {
+                transform.position = evacuateSettings.evacuatePosition;
+            }
+            else
+            {
+                SceneManager.LoadScene("OutpostScene");
+            }
         }
 
         public void SaveAndQuit()

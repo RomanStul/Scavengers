@@ -22,10 +22,11 @@ namespace Player.Module.Drill
         //================================================================FUNCTIONALITY
 
 
-        private void Update()
+        private void FixedUpdate()
         {
             //TODO make follow body of module
-            Vector3 targetPosition = Convertor.Vec2ToVec3(DrillTargetPosition - new Vector2(Screen.width / 2, Screen.height / 2));
+            Vector3 targetPosition = Convertor.Vec2ToVec3((DrillTargetPosition - new Vector2(Screen.width / 2, Screen.height / 2)));
+            //targetPosition += transform.position;
             Convertor.Lerp2D(targetPosition, drillGameObject.transform, drillControllerConstants.RotationSpeed);
         }
 

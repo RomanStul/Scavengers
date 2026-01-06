@@ -16,6 +16,6 @@ MonoBehaviour:
   neededItems:
   - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
     amount: 3
-  neededUpgrades: 
+  neededUpgrades: 06000000
   description: Enables reverse thrust.
   tag: 0

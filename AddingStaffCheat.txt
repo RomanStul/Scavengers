@@ -9,7 +9,7 @@ Ore
 - ItemSo drop
 - ore prefab
 - add to ItemDBSo
-
+-increase size of module storage array
 
 Upgrade
 

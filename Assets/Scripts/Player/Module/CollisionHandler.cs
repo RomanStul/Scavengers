@@ -37,7 +37,7 @@ namespace Player.Module
                 return;
             }
             //TODO add point to calculate collision magnitude from, take one that's closer to point of impact
-            Vector2 relativePosition = Convertor.Vec3ToVec2(transform.position) - collision.contacts[0].point;
+            Vector2 relativePosition = (Convertor.Vec3ToVec2(transform.position) - collision.GetContact(0).point).normalized;
             Vector2 velocity = collision.relativeVelocity;
             float magnitude = Mathf.Abs(Vector2.Dot(velocity, relativePosition));
             ModuleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).TakeDamage(magnitude * (collisionConstants.collisionDamageMultiplier), MaterialSO.DamageType.Kinetic);
