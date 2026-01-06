@@ -108,6 +108,12 @@ namespace Milestones
 
         }
 
+        public void ModuleHelpWindowMode(int mode)
+        {
+            UIController cont = moduleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript);
+            cont.SetHelpWindowMode((HelpDisplay.DisplayModes)mode);
+        }
+
         public void OpenWindow(int windowType)
         {
             moduleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow((UIController.WindowType)windowType);

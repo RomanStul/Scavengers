@@ -247,7 +247,8 @@ namespace Player.UI
 
         #endregion
 
-        
+
+        #region WindowSpecificFunctions
 
         public void PassRepairParameters(RepairRefuel.RepairRefuel.RepairWindowParameters repairRefuelParameters)
         {
@@ -263,6 +264,17 @@ namespace Player.UI
         {
             ((Transmission)windows[(int)WindowType.Transmission]).WriteMessage(message);
         }
+
+        public void SetHelpWindowMode(HelpDisplay.DisplayModes mode)
+        {
+            ((HelpDisplay)windows[(int)WindowType.Help]).SetMode(mode);
+        }
+            
+        #endregion
+
+
+        
+        
        
     }
 }
