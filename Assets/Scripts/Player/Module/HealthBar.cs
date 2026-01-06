@@ -58,7 +58,7 @@ namespace Player.Module
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
             canTakeDamage = false;
             StartCoroutine(InvincibilityTimer());
-            
+
             if (health <= 0)
             {
                 ModuleRef.Evacuate();

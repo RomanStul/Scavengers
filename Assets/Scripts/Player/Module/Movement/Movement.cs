@@ -123,7 +123,7 @@ namespace Player.Module.Movement
         }
 
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (!takeInput)
             {

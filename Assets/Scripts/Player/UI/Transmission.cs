@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Milestones;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -38,6 +39,7 @@ namespace Player.UI
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
          private TransmissionWrapper transmissions;
+         private Coroutine writeCoroutine;
 
          private void Awake()
          {
@@ -67,9 +69,9 @@ namespace Player.UI
              for (int j = 0; j < transmissions.texts.Length; j++)
              {
                 if (transmissions.texts[j].key == messageName)
-                {
-                   StartCoroutine(Write(transmissions.texts[j].text[messageIndex]));
-                   break;
+                { 
+                    writeCoroutine = SceneMilestoneManager.currentInstance.StartTrackedCoroutine(Write(transmissions.texts[j].text[messageIndex]));
+                    break;
                 }
              }
 
@@ -79,11 +81,14 @@ namespace Player.UI
          {
              text.text = "";
              char space = " "[0];
-             for (int i = 0; i < message.Length; i++)
+             for (int i = 0; i < message.Length && transform.gameObject.activeSelf; i++)
              {
                  text.text += message[i];
                  yield return new WaitForSeconds(Char.IsWhiteSpace(message[i]) ? 0.05f : 0.025f);
              }
+
+             yield return new WaitUntil(() => !transform.gameObject.activeSelf);
+
          }
     }
 }

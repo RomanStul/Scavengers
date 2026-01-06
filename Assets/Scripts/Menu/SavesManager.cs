@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Entities.Environment;
+using Milestones;
 using Player.Module;
 using Player.Module.Movement;
 using Player.Module.Upgrades;
@@ -21,6 +23,7 @@ namespace Menu
             public ModuleData ModuleData;
             public EnvironmentData EnvironmentData;
             public bool valid = false;
+            public MilestonesData MilestoneData;
         }
 
         [Serializable]
@@ -41,6 +44,13 @@ namespace Menu
             public int[] DestroyedOres;
             public int[] DestroyedObjects;
             //changes on market
+        }
+
+        [Serializable]
+
+        public class MilestonesData
+        {
+            public Dictionary<string, GlobalMilestoneManager.Milestone[]> CompletedMilestones;
         }
         //================================================================EDITOR VARIABLES
         private string currentSaveName;
@@ -120,6 +130,15 @@ namespace Menu
             currentSave.EnvironmentData.Day = 0;
             currentSave.EnvironmentData.DestroyedObjects = DestructionManager.instance.GetDestroyedObjectsArray();
             currentSave.EnvironmentData.DestroyedOres = DestructionManager.instance.GetDestroyedOresArray();
+            
+            //Milestone Data
+            Dictionary<string, GlobalMilestoneManager.Milestone[]> arrayMilestones = new Dictionary<string, GlobalMilestoneManager.Milestone[]>();
+
+            foreach (var pair in GlobalMilestoneManager.instance.CompletedMilestones)
+            {
+                arrayMilestones.Add(pair.Key, pair.Value.ToArray());
+            }
+            currentSave.MilestoneData.CompletedMilestones = arrayMilestones;
         
             return currentSave;
         }
@@ -161,6 +180,14 @@ namespace Menu
         
             DestructionManager.instance.SetDestroyedOres(currentSave.EnvironmentData.DestroyedOres);
             DestructionManager.instance.SetDestroyedObjects(currentSave.EnvironmentData.DestroyedObjects);
+
+            
+            Dictionary<string, List<GlobalMilestoneManager.Milestone>> listedMilestones = new Dictionary<string, List<GlobalMilestoneManager.Milestone>>();
+            foreach (var pair in currentSave.MilestoneData.CompletedMilestones)
+            {
+                listedMilestones.Add(pair.Key, pair.Value.ToList());
+            }
+            GlobalMilestoneManager.instance.CompletedMilestones = listedMilestones;
         }
 
         public bool TestSaveName(string newSaveName)

@@ -17,6 +17,7 @@ namespace Entities.Interactions
         [SerializeField] private UnityEvent<Module> onUse;
         
         //================================================================GETTER SETTER
+        public InteractionHandler.InteractionType InteractionType => interactionType;
         //================================================================FUNCTIONALITY
 
         private Module moduleRef;

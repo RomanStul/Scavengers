@@ -13,7 +13,7 @@ namespace Milestones.MilestoneTriggers
 
         protected void Trigger()
         {
-            SceneMilestoneManager.currentInstance.CompletedMilestone(new SceneMilestoneManager.Milestone(SceneMilestoneManager.MilestoneAction.Entered, id));
+            SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.Entered, id));
             if (disableAfterTrigger)
             {
                 gameObject.SetActive(false);

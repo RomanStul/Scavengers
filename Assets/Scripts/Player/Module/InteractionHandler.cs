@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Entities;
 using Entities.Interactions;
+using Player.Module.Upgrades;
 using UnityEngine;
 
 namespace Player.Module
@@ -14,9 +16,12 @@ namespace Player.Module
             Repair,
             Resources,
             Upgrades,
+            Portal
         }
         
         //================================================================EDITOR VARIABLES
+        
+        [SerializeField] private List<InteractionType> availableInteractions;
         
         //================================================================GETTER SETTER
 
@@ -40,11 +45,21 @@ namespace Player.Module
 
         public override void ApplyUpgrades()
         {
-            //TODO modify available interaction types
+            if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Portal_passkey))
+            {
+                availableInteractions.Add(InteractionType.Portal);
+                availableInteractions.Add(InteractionType.Resources);
+                availableInteractions.Add(InteractionType.Repair);
+                availableInteractions.Add(InteractionType.Items);
+            }
         }
 
         private void SetUpInteractableEntity(Interactable interaction)
         {
+            if (!availableInteractions.Contains(interaction.InteractionType))
+            {
+                return;
+            }
             //TODO add logic to unlock interactable items with upgrades
             if (currentInteractableEntity != null)
             {

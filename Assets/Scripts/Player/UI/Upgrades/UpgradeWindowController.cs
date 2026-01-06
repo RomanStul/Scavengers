@@ -196,8 +196,8 @@ namespace Player.UI.Upgrades
                 storage.RemoveItem(t.item, t.amount);
             }
             
-            rightSide.installEvent.Invoke((int)selectedUpgradeButton.GetUpgrade().tag);
             Destroy(selectedUpgradeButton.gameObject);
+            rightSide.installEvent.Invoke((int)selectedUpgradeButton.GetUpgrade().tag);
             
             ResetRightSide();
         }

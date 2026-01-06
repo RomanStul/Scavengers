@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Player.Module;
 using Player.Module.Upgrades;
@@ -6,6 +7,7 @@ using Player.UI.Upgrades;
 using ScriptableObjects.Item;
 using ScriptableObjects.Tools;
 using Unity.VisualScripting;
+using UnityEngine.Events;
 using Input = Player.Module.Input;
 
 namespace Player.UI
@@ -26,7 +28,6 @@ namespace Player.UI
             SideDash
         }
         //================================================================CLASSES
-
         public enum WindowType
         {
             None,
@@ -36,7 +37,8 @@ namespace Player.UI
             Items,
             Repair,
             Pause,
-            Transmission
+            Transmission,
+            Help
         }
         
         //================================================================EDITOR VARIABLES
@@ -45,12 +47,9 @@ namespace Player.UI
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private ToolDisplay toolDisplay;
 
-        [SerializeField] private InventoryHandler inventory;
-        [SerializeField] private UpgradeWindowController upgradeController;
-        [SerializeField] private RepairRefuel.RepairRefuel repairRefuel;
-        [SerializeField] private UIWindow pause;
+        [SerializeField] private UIWindow[] windows;
 
-        [SerializeField] private Transmission transmissionWindow;
+        public UnityEvent ee;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY
@@ -74,11 +73,11 @@ namespace Player.UI
             
             //TODO pass upgrades to windows {storage expansion into inventory and so on}
             
-            upgradeController.SetUpUpgrades(upgradesScript.upgradesObject);
+            ((UpgradeWindowController)windows[(int)WindowType.Upgrades]).SetUpUpgrades(upgradesScript.upgradesObject);
 
         }
 
-        #region BasicFunctions
+        #region WindowFunctions
 
         public UIWindow OpenWindow(WindowType win)
                 {
@@ -96,34 +95,24 @@ namespace Player.UI
                     switch (win)
                     {
                         case WindowType.Inventory:
-                            inventory.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
-                            currentOppenedWindow = inventory.IsOpened() ? inventory : null;
+                            InventoryHandler invHand = ((InventoryHandler)windows[(int)win]);
+                            invHand.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
+                            currentOppenedWindow = invHand.IsOpened() ? invHand : null;
                             break;
                         
                         case WindowType.Resources:
-                            inventory.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
-                            currentOppenedWindow = inventory.IsOpened() ? inventory : null;
+                            InventoryHandler resHand = ((InventoryHandler)windows[(int)win]);
+                            resHand.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
+                            currentOppenedWindow = resHand.IsOpened() ? resHand : null;
                             break;
                         
-                        case WindowType.Upgrades:
-                            upgradeController.ToggleWindow();
-                            currentOppenedWindow = upgradeController.IsOpened() ? upgradeController : null;
-                            break;
-                        
-                        case WindowType.Repair:
-                            repairRefuel.ToggleWindow();
-                            currentOppenedWindow = repairRefuel.IsOpened() ? repairRefuel : null;
-                            break;
                         case WindowType.None:
                             currentOppenedWindow = null;
                             break;
-                        case WindowType.Pause:
-                            pause.ToggleWindow();
-                            currentOppenedWindow = pause.IsOpened() ? pause : null;
-                            break;
-                        case WindowType.Transmission:
-                            transmissionWindow.ToggleWindow();
-                            currentOppenedWindow = transmissionWindow.IsOpened() ? transmissionWindow : null;
+                        
+                        default:
+                            windows[(int)win].ToggleWindow();
+                            currentOppenedWindow = windows[(int)win].IsOpened() ? windows[(int)win] : null;
                             break;
                     }
                     
@@ -146,6 +135,14 @@ namespace Player.UI
                 public void CloseCurrentWindow()
                 {
                     OpenWindow(WindowType.None);
+                }
+
+                public void CloseSpecificWindow(WindowType windowType)
+                {
+                    if (windows[(int)windowType].IsOpened())
+                    {
+                        OpenWindow(WindowType.None);
+                    }
                 }
 
         #endregion
@@ -210,7 +207,7 @@ namespace Player.UI
 
         #endregion
 
-        #region InventoryAndCurrency
+        #region NonWindowUI
 
         public void DisplayBalance(int balance)
                 {
@@ -221,7 +218,7 @@ namespace Player.UI
                 {
                     if (amount > 0)
                     {
-                        inventory.AddItem(item, amount);
+                        ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
                     }
                 }
         
@@ -229,23 +226,23 @@ namespace Player.UI
                 {
                     if (amount > 0)
                     {
-                        inventory.AddItem(item, amount);
+                        ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
                     }
                 }
         
                 public void SetStorageCapacity(int capacity)
                 {
-                    inventory.SetStorageCapacity(capacity);
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).SetStorageCapacity(capacity);
                 }
         
                 public void RemoveAllItemsFromInventory()
                 {
-                    inventory.RemoveAllItems();
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveAllItems();
                 }
         
                 public void RemoveItemFromInventory(ItemSO item, int amount)
                 {
-                    inventory.RemoveItem(item, amount);
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveItem(item, amount);
                 }
 
         #endregion
@@ -254,7 +251,7 @@ namespace Player.UI
 
         public void PassRepairParameters(RepairRefuel.RepairRefuel.RepairWindowParameters repairRefuelParameters)
         {
-            repairRefuel.SetParameters(repairRefuelParameters);
+            ((RepairRefuel.RepairRefuel)windows[(int)WindowType.Repair]).SetParameters(repairRefuelParameters);
         }
 
         public void SetTool(ToolSO tool, int count)
@@ -264,7 +261,7 @@ namespace Player.UI
 
         public void ShowTransmission(string message)
         {
-            transmissionWindow.WriteMessage(message);
+            ((Transmission)windows[(int)WindowType.Transmission]).WriteMessage(message);
         }
        
     }
