@@ -50,7 +50,19 @@ namespace Menu
 
         public class MilestonesData
         {
-            public Dictionary<string, GlobalMilestoneManager.Milestone[]> CompletedMilestones;
+            public string[] Scenes;
+            public MilestoneList[] Milestones;
+        }
+
+        [Serializable]
+        public class MilestoneList
+        {
+            public GlobalMilestoneManager.Milestone[] Milestones;
+
+            public MilestoneList(GlobalMilestoneManager.Milestone[] milestones)
+            {
+                Milestones = milestones;
+            }
         }
         //================================================================EDITOR VARIABLES
         private string currentSaveName;
@@ -101,6 +113,7 @@ namespace Menu
             currentSave = new Save();
             currentSave.ModuleData = new ModuleData();
             currentSave.EnvironmentData = new EnvironmentData();
+            currentSave.MilestoneData = new MilestonesData();
             currentSave.EnvironmentData.DestroyedOres = Array.Empty<int>();
             currentSave.EnvironmentData.DestroyedObjects = Array.Empty<int>();
             currentSave.Name = save;
@@ -132,13 +145,19 @@ namespace Menu
             currentSave.EnvironmentData.DestroyedOres = DestructionManager.instance.GetDestroyedOresArray();
             
             //Milestone Data
-            Dictionary<string, GlobalMilestoneManager.Milestone[]> arrayMilestones = new Dictionary<string, GlobalMilestoneManager.Milestone[]>();
+            
+            string[] scenes = new string[GlobalMilestoneManager.instance.CompletedMilestones.Count];
+            MilestoneList[] milestones = new MilestoneList[GlobalMilestoneManager.instance.CompletedMilestones.Count];
 
+            int i = 0;
             foreach (var pair in GlobalMilestoneManager.instance.CompletedMilestones)
             {
-                arrayMilestones.Add(pair.Key, pair.Value.ToArray());
+                scenes[i] = pair.Key;
+                milestones[i] = new MilestoneList(pair.Value.ToArray());
+                i++;
             }
-            currentSave.MilestoneData.CompletedMilestones = arrayMilestones;
+            currentSave.MilestoneData.Scenes = scenes;
+            currentSave.MilestoneData.Milestones = milestones;
         
             return currentSave;
         }
@@ -183,9 +202,9 @@ namespace Menu
 
             
             Dictionary<string, List<GlobalMilestoneManager.Milestone>> listedMilestones = new Dictionary<string, List<GlobalMilestoneManager.Milestone>>();
-            foreach (var pair in currentSave.MilestoneData.CompletedMilestones)
+            for(int i = 0; i < currentSave.MilestoneData.Scenes.Length; i++)
             {
-                listedMilestones.Add(pair.Key, pair.Value.ToList());
+                listedMilestones.Add(currentSave.MilestoneData.Scenes[i], currentSave.MilestoneData.Milestones[i].Milestones.ToList());
             }
             GlobalMilestoneManager.instance.CompletedMilestones = listedMilestones;
         }

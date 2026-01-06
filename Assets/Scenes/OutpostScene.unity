@@ -5203,7 +5203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06089834308f8644a90e80f33e87b0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeVisuals: []
+  activeVisuals:
+    m_PersistentCalls:
+      m_Calls: []
   useVisualCue: {fileID: 1541303318}
   interactionType: 3
   usedRepeatably: 1
@@ -28278,7 +28280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06089834308f8644a90e80f33e87b0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeVisuals: []
+  activeVisuals:
+    m_PersistentCalls:
+      m_Calls: []
   useVisualCue: {fileID: 1062406800}
   interactionType: 1
   usedRepeatably: 1
@@ -33142,7 +33146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06089834308f8644a90e80f33e87b0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeVisuals: []
+  activeVisuals:
+    m_PersistentCalls:
+      m_Calls: []
   useVisualCue: {fileID: 1178848310}
   interactionType: 2
   usedRepeatably: 1
