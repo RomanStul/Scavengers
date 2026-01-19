@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.TestTools;
 using Environment = Entities.Environment.Environment;
 using Milestones;
+using Player.Module.Upgrades;
 
 namespace Milestones
 {
@@ -37,6 +38,7 @@ namespace Milestones
         private Module moduleRef;
         private Coroutine executeCoroutine;
         public static SceneMilestoneManager currentInstance;
+        private bool runCoroutine = true;
 
 
         private void Awake()
@@ -44,15 +46,19 @@ namespace Milestones
             List<MilestoneEvent> unCompletedMilestones = new List<MilestoneEvent>();
             
             currentInstance = this;
-            foreach (MilestoneEvent me in milestones)
+            if (GlobalMilestoneManager.instance.AddSceneDictionary())
             {
-                if (!GlobalMilestoneManager.instance.IsMilestoneCompleted(me.milestone))
+                foreach (MilestoneEvent me in milestones)
                 {
-                    unCompletedMilestones.Add(me);
+                    if (!GlobalMilestoneManager.instance.IsMilestoneCompleted(me.milestone))
+                    {
+                        unCompletedMilestones.Add(me);
+                    }
                 }
+                milestones = unCompletedMilestones;
             }
+
             
-            milestones = unCompletedMilestones;
             moduleRef = GlobalMilestoneManager.instance.ModuleRef;
         }
 
@@ -70,6 +76,13 @@ namespace Milestones
             }
         }
 
+        //Takes string code that is (int)action_(int)id
+        public void CompletedMilestone(string code)
+        {
+            string[] parts = code.Split('_');
+            CompletedMilestone(new GlobalMilestoneManager.Milestone((GlobalMilestoneManager.MilestoneAction)int.Parse(parts[0]), int.Parse(parts[1])));
+        }
+
         private IEnumerator InvokeMilestoneEvents(MilestoneEvent me)
         {
             for (int i = 0; i < me.completionEventList.Count; i++)
@@ -79,6 +92,7 @@ namespace Milestones
                 if (me.completionEventList[i].wait)
                 {
                     yield return WaitForTrackedCoroutine();
+                    runCoroutine = false;
                 }
             }
 
@@ -153,7 +167,8 @@ namespace Milestones
 
         private IEnumerator GradualModuleStop(Vector3 position)
         {
-            while (true)
+            runCoroutine = true;
+            while (runCoroutine)
             {
                 Vector2 direction = Convertor.Vec3ToVec2(position - moduleRef.transform.position);
                 moduleRef.moveRb.velocity = direction.normalized * 0.5f + moduleRef.moveRb.velocity.normalized * 0.5f;
@@ -170,6 +185,11 @@ namespace Milestones
             }
             moduleRef.moveRb.velocity = Vector3.zero;
             moduleRef.moveRb.angularVelocity = 0;
+        }
+
+        public void ModuleUnlockUpgrade(int upgrade)
+        {
+            ((ModuleUpgrades)moduleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript)).InstallUpgrades(upgrade);
         }
     }
 }

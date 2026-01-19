@@ -46,6 +46,8 @@ namespace Player.UI
         [SerializeField] private Cooldown Dash, Stop, SideDash;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private ToolDisplay toolDisplay;
+        
+        [SerializeField] private TMPro.TextMeshProUGUI StartOfDayText;
 
         [SerializeField] private UIWindow[] windows;
 
@@ -243,6 +245,11 @@ namespace Player.UI
                 public void RemoveItemFromInventory(ItemSO item, int amount)
                 {
                     ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveItem(item, amount);
+                }
+
+                public void SetNewDayNumber(int number)
+                {
+                    StartOfDayText.text = "Day " + number;
                 }
 
         #endregion

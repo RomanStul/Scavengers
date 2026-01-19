@@ -1,5 +1,7 @@
 using System;
 using Entities.Environment;
+using Milestones;
+using story;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +24,7 @@ namespace Menu
 
         private void Awake()
         {
+            //Destroys the global scripts object with all the singletons aside from Saves Manager
             if (DestructionManager.instance != null)
             {
                 Destroy(DestructionManager.instance.gameObject);
@@ -41,8 +44,7 @@ namespace Menu
 
         public void StartNewGame()
         {
-            SavesManager.Instance.CreateSaveObject(null, "OutpostScene", new Vector2(0,0), saveName.text);
-            SavesManager.Instance.WriteSaveIntoFile();
+            SavesManager.Instance.WriteSaveIntoFile(SavesManager.Instance.CreateSaveObject(null, "OutpostScene", new Vector2(0,0), saveName.text));
         }
 
         public void CreateSavesButtons()

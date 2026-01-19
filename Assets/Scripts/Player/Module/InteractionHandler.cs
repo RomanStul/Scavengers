@@ -16,7 +16,8 @@ namespace Player.Module
             Repair,
             Resources,
             Upgrades,
-            Portal
+            Portal,
+            EndOfDay
         }
         
         //================================================================EDITOR VARIABLES
@@ -51,6 +52,11 @@ namespace Player.Module
                 availableInteractions.Add(InteractionType.Resources);
                 availableInteractions.Add(InteractionType.Repair);
                 availableInteractions.Add(InteractionType.Items);
+            }
+
+            if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.EndOfDay))
+            {
+                availableInteractions.Add(InteractionType.EndOfDay);
             }
         }
 

@@ -43,7 +43,7 @@ namespace Player.UI
 
          private void Awake()
          {
-             transmissions = JsonUtility.FromJson<TransmissionWrapper>(File.ReadAllText("Assets/transmissions/transmissionText.json"));
+             transmissions = JsonUtility.FromJson<TransmissionWrapper>(File.ReadAllText("Assets/Json/transmissionText.json"));
          }
 
          public void WriteMessage(string messageName)

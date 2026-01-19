@@ -10,12 +10,14 @@ namespace Milestones
     {
         //================================================================CLASSES4
         
+        [Serializable]
         public enum MilestoneAction
         {
             Entered,
             PickedUp,
             Destroyed,
-            Upgraded
+            Upgraded,
+            Day
         }
         
         [Serializable]
@@ -84,6 +86,17 @@ namespace Milestones
         public void AddCompletedMilestone(Milestone milestone)
         {
             completedMilestones[SceneManager.GetActiveScene().name].Add(milestone);
+        }
+
+        public bool AddSceneDictionary()
+        {
+            if (!completedMilestones.ContainsKey(SceneManager.GetActiveScene().name))
+            {
+                completedMilestones.Add(SceneManager.GetActiveScene().name, new List<Milestone>());
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -4,6 +4,7 @@ using Player.Module;
 using Player.Module.Movement;
 using Player.UI;
 using Player.UI.RepairRefuel;
+using story;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -33,8 +34,8 @@ namespace Entities.Interactions
             RepairRefuel.RepairWindowParameters rwp = new RepairRefuel.RepairWindowParameters
             {
                 moduleRef = module,
-                refuelCost = constants.costPerFuel,
-                repairCost = constants.costPerHealth
+                refuelCost = constants.costPerFuel * StoryManager.instance.GetRefuelMult(),
+                repairCost = constants.costPerHealth * StoryManager.instance.GetRepairMult(),
             };
 
             ui.PassRepairParameters(rwp);
