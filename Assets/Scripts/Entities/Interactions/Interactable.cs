@@ -1,6 +1,7 @@
 using Player.Module;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Entities.Interactions
 {
@@ -10,7 +11,7 @@ namespace Entities.Interactions
         
         //================================================================EDITOR VARIABLES
         
-        [SerializeField] private GameObject[] activeVisuals;
+        [SerializeField] private UnityEvent activateEvent, deactivateEvent;
         [SerializeField] private GameObject useVisualCue;
         [SerializeField] private InteractionHandler.InteractionType interactionType;
         [SerializeField] private bool usedRepeatably;
@@ -22,6 +23,8 @@ namespace Entities.Interactions
 
         private Module moduleRef;
         private bool used = false;
+        
+        //Activate = Ready for use when player is nearby
 
         public void Activate(bool active, Module module)
         {
@@ -30,10 +33,12 @@ namespace Entities.Interactions
                 return;
             }
             moduleRef = module;
-            for(int i = 0; i < activeVisuals.Length; i++)
-            {
-                activeVisuals[i].SetActive(!activeVisuals[i].activeSelf);
-            }
+            
+            if(active)
+                activateEvent?.Invoke();
+            else
+                deactivateEvent?.Invoke();
+            
             useVisualCue.SetActive(active);
         }
 

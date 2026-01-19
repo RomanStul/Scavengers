@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
-  m_Name: Interact
+  m_Script: {fileID: 11500000, guid: f27b292ba10900745b8cce2768151422, type: 3}
+  m_Name: Day2
   m_EditorClassIdentifier: 
-  cost: 0
-  neededItems:
-  - item: {fileID: 11400000, guid: b0aafed1a06909b43a5327799921e666, type: 2}
-    amount: 1
-  neededUpgrades: 
-  description: Allows you to go through portal.
-  tag: 6
+  dayNumber: 2
+  refuelCostMultiplier: -1
+  repairCostMultiplier: -1
+  startOfDayPayment: 5

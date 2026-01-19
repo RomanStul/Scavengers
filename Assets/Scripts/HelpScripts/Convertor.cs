@@ -29,6 +29,8 @@ public class Convertor : MonoBehaviour
         toRotate.transform.rotation = Quaternion.Lerp( toRotate.transform.rotation, rotation, Time.deltaTime * speed);
     }
 
+    
+    //Look at in 2D target position is relative
     public static Quaternion RotationConversion(Vector3 targetPosition, Transform toRotate)
     {
         targetPosition = new Vector3(targetPosition.x, 0, targetPosition.y);

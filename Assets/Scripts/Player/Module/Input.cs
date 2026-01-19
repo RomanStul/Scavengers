@@ -18,6 +18,8 @@ namespace Player.Module
 
         public void SetTakeInput(bool takeInputValue)
         {
+            if(useModuleActionMap == takeInputValue)
+                return;
             useModuleActionMap = takeInputValue;
             ModuleRef.playerInput.SwitchCurrentActionMap(useModuleActionMap ? "Module": "UI");
         }

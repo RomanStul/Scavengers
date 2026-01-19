@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Entities\Item.cs" />
     <Compile Include="Assets\Scripts\Entities\Dropper.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />
+    <Compile Include="Assets\Scripts\story\StoryManager.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ModuleTool.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeCost.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Bar.cs" />
@@ -103,8 +104,10 @@
     <Compile Include="Assets\ScriptableObjects\Material\MaterialSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIWindow.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\InventoryHandler.cs" />
+    <Compile Include="Assets\ScriptableObjects\Day\DaySO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\ToolDisplay.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\SceneTransfer.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\EndOfDayDoor.cs" />
     <Compile Include="Assets\ScriptableObjects\Tools\ToolSO.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -125,10 +128,11 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\transmissions\transmissionText.json" />
+    <None Include="Assets\Json\transmissionText.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\Json\News.json" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Gamesky\MyGamesky\2022.3.49f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

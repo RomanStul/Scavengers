@@ -7,6 +7,7 @@ using Milestones;
 using Player.Module;
 using Player.Module.Movement;
 using Player.Module.Upgrades;
+using story;
 using UnityEngine;
 
 namespace Menu
@@ -24,6 +25,8 @@ namespace Menu
             public EnvironmentData EnvironmentData;
             public bool valid = false;
             public MilestonesData MilestoneData;
+            public StoryData StoryData;
+            public bool isDayStart = false;
         }
 
         [Serializable]
@@ -50,7 +53,26 @@ namespace Menu
 
         public class MilestonesData
         {
-            public Dictionary<string, GlobalMilestoneManager.Milestone[]> CompletedMilestones;
+            public string[] Scenes;
+            public MilestoneList[] Milestones;
+        }
+
+        [Serializable]
+        public class MilestoneList
+        {
+            public GlobalMilestoneManager.Milestone[] Milestones;
+
+            public MilestoneList(GlobalMilestoneManager.Milestone[] milestones)
+            {
+                Milestones = milestones;
+            }
+        }
+
+        [Serializable]
+
+        public class StoryData
+        {
+            public int dayNumber;
         }
         //================================================================EDITOR VARIABLES
         private string currentSaveName;
@@ -83,16 +105,16 @@ namespace Menu
             saveNames = LoadSaveNames();
         }
 
-        public void WriteSaveIntoFile()
+        public void WriteSaveIntoFile(Save saveToWrite)
         {
             dirtyLoad = true;
-            var json = JsonUtility.ToJson(currentSave);
-            StreamWriter saveFile = File.CreateText("saves/"+currentSave.Name);
+            var json = JsonUtility.ToJson(saveToWrite);
+            StreamWriter saveFile = File.CreateText("saves/"+saveToWrite.Name);
             saveFile.Write(json);
             saveFile.Close();
         }
 
-        public Save CreateSaveObject(Module moduleRef, string scene, Vector2 position, string save = "")
+        public Save CreateSaveObject(Module moduleRef, string scene, Vector2 position, string save = "", bool isDayStartSave = false)
         {
             if (save == "")
             {
@@ -101,10 +123,12 @@ namespace Menu
             currentSave = new Save();
             currentSave.ModuleData = new ModuleData();
             currentSave.EnvironmentData = new EnvironmentData();
+            currentSave.MilestoneData = new MilestonesData();
             currentSave.EnvironmentData.DestroyedOres = Array.Empty<int>();
             currentSave.EnvironmentData.DestroyedObjects = Array.Empty<int>();
             currentSave.Name = save;
             currentSave.DatetimeString = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
+            currentSave.isDayStart = isDayStartSave;
 
             if (moduleRef == null)
             {
@@ -132,13 +156,24 @@ namespace Menu
             currentSave.EnvironmentData.DestroyedOres = DestructionManager.instance.GetDestroyedOresArray();
             
             //Milestone Data
-            Dictionary<string, GlobalMilestoneManager.Milestone[]> arrayMilestones = new Dictionary<string, GlobalMilestoneManager.Milestone[]>();
+            
+            string[] scenes = new string[GlobalMilestoneManager.instance.CompletedMilestones.Count];
+            MilestoneList[] milestones = new MilestoneList[GlobalMilestoneManager.instance.CompletedMilestones.Count];
 
+            int i = 0;
             foreach (var pair in GlobalMilestoneManager.instance.CompletedMilestones)
             {
-                arrayMilestones.Add(pair.Key, pair.Value.ToArray());
+                scenes[i] = pair.Key;
+                milestones[i] = new MilestoneList(pair.Value.ToArray());
+                i++;
             }
-            currentSave.MilestoneData.CompletedMilestones = arrayMilestones;
+            currentSave.MilestoneData.Scenes = scenes;
+            currentSave.MilestoneData.Milestones = milestones;
+            
+            //Story Data
+            currentSave.StoryData = new StoryData();
+            currentSave.StoryData.dayNumber = StoryManager.instance.GetDayNumber();
+            
         
             return currentSave;
         }
@@ -177,15 +212,22 @@ namespace Menu
             moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).ItemStorage = currentSave.ModuleData.StoredItems;
             moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency = currentSave.ModuleData.Currency;
             moduleRef.transform.position = new Vector3(currentSave.ModuleData.Position.x, currentSave.ModuleData.Position.y, 0);
+
+            if (currentSave.isDayStart)
+            {
+                moduleRef.moduleAnimator.SetTrigger("startOfDay");
+            }
         
             DestructionManager.instance.SetDestroyedOres(currentSave.EnvironmentData.DestroyedOres);
             DestructionManager.instance.SetDestroyedObjects(currentSave.EnvironmentData.DestroyedObjects);
+            
+            StoryManager.instance.LoadDay(currentSave.StoryData.dayNumber);
 
             
             Dictionary<string, List<GlobalMilestoneManager.Milestone>> listedMilestones = new Dictionary<string, List<GlobalMilestoneManager.Milestone>>();
-            foreach (var pair in currentSave.MilestoneData.CompletedMilestones)
+            for(int i = 0; i < currentSave.MilestoneData.Scenes.Length; i++)
             {
-                listedMilestones.Add(pair.Key, pair.Value.ToList());
+                listedMilestones.Add(currentSave.MilestoneData.Scenes[i], currentSave.MilestoneData.Milestones[i].Milestones.ToList());
             }
             GlobalMilestoneManager.instance.CompletedMilestones = listedMilestones;
         }

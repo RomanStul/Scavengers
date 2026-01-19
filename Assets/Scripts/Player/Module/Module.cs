@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using Menu;
 using Milestones;
+using Player.UI;
+using story;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -44,8 +46,10 @@ namespace Player.Module
         public Player.Module.BaseClass[] baseScripts;
         public Rigidbody2D moveRb;
         public PlayerInput playerInput;
+        public Animator moduleAnimator;
+        public Camera mainCamera;
         [SerializeField] private EvacuateSettings evacuateSettings;
-
+        
         //================================================================GETTER SETTER
         public Rigidbody2D GetMoveRb()
         {
@@ -85,12 +89,13 @@ namespace Player.Module
             }
         }
 
-        public void CreateStateObject(string scene, Vector2 position)
+        public void CreateStateObject(string scene, Vector2 position, string saveName = "", bool isStartOfDay = false)
         {
             if (SavesManager.Instance != null)
             {
-                SavesManager.Instance.CreateSaveObject(this, scene, position);
-                SavesManager.Instance.WriteSaveIntoFile();
+                SavesManager.Instance.WriteSaveIntoFile(saveName == ""
+                    ? SavesManager.Instance.CreateSaveObject(this, scene, position, isDayStartSave:isStartOfDay)
+                    : SavesManager.Instance.CreateSaveObject(this, scene, position, saveName, isStartOfDay));
             }
         }
 
@@ -99,9 +104,21 @@ namespace Player.Module
             if (SavesManager.Instance != null)
             {
                 //Loads upgrades then calls Apply upgrades on this which calls apply upgrades on all scripts attached
-                GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript).LoadUpgrades(SavesManager.Instance.GetSavedUpgrades());
-                //Load values and data after upgrades are applied
-                SavesManager.Instance.LoadSaveIntoModule(this);
+                if (GetScript<Upgrades.ModuleUpgrades>(ScriptNames.UpgradesScript)
+                    .LoadUpgrades(SavesManager.Instance.GetSavedUpgrades()))
+                {
+                    //Load values and data after upgrades are applied
+                    SavesManager.Instance.LoadSaveIntoModule(this);
+                    
+
+                }
+                else
+                {
+                    ApplyUpgrades();
+                    
+                    SavesManager.Instance.WriteSaveIntoFile(SavesManager.Instance.CreateSaveObject(this, SceneManager.GetActiveScene().name, transform.position));
+                }
+
             }
             else
             {
@@ -133,11 +150,31 @@ namespace Player.Module
             }
         }
 
-        public void SaveAndQuit()
+        public void SaveAndQuit(bool isStartOfDay)
         {
-            CreateStateObject(SceneManager.GetActiveScene().name, transform.position);
+            CreateStateObject(SceneManager.GetActiveScene().name, transform.position, "", isStartOfDay);
+            
             Destroy(gameObject);
             SceneManager.LoadScene("MainMenu");
         }
+
+        public void Save(bool isStartOfDay)
+        {
+            CreateStateObject(SceneManager.GetActiveScene().name, transform.position, "", isStartOfDay);
+        }
+
+        public void StartOfDayAnimationSetup()
+        {
+            moveRb.velocity = Vector2.zero;
+            moveRb.angularVelocity = 0f;
+            transform.position = new Vector3(-45, 0, 0);
+            transform.rotation = Convertor.RotationConversion(new Vector3(1, 0, 0), transform);
+            mainCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
+            StoryManager.instance.IncrementDay();
+            ((UIController)baseScripts[(int)ScriptNames.UIControlsScript]).SetNewDayNumber(StoryManager.instance.GetDayNumber());
+            ((Storage)baseScripts[(int)ScriptNames.StorageScript]).PayWithCurrency((int)(StoryManager.instance.GetStartOfDayPayment()), true);
+        }
+        
+        
     }
 }

@@ -23,7 +23,8 @@ namespace Player.Module.Upgrades
             Dash,
             Sideways_Thrust,
             Fluorescent_Lights,
-            Portal_passkey
+            Portal_passkey,
+            EndOfDay,
         }
 
         [Serializable]
@@ -45,11 +46,11 @@ namespace Player.Module.Upgrades
         
         //================================================================GETTER SETTER
 
-        public void LoadUpgrades(bool[] loaded = null)
+        public bool LoadUpgrades(bool[] loaded = null)
         {
             if (loaded == null)
             {
-                loaded = new bool[Enum.GetValues(typeof(Ups)).Length];
+                return false;
             }
 
             for (int i = 0; i < upgradesObject.Length; i++)
@@ -58,6 +59,7 @@ namespace Player.Module.Upgrades
             }
             
             ModuleRef.ApplyUpgrades();
+            return true;
         }
 
         public bool[] GetUpgrades()
