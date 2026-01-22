@@ -38,7 +38,8 @@ namespace Player.UI
             Repair,
             Pause,
             Transmission,
-            Help
+            Help,
+            News
         }
         
         //================================================================EDITOR VARIABLES
@@ -50,8 +51,6 @@ namespace Player.UI
         [SerializeField] private TMPro.TextMeshProUGUI StartOfDayText;
 
         [SerializeField] private UIWindow[] windows;
-
-        public UnityEvent ee;
         //================================================================GETTER SETTER
 
         //================================================================FUNCTIONALITY

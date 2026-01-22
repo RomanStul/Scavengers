@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using ScriptableObjects.Day;
+using ScriptableObjects.Item;
 using UnityEngine;
 
 namespace story
@@ -15,8 +16,6 @@ namespace story
             public int day;
             public string Title;
             public string MainText;
-            public string SecondaryTitle;
-            public string SecondaryText;
         }
 
         [Serializable]
@@ -80,6 +79,13 @@ namespace story
             }
             return startOfDayPayment;
         }
+
+        public float GetOreMultiplier(ItemSO.Items ore)
+        {
+            return oreCostMultipliers[(int)ore];
+        }
+        
+        
         
         
         //================================================================FUNCTIONALITY
@@ -89,9 +95,10 @@ namespace story
         private int currentDaySOIndex = -1;
         private int currentDay = 1;
 
-        private float refuelCostMult = -1;
-        private float repairCostMult = -1;
-        private int startOfDayPayment = -1;
+        private float refuelCostMult = 1;
+        private float repairCostMult = 1;
+        private int startOfDayPayment = 1;
+        private float[] oreCostMultipliers;
 
         public void IncrementDay()
         {
@@ -105,6 +112,10 @@ namespace story
                     repairCostMult = days[currentDaySOIndex].repairCostMultiplier;
                 if(days[currentDaySOIndex].startOfDayPayment > 0)
                     startOfDayPayment = days[currentDaySOIndex].startOfDayPayment;
+                foreach (OrePriceChanges opc in days[currentDaySOIndex].priceChanges)
+                {
+                    oreCostMultipliers[(int)opc.item] = opc.multiplier;
+                }
                 
             }
         }
@@ -124,6 +135,11 @@ namespace story
                 instance = this;
                 DontDestroyOnLoad(gameObject);
                 newsObjects = JsonUtility.FromJson<NewsWrapper>(File.ReadAllText("Assets/Json/News.json"));
+                oreCostMultipliers = new float[Enum.GetValues(typeof(ItemSO.Items)).Length];
+                for (int i = 0; i < oreCostMultipliers.Length; i++)
+                {
+                    oreCostMultipliers[i] = 1;
+                }
             }
             else
             {
@@ -134,6 +150,7 @@ namespace story
         
         public float CalculateRepairMultiplier()
         {
+            Debug.Log("calculate");
             if (days.Length <= currentDay) return 1;
 
             float mult = 1;
@@ -150,6 +167,7 @@ namespace story
 
         public float CalculateRefuelMultiplier()
         {
+            Debug.Log("calculate");
             if (days.Length <= currentDay) return 1;
 
             float mult = 1;
@@ -166,6 +184,7 @@ namespace story
 
         public int CalculateStartOfDay()
         {
+            Debug.Log("calculate");
             if (days.Length <= currentDay) return 1;
 
             int payment = 1;

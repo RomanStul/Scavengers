@@ -140,11 +140,11 @@ namespace Player.Module.Movement
             {
                 currentFuel -= Mathf.Abs(ThrustInput) * movementVariables.fuelPerSecond * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
                 Rigid.AddForce(moduleBody.transform.up * (ThrustInput * movementVariables.Thrust * Time.deltaTime));
-                float speed = Rigid.velocity.magnitude;
+                float speed = Rigid.linearVelocity.magnitude;
                 //TODO make it so that input interacts with dash momentum intuitively
                 if (speed > movementVariables.MaxSpeed)
                 {
-                    Rigid.velocity = Rigid.velocity.normalized * movementVariables.MaxSpeed;
+                    Rigid.linearVelocity = Rigid.linearVelocity.normalized * movementVariables.MaxSpeed;
                 }
             }
 
@@ -230,17 +230,17 @@ namespace Player.Module.Movement
            
            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(stopConstants.stopCooldown, UIController.Cooldowns.Stop);
            
-           float velocityMagnitude = Rigid.velocity.magnitude;
-           while (endTime > Time.time && currentFuel > 0 && Rigid.velocity.magnitude > 0.05f)
+           float velocityMagnitude = Rigid.linearVelocity.magnitude;
+           while (endTime > Time.time && currentFuel > 0 && Rigid.linearVelocity.magnitude > 0.05f)
            {
                currentFuel -= velocityMagnitude * stopConstants.fuelConsumptionMultiplier * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
-               VisualizeStopThrust(-Rigid.velocity);
-               Rigid.AddForce(-Rigid.velocity * (useTimeModifier * Time.deltaTime * Rigid.velocity.magnitude), ForceMode2D.Impulse);
+               VisualizeStopThrust(-Rigid.linearVelocity);
+               Rigid.AddForce(-Rigid.linearVelocity * (useTimeModifier * Time.deltaTime * Rigid.linearVelocity.magnitude), ForceMode2D.Impulse);
                yield return null;
            }
            
            
-           Rigid.AddForce(-Rigid.velocity.normalized * Mathf.Min(Rigid.velocity.magnitude, currentFuel), ForceMode2D.Impulse);
+           Rigid.AddForce(-Rigid.linearVelocity.normalized * Mathf.Min(Rigid.linearVelocity.magnitude, currentFuel), ForceMode2D.Impulse);
            VisualizeStopThrust(new Vector2(0.0f, 0.0f));
            
            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Player.UI
 {
@@ -9,7 +11,9 @@ namespace Player.UI
         //================================================================EDITOR VARIABLES
         [SerializeField] protected float value, maxValue;
         [SerializeField] protected RectTransform thisRect, fill;
-        [SerializeField] protected float minFillY, maxFillY;
+        [SerializeField] private Image fillImage;
+        [SerializeField] private Texture color, mask, background;
+        [SerializeField] protected float maxFill, minFill;
         //================================================================GETTER SETTER
         public virtual void SetValue(float barValue)
         {
@@ -22,10 +26,31 @@ namespace Player.UI
             maxValue = barValue;
         }
         //================================================================FUNCTIONALITY
+        
+        private Material instancedMaterial;
+        
+        private void Awake()
+        {
+            instancedMaterial = Instantiate(fillImage.material);
+            fillImage.material = instancedMaterial;
+            fillImage.material.SetTexture("_mask", mask);
+            fillImage.material.SetTexture("_overlay", background);
+            fillImage.material.SetTexture("_colorTexture", color);
+            if (maxValue != 0)
+            {
+                UpdateFill();
+            }
+        }
 
         protected virtual void UpdateFill()
         {
-            fill.anchoredPosition = new Vector2(fill.anchoredPosition.x, (value/maxValue * (maxFillY - minFillY)) + minFillY);
+            float offset = minFill - ((minFill - maxFill) * (value/maxValue));
+            if (instancedMaterial != null)
+            {
+                fillImage.material = instancedMaterial;
+                instancedMaterial.SetFloat("_offset", offset);
+            }
+
         }
     }
 }

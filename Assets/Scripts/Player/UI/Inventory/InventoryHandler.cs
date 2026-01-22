@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Player.UI.UIComponent;
 using ScriptableObjects.Item;
+using story;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -228,8 +229,7 @@ namespace Player.UI.Inventory
                 int total = 0;
                 for (int i = 0; i < itemFrames.Count; i++)
                 {
-                    total += itemFrames[i].GetHeldItemsCount() *
-                             itemsDB.items[(int)itemFrames[i].GetFramedItem().itemType].price;
+                    total += CalculateWorth(itemFrames[i].GetFramedItem(), itemFrames[i].GetHeldItemsCount());
                 }
 
                 return total;
@@ -242,7 +242,7 @@ namespace Player.UI.Inventory
                 }
                 else
                 {
-                    return itemsDB.items[(int)item.itemType].price * amount;
+                    return (int)(itemsDB.items[(int)item.itemType].price * amount * StoryManager.instance.GetOreMultiplier(item.itemType));
                 }
             }
 
@@ -295,6 +295,7 @@ namespace Player.UI.Inventory
         private void ToggleHighlightedItem()
         {
             highlightItem.SetActive(currentlySelectedItemFrame != null);
+            SetTotalWorthText();
         }
 }
 }
