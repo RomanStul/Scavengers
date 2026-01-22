@@ -16,3 +16,6 @@ MonoBehaviour:
   refuelCostMultiplier: -1
   repairCostMultiplier: -1
   startOfDayPayment: 5
+  priceChanges:
+  - item: 0
+    multiplier: 2

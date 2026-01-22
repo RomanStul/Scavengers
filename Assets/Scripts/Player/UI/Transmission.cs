@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Milestones;
+using TMPro;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace Player.UI
             
             public string key;
             public string[] text;
+            public string from;
+            public string image;
 
             public TransmissionText(string key, string[] text)
             {
@@ -36,14 +39,19 @@ namespace Player.UI
         //================================================================EDITOR VARIABLES
         
         [SerializeField] private Text text;
+        [SerializeField] private TextMeshProUGUI senderName;
+        [SerializeField] private Image senderImage;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
          private TransmissionWrapper transmissions;
+         private Sprite[] images;
          private Coroutine writeCoroutine;
 
          private void Awake()
          {
              transmissions = JsonUtility.FromJson<TransmissionWrapper>(File.ReadAllText("Assets/Json/transmissionText.json"));
+             images = Resources.LoadAll<Sprite>("TransmissionImages");
+             
          }
 
          public void WriteMessage(string messageName)
@@ -71,10 +79,26 @@ namespace Player.UI
                 if (transmissions.texts[j].key == messageName)
                 { 
                     writeCoroutine = SceneMilestoneManager.currentInstance.StartTrackedCoroutine(Write(transmissions.texts[j].text[messageIndex]));
+                    senderName.text = transmissions.texts[j].from;
+                    SetImage(transmissions.texts[j].image);
                     break;
                 }
              }
 
+         }
+
+         private void SetImage(string imageName)
+         {
+             for (int i = 0; i < images.Length; i++)
+             {
+                 if (images[i].name.Equals(imageName))
+                 {
+                     senderImage.sprite = images[i];
+                     return;
+                 }
+             }
+
+             senderImage.sprite = null;
          }
 
          private IEnumerator Write(string message)

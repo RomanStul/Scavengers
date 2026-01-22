@@ -1,2 +1,9 @@
-﻿{
+﻿{"news": 
+        [
+          {
+            "day": 2,
+            "Title": "Elections are approaching",
+            "MainText": "After opposition candidate XXX XXX withdraw only three candidates remain. The majority of the votes is expected to go to current president XXX XXX."
+          }
+        ]
 }

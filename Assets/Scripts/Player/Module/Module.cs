@@ -28,7 +28,8 @@ namespace Player.Module
             UpgradeVisualsScript,
             UIControlsScript,
             InteractionScript,
-            ToolScript
+            ToolScript,
+            AnimationFunctionsScript,
         }
 
         [Serializable]
@@ -128,7 +129,7 @@ namespace Player.Module
 
         public void PrepareForSceneTransfer(Vector3 position)
         {
-            moveRb.velocity = Vector2.zero;
+            moveRb.linearVelocity = Vector2.zero;
             transform.position = position;
         }
 
@@ -162,18 +163,8 @@ namespace Player.Module
         {
             CreateStateObject(SceneManager.GetActiveScene().name, transform.position, "", isStartOfDay);
         }
-
-        public void StartOfDayAnimationSetup()
-        {
-            moveRb.velocity = Vector2.zero;
-            moveRb.angularVelocity = 0f;
-            transform.position = new Vector3(-45, 0, 0);
-            transform.rotation = Convertor.RotationConversion(new Vector3(1, 0, 0), transform);
-            mainCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            StoryManager.instance.IncrementDay();
-            ((UIController)baseScripts[(int)ScriptNames.UIControlsScript]).SetNewDayNumber(StoryManager.instance.GetDayNumber());
-            ((Storage)baseScripts[(int)ScriptNames.StorageScript]).PayWithCurrency((int)(StoryManager.instance.GetStartOfDayPayment()), true);
-        }
+        
+        
         
         
     }
