@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Menu\SavesManager.cs" />
+    <Compile Include="Assets\Scripts\HelpScripts\ModuleManipulation.cs" />
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Destructible.cs" />
     <Compile Include="Assets\Scripts\Player\UI\News.cs" />

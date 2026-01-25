@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "Module",
     "maps": [
         {
@@ -81,6 +82,15 @@
                     "name": "CloseWindow",
                     "type": "Button",
                     "id": "afa82239-2366-4435-9204-d655325c78d8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Help",
+                    "type": "Button",
+                    "id": "a9a0b41b-896c-47b1-99a4-354a215ae49e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -272,6 +282,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseWindow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e40b822-c09a-48ea-b9b2-565d9ca542e9",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Help",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -127,11 +127,13 @@ namespace Player.Module
             }
         }
 
-        public void PrepareForSceneTransfer(Vector3 position)
+        public void PrepareForSceneTransfer(Vector3 position, string sceneName, Vector3 interactablePosition)
         {
             moveRb.linearVelocity = Vector2.zero;
-            transform.position = position;
+            ((ModuleAnimations)baseScripts[(int)ScriptNames.AnimationFunctionsScript]).StartSceneTransferAnimation(position, sceneName, interactablePosition);
         }
+        
+        
 
         public void Evacuate()
         {
@@ -139,16 +141,8 @@ namespace Player.Module
             {
                 return;
             }
-            PrepareForSceneTransfer(Vector3.zero);
+            PrepareForSceneTransfer(evacuateSettings.evacuatePosition, evacuateSettings.sceneName, transform.position);
             GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency((int)(evacuateSettings.cost * evacuateSettings.costMultiplier), true);
-            if (SceneManager.GetActiveScene().name == evacuateSettings.sceneName)
-            {
-                transform.position = evacuateSettings.evacuatePosition;
-            }
-            else
-            {
-                SceneManager.LoadScene("OutpostScene");
-            }
         }
 
         public void SaveAndQuit(bool isStartOfDay)

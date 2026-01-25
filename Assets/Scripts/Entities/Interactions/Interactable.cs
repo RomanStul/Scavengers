@@ -1,3 +1,4 @@
+using HelpScripts;
 using Player.Module;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +17,7 @@ namespace Entities.Interactions
         [SerializeField] private InteractionHandler.InteractionType interactionType;
         [SerializeField] private bool usedRepeatably;
         [SerializeField] private UnityEvent<Module> onUse;
+        [SerializeField] private Transform useModulePosition;
         
         //================================================================GETTER SETTER
         public InteractionHandler.InteractionType InteractionType => interactionType;
@@ -56,6 +58,11 @@ namespace Entities.Interactions
 
             used = true;
             onUse.Invoke(moduleRef);
+
+            Vector3 usePosition = useModulePosition != null ? useModulePosition.position : transform.position;
+            moduleRef.moveRb.linearVelocity = Vector3.zero;
+            
+            StartCoroutine(ModuleManipulation.GradualModuleStop(usePosition, moduleRef, () => true));
             
             
             if (!usedRepeatably)
