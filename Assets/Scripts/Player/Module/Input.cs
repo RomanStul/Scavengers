@@ -104,5 +104,13 @@ namespace Player.Module
 
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Pause);
         }
+
+        public void ShowHelp(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+            
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Help);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetHelpWindowMode(HelpDisplay.DisplayModes.All);
+        }
     }
 }

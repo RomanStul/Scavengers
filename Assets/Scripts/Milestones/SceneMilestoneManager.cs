@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using HelpScripts;
 using Player.Module;
 using Player.UI;
 using UnityEngine;
@@ -162,12 +163,13 @@ namespace Milestones
 
         public void ModuleStop(Transform stopAt)
         {
+            runCoroutine = true;
             StartTrackedCoroutine(GradualModuleStop(stopAt.position));
+            StartTrackedCoroutine(ModuleManipulation.GradualModuleStop(stopAt.position, moduleRef, () => runCoroutine));
         }
 
         private IEnumerator GradualModuleStop(Vector3 position)
         {
-            runCoroutine = true;
             while (runCoroutine)
             {
                 Vector2 direction = Convertor.Vec3ToVec2(position - moduleRef.transform.position);

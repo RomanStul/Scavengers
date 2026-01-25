@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Player.Module;
 using Player.Module.Upgrades;
@@ -8,6 +9,7 @@ using ScriptableObjects.Item;
 using ScriptableObjects.Tools;
 using Unity.VisualScripting;
 using UnityEngine.Events;
+using UnityEngine.PlayerLoop;
 using Input = Player.Module.Input;
 
 namespace Player.UI
@@ -109,6 +111,12 @@ namespace Player.UI
                         
                         case WindowType.None:
                             currentOppenedWindow = null;
+                            break;
+                        
+                        case WindowType.Help:
+                            windows[(int)win].ToggleWindow();
+                            currentOppenedWindow = windows[(int)win].IsOpened() ? windows[(int)win] : null;
+                            if (currentOppenedWindow != null) StartCoroutine(HideHelp());
                             break;
                         
                         default:
@@ -274,6 +282,12 @@ namespace Player.UI
         public void SetHelpWindowMode(HelpDisplay.DisplayModes mode)
         {
             ((HelpDisplay)windows[(int)WindowType.Help]).SetMode(mode);
+        }
+
+        private IEnumerator HideHelp()
+        {
+            yield return new WaitForSeconds(2.5f);
+            CloseSpecificWindow(WindowType.Help);
         }
             
         #endregion
