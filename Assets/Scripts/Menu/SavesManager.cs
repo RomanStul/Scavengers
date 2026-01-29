@@ -9,6 +9,7 @@ using Player.Module.Movement;
 using Player.Module.Upgrades;
 using story;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Menu
 {
@@ -74,10 +75,25 @@ namespace Menu
         {
             public int dayNumber;
         }
+
+        [Serializable]
+
+        public class SavesStructure
+        {
+            public string name;
+            public SaveBranch[] branches;
+        }
+
+        [Serializable]
+        public class SaveBranch
+        {
+            public int id;
+            public int originBranch;
+            public int startDay;
+            public int totalDays;
+        }
         //================================================================EDITOR VARIABLES
-        private string currentSaveName;
-        private Save currentSave;
-        private List<string> saveNames;
+
         //================================================================GETTER SETTER
         public string CurrentSaveName { get { return currentSaveName; } }
     
@@ -88,11 +104,21 @@ namespace Menu
             if (currentSave == null) return null;
             return currentSave.ModuleData.Upgrades;
         }
+
+        public List<string> GetSaveNames()
+        {
+            return saveNames;
+        }
         //================================================================FUNCTIONALITY
     
         public static SavesManager Instance;
         private Save[] saves;
         private bool dirtyLoad = false;
+        private string currentSaveName;
+        private int currentBranch;
+        private Save currentSave;
+        private List<string> saveNames;
+        private SavesStructure currentSaveStructure;
 
         private void Awake()
         {
@@ -107,11 +133,72 @@ namespace Menu
 
         public void WriteSaveIntoFile(Save saveToWrite)
         {
+            if (!Directory.Exists("saves/" + saveToWrite.Name))
+            {
+                CreateNewSaveDirectory(saveToWrite.Name);
+            }
+            
+            if (saveToWrite.isDayStart)
+            {
+                if (currentSaveStructure.branches[currentBranch].startDay + currentSaveStructure.branches[currentBranch].totalDays > saveToWrite.StoryData.dayNumber)
+                {
+                    List<SaveBranch> branchesList = currentSaveStructure.branches.ToList();
+                    branchesList.Add(new SaveBranch());
+                    branchesList[^1].originBranch = currentBranch;
+                    branchesList[^1].id = branchesList.Count - 1;
+                    branchesList[^1].totalDays = 1;
+                    branchesList[^1].startDay = saveToWrite.StoryData.dayNumber;
+                    currentBranch = branchesList.Count - 1;
+                    currentSaveStructure.branches = branchesList.ToArray();
+                }
+                else
+                {
+                    currentSaveStructure.branches[currentBranch].totalDays++;
+                }
+                WriteSaveStructureToFile(saveToWrite.Name);
+            }
+
+            
+            
             dirtyLoad = true;
             var json = JsonUtility.ToJson(saveToWrite);
-            StreamWriter saveFile = File.CreateText("saves/"+saveToWrite.Name);
+            string savePath = "saves/" + saveToWrite.Name + "/" +saveToWrite.Name;
+            if (saveToWrite.isDayStart)
+            {
+                savePath = SaveFilePathCompositor(saveToWrite.Name, currentBranch, saveToWrite.StoryData.dayNumber);
+            }
+            StreamWriter saveFile = File.CreateText(savePath);
             saveFile.Write(json);
             saveFile.Close();
+
+
+                
+        }
+
+        public void CreateNewSaveDirectory(string saveName)
+        {
+            Directory.CreateDirectory(Path.Combine("saves/" + saveName));
+            SavesStructure saveStructure = new SavesStructure();
+            saveStructure.name = saveName;
+            saveStructure.branches = new SaveBranch[1];
+            saveStructure.branches[0] = new SaveBranch
+            {
+                id = 0,
+                originBranch = 0,
+                startDay = 1,
+                totalDays = 1
+            };
+            currentBranch = 0;
+            currentSaveStructure = saveStructure;
+            WriteSaveStructureToFile(saveName);
+        }
+
+        private void WriteSaveStructureToFile(string saveName)
+        {
+            string json = JsonUtility.ToJson(currentSaveStructure);
+            StreamWriter saveStructureFile = File.CreateText("saves/" + saveName + "/structure");
+            saveStructureFile.Write(json);
+            saveStructureFile.Close();
         }
 
         public Save CreateSaveObject(Module moduleRef, string scene, Vector2 position, string save = "", bool isDayStartSave = false)
@@ -186,14 +273,14 @@ namespace Menu
             }
 
             dirtyLoad = false;
-            saves = new Save[saveNames.Count];
-            int index = 0;
+            saves = new Save[0];
+            /*int index = 0;
         
             foreach (string fileName in saveNames)
             {
                 saves[index] = JsonUtility.FromJson<Save>(File.ReadAllText("saves/" + fileName));
                 index++;
-            }
+            }*/
         
             return saves;
         }
@@ -252,12 +339,38 @@ namespace Menu
             {
                 Directory.CreateDirectory("saves/");
             }
-            string[] filePaths = Directory.GetFiles("saves/");
-            foreach (string filePath in filePaths)
+            string[] directories = Directory.GetDirectories("saves/");
+            foreach (string directory in directories)
             {
-                loadedNames.Add(Path.GetFileName(filePath));
+                loadedNames.Add(Path.GetFileName(directory));
             }
             return loadedNames;
+        }
+
+        public SavesStructure LoadSaveStructure(string saveName)
+        {
+            currentSaveStructure = JsonUtility.FromJson<SavesStructure>(File.ReadAllText("saves/" + saveName + "/structure"));
+            return currentSaveStructure;
+        }
+
+        public void PlaySave(int branch, int day)
+        {
+            if (currentSaveStructure == null)
+            {
+                return;
+            }
+
+            string currentSavePath = SaveFilePathCompositor(currentSaveStructure.name, branch, day);
+            currentSave = JsonUtility.FromJson<Save>(File.ReadAllText(currentSavePath));
+
+            currentBranch = branch;
+
+            SceneManager.LoadScene(currentSave.ModuleData.Scene);
+        }
+
+        public static string SaveFilePathCompositor(string saveName, int branch, int day)
+        {
+            return "saves/" + saveName + "/" + saveName + "_" + branch + "_" + day;
         }
     }
 }

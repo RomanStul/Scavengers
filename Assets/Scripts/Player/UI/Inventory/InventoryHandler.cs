@@ -281,7 +281,8 @@ namespace Player.UI.Inventory
 
         private void SetTotalWorthText()
         {
-            totalWorthText.text = CalculateWorth(currentlySelectedItemFrame.GetFramedItem(), selectedAmount).ToString();
+            if(currentlySelectedItemFrame != null)
+                totalWorthText.text = CalculateWorth(currentlySelectedItemFrame.GetFramedItem(), selectedAmount).ToString();
         }
 
         public void SetSliderCount(Single value)

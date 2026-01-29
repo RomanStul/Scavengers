@@ -284,6 +284,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseCurrentWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 5848571043488753749, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 683.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848571043488753749, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 254.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
