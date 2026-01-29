@@ -55,6 +55,7 @@
     <Compile Include="Assets\Scripts\HelpScripts\MyRaycast.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\DestructionManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\ResourceShop.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\UIComponent\SaveButtonsGrid.cs" />
     <Compile Include="Assets\ScriptableObjects\Upgrade\UpgradeSO.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\UpgradesShop.cs" />
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Storage.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\UIComponent\SaveButton.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleAnimations.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeWindowController.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\ModuleUpgrades.cs" />
@@ -72,9 +74,9 @@
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
     <Compile Include="Assets\Scripts\Player\UI\currencyDisplay.cs" />
     <Compile Include="Assets\Scripts\Entities\Dropper.cs" />
+    <Compile Include="Assets\Scripts\Menu\SaveFolderButton.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeCost.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Bar.cs" />
-    <Compile Include="Assets\Scripts\Menu\SaveButton.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Grabber.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Cooldown.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\TilesManager.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemDBSO.cs" />
     <Compile Include="Assets\Scripts\Milestones\MilestoneTriggers\CollisionTrigger.cs" />
+    <Compile Include="Assets\Scripts\Menu\PlaySubmenu.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Landmine.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\RepairShop.cs" />
     <Compile Include="Assets\Scripts\Entities\Item.cs" />

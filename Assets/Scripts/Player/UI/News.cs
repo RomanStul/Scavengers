@@ -27,6 +27,11 @@ namespace Player.UI
         {
             StoryManager.News newsObject = StoryManager.instance.GetNewsForDay();
 
+            if (newsObject == null)
+            {
+                ToggleWindow();
+                return;
+            }
             headline.text = newsObject.Title;
             mainText.text = newsObject.MainText;
             WriteEconomics();

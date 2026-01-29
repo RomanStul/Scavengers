@@ -25,7 +25,7 @@ namespace Player.Module
             transform.position = new Vector3(-45, 0, 0);
             transform.rotation = Convertor.RotationConversion(new Vector3(1, 0, 0), transform);
             ModuleRef.mainCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            StoryManager.instance.IncrementDay();
+            
             
             (ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript)).SetNewDayNumber(StoryManager.instance.GetDayNumber());
             (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript)).PayWithCurrency((int)(StoryManager.instance.GetStartOfDayPayment()), true);
@@ -61,6 +61,11 @@ namespace Player.Module
             yield return null;
             transform.position = positionToTransfer;
             shouldBeStopping = false;
+        }
+
+        public void IncrementDay()
+        {
+            StoryManager.instance.IncrementDay();
         }
         
         

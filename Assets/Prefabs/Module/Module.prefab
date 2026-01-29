@@ -5202,7 +5202,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &4796524740876238376
 GameObject:
@@ -12250,7 +12250,7 @@ MonoBehaviour:
       - m_Target: {fileID: 188096006258638198}
         m_TargetAssemblyTypeName: Player.Module.Module, Assembly-CSharp
         m_MethodName: SaveAndQuit
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15062,6 +15062,14 @@ PrefabInstance:
     - target: {fileID: 5559999886014692681, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseCurrentWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848571043488753749, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 683.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848571043488753749, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 254.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

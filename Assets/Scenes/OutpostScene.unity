@@ -5600,6 +5600,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   useModulePosition: {fileID: 0}
+  stopModule: 0
 --- !u!1 &1062406800 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5033571589042782815, guid: 7f3e4bf6fd61e584291ca85b2ab9eb2d, type: 3}
@@ -5854,6 +5855,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   useModulePosition: {fileID: 1118024060}
+  stopModule: 1
 --- !u!61 &1130712525
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29125,6 +29127,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   useModulePosition: {fileID: 3636084}
+  stopModule: 1
 --- !u!61 &1417714557
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34143,6 +34146,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   useModulePosition: {fileID: 782956079}
+  stopModule: 1
 --- !u!114 &1693147736
 MonoBehaviour:
   m_ObjectHideFlags: 0

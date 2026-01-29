@@ -18,6 +18,7 @@ namespace Entities.Interactions
         [SerializeField] private bool usedRepeatably;
         [SerializeField] private UnityEvent<Module> onUse;
         [SerializeField] private Transform useModulePosition;
+        [SerializeField] private bool stopModule = true;
         
         //================================================================GETTER SETTER
         public InteractionHandler.InteractionType InteractionType => interactionType;
@@ -62,7 +63,8 @@ namespace Entities.Interactions
             Vector3 usePosition = useModulePosition != null ? useModulePosition.position : transform.position;
             moduleRef.moveRb.linearVelocity = Vector3.zero;
             
-            StartCoroutine(ModuleManipulation.GradualModuleStop(usePosition, moduleRef, () => true));
+            if(stopModule)
+                StartCoroutine(ModuleManipulation.GradualModuleStop(usePosition, moduleRef, () => true));
             
             
             if (!usedRepeatably)

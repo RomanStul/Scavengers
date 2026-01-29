@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using Entities.Environment;
 using Milestones;
+using Player.UI.UIComponent;
 using story;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Menu
@@ -12,14 +15,12 @@ namespace Menu
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
-        [SerializeField] private InputField saveName;
 
-        [SerializeField] private Button startNewGame;
-
-        [SerializeField] private SaveButton saveButtonPrefab;
-
-        [SerializeField] private Transform saveButtonScrollView;
+        
+        [SerializeField] private PlaySubmenu playSubmenu;
         //================================================================GETTER SETTER
+        
+        public PlaySubmenu PlaySubmenu => playSubmenu;
         //================================================================FUNCTIONALITY
 
         private void Awake()
@@ -36,29 +37,6 @@ namespace Menu
             SceneManager.LoadScene(scene);
         }
 
-        public void TestSaveName()
-        {
-            string newSaveName = saveName.text;
-            startNewGame.interactable = SavesManager.Instance.TestSaveName(newSaveName);
-        }
 
-        public void StartNewGame()
-        {
-            SavesManager.Instance.WriteSaveIntoFile(SavesManager.Instance.CreateSaveObject(null, "OutpostScene", new Vector2(0,0), saveName.text));
-        }
-
-        public void CreateSavesButtons()
-        {
-            SavesManager.Save[] saves = SavesManager.Instance.GetAllSaves();
-            foreach (SavesManager.Save save in saves)
-            {
-                SaveButton sb = Instantiate(saveButtonPrefab, saveButtonScrollView);
-                sb.SetSaveDate(save.DatetimeString);
-                sb.SetSaveName(save.Name);
-                sb.SetSave(save);
-                sb.SetMainMenu(this);
-                sb.SetSceneName(save.ModuleData.Scene);
-            }
-        }
     }
 }
