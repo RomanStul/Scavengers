@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Timers;
 using Player.UI;
+using sounds;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Environment = Entities.Environment.Environment;
@@ -71,6 +72,7 @@ namespace Player.Module.Movement
         [SerializeField] protected GameObject moduleBody;
 
         [SerializeField] protected float currentFuel;
+
         //================================================================GETTER SETTER
         public float ThrustInput { get; set; } = 0f;
         public float RotationInput { get; set; } = 0f;
@@ -301,6 +303,14 @@ namespace Player.Module.Movement
         //Passes parameters to prevent showing thrust when input is blocked (dashing, stopping)
         private void VisualizeThrust(float thrustInputVar = 0.0f, float rotationInputVar = 0.0f, float sidewaysInputVar = 0.0f)
         {
+            if (thrustInputVar > 0 || thrustInputVar < 0 && reverseAvailable || rotationInputVar != 0 || sidewaysInputVar != 0 && moveSidewaysEneabled)
+            {
+                ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).PlaySound(ModuleSounds.SoundName.Thrusters, transform);
+            }
+            else
+            {
+                ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).StopSound(ModuleSounds.SoundName.Thrusters);
+            }
             thrustVisuals.backMotor.SetActive(thrustInputVar > 0);
             thrustVisuals.frontMotor.SetActive(thrustInputVar < 0 && reverseAvailable);
 

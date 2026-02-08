@@ -11,12 +11,23 @@ namespace Player.Module
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
+        [SerializeField] private Interrogation interrogationWindow;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
         private string sceneName;
         private Vector3 positionToTransfer;
         private Vector3 interactablePosition;
         private bool shouldBeStopping = true;
+
+        private bool gameOverEndOfDay = false;
+        
+
+
+        public void DisplayNews()
+        {
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.News);
+        }
+        
         
         public void StartOfDayAnimationSetup()
         {
@@ -30,12 +41,6 @@ namespace Player.Module
             (ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript)).SetNewDayNumber(StoryManager.instance.GetDayNumber());
             (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript)).PayWithCurrency((int)(StoryManager.instance.GetStartOfDayPayment()), true);
         }
-
-        public void DisplayNews()
-        {
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.News);
-        }
-
         public void StartSceneTransferAnimation(Vector3 position, string scene, Vector3 stopAt)
         {
             sceneName = scene;
@@ -67,7 +72,57 @@ namespace Player.Module
         {
             StoryManager.instance.IncrementDay();
         }
+
         
+        //Decides which animation to play when end of day is triggered
+        public void StartEndOfDayAnimation()
+        {
+            //ASK story manager for what to do in object with all the info
+
+            if (StoryManager.instance.GetDayNumber() == 1 || ((Storage)ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript)).Currency < 0)
+            {
+                //interrogation start -> branches into all other interrogations (game over, day one, some endings)
+                ModuleRef.moduleAnimator.SetTrigger("interrogation");
+            }
+            else
+            {
+                //Typical end of day transition
+                ModuleRef.moduleAnimator.SetTrigger("endOfDay");
+            }
+        }
+        
+        public void PlayInterrogation()
+        {
+            //Reference story manager object about day end
+            
+            if (StoryManager.instance.GetDayNumber() == 1)
+            {
+                interrogationWindow.Write(Interrogation.InterrogationName.Day0, ModuleRef);
+                gameOverEndOfDay = false;
+                return;
+            }
+
+            if (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency < 0)
+            {
+                interrogationWindow.Write(Interrogation.InterrogationName.FailedToPay, ModuleRef);
+                gameOverEndOfDay = true;
+                return;
+            }
+        }
+
+        public void PlayNextInterrogationAnimation()
+        {
+            //Reference story manager object about day end
+            if (gameOverEndOfDay)
+            {
+                ModuleRef.moduleAnimator.SetTrigger("gameOver");
+            }
+            else
+            {
+                interrogationWindow.ShowButtons();
+            }
+            
+        }
         
     }
 }

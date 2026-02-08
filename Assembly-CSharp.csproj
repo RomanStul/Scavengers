@@ -50,6 +50,7 @@
     <Compile Include="Assets\Scripts\HelpScripts\ModuleManipulation.cs" />
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Destructible.cs" />
+    <Compile Include="Assets\Scripts\sounds\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Player\UI\News.cs" />
     <Compile Include="Assets\Scripts\Entities\HealthBar.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\MyRaycast.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Assets\Scripts\Entities\Interactions\UpgradesShop.cs" />
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\ModuleSounds.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Storage.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="Assets\Scripts\Player\UI\Transmission.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SliderController.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\Interrogation.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Barricade.cs" />
     <Compile Include="Assets\Scripts\Milestones\GlobalMilestoneManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\OreHolder.cs" />
@@ -133,6 +136,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Json\InterrogationTexts.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />

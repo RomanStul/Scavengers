@@ -34,5 +34,17 @@ namespace Player.Module.Drill
         {
             drill.Use(isDrilling);
         }
+
+        public void PlayDrillSound(bool play, ModuleSounds.SoundName sound)
+        {
+            if (play)
+            {
+                ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).PlaySound(sound, transform);
+            }
+            else
+            {
+                ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).StopSound(sound);
+            }
+        }
     }
 }

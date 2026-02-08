@@ -30,6 +30,7 @@ namespace Player.Module
             InteractionScript,
             ToolScript,
             AnimationFunctionsScript,
+            SoundsScript,
         }
 
         [Serializable]

@@ -286,7 +286,7 @@ namespace Player.UI
 
         private IEnumerator HideHelp()
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(5f);
             CloseSpecificWindow(WindowType.Help);
         }
             

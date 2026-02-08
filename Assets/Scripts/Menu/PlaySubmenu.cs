@@ -1,10 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Player.UI.UIComponent;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using WaitForEndOfFrame = UnityEngine.WaitForEndOfFrame;
 
 namespace Menu
 {
@@ -25,6 +29,7 @@ namespace Menu
         [SerializeField] private Transform saveButtonScrollView;
 
         [SerializeField] private SaveButtonsGrid buttonGrid;
+        [SerializeField] private SaveButton lastSaveButton;
 
         [SerializeField] private NewSaveForm saveForm;
         //================================================================GETTER SETTER
@@ -43,7 +48,12 @@ namespace Menu
 
         public void CreateSavesButtons()
         {
+
             List<string> saveNames = SavesManager.Instance.GetSaveNames();
+            if (saveButtonScrollView.childCount >= saveNames.Count + 1)
+            {
+                return;
+            }
             foreach (string save in saveNames)
             {
                 SaveFolderButton sb = Instantiate(saveFolderButtonPrefab, saveButtonScrollView);
@@ -80,6 +90,10 @@ namespace Menu
                 branchesPrinted.Push(new Tuple<int, int>(bestBranch, i));
                 branchList.RemoveAt(bestBranch);
             }
+            
+            lastSaveButton.SetModifiedDate(File.GetLastWriteTime("saves/" + structure.name + "/" + structure.name).ToString("yy-MM-dd"));
+            lastSaveButton.gameObject.SetActive(true);
+            Canvas.ForceUpdateCanvases();
         }
 
         public void ClearSaveTree()

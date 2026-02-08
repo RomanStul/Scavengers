@@ -1,5 +1,7 @@
 using System.Reflection;
+using Menu;
 using Player.Module;
+using story;
 using UnityEngine;
 using Module = Player.Module.Module;
 
@@ -9,10 +11,7 @@ namespace Entities.Interactions
     {
         public void StartEndOfDayAnimation(Module moduleRef)
         {
-            if (((Storage)moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript)).Currency >= 0)
-                moduleRef.moduleAnimator.SetTrigger("endOfDay");
-            else
-                Debug.Log("not enough money");
+            ((ModuleAnimations)moduleRef.GetScript<ModuleAnimations>(Module.ScriptNames.AnimationFunctionsScript)).StartEndOfDayAnimation();
         }
         
     }

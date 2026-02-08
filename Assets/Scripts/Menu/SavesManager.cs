@@ -360,7 +360,16 @@ namespace Menu
                 return;
             }
 
-            string currentSavePath = SaveFilePathCompositor(currentSaveStructure.name, branch, day);
+            string currentSavePath;
+            if (branch == -1)
+            {
+                currentSavePath = "saves/" + currentSaveStructure.name + "/" + currentSaveStructure.name;
+            }
+            else
+            {
+                currentSavePath = SaveFilePathCompositor(currentSaveStructure.name, branch, day);
+            }
+
             currentSave = JsonUtility.FromJson<Save>(File.ReadAllText(currentSavePath));
 
             currentBranch = branch;
