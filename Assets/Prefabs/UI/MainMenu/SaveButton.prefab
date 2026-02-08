@@ -94,8 +94,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modifiedDate: {fileID: 6242518549715042397}
   buttonComponent: {fileID: -3603884987587973176}
-  branch: 0
-  day: 0
+  branch: -1
+  day: -1
   previousImageConnector: {fileID: 7329297550700774658}
   branchConnector: {fileID: 3436324178995026845}
   branchConnectorExtender: {fileID: 6790394226034772226, guid: dbf1c12190eea934582a3a94b817ff18, type: 3}

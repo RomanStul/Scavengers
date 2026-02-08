@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Player.Module;
 using ScriptableObjects.Material;
+using sounds;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,6 +25,9 @@ namespace Entities
         [SerializeField] protected ScriptableObjects.Material.MaterialSO material;
         [SerializeField] protected HealthBarEvent onHealthChangedEvent;
         [SerializeField] protected HealthBarEvent onDestroyedEvent;
+
+        [SerializeField] protected AudioClip healthLossSound;
+        [SerializeField] protected AudioClip DestructionSound;
         //================================================================GETTER SETTER
         
         public float GetHealth()
@@ -63,14 +67,25 @@ namespace Entities
             healthBarConstants.currentHealth -= realDamage;
             if (healthBarConstants.currentHealth <= 0)
             {
+                PlaySound(DestructionSound, 1f);
                 healthBarConstants.currentHealth = 0;
                 onDestroyedEvent?.Invoke(transform);
             }
             else
             {
+                PlaySound(healthLossSound, Mathf.Min(realDamage/GetMaxHealth() * 5, 1f));
                 onHealthChangedEvent?.Invoke(transform);
             }
             return healthBarConstants.currentHealth;
+        }
+
+        protected void PlaySound(AudioClip clip, float volume)
+        {
+            if (clip == null)
+            {
+                return;
+            }
+            SoundManager.instance.PlaySoundEffect(clip, volume, transform.position);
         }
 
         protected virtual float ApplyDamageMultiplier(float damage, MaterialSO.DamageType damageType)

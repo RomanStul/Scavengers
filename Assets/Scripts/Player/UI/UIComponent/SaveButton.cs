@@ -13,8 +13,8 @@ namespace Player.UI.UIComponent
         //================================================================EDITOR VARIABLES
         [SerializeField] private TextMeshProUGUI modifiedDate;
         [SerializeField] private Button buttonComponent;
-        [SerializeField] private int branch;
-        [SerializeField] private int day;
+        [SerializeField] private int branch = -1;
+        [SerializeField] private int day = -1;
         [SerializeField] private Image previousImageConnector;
         [SerializeField] private Image branchConnector, branchConnectorExtender;
         
@@ -41,7 +41,7 @@ namespace Player.UI.UIComponent
                     for (int i = 1; i < sourceOffset; i++)
                     {
                         RectTransform extender = (RectTransform)(Instantiate(branchConnectorExtender, branchConnector.transform).transform);
-                        extender.anchoredPosition += new Vector2(0, extender.rect.height * i);
+                        extender.anchoredPosition += new Vector2(0, extender.rect.height * i - 1);
                     }
                 }
             }

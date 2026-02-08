@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using HelpScripts;
 using ScriptableObjects.Material;
+using sounds;
 using UnityEngine;
 
 namespace Player.Module.Drill
@@ -13,7 +14,7 @@ namespace Player.Module.Drill
          * calls 'DamageTarget'.
          * Direction of lasers is changed in 'Update'.
          ##########################################################*/
-        
+
         private static readonly int HitsPerSecond = Animator.StringToHash("HitsPerSecond");
         private static readonly int ChargeTime = Animator.StringToHash("ChargeTime");
         private static readonly int InUse = Animator.StringToHash("inUse");
@@ -30,12 +31,12 @@ namespace Player.Module.Drill
             public float extensionTime;
             public float drillOriginRotation = 1;
         }
+
         //================================================================EDITOR VARIABLES
         [SerializeField] protected DrillConstants drillConstants;
         [SerializeField] protected DrillController drillController;
         [SerializeField] protected Animator animator;
         [SerializeField] protected Transform[] laserOrigins;
-        
         public float laserExtended;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
@@ -43,13 +44,13 @@ namespace Player.Module.Drill
         private Vector3 _targetPosition;
         private bool _currentlyUsing;
         private Transform _target;
-        
-        
+
+
         private void Awake()
         {
             animator.SetFloat(HitsPerSecond, drillConstants.hitsPerSecond);
-            animator.SetFloat(ChargeTime, 1/drillConstants.chargeTime);
-            animator.SetFloat(ExtensionMultiplier, 1/drillConstants.extensionTime);
+            animator.SetFloat(ChargeTime, 1 / drillConstants.chargeTime);
+            animator.SetFloat(ExtensionMultiplier, 1 / drillConstants.extensionTime);
         }
 
         private void Update()
@@ -65,14 +66,15 @@ namespace Player.Module.Drill
         {
             _currentlyUsing = start;
             animator.SetBool(InUse, start);
-            if(!start) ToggleLaser(false);
+            if (!start) ToggleLaser(false);
         }
 
         private void FindTarget()
         {
             _targetPosition = transform.position;
 
-            RaycastHit2D hit = MyRaycast.RaycastCollider(Convertor.Vec3ToVec2(transform.position), Convertor.Vec3ToVec2(transform.up), drillConstants.range);
+            RaycastHit2D hit = MyRaycast.RaycastCollider(Convertor.Vec3ToVec2(transform.position),
+                Convertor.Vec3ToVec2(transform.up), drillConstants.range);
             if (hit)
             {
                 _targetPosition = hit.point;
@@ -94,16 +96,19 @@ namespace Player.Module.Drill
                     Vector3 scale = origin.localScale;
                     origin.localScale = new Vector3(scale.x, 0, scale.z);
                 }
+
                 return;
             }
-            
+
             foreach (var origin in laserOrigins)
             {
                 Vector3 targetPositionMod = _targetPosition - origin.position;
                 Convertor.Rotate2D(targetPositionMod, origin, drillConstants.drillOriginRotation);
-                
-                
-                float distance = DistanceToIntersectionPoint(Convertor.Vec3ToVec2(origin.position), Convertor.Vec3ToVec2(origin.up),Convertor.Vec3ToVec2(transform.position), Convertor.Vec3ToVec2(transform.up));
+
+
+                float distance = DistanceToIntersectionPoint(Convertor.Vec3ToVec2(origin.position),
+                    Convertor.Vec3ToVec2(origin.up), Convertor.Vec3ToVec2(transform.position),
+                    Convertor.Vec3ToVec2(transform.up));
                 Vector3 scale = origin.localScale;
                 origin.localScale = new Vector3(scale.x, distance * laserExtended, 0);
             }
@@ -113,7 +118,7 @@ namespace Player.Module.Drill
         public void DamageTarget()
         {
             if (_target == null) return;
-            
+
             Entities.HealthBar healthBar = _target.GetComponent<Entities.HealthBar>();
             if (healthBar != null)
             {
@@ -121,7 +126,8 @@ namespace Player.Module.Drill
             }
         }
 
-        private float DistanceToIntersectionPoint(Vector2 position1, Vector2 forward1, Vector2 position2, Vector2 forward2)
+        private float DistanceToIntersectionPoint(Vector2 position1, Vector2 forward1, Vector2 position2,
+            Vector2 forward2)
         {
             Vector2 deltaPosition = position2 - position1;
             float denominator = forward1.x * forward2.y - forward1.y * forward2.x;
@@ -131,8 +137,23 @@ namespace Player.Module.Drill
             float t1 = (deltaPosition.x * forward2.y - deltaPosition.y * forward2.x) / denominator;
 
             Vector2 intersectionPoint = position1 + t1 * forward1;
-            
+
             return Vector2.Distance(intersectionPoint, position1);
         }
-    }
+
+        public void PlayDrillSound()
+        {
+            drillController.PlayDrillSound(true, ModuleSounds.SoundName.DrillUse);
+        }
+
+        public void StopDrillSound()
+        {
+            drillController.PlayDrillSound(false, ModuleSounds.SoundName.DrillUse);
+        }
+
+        public void PlayStartSound()
+        {
+            drillController.PlayDrillSound(true, ModuleSounds.SoundName.DrillStart);
+        }
+}
 }
