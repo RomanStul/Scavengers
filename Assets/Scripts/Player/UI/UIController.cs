@@ -20,7 +20,8 @@ namespace Player.UI
         {
             HealthBar,
             FuelBar,
-            StorageBar
+            StorageBar,
+            Timer
         }
 
         public enum Cooldowns
@@ -45,7 +46,7 @@ namespace Player.UI
         }
         
         //================================================================EDITOR VARIABLES
-        [SerializeField] private Bar HealthBar, FuelBar, StorageBar;
+        [SerializeField] private Bar HealthBar, FuelBar, StorageBar, timer;
         [SerializeField] private Cooldown Dash, Stop, SideDash;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private ToolDisplay toolDisplay;
@@ -172,6 +173,9 @@ namespace Player.UI
                             break;
                         case BarsNames.StorageBar:
                             targetBar = StorageBar;
+                            break;
+                        case BarsNames.Timer:
+                            targetBar = timer;
                             break;
                         default:
                             return;

@@ -17,6 +17,7 @@ namespace ScriptableObjects.Day
         public int dayNumber;
         public float refuelCostMultiplier = -1;
         public float repairCostMultiplier = -1;
+        public int evacuateCost = -1;
         public int startOfDayPayment = -1;
         public OrePriceChanges[] priceChanges;
 

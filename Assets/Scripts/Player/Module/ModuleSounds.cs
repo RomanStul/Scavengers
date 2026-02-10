@@ -22,7 +22,8 @@ namespace Player.Module
         {
             Thrusters,
             DrillUse,
-            DrillStart
+            DrillStart,
+            Timer
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] private SoundClip[] soundClips;

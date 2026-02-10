@@ -90,21 +90,21 @@ namespace Player.UI
 
         private IEnumerator Scroll()
         {
-            bool previsouslyNotScrolling = true;
+            bool previouslyNotScrolling = true;
             while (scroll)
             {
                 if (targetOffset > ((RectTransform)textHolder.transform).anchoredPosition.y)
                 {
-                    if (previsouslyNotScrolling)
+                    if (previouslyNotScrolling)
                     {
-                        previsouslyNotScrolling = false;
+                        previouslyNotScrolling = false;
                         yield return new WaitForSeconds(0.5f);
                     }
                     ((RectTransform)textHolder.transform).anchoredPosition += new Vector2(0, Time.deltaTime * 300);
                 }
                 else
                 {
-                    previsouslyNotScrolling = true;
+                    previouslyNotScrolling = true;
                 }
 
                 yield return null;

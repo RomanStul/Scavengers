@@ -126,7 +126,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 0
   maxValue: 0
-  thisRect: {fileID: 7447699550266069720}
-  fill: {fileID: 4516427603209025867}
-  minFillY: 0
-  maxFillY: 0
+  fillImage: {fileID: 0}
+  color: {fileID: 0}
+  mask: {fileID: 0}
+  background: {fileID: 0}
+  maxFill: 0
+  minFill: 0
+  axis: 1

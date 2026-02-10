@@ -10,10 +10,11 @@ namespace Player.UI
     
         //================================================================EDITOR VARIABLES
         [SerializeField] protected float value, maxValue;
-        [SerializeField] protected RectTransform thisRect, fill;
         [SerializeField] private Image fillImage;
         [SerializeField] private Texture color, mask, background;
         [SerializeField] protected float maxFill, minFill;
+
+        [SerializeField] protected RectTransform.Axis axis = RectTransform.Axis.Vertical;
         //================================================================GETTER SETTER
         public virtual void SetValue(float barValue)
         {
@@ -48,7 +49,14 @@ namespace Player.UI
             if (instancedMaterial != null)
             {
                 fillImage.material = instancedMaterial;
-                instancedMaterial.SetFloat("_offset", offset);
+                if (axis == RectTransform.Axis.Horizontal)
+                {
+                    instancedMaterial.SetVector("_offset", new Vector4(offset, 0));
+                }
+                else
+                {
+                    instancedMaterial.SetVector("_offset", new Vector4(0, offset));
+                }
             }
 
         }
