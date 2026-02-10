@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Entities;
 using Entities.Interactions;
 using Player.Module.Upgrades;
+using Player.UI;
 using UnityEngine;
 
 namespace Player.Module
@@ -23,6 +25,7 @@ namespace Player.Module
         //================================================================EDITOR VARIABLES
         
         [SerializeField] private List<InteractionType> availableInteractions;
+        [SerializeField] private float interactionTimerLength;
         
         //================================================================GETTER SETTER
 
@@ -44,6 +47,9 @@ namespace Player.Module
         
         private Interactable currentInteractableEntity;
 
+        private float timerValue = -99;
+        private bool timerIsRunning = false;
+
         public override void ApplyUpgrades()
         {
             if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Portal_passkey))
@@ -57,6 +63,11 @@ namespace Player.Module
             if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.EndOfDay))
             {
                 availableInteractions.Add(InteractionType.EndOfDay);
+            }
+
+            if (timerValue < -50)
+            {
+                ResetTimer();
             }
         }
 
@@ -79,8 +90,48 @@ namespace Player.Module
         {
             if (currentInteractableEntity != null)
             {
+                if (currentInteractableEntity.InteractionType == InteractionType.Portal && !timerIsRunning)
+                {
+                    StartCoroutine(TimerCountdown());
+                }
                 currentInteractableEntity.Use();
             }
+        }
+
+
+        public void ResetTimer()
+        {
+            timerValue = interactionTimerLength;
+            availableInteractions.Add(InteractionType.Portal);
+            timerIsRunning = false;
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)interactionTimerLength, UIController.BarsNames.Timer, true);
+        }
+
+        private IEnumerator TimerCountdown()
+        {
+            timerValue = interactionTimerLength;
+            timerIsRunning = true;
+            float nextThreshold = interactionTimerLength * 0.75f;
+            while (timerValue > 0)
+            {
+                timerValue -= Time.deltaTime;
+                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)timerValue, UIController.BarsNames.Timer, false);
+                if (timerValue < nextThreshold)
+                {
+                    nextThreshold = nextThreshold - interactionTimerLength * 0.25f;
+                    ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).PlaySound(ModuleSounds.SoundName.Timer, transform);
+                }
+                yield return null;
+            }
+
+            availableInteractions.Remove(InteractionType.Portal);
+            if (currentInteractableEntity != null && currentInteractableEntity.InteractionType == InteractionType.Portal)
+            {
+                currentInteractableEntity.Activate(false, ModuleRef);
+                currentInteractableEntity = null;
+            }
+            
+            ModuleRef.Evacuate();
         }
     }
 }

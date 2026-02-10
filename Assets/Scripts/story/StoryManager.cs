@@ -84,6 +84,11 @@ namespace story
         {
             return oreCostMultipliers[(int)ore];
         }
+
+        public int GetEvacuateCost()
+        {
+            return evacuateCost;
+        }
         
         
         
@@ -97,6 +102,7 @@ namespace story
 
         private float refuelCostMult = 1;
         private float repairCostMult = 1;
+        private int evacuateCost = 0;
         private int startOfDayPayment = 1;
         private float[] oreCostMultipliers;
 
@@ -107,14 +113,16 @@ namespace story
             {
                 currentDaySOIndex++;
                 if(days[currentDaySOIndex].refuelCostMultiplier > 0)
-                    refuelCostMult = days[currentDaySOIndex].refuelCostMultiplier;
+                    refuelCostMult *= days[currentDaySOIndex].refuelCostMultiplier;
                 if(days[currentDaySOIndex].repairCostMultiplier > 0)
-                    repairCostMult = days[currentDaySOIndex].repairCostMultiplier;
+                    repairCostMult *= days[currentDaySOIndex].repairCostMultiplier;
                 if(days[currentDaySOIndex].startOfDayPayment > 0)
-                    startOfDayPayment = days[currentDaySOIndex].startOfDayPayment;
+                    startOfDayPayment += days[currentDaySOIndex].startOfDayPayment;
+                if(days[currentDaySOIndex].evacuateCost > 0)
+                    evacuateCost += days[currentDaySOIndex].evacuateCost;
                 foreach (OrePriceChanges opc in days[currentDaySOIndex].priceChanges)
                 {
-                    oreCostMultipliers[(int)opc.item] = opc.multiplier;
+                    oreCostMultipliers[(int)opc.item] *= opc.multiplier;
                 }
                 
             }

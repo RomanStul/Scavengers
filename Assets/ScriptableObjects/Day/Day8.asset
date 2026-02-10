@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f27b292ba10900745b8cce2768151422, type: 3}
-  m_Name: Day2
+  m_Name: Day8
   m_EditorClassIdentifier: 
-  dayNumber: 2
+  dayNumber: 8
   refuelCostMultiplier: -1
   repairCostMultiplier: -1
-  evacuateCost: 5
-  startOfDayPayment: 5
+  evacuateCost: 15
+  startOfDayPayment: -1
   priceChanges:
-  - item: 0
-    multiplier: 1.5
+  - item: 1
+    multiplier: 0.5

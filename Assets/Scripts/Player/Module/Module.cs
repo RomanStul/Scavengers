@@ -143,7 +143,7 @@ namespace Player.Module
                 return;
             }
             PrepareForSceneTransfer(evacuateSettings.evacuatePosition, evacuateSettings.sceneName, transform.position);
-            GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency((int)(evacuateSettings.cost * evacuateSettings.costMultiplier), true);
+            GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency((int)(StoryManager.instance.GetEvacuateCost() * evacuateSettings.costMultiplier), true);
         }
 
         public void SaveAndQuit(bool isStartOfDay)
