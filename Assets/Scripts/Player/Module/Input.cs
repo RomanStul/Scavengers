@@ -1,4 +1,5 @@
 using Player.Module.Drill;
+using Player.Module.Tools;
 using Player.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -111,6 +112,13 @@ namespace Player.Module
             
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Help);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetHelpWindowMode(HelpDisplay.DisplayModes.All);
+        }
+
+        public void UseTool(InputAction.CallbackContext context)
+        {
+            if(!context.started) return;
+            
+            ModuleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).UseTool();
         }
     }
 }

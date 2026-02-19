@@ -18,19 +18,20 @@ namespace Player.Module.Tools
                 name = toolName;
                 amount = initialAmount;
             }
-            
+
             [HideInInspector] public string name;
             public int amount;
             public ToolSO tool;
         }
-        
+
         //================================================================EDITOR VARIABLES
-        
+
         [SerializeField] private ToolArrayRow[] toolsCounts;
-        
+        [SerializeField] private Transform toolSpawnPoint;
+
         //================================================================GETTER SETTER
 
-        
+
         //For generating array of tools after adding new ones, called from editor script
         public void GenerateToolsCounts()
         {
@@ -47,26 +48,37 @@ namespace Player.Module.Tools
                     newCounts[i] = new ToolArrayRow(Enum.GetName(typeof(ToolSO.ToolType), i), 0);
                 }
             }
-            
+
             toolsCounts = newCounts;
         }
-        
+
+        public int GetAmountOfToolType(ToolSO.ToolType toolType)
+        {
+            return toolsCounts[(int)toolType].amount;
+        }
+
         //================================================================FUNCTIONALITY
         private int currentTool;
 
 
         public override void ApplyUpgrades()
         {
-
+            currentTool = 0;
+            ChangeTool(1);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript)
+                .SetTool(toolsCounts[currentTool].tool, toolsCounts[currentTool].amount);
         }
-        
+
         public void UseTool()
         {
-            if (toolsCounts[currentTool].amount > 0)
+            if (currentTool != -1 && toolsCounts[currentTool].amount > 0)
             {
-                ModuleTool mt = Instantiate(toolsCounts[currentTool].tool.executeObject) as ModuleTool;
+                ModuleTool mt = Instantiate(toolsCounts[currentTool].tool.executeObject, toolSpawnPoint.position,
+                    transform.rotation) as ModuleTool;
                 mt.Use(ModuleRef);
                 toolsCounts[currentTool].amount--;
+                
+                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetToolCount(toolsCounts[currentTool].tool.toolType, toolsCounts[currentTool].amount);
 
                 if (toolsCounts[currentTool].amount == 0)
                 {
@@ -74,20 +86,22 @@ namespace Player.Module.Tools
                 }
                 else
                 {
-                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetTool(toolsCounts[currentTool].tool, toolsCounts[currentTool].amount);
+                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript)
+                        .SetTool(toolsCounts[currentTool].tool, toolsCounts[currentTool].amount);
                 }
             }
         }
-        
-        
+
+
         public void ChangeTool(int offset)
         {
-            for (int i = toolsCounts.Length; i != toolsCounts.Length + offset * toolsCounts.Length; i+= offset)
+            for (int i = toolsCounts.Length; i != toolsCounts.Length + offset * toolsCounts.Length; i += offset)
             {
                 if (toolsCounts[(currentTool + i) % toolsCounts.Length].amount != 0)
                 {
                     currentTool = (currentTool + i) % toolsCounts.Length;
-                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetTool(toolsCounts[currentTool].tool, toolsCounts[currentTool].amount);
+                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript)
+                        .SetTool(toolsCounts[currentTool].tool, toolsCounts[currentTool].amount);
                     return;
                 }
             }
@@ -96,6 +110,13 @@ namespace Player.Module.Tools
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetTool(null, -1);
 
         }
-        
-    }
+
+        public int AddTool(ToolSO tool, int amount)
+        {
+            toolsCounts[(int)tool.toolType].amount += amount;
+
+            return toolsCounts[(int)tool.toolType].amount;
+        }
+
+}
 }

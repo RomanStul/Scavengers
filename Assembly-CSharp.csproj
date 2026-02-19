@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Menu\SaveFolderButton.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeCost.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Bar.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\Tools\ToolsShopWindow.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Grabber.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Cooldown.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\TilesManager.cs" />
@@ -86,11 +87,13 @@
     <Compile Include="Assets\ScriptableObjects\Day\DaySO.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\SceneTransfer.cs" />
     <Compile Include="Assets\ScriptableObjects\Tools\ToolSO.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\ToolsShop.cs" />
     <Compile Include="Assets\Scripts\Player\Module\CollisionHandler.cs" />
     <Compile Include="Assets\Scripts\Milestones\SceneMilestoneManager.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeSelectButton.cs" />
     <Compile Include="Assets\Scripts\Player\UI\HelpDisplay.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\Tools\ToolsFrame.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleBaseScript.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\Player\UI\RepairRefuel\RepairRefuel.cs" />

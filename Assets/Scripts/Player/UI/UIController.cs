@@ -4,6 +4,7 @@ using UnityEngine;
 using Player.Module;
 using Player.Module.Upgrades;
 using Player.UI.Inventory;
+using Player.UI.Tools;
 using Player.UI.Upgrades;
 using ScriptableObjects.Item;
 using ScriptableObjects.Tools;
@@ -78,7 +79,7 @@ namespace Player.UI
             //TODO pass upgrades to windows {storage expansion into inventory and so on}
             
             ((UpgradeWindowController)windows[(int)WindowType.Upgrades]).SetUpUpgrades(upgradesScript.upgradesObject);
-
+            
         }
 
         #region WindowFunctions
@@ -292,6 +293,11 @@ namespace Player.UI
         {
             yield return new WaitForSeconds(5f);
             CloseSpecificWindow(WindowType.Help);
+        }
+
+        public void SetToolCount(ToolSO.ToolType toolType, int count)
+        {
+            ((ToolsShopWindow)windows[(int)WindowType.Items]).SetToolCount(toolType, count);
         }
             
         #endregion

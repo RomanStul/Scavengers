@@ -1,6 +1,8 @@
 using Player.Module.Tools;
+using Player.Module.Upgrades;
 using UnityEngine;
 using ScriptableObjects.Item;
+using ScriptableObjects.Upgrade;
 
 namespace ScriptableObjects.Tools
 {
@@ -9,17 +11,21 @@ namespace ScriptableObjects.Tools
     {
         public enum ToolType
         {
+            Explosive,
             Acid_bomb,
             Repair_kit,
             Position_marker,
             Gravity_anchor
         }
 
+        public string description;
         public Sprite icon;
         public ToolType toolType;
         public int price;
-        public ItemSO[] neededItems;
+        public ModuleUpgrades.Ups unlockUpgrade;
+        public ItemCost[] neededItems;
         public ModuleTool executeObject;
+        
 
     }
 }
