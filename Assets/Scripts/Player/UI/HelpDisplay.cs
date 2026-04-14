@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Player.Module.Upgrades;
 using UnityEngine;
 
 namespace Player.UI
@@ -9,34 +11,60 @@ namespace Player.UI
         
         public enum DisplayModes
         {
+            All,
             OnlyMovement,
             OnlyDrill,
-            All
+            OnlyTools,
+            OnlySide,
+            OnlyDash,
+            OnlyStop,
+            Inventory,
+
         }
+        [Serializable]
+        public class DisplayModeComponent
+        {
+            public GameObject helpObject;
+            public int upgradeToUnlock = -1;
+            public bool unlocked = true;
+        }
+        
         //================================================================EDITOR VARIABLES
-        [SerializeField] private GameObject movementHelp, drillHelp, otherHelp;
+        [SerializeField] private DisplayModeComponent[] helpModeComponents;
+        
+
+        public float HideDelay = 5f;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
         public void SetMode(DisplayModes mode)
         {
-            switch (mode)
+            if (mode == DisplayModes.All)
             {
-                case DisplayModes.OnlyMovement:
-                    movementHelp.SetActive(true);
-                    drillHelp.SetActive(false);
-                    otherHelp.SetActive(false);
-                    break;
-                case DisplayModes.OnlyDrill:
-                    movementHelp.SetActive(false);
-                    drillHelp.SetActive(true);
-                    otherHelp.SetActive(false);
-                    break;
-                case DisplayModes.All:
-                    movementHelp.SetActive(true);
-                    drillHelp.SetActive(true);
-                    otherHelp.SetActive(true);
-                    break;
+                foreach (DisplayModeComponent dmc in helpModeComponents)
+                {
+                    dmc.helpObject.SetActive(dmc.unlocked || dmc.upgradeToUnlock == -1);
+                }
+                return;
+            }
+            
+            for (int i = 0; i < helpModeComponents.Length; i++)
+            {
+                helpModeComponents[i].helpObject.SetActive(i+1 == (int)mode);
+            }
+            
+        }
+
+        public void UnlockHelpComponent(ModuleUpgrades upgradeScript)
+        {
+            bool[] upgrades = upgradeScript.GetUpgrades();
+            
+            foreach (DisplayModeComponent dmc in helpModeComponents)
+            {
+                if (dmc.upgradeToUnlock == -1 || upgrades[dmc.upgradeToUnlock])
+                {
+                    dmc.unlocked = true;
+                }
             }
         }
     }

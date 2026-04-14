@@ -5,6 +5,13 @@ namespace Player.UI
 {
     public class Cooldown : Bar
     {
+        protected override void Awake()
+        {
+            base.Awake();
+            SetMaxValue(1);
+            SetValue(1);    
+        }
+        
         public void StartCooldown(float time)
         {
             SetMaxValue(time);

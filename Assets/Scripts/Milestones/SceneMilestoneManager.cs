@@ -44,37 +44,48 @@ namespace Milestones
 
         private void Awake()
         {
-            List<MilestoneEvent> unCompletedMilestones = new List<MilestoneEvent>();
             
             currentInstance = this;
+            moduleRef = GlobalMilestoneManager.instance.ModuleRef;
+            
             if (GlobalMilestoneManager.instance.AddSceneDictionary())
             {
                 foreach (MilestoneEvent me in milestones)
                 {
-                    if (!GlobalMilestoneManager.instance.IsMilestoneCompleted(me.milestone))
-                    {
-                        unCompletedMilestones.Add(me);
-                    }
+                    me.completed = GlobalMilestoneManager.instance.IsMilestoneCompleted(me.milestone);
                 }
-                milestones = unCompletedMilestones;
             }
+            
+            GlobalMilestoneManager.instance.ClaimUnclaimedMilestones();
 
             
-            moduleRef = GlobalMilestoneManager.instance.ModuleRef;
+            
         }
 
 
-        public void CompletedMilestone(GlobalMilestoneManager.Milestone completedMilestone)
+        public bool CompletedMilestone(GlobalMilestoneManager.Milestone completedMilestone, bool isUnclaimed = false)
         {
             foreach (MilestoneEvent me in milestones)
             {
-                if (me.milestone.Equals(completedMilestone) && !me.completed)
+                
+                if (me.milestone.Equals(completedMilestone))
                 {
-                    me.completed = true;
-                    GlobalMilestoneManager.instance.AddCompletedMilestone(me.milestone);
-                    StartCoroutine(InvokeMilestoneEvents(me));
+                    if (!me.completed)
+                    {
+                        me.completed = true;
+                        GlobalMilestoneManager.instance.AddCompletedMilestone(me.milestone);
+                        StartCoroutine(InvokeMilestoneEvents(me));
+                    }
+                    
+                    return true;
                 }
             }
+
+            if (!isUnclaimed)
+            {
+                GlobalMilestoneManager.instance.AddUnclaimedMilestone(completedMilestone);
+            }
+            return false;
         }
 
         //Takes string code that is (int)action_(int)id
@@ -129,6 +140,12 @@ namespace Milestones
             cont.SetHelpWindowMode((HelpDisplay.DisplayModes)mode);
         }
 
+        public void SetHelpHideDelay(float delay)
+        {
+            UIController cont = moduleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript);
+            cont.SetHelpHideDelay(delay);
+        }
+
         public void OpenWindow(int windowType)
         {
             moduleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow((UIController.WindowType)windowType);
@@ -163,6 +180,7 @@ namespace Milestones
 
         public void ModuleStop(Transform stopAt)
         {
+            if (stopAt == transform) stopAt = moduleRef.transform;
             runCoroutine = true;
             StartTrackedCoroutine(GradualModuleStop(stopAt.position));
             StartTrackedCoroutine(ModuleManipulation.GradualModuleStop(stopAt.position, moduleRef, () => runCoroutine));
@@ -192,6 +210,11 @@ namespace Milestones
         public void ModuleUnlockUpgrade(int upgrade)
         {
             ((ModuleUpgrades)moduleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript)).InstallUpgrades(upgrade);
+        }
+
+        public void ShowHelpTip()
+        {
+            moduleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowHelpTip();
         }
     }
 }

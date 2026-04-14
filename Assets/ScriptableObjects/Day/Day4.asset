@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Day4
   m_EditorClassIdentifier: 
   dayNumber: 4
-  refuelCostMultiplier: 1
-  repairCostMultiplier: 1.5
+  refuelCostMultiplier: -1
+  repairCostMultiplier: 1.2
   evacuateCost: -1
   startOfDayPayment: 5
   priceChanges:

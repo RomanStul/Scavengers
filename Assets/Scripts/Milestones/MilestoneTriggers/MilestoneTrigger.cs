@@ -7,13 +7,14 @@ namespace Milestones.MilestoneTriggers
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
         //================================================================GETTER SETTER
-        [SerializeField] private int id;
-        [SerializeField] private bool disableAfterTrigger = true;
+        [SerializeField] protected int id;
+        [SerializeField] protected bool disableAfterTrigger = true;
+        [SerializeField] protected GlobalMilestoneManager.MilestoneAction action = GlobalMilestoneManager.MilestoneAction.Entered;
         //================================================================
 
         protected void Trigger()
         {
-            SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.Entered, id));
+            SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(action, id));
             if (disableAfterTrigger)
             {
                 gameObject.SetActive(false);

@@ -15,7 +15,9 @@ namespace ScriptableObjects.Tools
             Acid_bomb,
             Repair_kit,
             Position_marker,
-            Gravity_anchor
+            Gravity_anchor,
+            Yellow_Pad,
+            Blue_Pad,
         }
 
         public string description;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Entities;
 using Entities.Interactions;
+using Player.Module.Upgrades;
 using ScriptableObjects.Material;
 using UnityEditor;
 using UnityEngine;
@@ -20,7 +21,37 @@ namespace Player.Module
         //================================================================EDITOR VARIABLES
         [SerializeField] private CollisionConstants collisionConstants;
         //================================================================GETTER SETTER
+        public void IncreaseAcid(float value, bool increase)
+        {
+            if (increase)
+            {
+                if (Mathf.Floor(acidCoverage) < Mathf.Floor(acidCoverage + value))
+                {
+                    acidCoverage = ModuleRef.GetScript<UpgradeVisuals>(Module.ScriptNames.UpgradeVisualsScript).ChangeAcidTexture(acidCoverage + value);
+                }
+                else
+                {
+                    acidCoverage += value;
+                }
+            }
+            else
+            {
+                if (acidCoverage-value >= 0 && Mathf.Floor(acidCoverage) > Mathf.Floor(acidCoverage - value))
+                {
+                    acidCoverage = ModuleRef.GetScript<UpgradeVisuals>(Module.ScriptNames.UpgradeVisualsScript).ChangeAcidTexture(acidCoverage - value);
+                }
+                else
+                {
+                    acidCoverage -= value;
+                }
+                if(acidCoverage < 0) acidCoverage = 0;
+            }
+
+            
+        }
         //================================================================FUNCTIONALITY
+        private float acidCoverage = 0;
+        private bool inAcid = false;
 
         protected Rigidbody2D MoveRigid;
         
@@ -56,20 +87,41 @@ namespace Player.Module
                 return;
             }
 
-            if (col.layer == LayerMask.NameToLayer("Interactible"))
+            if (col.layer == LayerMask.NameToLayer("Interactable"))
             {
                 ModuleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).SetInteractableEntity(col.transform.GetComponent<Interactable>());
             }
+
+            if (col.layer == LayerMask.NameToLayer("Acid"))
+            {
+                ModuleRef.GetMoveRb().linearDamping *= 80;
+                ModuleRef.GetMoveRb().angularDamping *= 5;
+                ModuleRef.GetScript<UpgradeVisuals>(Module.ScriptNames.UpgradeVisualsScript).ShowAcidTexture();
+                inAcid = true;
+            }
+            
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             GameObject col = collision.gameObject;
 
-            if (col.layer == LayerMask.NameToLayer("Interactible"))
+            if (col.layer == LayerMask.NameToLayer("Interactable"))
             {
                 ModuleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).ResetInteractableEntity(col.transform.GetComponent<Interactable>());
             }
+            
+            if (col.layer == LayerMask.NameToLayer("Acid"))
+            {
+                ModuleRef.GetMoveRb().linearDamping /= 80;
+                ModuleRef.GetMoveRb().angularDamping /= 5;
+                inAcid = false;
+            }
+        }
+
+        private void Update()
+        { 
+            IncreaseAcid(Time.deltaTime, inAcid);
         }
     }
 }

@@ -17,6 +17,10 @@ namespace Player.Module.Upgrades
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] private VisualChange[] _upgradeChanges;
+
+        [SerializeField] private SpriteRenderer acidRenderer;
+
+        [SerializeField] private Sprite[] acidTextures;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
@@ -52,5 +56,30 @@ namespace Player.Module.Upgrades
 
             return true;
         }
+
+        #region effects
+
+        public void ShowAcidTexture()
+        {
+            acidRenderer.gameObject.SetActive(true);
+        }
+
+        public float ChangeAcidTexture(float value)
+        {
+            if ((int)value > acidTextures.Length)
+            {
+                return acidTextures.Length;
+            }
+
+            if ((int)value == 0)
+            {
+                acidRenderer.sprite = null;
+                return 0;
+            }
+            acidRenderer.sprite = acidTextures[(int)Mathf.Floor(value) - 1];
+            return value;
+        }
+
+        #endregion
     }
 }

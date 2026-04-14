@@ -1,0 +1,881 @@
+fileFormatVersion: 2
+guid: d8431875d38bd9840b0005e4a2c9476e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3762824896925229892
+    second: CrumbleAnim_0
+  - first:
+      213: 2105955031167585910
+    second: CrumbleAnim_1
+  - first:
+      213: -3880645229258482986
+    second: CrumbleAnim_2
+  - first:
+      213: -6040479207411558660
+    second: CrumbleAnim_3
+  - first:
+      213: 4703750690182349372
+    second: CrumbleAnim_4
+  - first:
+      213: -2134381860064749198
+    second: CrumbleAnim_5
+  - first:
+      213: -2279683024342804689
+    second: CrumbleAnim_6
+  - first:
+      213: -4002447207680695820
+    second: CrumbleAnim_7
+  - first:
+      213: -8520974730371017401
+    second: CrumbleAnim_8
+  - first:
+      213: -2067725255123934098
+    second: CrumbleAnim_9
+  - first:
+      213: 8455918869317249536
+    second: CrumbleAnim_10
+  - first:
+      213: 7576559521832329387
+    second: CrumbleAnim_11
+  - first:
+      213: -4600872447653753263
+    second: CrumbleAnim_12
+  - first:
+      213: -3460539385595313275
+    second: CrumbleAnim_13
+  - first:
+      213: 6276949952017367103
+    second: CrumbleAnim_14
+  - first:
+      213: 8345573740411268532
+    second: CrumbleAnim_15
+  - first:
+      213: -4417071503501862099
+    second: CrumbleAnim_16
+  - first:
+      213: -7601537869067641210
+    second: CrumbleAnim_17
+  - first:
+      213: 6808988492786452979
+    second: CrumbleAnim_18
+  - first:
+      213: -5936288489030159329
+    second: CrumbleAnim_19
+  - first:
+      213: 5940141119998180604
+    second: CrumbleAnim_20
+  - first:
+      213: -2817202296648638593
+    second: CrumbleAnim_21
+  - first:
+      213: -2176205585356392906
+    second: CrumbleAnim_22
+  - first:
+      213: -4921258748070446958
+    second: CrumbleAnim_23
+  - first:
+      213: -2189239416866666524
+    second: CrumbleAnim_24
+  - first:
+      213: 6508897645136533260
+    second: CrumbleAnim_25
+  - first:
+      213: -2182573811792640518
+    second: CrumbleAnim_26
+  - first:
+      213: 2118038166127576965
+    second: CrumbleAnim_27
+  - first:
+      213: -2165056714702341848
+    second: CrumbleAnim_28
+  - first:
+      213: 7511527017657908320
+    second: CrumbleAnim_29
+  - first:
+      213: 8894320131214492927
+    second: CrumbleAnim_30
+  - first:
+      213: 5908837424696769793
+    second: CrumbleAnim_31
+  - first:
+      213: 2346773929621629025
+    second: CrumbleAnim_32
+  - first:
+      213: -7023718372320146803
+    second: CrumbleAnim_33
+  - first:
+      213: 1005072201370323448
+    second: CrumbleAnim_34
+  - first:
+      213: 3661028647844132399
+    second: CrumbleAnim_35
+  - first:
+      213: -5685236216537632147
+    second: CrumbleAnim_36
+  - first:
+      213: 9155833196733161542
+    second: CrumbleAnim_37
+  - first:
+      213: 7268816852392083548
+    second: CrumbleAnim_38
+  - first:
+      213: -3165022014600654241
+    second: CrumbleAnim_39
+  - first:
+      213: 3293325706961787205
+    second: CrumbleAnim_40
+  - first:
+      213: -2019523346113883411
+    second: CrumbleAnim_41
+  - first:
+      213: 7088444709170942186
+    second: CrumbleAnim_42
+  - first:
+      213: -4579387012016599600
+    second: CrumbleAnim_43
+  - first:
+      213: -7784646217442474872
+    second: CrumbleAnim_44
+  - first:
+      213: 4067560558284415002
+    second: CrumbleAnim_45
+  - first:
+      213: 3125548746769030751
+    second: CrumbleAnim_46
+  - first:
+      213: -8085142036382365072
+    second: CrumbleAnim_47
+  - first:
+      213: -274731240382562812
+    second: CrumbleAnim_48
+  - first:
+      213: -8304369106658962881
+    second: CrumbleAnim_49
+  - first:
+      213: 3745669603067741106
+    second: CrumbleAnim_50
+  - first:
+      213: 351507286264396069
+    second: CrumbleAnim_51
+  - first:
+      213: 8285420610161327418
+    second: CrumbleAnim_52
+  - first:
+      213: -872122977821296419
+    second: CrumbleAnim_53
+  - first:
+      213: -128452416226758619
+    second: CrumbleAnim_54
+  - first:
+      213: 3333015457201726844
+    second: CrumbleAnim_55
+  - first:
+      213: 8102753738609630759
+    second: CrumbleAnim_56
+  - first:
+      213: 6438705585713759801
+    second: CrumbleAnim_57
+  - first:
+      213: -5706221690029682175
+    second: CrumbleAnim_58
+  - first:
+      213: 3442064736451957259
+    second: CrumbleAnim_59
+  - first:
+      213: -4007240566799968993
+    second: CrumbleAnim_60
+  - first:
+      213: 8448736653132723152
+    second: CrumbleAnim_61
+  - first:
+      213: 9103774446755415004
+    second: CrumbleAnim_62
+  - first:
+      213: -5765777524611521223
+    second: CrumbleAnim_63
+  - first:
+      213: 3986606626688914129
+    second: CrumbleAnim_64
+  - first:
+      213: 801886297079733718
+    second: CrumbleAnim_65
+  - first:
+      213: -4687739359843794531
+    second: CrumbleAnim_66
+  - first:
+      213: -6317101308958974078
+    second: CrumbleAnim_67
+  - first:
+      213: -3026820891552749596
+    second: CrumbleAnim_68
+  - first:
+      213: 8086291192168629130
+    second: CrumbleAnim_69
+  - first:
+      213: 4657004675890638519
+    second: CrumbleAnim_70
+  - first:
+      213: 8283810633863137684
+    second: CrumbleAnim_71
+  - first:
+      213: -1869935491799051086
+    second: CrumbleAnim_72
+  - first:
+      213: -180656363945956640
+    second: CrumbleAnim_73
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CrumbleAnim_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 240
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4436935be4d383430800000000000000
+      internalID: 3762824896925229892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_1
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 240
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ec0b961fad93d10800000000000000
+      internalID: 2105955031167585910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_2
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 240
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dadbba79bd252ac0800000000000000
+      internalID: -3880645229258482986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_3
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 240
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf6d9192a28eb2ca0800000000000000
+      internalID: -6040479207411558660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_4
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 240
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c324158c454174140800000000000000
+      internalID: 4703750690182349372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2799dc7b1072162e0800000000000000
+      internalID: -2134381860064749198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_6
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f271f8d1e50fc50e0800000000000000
+      internalID: -2279683024342804689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_7
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f120f178737478c0800000000000000
+      internalID: -4002447207680695820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_8
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 745d728f0aa6fb980800000000000000
+      internalID: -8520974730371017401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_9
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 180
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e64eb33f5d6fd43e0800000000000000
+      internalID: -2067725255123934098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00a6d270965795570800000000000000
+      internalID: 8455918869317249536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_11
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba06b662eb8552960800000000000000
+      internalID: 7576559521832329387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_12
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15e47b4a2ea6620c0800000000000000
+      internalID: -4600872447653753263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_13
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 583c75673c1b9ffc0800000000000000
+      internalID: -3460539385595313275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_14
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 120
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3086e289b43c1750800000000000000
+      internalID: 6276949952017367103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bdaa04a91f61d370800000000000000
+      internalID: 8345573740411268532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_16
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b5546ced863b2c0800000000000000
+      internalID: -4417071503501862099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_17
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68e1b8f2599e18690800000000000000
+      internalID: -7601537869067641210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_18
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f9424865f26e7e50800000000000000
+      internalID: 6808988492786452979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_19
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 60
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f14fd1f22111e9da0800000000000000
+      internalID: -5936288489030159329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfcbe2d50ee9f6250800000000000000
+      internalID: 5940141119998180604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_21
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7fd7d7ff6947e8d0800000000000000
+      internalID: -2817202296648638593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrumbleAnim_22
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 60
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6367c96dc809cc1e0800000000000000
+      internalID: -2176205585356392906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 401472c90f768184a91b2785b73aeba3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CrumbleAnim_0: 3762824896925229892
+      CrumbleAnim_1: 2105955031167585910
+      CrumbleAnim_10: 8455918869317249536
+      CrumbleAnim_11: 7576559521832329387
+      CrumbleAnim_12: -4600872447653753263
+      CrumbleAnim_13: -3460539385595313275
+      CrumbleAnim_14: 6276949952017367103
+      CrumbleAnim_15: 8345573740411268532
+      CrumbleAnim_16: -4417071503501862099
+      CrumbleAnim_17: -7601537869067641210
+      CrumbleAnim_18: 6808988492786452979
+      CrumbleAnim_19: -5936288489030159329
+      CrumbleAnim_2: -3880645229258482986
+      CrumbleAnim_20: 5940141119998180604
+      CrumbleAnim_21: -2817202296648638593
+      CrumbleAnim_22: -2176205585356392906
+      CrumbleAnim_3: -6040479207411558660
+      CrumbleAnim_4: 4703750690182349372
+      CrumbleAnim_5: -2134381860064749198
+      CrumbleAnim_6: -2279683024342804689
+      CrumbleAnim_7: -4002447207680695820
+      CrumbleAnim_8: -8520974730371017401
+      CrumbleAnim_9: -2067725255123934098
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

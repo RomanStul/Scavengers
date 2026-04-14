@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f532c91c9829e4890a41be43fb8313, type: 3}
   m_Name: AcidBomb
   m_EditorClassIdentifier: 
+  description: Container with acid that explodes on impact. Great for dealing with
+    organic obstacles.
   icon: {fileID: 21300000, guid: e9ace67311f132146b22158a4be6cc0f, type: 3}
   toolType: 1
   price: 10
-  neededItems: []
-  executeObject: {fileID: 0}
+  unlockUpgrade: 8
+  neededItems:
+  - item: {fileID: 11400000, guid: cc909385c20ffac4aaefb073a0209cbf, type: 2}
+    amount: 2
+  executeObject: {fileID: 7449590244897591272, guid: 70055c30c777dae4b98425c2cf17d4df, type: 3}

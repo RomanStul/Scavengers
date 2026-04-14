@@ -22,6 +22,13 @@ namespace Entities.Environment
 #endif
             destructibleId = Random.Range(0, Int32.MaxValue);
         }
+
+        public bool CheckIfShouldBeDestroyed()
+        {
+            bool isSaved = DestructionManager.instance.CheckForDestructible(destructibleId);
+            gameObject.SetActive(!isSaved);
+            return isSaved;
+        }
         //================================================================FUNCTIONALITY
         
         private void Reset()
@@ -31,7 +38,7 @@ namespace Entities.Environment
 
         public virtual void Awake()
         {
-            gameObject.SetActive(!DestructionManager.instance.CheckForDestructible(destructibleId));
+            CheckIfShouldBeDestroyed();
         }
 
         public virtual void Destroy()

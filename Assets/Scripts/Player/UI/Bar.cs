@@ -30,7 +30,7 @@ namespace Player.UI
         
         private Material instancedMaterial;
         
-        private void Awake()
+        protected virtual void Awake()
         {
             instancedMaterial = Instantiate(fillImage.material);
             fillImage.material = instancedMaterial;

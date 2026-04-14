@@ -70,7 +70,7 @@ namespace Player.Module.Movement
         
         [SerializeField] protected ThrustVisuals thrustVisuals;
         [SerializeField] protected GameObject moduleBody;
-
+        
         [SerializeField] protected float currentFuel;
 
         //================================================================GETTER SETTER
@@ -85,7 +85,7 @@ namespace Player.Module.Movement
 
         public float GetMissingFuel()
         {
-            return movementVariables.MaxFuel - currentFuel;
+            return maxFuel - currentFuel;
         }
 
         public float GetFuel()
@@ -100,6 +100,7 @@ namespace Player.Module.Movement
         //================================================================FUNCTIONALITY
 
         protected Rigidbody2D Rigid;
+        private float maxFuel;
 
         private bool takeInput = true,
             dashReady = false,
@@ -113,9 +114,11 @@ namespace Player.Module.Movement
 
         public override void ApplyUpgrades()
         {
-            //TODO space for fuel space increase
-            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)movementVariables.MaxFuel, UI.UIController.BarsNames.FuelBar, true);
+            maxFuel = movementVariables.MaxFuel;
+            if (ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Fuel_Capacity_I)) maxFuel += 20;
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)maxFuel, UI.UIController.BarsNames.FuelBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
+            
             dashReady = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Dash);
             reverseAvailable = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Reverse);
             stopReady = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Stop);
@@ -171,7 +174,7 @@ namespace Player.Module.Movement
         {
             if (amount < 0)
             {
-                currentFuel = movementVariables.MaxFuel;
+                currentFuel = maxFuel;
             }
             else
             {
@@ -179,15 +182,7 @@ namespace Player.Module.Movement
             }
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
         }
-
-        private void UseFuel(float amount)
-        {
-            currentFuel -= amount;
-            if (currentFuel <= 0)
-            {
-                
-            }
-        }
+        
 
         public void Dash()
         {

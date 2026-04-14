@@ -9,7 +9,7 @@ namespace Player.UI
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
-        [SerializeField] private TextMeshProUGUI headline, mainText, economics;
+        [SerializeField] private TextMeshProUGUI headline, mainText, economics, secondaryHeadline, secondaryText;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
@@ -34,11 +34,14 @@ namespace Player.UI
             }
             headline.text = newsObject.Title;
             mainText.text = newsObject.MainText;
+            secondaryText.text = newsObject.SecondaryText;
+            secondaryHeadline.text = newsObject.SecondaryTitle;
             WriteEconomics();
         }
 
         private void WriteEconomics()
         {
+            economics.text = "";
             DaySO currentDaySO = StoryManager.instance.GetDay();
             OrePriceChanges[] priceChanges = currentDaySO.priceChanges;
 
@@ -57,16 +60,16 @@ namespace Player.UI
                 CreateEconomicsLine("Repair", currentDaySO.repairCostMultiplier);
             }
 
-            economics.text += "\nTax today: " + StoryManager.instance.GetStartOfDayPayment();
+            economics.text += "\nQuota today: " + StoryManager.instance.GetStartOfDayPayment();
         }
 
         private void CreateEconomicsLine(string name, float mult)
         {
             if(mult > 1)
-                economics.text += "\n" + name + " price increased,";
+                economics.text += "\n" + name + " price increased";
             else
             {
-                economics.text += "\n" + name + " price decreased.";
+                economics.text += "\n" + name + " price decreased";
             }
         }
     }

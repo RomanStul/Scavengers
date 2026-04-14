@@ -21,12 +21,14 @@ namespace Entities.Environment
         
         public void OnTriggerEnter2D(Collider2D other)
         {
-            animator.SetBool("show", false);
+            if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+                animator.SetBool("show", false);
         }
 
         public void OnTriggerExit2D(Collider2D other)
         {
-            animator.SetBool("show", true);
+            if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+                animator.SetBool("show", true);
         }
         
     }

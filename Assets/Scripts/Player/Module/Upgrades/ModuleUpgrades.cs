@@ -25,6 +25,12 @@ namespace Player.Module.Upgrades
             Fluorescent_Lights,
             Portal_passkey,
             EndOfDay,
+            AcidBomb,
+            ToolsUnlock,
+            Storage_Size_I,
+            Fuel_Capacity_I,
+            ImpossibleUpgrade,
+            Lights_unlock
         }
 
         [Serializable]

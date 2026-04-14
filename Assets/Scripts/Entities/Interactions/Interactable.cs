@@ -12,7 +12,7 @@ namespace Entities.Interactions
         
         //================================================================EDITOR VARIABLES
         
-        [SerializeField] private UnityEvent activateEvent, deactivateEvent;
+        [SerializeField] private UnityEvent<Module> activateEvent, deactivateEvent;
         [SerializeField] private GameObject useVisualCue;
         [SerializeField] private InteractionHandler.InteractionType interactionType;
         [SerializeField] private bool usedRepeatably;
@@ -38,11 +38,12 @@ namespace Entities.Interactions
             moduleRef = module;
             
             if(active)
-                activateEvent?.Invoke();
+                activateEvent?.Invoke(moduleRef);
             else
-                deactivateEvent?.Invoke();
+                deactivateEvent?.Invoke(moduleRef);
             
-            useVisualCue.SetActive(active);
+            if(useVisualCue != null)
+                useVisualCue.SetActive(active);
         }
 
         public void Use()

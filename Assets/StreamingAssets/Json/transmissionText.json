@@ -1,0 +1,39 @@
+{"texts":
+  [
+    {
+      "key":"tutorial", 
+      "text":[
+        "Welcome to this hell hole.\nI’m Rick, and I’ll be your technician - Lucky you.\n\nBefore you wander off and try not to die, you’ll need to head to the storage bay and fetch the materials for your Portal Pass Key.\nBring ’em back, and I’ll get it sorted.",
+        "Actually I am gonna tweek something on your module.\nIt will transport you here whenever you crash. Its gonna be annoying but it will help you learn to control this dumpster they call a spaceship.",
+        "You can go now. And remember if you crash its gonna hurt, you, your module more and me the most because I am gonna have to go through this @#X!#$% process again."
+      ],
+      "from": "Rick",
+      "image": "Rick"
+    },
+    {
+      "key": "Layer1Unlock",
+      "text": [
+        "You are still here?\nI thought I will have to train another newbie.\n\nWell since you are still here I can tell you, I was looking over your footage. And there is a boulder at the end of the cave that is directly in front of the portal.\nI think we can blow it to bits.\nGo buy some explosives and try it."
+      ],
+      "from": "Rick",
+      "image": "Rick"
+    },
+    {
+      "key": "AcidBombUnlocked",
+      "text": [
+        "Have you found Fluorite?\nIf you bring me some and I can use it to make acid that will eat right through those f%@$@!g mushrooms.\n"
+      ],
+      "from": "Rick",
+      "image": "Rick"
+    },
+    {
+      "key": "TimerRanOut",
+      "text": [
+        "I forgot to tell ya. In the bottom left of you panel you have a line. That's timer that tells you when the day ends. When it runs out you will be evacuated back here. And they are gonna charge you each tine you evacuate.\nNow go inside and get prepared for the next day."
+      ],
+      "from": "Rick",
+      "image": "Rick"
+    }
+  ]
+  
+}

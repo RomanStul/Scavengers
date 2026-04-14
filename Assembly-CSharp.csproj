@@ -57,6 +57,8 @@
     <Compile Include="Assets\Scripts\Entities\Environment\DestructionManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\ResourceShop.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SaveButtonsGrid.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\DoorController.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Geyser.cs" />
     <Compile Include="Assets\ScriptableObjects\Upgrade\UpgradeSO.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\UpgradesShop.cs" />
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
@@ -64,13 +66,17 @@
     <Compile Include="Assets\Scripts\Player\Module\ModuleSounds.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\Layer0Boulder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Storage.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SaveButton.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Tools\ExplosiveTool.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleAnimations.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeWindowController.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\ModuleUpgrades.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Enviroment.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\PulseOre.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\ItemFrame.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Boulder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ToolHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\InteractionHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
@@ -84,6 +90,7 @@
     <Compile Include="Assets\Scripts\Player\UI\Cooldown.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\TilesManager.cs" />
     <Compile Include="Assets\ScriptableObjects\Material\MaterialSO.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\PulsePad.cs" />
     <Compile Include="Assets\ScriptableObjects\Day\DaySO.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\SceneTransfer.cs" />
     <Compile Include="Assets\ScriptableObjects\Tools\ToolSO.cs" />
@@ -97,16 +104,19 @@
     <Compile Include="Assets\Scripts\Player\Module\ModuleBaseScript.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\Player\UI\RepairRefuel\RepairRefuel.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Tools\DoorKey.cs" />
     <Compile Include="Assets\Scripts\Milestones\MilestoneTriggers\MilestoneTrigger.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Transmission.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SliderController.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Interrogation.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Barricade.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\UnlockNotification.cs" />
     <Compile Include="Assets\Scripts\Milestones\GlobalMilestoneManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\OreHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemDBSO.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\PermanentGeyser.cs" />
     <Compile Include="Assets\Scripts\Milestones\MilestoneTriggers\CollisionTrigger.cs" />
     <Compile Include="Assets\Scripts\Menu\PlaySubmenu.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Landmine.cs" />
@@ -114,10 +124,12 @@
     <Compile Include="Assets\Scripts\Entities\Item.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Movement\Movement.cs" />
     <Compile Include="Assets\Scripts\story\StoryManager.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Movable.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ModuleTool.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\UpgradeVisuals.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\GeyserSystem.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIWindow.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\InventoryHandler.cs" />
     <Compile Include="Assets\Scripts\Player\UI\ToolDisplay.cs" />
@@ -139,16 +151,16 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-    <None Include="Assets\Json\InterrogationTexts.json" />
+    <None Include="Assets\StreamingAssets\Json\InterrogationTexts.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
-    <None Include="Assets\Json\transmissionText.json" />
+    <None Include="Assets\StreamingAssets\Json\transmissionText.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
-    <None Include="Assets\Json\News.json" />
+    <None Include="Assets\StreamingAssets\Json\News.json" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Projektíky\UnityEditor\6000.0.65f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

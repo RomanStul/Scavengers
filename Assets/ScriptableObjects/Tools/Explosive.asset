@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f532c91c9829e4890a41be43fb8313, type: 3}
   m_Name: Explosive
   m_EditorClassIdentifier: 
-  icon: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  description: Powerful explosive capable capable of destroying almost any mineral.
+  icon: {fileID: 21300000, guid: 539015be439b3214aaa53276a6b93d02, type: 3}
   toolType: 0
   price: 15
+  unlockUpgrade: 9
   neededItems: []
-  executeObject: {fileID: 5095631983044352165, guid: f10ec8b8f5f3c6242bdc023e8a38aef2, type: 3}
+  executeObject: {fileID: 7449590244897591272, guid: f10ec8b8f5f3c6242bdc023e8a38aef2, type: 3}
