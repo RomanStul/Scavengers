@@ -8,7 +8,7 @@ namespace Player.Module.Tools
         //================================================================EDITOR VARIABLES
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
-        public void Use(Module m)
+        public virtual void Use(Module m)
         {
             
         }

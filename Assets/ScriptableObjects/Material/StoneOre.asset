@@ -16,3 +16,7 @@ MonoBehaviour:
   damageMultipliers:
   - damageType: 2
     damageMultiplier: 5
+  - damageType: 5
+    damageMultiplier: 0
+  - damageType: 1
+    damageMultiplier: 0

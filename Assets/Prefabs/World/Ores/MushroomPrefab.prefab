@@ -41,6 +41,7 @@ CapsuleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2724504272565860245}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -64,7 +65,8 @@ CapsuleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: -0.04584857, y: 1.0956366e-15}
   m_Size: {x: 0.4026565, y: 1.2099994}
   m_Direction: 0
@@ -84,7 +86,7 @@ MonoBehaviour:
     maxHealth: 20
     currentHealth: 20
     maxAsStarting: 1
-  material: {fileID: 11400000, guid: 97af8aa5d6cf23c45a5f5cf25ce12cc2, type: 2}
+  material: {fileID: 11400000, guid: c1f62b4b729d780419b677e054c5a351, type: 2}
   onHealthChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -115,6 +117,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  healthLossSound: {fileID: 0}
+  DestructionSound: {fileID: 0}
 --- !u!1 &8887292366008735881
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +170,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

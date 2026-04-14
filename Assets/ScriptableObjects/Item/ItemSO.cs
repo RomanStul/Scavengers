@@ -11,7 +11,10 @@ namespace ScriptableObjects.Item
             Gold_Ore,
             Purpura_Fungi,
             Lucene_Fungi,
-            Circuit
+            Circuit,
+            Sulfur,
+            Fluorite,
+            Pulse_ore
         }
     
         public Sprite image;

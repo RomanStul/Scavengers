@@ -26,11 +26,23 @@ namespace Entities
 
         public override void Awake()
         {
-            if (DestructionManager.instance.CheckForOre(destructibleId))
+            if (!respawns)
             {
-                Destroy(gameObject);
-                return;
+                if (DestructionManager.instance.CheckForOre(destructibleId))
+                {
+                    Destroy(gameObject);
+                    return;
+                }
             }
+            else
+            {
+                if (DestructionManager.instance.CheckForRespawnOres(destructibleId))
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+            }
+
             
             if (_itemPrefab == null)
             {
@@ -41,16 +53,22 @@ namespace Entities
         public void DropItems()
         {
             if(!respawns) DestructionManager.instance.AddOre(destructibleId);   
+            else DestructionManager.instance.AddRespawnOres(destructibleId);
             
             foreach (var drop in drops)
             {
                 for (int j = 0; j < drop.amount; j++)
                 {
-                    Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), _itemPrefab.transform.position.z);
-                    Item spawned = Instantiate(_itemPrefab, transform.position + offset, Quaternion.identity); 
+                    Item spawned = SpawnItemAtRandomOffset(transform.position);
                     spawned.SetItemData(drop.item);
                 }
             }
+        }
+
+        public static Item SpawnItemAtRandomOffset(Vector3 position)
+        {
+            Vector3 offset = new Vector3(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f), _itemPrefab.transform.position.z);
+            return Instantiate(_itemPrefab, position + offset, Quaternion.identity); 
         }
     }
 }

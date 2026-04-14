@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using HelpScripts;
 using UnityEngine;
 using Player.Module;
+using Player.Module.Tools;
 using Player.Module.Upgrades;
 using Player.UI.Inventory;
 using Player.UI.Tools;
@@ -51,6 +53,8 @@ namespace Player.UI
         [SerializeField] private Cooldown Dash, Stop, SideDash;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private ToolDisplay toolDisplay;
+        [SerializeField] private GameObject helpTip;
+        [SerializeField] private TMPro.TextMeshProUGUI monologHelpText;
         
         [SerializeField] private TMPro.TextMeshProUGUI StartOfDayText;
 
@@ -76,9 +80,17 @@ namespace Player.UI
                 upgradesScript.IsActive(ModuleUpgrades.Ups.Sideways_Thrust)
             );
             
-            //TODO pass upgrades to windows {storage expansion into inventory and so on}
+            toolDisplay.gameObject.SetActive(upgradesScript.IsActive(ModuleUpgrades.Ups.ToolsUnlock));
             
             ((UpgradeWindowController)windows[(int)WindowType.Upgrades]).SetUpUpgrades(upgradesScript.upgradesObject);
+            
+            ((HelpDisplay)windows[(int)WindowType.Help]).UnlockHelpComponent(upgradesScript);
+            
+            ToolsShopWindow toolsShopWindow = (ToolsShopWindow)windows[(int)WindowType.Items];
+            toolsShopWindow.SetStorage(ModuleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript));
+            toolsShopWindow.SetToolHolder(ModuleRef.GetScript<ToolHolder>(Module.Module.ScriptNames.ToolScript));
+            toolsShopWindow.CreateToolButtons();
+            toolsShopWindow.UnlockTools(ModuleRef.GetScript<ModuleUpgrades>(Module.Module.ScriptNames.UpgradesScript).upgradesObject);
             
         }
 
@@ -86,8 +98,12 @@ namespace Player.UI
 
         public UIWindow OpenWindow(WindowType win)
                 {
-                    if(currentOppenedWindow != null)
+                    if (currentOppenedWindow != null)
+                    {
                         currentOppenedWindow.CloseWindow();
+                        ModuleManipulation.run = false;
+                    }
+                        
         
                     if (win == currentWindowType)
                     {
@@ -128,10 +144,11 @@ namespace Player.UI
                     }
                     
                     
-        
+                    
                     if (currentOppenedWindow != null)
                     {
                         currentWindowType = currentOppenedWindow.IsOpened() ? win : WindowType.None;
+                        
                         ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
                     }
                     else
@@ -139,9 +156,17 @@ namespace Player.UI
                         ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
                         currentWindowType = WindowType.None;
                     }
+                    
+                    Time.timeScale = currentWindowType == WindowType.Pause ? 0 : 1;
+
         
                     return currentOppenedWindow;
                 }
+
+        public void OpenWindowFromEvent(int windowID)
+        {
+            OpenWindow((WindowType)windowID);
+        }
         
                 public void CloseCurrentWindow()
                 {
@@ -264,6 +289,29 @@ namespace Player.UI
                     StartOfDayText.text = "Day " + number;
                 }
 
+                public void ShowHelpTip()
+                {
+                    ShowGO(helpTip, 5f);
+                }
+
+                public void ShowMonologHelp(string line)
+                {
+                    monologHelpText.text = line;
+                    ShowGO(monologHelpText.gameObject, 5f);
+                }
+
+                private void ShowGO(GameObject go, float duration)
+                {
+                    go.SetActive(true);
+                    StartCoroutine(HideGO(go, duration));
+                }
+
+                private IEnumerator HideGO(GameObject go, float time)
+                {
+                    yield return new WaitForSeconds(time);
+                    go.SetActive(false);
+                }
+
         #endregion
 
 
@@ -289,10 +337,23 @@ namespace Player.UI
             ((HelpDisplay)windows[(int)WindowType.Help]).SetMode(mode);
         }
 
+        public void SetHelpWindowMode(int mode)
+        {
+            SetHelpWindowMode((HelpDisplay.DisplayModes)mode);
+        }
+
         private IEnumerator HideHelp()
         {
-            yield return new WaitForSeconds(5f);
-            CloseSpecificWindow(WindowType.Help);
+            if (((HelpDisplay)windows[(int)WindowType.Help]).HideDelay > 0)
+            {
+                yield return new WaitForSeconds(5f);
+                CloseSpecificWindow(WindowType.Help);
+            }
+        }
+
+        public void SetHelpHideDelay(float delay)
+        {
+            ((HelpDisplay)windows[(int)WindowType.Help]).HideDelay = delay;
         }
 
         public void SetToolCount(ToolSO.ToolType toolType, int count)

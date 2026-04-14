@@ -8,6 +8,7 @@ namespace Entities.Environment
         //================================================================EDITOR VARIABLES
         [SerializeField] public float fuelConsumptionMultiplier = 1.0f;
         [SerializeField] public float damageMultiplier = 1.0f;
+        [SerializeField] public float timerMultiplier = 1.0f;
         [SerializeField] private Vector2 moduleSpawnLocation = new Vector2(0,0);
 
         [SerializeField] public GameObject module;

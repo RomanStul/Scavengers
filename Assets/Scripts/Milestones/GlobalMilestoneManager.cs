@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Player.Module;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = System.Object;
 
 namespace Milestones
 {
@@ -17,7 +18,8 @@ namespace Milestones
             PickedUp,
             Destroyed,
             Upgraded,
-            Day
+            Day,
+            TimerRanOut
         }
         
         [Serializable]
@@ -29,9 +31,14 @@ namespace Milestones
                 this.originID = id;
             }
 
-            public bool Equals(Milestone other)
+            public override bool Equals(Object other)
             {
-                return action.Equals(other.action) && originID == other.originID;
+                return ((Milestone)other).action == action && originID == ((Milestone)other).originID;
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine((int)action, originID);
             }
 
             public MilestoneAction action;
@@ -51,9 +58,16 @@ namespace Milestones
             get { return completedMilestones; }
             set { completedMilestones = value; }
         }
+
+        public List<Milestone> UnclaimedMilestones
+        {
+            get => unclaimedMilestones;
+            set => unclaimedMilestones = value;
+        }
         //================================================================FUNCTIONALITY
         public static GlobalMilestoneManager instance;
         private Dictionary<string, List<Milestone>> completedMilestones = new Dictionary<string, List<Milestone>>();
+        private List<Milestone> unclaimedMilestones = new List<Milestone>();
         private Module moduleRef;
         
         private void Awake()
@@ -88,15 +102,39 @@ namespace Milestones
             completedMilestones[SceneManager.GetActiveScene().name].Add(milestone);
         }
 
+        public void AddUnclaimedMilestone(Milestone milestone)
+        {
+            if (unclaimedMilestones.Contains(milestone))
+            {
+                return;
+            }
+            unclaimedMilestones.Add(milestone);
+        }
+        
+        
+
         public bool AddSceneDictionary()
         {
+            bool ret = true;
+            
             if (!completedMilestones.ContainsKey(SceneManager.GetActiveScene().name))
             {
                 completedMilestones.Add(SceneManager.GetActiveScene().name, new List<Milestone>());
-                return false;
+                ret = false;
             }
 
-            return true;
+            return ret;
+        }
+
+        public void ClaimUnclaimedMilestones()
+        {
+            for (int i = 0; i < unclaimedMilestones.Count; i ++)
+            {
+                if (SceneMilestoneManager.currentInstance.CompletedMilestone(unclaimedMilestones[i], true))
+                {
+                    unclaimedMilestones.RemoveAt(i);
+                }
+            }
         }
     }
 }

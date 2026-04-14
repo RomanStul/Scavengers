@@ -1,5 +1,6 @@
 using System;
 using ScriptableObjects.Item;
+using ScriptableObjects.Tools;
 using UnityEngine;
 
 namespace Entities
@@ -17,6 +18,7 @@ namespace Entities
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] protected Collider2D detectTrigger, pickUpTrigger;
         [SerializeField] protected ItemSO itemData;
+        [SerializeField] protected ToolSO toolData;
         [SerializeField] protected ItemConstants itemConstants;
         //================================================================GETTER SETTER
         public void SetItemData(ItemSO item)
@@ -25,9 +27,25 @@ namespace Entities
             spriteRenderer.sprite = item.image;
         }
 
+        public void SetToolData(ToolSO tool)
+        {
+            toolData = tool;
+            spriteRenderer.sprite = tool.icon;
+        }
+
         public ItemSO GetItemData()
         {
             return itemData;
+        }
+
+        public ToolSO GetToolData()
+        {
+            return toolData;
+        }
+
+        public void SetSprite(Sprite sprite)
+        {
+            spriteRenderer.sprite = sprite;
         }
         //================================================================FUNCTIONALITY
         private bool _isCollecting = false;

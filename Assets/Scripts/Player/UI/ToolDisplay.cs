@@ -14,12 +14,6 @@ namespace Player.UI
 
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
-
-        private void Awake()
-        {
-            icon.gameObject.SetActive(false);
-            countDisplay.gameObject.SetActive(false);
-        }
         
         public void SetTool(ToolSO tool, int count)
         {

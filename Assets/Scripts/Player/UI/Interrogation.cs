@@ -44,7 +44,7 @@ namespace Player.UI
 
         private void Start()
         {
-            interrogationTexts = JsonUtility.FromJson<InterrogationTexts>(File.ReadAllText("Assets/Json/InterrogationTexts.json"));
+            interrogationTexts = JsonUtility.FromJson<InterrogationTexts>(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Json/InterrogationTexts.json")));
         }
 
         public void Write(InterrogationName textId, Module.Module moduleRef)
@@ -61,11 +61,11 @@ namespace Player.UI
                 currentParagraph.text += text[i];
                 yield return new WaitForEndOfFrame();
                 ((RectTransform)currentParagraph.transform).SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, currentParagraph.textInfo.lineCount * currentParagraph.fontSize);
-                yield return new WaitForSeconds(Char.IsWhiteSpace(text[i]) ? 0.02f : 0.06f);
+                yield return new WaitForSeconds(Char.IsWhiteSpace(text[i]) ? 0.03f : 0.08f);
                 
                 if (text[i] == '\n')
                 {
-                    yield return new WaitForSeconds(0.7f);
+                    yield return new WaitForSeconds(0.9f);
                     if (targetOffset == 0)
                     {
                         scroll = true;

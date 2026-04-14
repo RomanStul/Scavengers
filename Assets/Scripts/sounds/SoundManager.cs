@@ -47,7 +47,13 @@ namespace sounds
             if (instance == null)
             {
                 instance = this;
+                DontDestroyOnLoad(this);
             }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
         }
 
         public void PlaySoundEffect(AudioClip clip, float volume, Vector3 position)
@@ -66,20 +72,20 @@ namespace sounds
             Destroy(instancedSFX.gameObject, clip.length);
         }
 
-        public void PlayPersistentSound(AudioClip clip, float volume, Transform parent, string name)
+        public void PlayPersistentSound(AudioClip clip, float volume, Transform parent, string soundName)
         {
             PersistentSound targetPersistentSound;
-            if (!persistentSounds.ContainsKey(name))
+            if (!persistentSounds.ContainsKey(soundName))
             {
                 targetPersistentSound = new PersistentSound();
                 targetPersistentSound.source = InstantiateAudioSource(clip, volume, Vector3.zero, parent);
                 targetPersistentSound.source.loop = true;
                 
-                persistentSounds.Add(name, targetPersistentSound);
+                persistentSounds.Add(soundName, targetPersistentSound);
             }
             else
             {
-                targetPersistentSound = persistentSounds[name];
+                targetPersistentSound = persistentSounds[soundName];
             }
 
             if (!targetPersistentSound.source.isPlaying)
@@ -90,11 +96,11 @@ namespace sounds
             }
         }
 
-        public void StopPersistentSounds(string name)
+        public void StopPersistentSounds(string soundName)
         {
-            if (persistentSounds.ContainsKey(name) && persistentSounds[name].shouldPlay)
+            if (persistentSounds.ContainsKey(soundName) && persistentSounds[soundName].shouldPlay)
             {
-                StartCoroutine(FadePersistentSound(persistentSounds[name]));
+                StartCoroutine(FadePersistentSound(persistentSounds[soundName]));
             }
         }
 

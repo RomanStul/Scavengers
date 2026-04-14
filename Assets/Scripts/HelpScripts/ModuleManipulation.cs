@@ -7,10 +7,13 @@ namespace HelpScripts
 {
     public class ModuleManipulation : MonoBehaviour
     {
+        public static bool run = true;
         
         public static IEnumerator GradualModuleStop(Vector3 position, Module moduleRef, Func<bool> shouldRun)
         {
-            while (shouldRun())
+            run = true;
+             
+            while (shouldRun() && run)
             {
                 Vector2 direction = Convertor.Vec3ToVec2(position - moduleRef.transform.position);
                 moduleRef.moveRb.linearVelocity = direction.normalized * 0.5f + moduleRef.moveRb.linearVelocity.normalized * 0.5f;
@@ -25,6 +28,7 @@ namespace HelpScripts
                 }
                 yield return new WaitForSeconds(0.05f);
             }
+            
             moduleRef.moveRb.linearVelocity = Vector3.zero;
             moduleRef.moveRb.angularVelocity = 0;
         }

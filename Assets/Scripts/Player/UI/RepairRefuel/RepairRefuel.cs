@@ -27,22 +27,32 @@ namespace Player.UI.RepairRefuel
             parameters = p;
         }
         
-        public void SetRepairAmount(Single amount)
+        public void SetRepairAmount(Single amount = -1)
         {
-            repairAmountSlider.value = amount;
+            if (Mathf.Approximately(amount, -1))
+            {
+                amount = CalculateMaxRepair();
+            }
+
+            amount = Mathf.Ceil(amount);
             repairAmount = amount;
-            float repairCostTotal = repairAmount * parameters.repairCost;
-            repairCostText.text = ((int)repairCostTotal).ToString();
-            repairButton.interactable = (int)repairCostTotal <= (int)currency;
+            repairAmountSlider.value = amount;
+            repairCostText.text = ((int)amount).ToString();
+            repairButton.interactable = amount <= (int)currency && repairAmount != 0;
         }
 
-        public void SetRefuelAmount(Single amount)
+        public void SetRefuelAmount(Single amount = -1)
         {
-            refuelAmountSlider.value = amount;
+            if (Mathf.Approximately(amount, -1))
+            {
+                amount = CalculateMaxRefuel();
+            }
+            
+            amount = Mathf.Ceil(amount);
             refuelAmount = amount;
-            float refuelCostTotal = refuelAmount * parameters.refuelCost;
-            refuelCostText.text = ((int)refuelCostTotal).ToString();
-            refuelButton.interactable = (int)refuelCostTotal <= (int)currency;
+            refuelAmountSlider.value = amount;
+            refuelCostText.text = ((int)amount).ToString();
+            refuelButton.interactable = amount <= (int)currency && refuelAmount != 0;
         }
         //================================================================FUNCTIONALITY
 
@@ -57,15 +67,30 @@ namespace Player.UI.RepairRefuel
             
             ScaleRepairSlider(hb.GetMissingHealth());
             ScaleRefuelSlider(mw.GetMissingFuel());
-            SetRepairAmount(0);
-            SetRefuelAmount(0);
             
             Storage s = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript);
             currency = s.Currency;
 
             repairRefuelButton.interactable = mw.GetMissingFuel() * parameters.refuelCost + hb.GetMissingHealth() * parameters.repairCost <= s.Currency;
+            
+            SetRepairAmount();
+            SetRefuelAmount();
 
             return base.ToggleWindow();
+        }
+
+        private Single CalculateMaxRefuel()
+        {
+            Movement mw = parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript);
+
+            return Mathf.Min(currency, (parameters.refuelCost) * mw.GetMissingFuel());
+        }
+        
+        private Single CalculateMaxRepair()
+        {
+            HealthBar hb = parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript);
+
+            return Mathf.Min(Mathf.Min(currency, (parameters.repairCost) * hb.GetMissingHealth()));
         }
         
         
@@ -73,32 +98,34 @@ namespace Player.UI.RepairRefuel
         {
             HealthBar hb = parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript);
             
-            float paid = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(repairAmount * parameters.repairCost));
+            float paid = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(repairAmount));
             currency -= paid;
             hb.HealHealth(paid / parameters.repairCost);
             SetRepairAmount(0);
             ScaleRepairSlider(hb.GetMissingHealth());
+            SetRefuelAmount();
         }
 
         public void Refuel()
         {
             Movement mw =  parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript);
             
-            float paid = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(refuelAmount * parameters.refuelCost));
+            float paid = parameters.moduleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript).PayWithCurrency((int)(refuelAmount));
             currency -= paid;
             mw.Refuel(paid / parameters.refuelCost);
             SetRefuelAmount(0);
             ScaleRefuelSlider(mw.GetMissingFuel());
+            SetRepairAmount();
         }
 
         private void ScaleRepairSlider(float missingHealth)
         {
-            repairAmountSlider.maxValue = Mathf.Ceil(missingHealth);
+            repairAmountSlider.maxValue = Mathf.Ceil(missingHealth*parameters.repairCost);
         }
 
         private void ScaleRefuelSlider(float missingFuel)
         {
-            refuelAmountSlider.maxValue = Mathf.Ceil(missingFuel);
+            refuelAmountSlider.maxValue = Mathf.Ceil(missingFuel*parameters.refuelCost);
         }
 
         public void RepairAndRefuel()

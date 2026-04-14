@@ -1,5 +1,8 @@
 using System;
 using Milestones;
+using Player.Module.Tools;
+using Player.Module.Upgrades;
+using Player.UI;
 using ScriptableObjects.Item;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,7 +13,7 @@ namespace Player.Module
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
-        [SerializeField] private int storageCapacity;
+        [SerializeField] private int baseStorageCapacity;
         [SerializeField] private int itemsStored;
         [SerializeField] private int[] itemStorage = new int [Enum.GetValues(typeof(ItemSO.Items)).Length];
         [SerializeField] private int currency = 0;
@@ -50,10 +53,12 @@ namespace Player.Module
         }
 
         //================================================================FUNCTIONALITY
-        
+        private int storageCapacity;
         public override void ApplyUpgrades()
         {
-            //TODO space for storage space increase
+            storageCapacity = baseStorageCapacity;
+            if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(ModuleUpgrades.Ups.Storage_Size_I)) storageCapacity += 3;
+            
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(storageCapacity, UI.UIController.BarsNames.StorageBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).DisplayBalance(currency);
@@ -65,14 +70,28 @@ namespace Player.Module
         public void PickUpItem(Entities.Item item, int amount)
         {
             //TODO change to have functions to handle different types of items like resources
-            if(itemsStored < storageCapacity && item.StartCollecting(transform))
+            if (item.GetToolData() != null)
             {
-                itemStorage[(int)item.GetItemData().itemType] += amount;
-                itemsStored++;
-                ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
-                ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).ItemAmountChange(item.GetItemData(), amount);
-                SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.PickedUp, (int)item.GetItemData().itemType));
+                ModuleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).AddTool(item.GetToolData(), amount);
                 Destroy(item.gameObject);
+                return;
+            }
+            if(itemsStored < storageCapacity)
+            {
+                if (item.StartCollecting(transform))
+                {
+                    itemStorage[(int)item.GetItemData().itemType] += amount;
+                    itemsStored++;
+                    ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
+                    ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).ItemAmountChange(item.GetItemData(), amount);
+                    SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.PickedUp, (int)item.GetItemData().itemType));
+                    Destroy(item.gameObject);
+                }
+
+            }
+            else
+            {
+                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("Storage is full");
             }
         }
 
@@ -106,6 +125,7 @@ namespace Player.Module
             }
             
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveAllItemsFromInventory();
+            ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
         }
 
             
@@ -181,7 +201,7 @@ namespace Player.Module
             }
         }
 
-        public bool HasAtleast(int item, int amount)
+        public bool HasAtLeast(int item, int amount)
         {
             return itemStorage[item] >= amount; 
         }

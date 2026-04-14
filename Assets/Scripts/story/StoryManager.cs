@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Entities.Environment;
 using ScriptableObjects.Day;
 using ScriptableObjects.Item;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace story
             public int day;
             public string Title;
             public string MainText;
+            public string SecondaryTitle;
+            public string SecondaryText;
         }
 
         [Serializable]
@@ -103,7 +106,7 @@ namespace story
         private float refuelCostMult = 1;
         private float repairCostMult = 1;
         private int evacuateCost = 0;
-        private int startOfDayPayment = 1;
+        private int startOfDayPayment = 0;
         private float[] oreCostMultipliers;
 
         public void IncrementDay()
@@ -126,6 +129,8 @@ namespace story
                 }
                 
             }
+            
+            DestructionManager.instance.ResetDayHashSet();
         }
 
         public void LoadDay(int dayNumber)
@@ -142,7 +147,7 @@ namespace story
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
-                newsObjects = JsonUtility.FromJson<NewsWrapper>(File.ReadAllText("Assets/Json/News.json"));
+                newsObjects = JsonUtility.FromJson<NewsWrapper>(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Json/News.json")));
                 oreCostMultipliers = new float[Enum.GetValues(typeof(ItemSO.Items)).Length];
                 for (int i = 0; i < oreCostMultipliers.Length; i++)
                 {

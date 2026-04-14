@@ -1,4 +1,5 @@
 using System;
+using story;
 using UnityEngine;
 
 namespace Milestones.MilestoneTriggers
@@ -12,6 +13,10 @@ namespace Milestones.MilestoneTriggers
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (action == GlobalMilestoneManager.MilestoneAction.Day)
+            {
+                id = StoryManager.instance.GetDayNumber();
+            }
             base.Trigger();
         }
     }

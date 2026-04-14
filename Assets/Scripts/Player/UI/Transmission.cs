@@ -49,7 +49,7 @@ namespace Player.UI
 
          private void Awake()
          {
-             transmissions = JsonUtility.FromJson<TransmissionWrapper>(File.ReadAllText("Assets/Json/transmissionText.json"));
+             transmissions = JsonUtility.FromJson<TransmissionWrapper>(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Json/transmissionText.json")));
              images = Resources.LoadAll<Sprite>("TransmissionImages");
              
          }

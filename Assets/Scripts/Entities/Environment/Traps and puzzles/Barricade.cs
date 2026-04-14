@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-namespace Entities.Environment
+namespace Entities.Environment.Traps_and_puzzles
 {
     public class Barricade : MonoBehaviour
     {

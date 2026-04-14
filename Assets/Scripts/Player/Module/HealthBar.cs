@@ -9,6 +9,7 @@ namespace Player.Module
     public class HealthBar : Entities.HealthBar
     {
         //================================================================CLASSES
+        
         //================================================================EDITOR VARIABLES
         [SerializeField] protected MaterialSO armorMaterial;
         //================================================================GETTER SETTER

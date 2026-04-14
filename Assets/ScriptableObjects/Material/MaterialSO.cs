@@ -11,7 +11,9 @@ namespace ScriptableObjects.Material
             Kinetic,
             Electric,
             Plasma,
-            True
+            True,
+            Explosive,
+            Acid
         }
 
         [Serializable]

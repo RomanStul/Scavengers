@@ -281,8 +281,28 @@ PrefabInstance:
       value: EscButton
       objectReference: {fileID: 0}
     - target: {fileID: 5559999886014692681, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559999886014692681, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559999886014692681, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 6649612459957035882}
+    - target: {fileID: 5559999886014692681, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559999886014692681, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: CloseCurrentWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5559999886014692681, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Player.UI.UIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5848571043488753749, guid: 7750aeb364bbf3d4885c74cffabfb326, type: 3}
       propertyPath: m_AnchoredPosition.x

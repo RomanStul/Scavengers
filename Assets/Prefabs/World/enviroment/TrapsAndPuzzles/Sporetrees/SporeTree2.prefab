@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -94,6 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 644256719523345179}
   - component: {fileID: 5943398964697439848}
+  - component: {fileID: 4630000141525426370}
   m_Layer: 0
   m_Name: SporeTree2
   m_TagString: Untagged
@@ -110,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 5942931342485857448}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.125, y: -31.5, z: 0}
+  m_LocalPosition: {x: 35.125, y: -31.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -127,6 +131,7 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5942931342485857448}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -150,8 +155,9 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.13918877}
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.032561302}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -161,9 +167,69 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.72, y: 1.5471458}
+  m_Size: {x: 0.72, y: 1.3338909}
   m_EdgeRadius: 0
+--- !u!114 &4630000141525426370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5942931342485857448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab0ee2398b74a047b5860a0641abc68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarConstants:
+    maxHealth: 0
+    currentHealth: 0
+    maxAsStarting: 1
+  material: {fileID: 11400000, guid: bffd7fad0de97bd45b5677208d3c6ed9, type: 2}
+  onHealthChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6777802623447919585}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6757289455820675432}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5943398964697439848}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: 
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  healthLossSound: {fileID: 0}
+  DestructionSound: {fileID: 0}
 --- !u!1 &6757289455820675432
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +279,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -308,5 +377,10 @@ PrefabInstance:
 --- !u!4 &1513744590400257092 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4312008202671764166, guid: 228d69ed294cde54d8ca789eaf47ae74, type: 3}
+  m_PrefabInstance: {fileID: 3375080898774683266}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6777802623447919585 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8131571977425593699, guid: 228d69ed294cde54d8ca789eaf47ae74, type: 3}
   m_PrefabInstance: {fileID: 3375080898774683266}
   m_PrefabAsset: {fileID: 0}

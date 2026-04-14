@@ -49,6 +49,7 @@ namespace Player.UI.Tools
         [SerializeField] private ToolsReferences[] tools;
         [SerializeField] private RightSide rightSideReferences;
         [SerializeField] private LeftSide leftSideReferences;
+        [SerializeField] private UnlockNotification notificationPopUp;
         
         //================================================================GETTER SETTER
         public void SetStorage(Storage moduleStorage)
@@ -100,7 +101,7 @@ namespace Player.UI.Tools
             
             currentTool = toolToDisplay;
             
-            rightSideReferences.headline.text = toolToDisplay.name.Replace("_", " ");
+            rightSideReferences.headline.text = toolToDisplay.toolType.ToString().Replace("_", " ");
             rightSideReferences.description.text = toolToDisplay.description;
             rightSideReferences.icon.sprite = toolToDisplay.icon;
             rightSideReferences.icon.color = new Color(255,255,255,255);
@@ -149,7 +150,7 @@ namespace Player.UI.Tools
             
             for (int i = 0; i < currentTool.neededItems.Length; i++)
             {
-                if (!storage.HasAtleast((int)currentTool.neededItems[i].item.itemType, currentTool.neededItems[i].amount))
+                if (!storage.HasAtLeast((int)currentTool.neededItems[i].item.itemType, currentTool.neededItems[i].amount))
                 {
                     rightSideReferences.buyButton.interactable = false;
                     return;
@@ -189,9 +190,10 @@ namespace Player.UI.Tools
         {
             for (int i = 0; i < toolFrames.Length; i++)
             {
-                if (toolFrames[i].GetTool().unlockUpgrade == ModuleUpgrades.Ups.Portal_passkey ||moduleUpgradeObject[(int)toolFrames[i].GetTool().unlockUpgrade].unlocked)
+                if (toolFrames[i].GetTool().unlockUpgrade == ModuleUpgrades.Ups.Portal_passkey ||moduleUpgradeObject[(int)toolFrames[i].GetTool().unlockUpgrade].unlocked && !toolFrames[i].gameObject.activeSelf)
                 {
                     toolFrames[i].gameObject.SetActive(true);
+                    notificationPopUp.AddToNotification(toolFrames[i].GetTool().toolType.ToString().Replace("_", " "), true);
                 }
             }
         }
@@ -212,6 +214,10 @@ namespace Player.UI.Tools
 
         public void SetToolCount(ToolSO.ToolType type, int amount)
         {
+            if (toolFrames == null)
+            {
+                return;
+            }
             foreach (var toolFrame in toolFrames)
             {
                 if (toolFrame.GetTool().toolType == type)

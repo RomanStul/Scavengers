@@ -86,12 +86,13 @@ namespace Menu
                     branchesPrinted.Pop();
                     continue;
                 }
-                buttonGrid.CreateRow(branchList[bestBranch].startDay, branchList[bestBranch].totalDays, branchList[bestBranch].id, clickedSave, branchesPrinted.Count > 0 ? i - branchesPrinted.Peek().Item2: 0);
+                buttonGrid.CreateRow(branchList[bestBranch].startDay, branchList[bestBranch].totalDays, branchList[bestBranch].id, clickedSave, branchesPrinted.Count > 0 ? i - branchesPrinted.Peek().Item2: 0, branchList[bestBranch].endsWithDeath);
                 branchesPrinted.Push(new Tuple<int, int>(bestBranch, i));
                 branchList.RemoveAt(bestBranch);
             }
             
             lastSaveButton.SetModifiedDate(File.GetLastWriteTime("saves/" + structure.name + "/" + structure.name).ToString("yy-MM-dd"));
+            lastSaveButton.SetSaveInfo(structure.lastSaveBranch, -1, 0, 0);
             lastSaveButton.gameObject.SetActive(true);
             Canvas.ForceUpdateCanvases();
         }

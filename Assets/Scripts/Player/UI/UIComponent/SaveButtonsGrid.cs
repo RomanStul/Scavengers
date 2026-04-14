@@ -35,7 +35,7 @@ namespace Player.UI.UIComponent
             ((RectTransform)rows[0].transform).SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 60);
         }
 
-        public void CreateRow(int column, int numberOfDays, int branch, string saveName, int sourceOffset)
+        public void CreateRow(int column, int numberOfDays, int branch, string saveName, int sourceOffset, bool endsWithDeath)
         {
             rows.Add(Instantiate(rowPrefab, transform));
             (rows[^1]).padding.left = (int)(column * (((RectTransform)saveButtonPrefab.transform).rect.width + rowPrefab.spacing));
@@ -58,6 +58,14 @@ namespace Player.UI.UIComponent
                     sb.SetModifiedDate(File.GetLastWriteTime("saves/" + saveName + "/structure").ToString("yy-MM-dd"));
                 }
                 
+            }
+
+            if (endsWithDeath)
+            {
+                SaveButton sb = Instantiate(saveButtonPrefab, rows[^1].transform);
+                sb.SetSaveInfo(branch, column, numberOfDays, sourceOffset);
+                sb.SetModifiedDate("Death");
+                sb.Deactivate();
             }
         }
 

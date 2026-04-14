@@ -39,6 +39,7 @@ namespace Player.UI.Upgrades
         [SerializeField] private UpgradeSO[] upgrades;
         [SerializeField] private LeftSide leftSide;
         [SerializeField] private RightSide rightSide;
+        [SerializeField] private UnlockNotification notificationPopUp;
 
         //================================================================GETTER SETTER
 
@@ -100,6 +101,7 @@ namespace Player.UI.Upgrades
                 {
                     continue;
                 }
+                bool previouslyActive = buttons[i].gameObject.activeSelf;
                 buttons[i].gameObject.SetActive(true);
                 for (int j = 0; j < buttons[i].GetUpgrade().neededUpgrades.Length; j++)
                 {
@@ -108,9 +110,17 @@ namespace Player.UI.Upgrades
                         buttons[i].gameObject.SetActive(false);
                         break;
                     }
+                    else
+                    {
+                        if (!previouslyActive && !gameObject.activeSelf)
+                        {
+                            notificationPopUp.AddToNotification(buttons[i].GetUpgrade().tag.ToString().Replace("_", " "), false);
+                        }
+                    }
                 }
             }
         }
+        
 
         public void ClickedUpgrade(UpgradeSelectButton upgradeButton)
         {
@@ -135,7 +145,7 @@ namespace Player.UI.Upgrades
                 
                 costs[i].gameObject.SetActive(true);
                 costs[i].SetCostAmount(upgrade.neededItems[i].amount);
-                bool hasEnough = storage.HasAtleast((int)upgrade.neededItems[i].item.itemType, upgrade.neededItems[i].amount);
+                bool hasEnough = storage.HasAtLeast((int)upgrade.neededItems[i].item.itemType, upgrade.neededItems[i].amount);
                 canUpgrade = canUpgrade && hasEnough;
                 costs[i].ShowResourceAvailable(hasEnough);
                 costs[i].SetIcon(upgrade.neededItems[i].item.image);

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Entities.Environment.Traps_and_puzzles;
 using JetBrains.Annotations;
+using Menu;
 using UnityEngine;
 
 namespace Entities.Environment
@@ -7,6 +9,13 @@ namespace Entities.Environment
     public class DestructionManager : MonoBehaviour
     {
         //================================================================CLASSES
+
+        public class MovableState
+        {
+            public Vector2 position;
+            public Vector2 velocity;
+            public Movable movableRef;
+        }
         //================================================================EDITOR VARIABLES
         //================================================================GETTER SETTER
 
@@ -23,19 +32,54 @@ namespace Entities.Environment
 
             return ores;
         }
+        
+        public int[] GetDestroyedRespawnOresArray()
+        {
+            int index = 0;
+            int[] ores = new int [dayHashSet.Count];
+            
+            foreach (int ore in dayHashSet)
+            {
+                ores[index] = ore;
+                index++;
+            }
+
+            return ores;
+        }
 
         public int[] GetDestroyedObjectsArray()
         {
             int index = 0;
-            int[] obects = new int [destructiblesSet.Count];
+            int[] objects = new int [destructiblesSet.Count];
             
             foreach (int ore in destructiblesSet)
             {
-                obects[index] = ore;
+                objects[index] = ore;
                 index++;
             }
 
-            return obects;
+            return objects;
+        }
+
+        public SavesManager.MovableStateToSave[] GetMovablePositionsArray()
+        {
+            int i = 0;
+            SavesManager.MovableStateToSave[] movableArray = new SavesManager.MovableStateToSave[movablePositions.Count];
+            foreach (KeyValuePair<int, MovableState> pair in movablePositions)
+            {
+                Vector2 positionToSave = pair.Value.position;
+                Vector2 velocityToSave = pair.Value.velocity;
+                if (pair.Value.movableRef != null)
+                {
+                    positionToSave = pair.Value.movableRef.GetPosition();
+                    velocityToSave = pair.Value.movableRef.GetVelocity();
+                }
+
+                movableArray[i] = new SavesManager.MovableStateToSave() { id = pair.Key, position = positionToSave, velocity = velocityToSave };
+                i++;
+            }
+
+            return movableArray;
         }
 
         public void SetDestroyedOres([NotNull] int[] ores)
@@ -43,6 +87,14 @@ namespace Entities.Environment
             foreach (int oreId in ores)
             {
                 oreHashSet.Add(oreId);
+            }
+        }
+        
+        public void SetDestroyedRespawnOres([NotNull] int[] ores)
+        {
+            foreach (int oreId in ores)
+            {
+                dayHashSet.Add(oreId);
             }
         }
 
@@ -54,12 +106,22 @@ namespace Entities.Environment
             }
         }
 
+        public void SetMovablePositions([NotNull] SavesManager.MovableStateToSave[] movableStateArray)
+        {
+            for (int i = 0; i < movableStateArray.Length; i++)
+            {
+                movablePositions.Add(movableStateArray[i].id, new MovableState(){position = movableStateArray[i].position, velocity = movableStateArray[i].velocity});
+            }
+        }
+
         //================================================================FUNCTIONALITY
         public static DestructionManager instance;
         
         //TODO change to check by scenes
         private HashSet<int> oreHashSet = new HashSet<int>(); 
         private HashSet<int> destructiblesSet = new HashSet<int>();
+        private HashSet<int> dayHashSet = new HashSet<int>();
+        private Dictionary<int, MovableState> movablePositions = new Dictionary<int, MovableState>();
         
         
         private void Awake()
@@ -81,9 +143,19 @@ namespace Entities.Environment
             oreHashSet.Add(ore);
         }
 
+        public void AddRespawnOres(int ore)
+        {
+            dayHashSet.Add(ore);
+        }
+
         public bool CheckForOre(int oreID)
         {
             return oreHashSet.Contains(oreID);
+        }
+
+        public bool CheckForRespawnOres(int oreID)
+        {
+            return dayHashSet.Contains(oreID);
         }
 
         public void AddDestructible(int destructibleID)
@@ -94,6 +166,26 @@ namespace Entities.Environment
         public bool CheckForDestructible(int destructibleID)
         {
             return destructiblesSet.Contains(destructibleID);
+        }
+
+        public void AddMovable(int id, Vector2 position, Vector2 velocity, Movable mov)
+        {
+            movablePositions[id] = new MovableState(){position = position, velocity = velocity, movableRef = mov};
+        }
+
+        public MovableState GetMovableState(int id)
+        {
+            if (movablePositions.ContainsKey(id))
+            {
+                return movablePositions[id];
+            }
+
+            return new MovableState(){position = Vector2.positiveInfinity, velocity = Vector2.zero};
+        }
+
+        public void ResetDayHashSet()
+        {
+            dayHashSet.Clear();
         }
         
         

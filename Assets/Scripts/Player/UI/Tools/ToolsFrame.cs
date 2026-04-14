@@ -21,7 +21,7 @@ namespace Player.UI.Tools
 
         public void SetCount(int numberOfItems)
         {
-            count.text = count.ToString();
+            count.text = numberOfItems.ToString();
         }
 
         public ToolSO GetTool()

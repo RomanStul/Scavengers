@@ -1,5 +1,6 @@
 using System.Collections;
 using HelpScripts;
+using Menu;
 using Player.UI;
 using story;
 using UnityEngine;
@@ -13,11 +14,12 @@ namespace Player.Module
         //================================================================EDITOR VARIABLES
         [SerializeField] private Interrogation interrogationWindow;
         //================================================================GETTER SETTER
+
+
         //================================================================FUNCTIONALITY
         private string sceneName;
         private Vector3 positionToTransfer;
         private Vector3 interactablePosition;
-        private bool shouldBeStopping = true;
 
         private bool gameOverEndOfDay = false;
         
@@ -65,12 +67,17 @@ namespace Player.Module
         {
             yield return null;
             transform.position = positionToTransfer;
-            shouldBeStopping = false;
+            ModuleRef.moveRb.linearVelocity = Vector2.zero;
         }
 
         public void IncrementDay()
         {
             StoryManager.instance.IncrementDay();
+        }
+
+        public void EndBranchWithDeath()
+        {
+            SavesManager.Instance.EndBranchWithDeath();
         }
 
         

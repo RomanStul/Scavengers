@@ -109,7 +109,7 @@ namespace Player.Module
         public void ShowHelp(InputAction.CallbackContext context)
         {
             if(!context.started) return;
-            
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetHelpHideDelay(5f);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Help);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetHelpWindowMode(HelpDisplay.DisplayModes.All);
         }

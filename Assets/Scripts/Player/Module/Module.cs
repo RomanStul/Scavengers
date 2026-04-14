@@ -150,6 +150,11 @@ namespace Player.Module
         {
             CreateStateObject(SceneManager.GetActiveScene().name, transform.position, "", isStartOfDay);
             
+            QuitToMenu();
+        }
+
+        public void QuitToMenu()
+        {
             Destroy(gameObject);
             SceneManager.LoadScene("MainMenu");
         }
