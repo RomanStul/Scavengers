@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEditor;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace Entities.Environment
@@ -13,6 +14,10 @@ namespace Entities.Environment
         [SerializeField] protected int destructibleId = 1;
 
         [SerializeField] protected bool respawns = false;
+
+        [SerializeField] private UnityEvent onDestroy;
+
+        [SerializeField] private UnityEvent onDestroyLoad;
         //================================================================GETTER SETTER
 
         public void SetId()
@@ -26,7 +31,18 @@ namespace Entities.Environment
         public bool CheckIfShouldBeDestroyed()
         {
             bool isSaved = DestructionManager.instance.CheckForDestructible(destructibleId);
-            gameObject.SetActive(!isSaved);
+            if (isSaved)
+            {
+                if (onDestroyLoad.GetPersistentEventCount() == 0)
+                {
+                    gameObject.SetActive(!isSaved);
+                }
+                else
+                {
+                    onDestroyLoad.Invoke();
+                }
+            }
+
             return isSaved;
         }
         //================================================================FUNCTIONALITY
@@ -41,14 +57,26 @@ namespace Entities.Environment
             CheckIfShouldBeDestroyed();
         }
 
+        public void SaveDestructible()
+        {
+            DestructionManager.instance.AddDestructible(destructibleId);
+        }
+
         public virtual void Destroy()
         {
             if (!respawns)
             {
-                DestructionManager.instance.AddDestructible(destructibleId);
+                SaveDestructible();
             }
-            
-            Destroy(gameObject);
+
+            if (onDestroy.GetPersistentEventCount() == 0)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                onDestroy.Invoke();
+            }
         }
     }
 }

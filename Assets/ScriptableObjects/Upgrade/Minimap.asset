@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
-  m_Name: Sideways_Thrust
+  m_Name: Minimap
   m_EditorClassIdentifier: 
-  cost: 20
+  cost: 10
   neededItems:
-  - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
-    amount: 2
-  neededUpgrades: 0600000000000000
-  description: Allows module to move side to side.
+  - item: {fileID: 11400000, guid: 408d82833ec24c540bc378f2600d5cd6, type: 2}
+    amount: 1
+  neededUpgrades: 07000000
+  description: Displays slightly extended view of your surrounding on your panel.
   tag: 4

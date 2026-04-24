@@ -48,6 +48,7 @@ namespace Player.UI
                 yield return new WaitForSeconds(0.6f);
             }
             
+            isPrinting = false;
             text.text = "";
         }
     }

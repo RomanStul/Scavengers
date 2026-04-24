@@ -20,8 +20,8 @@ namespace Player.Module.Upgrades
             Reverse,
             Armor_I,
             Stop,
-            Dash,
-            Sideways_Thrust,
+            Harpoon,
+            Minimap,
             Fluorescent_Lights,
             Portal_passkey,
             EndOfDay,
@@ -30,7 +30,9 @@ namespace Player.Module.Upgrades
             Storage_Size_I,
             Fuel_Capacity_I,
             ImpossibleUpgrade,
-            Lights_unlock
+            Lights_unlock,
+            Fuel_Generator,
+            Fuel_Generator_Unlock
         }
 
         [Serializable]

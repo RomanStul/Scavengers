@@ -121,7 +121,7 @@ namespace Player.Module
                         ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("I should refuel first");
                         return;
                     }
-                    if(timerIsRunning)
+                    if(!timerIsRunning)
                         StartCoroutine(TimerCountdown());
                 }
 
@@ -158,6 +158,7 @@ namespace Player.Module
             {
                 ResetTimer();
             }
+
             timerIsRunning = true;
             float nextThreshold = interactionTimerLength * 0.75f;
             while (timerValue >  0 && timerIsRunning)

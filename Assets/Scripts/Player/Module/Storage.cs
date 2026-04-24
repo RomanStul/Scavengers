@@ -1,4 +1,5 @@
 using System;
+using Entities;
 using Milestones;
 using Player.Module.Tools;
 using Player.Module.Upgrades;
@@ -69,7 +70,6 @@ namespace Player.Module
         
         public void PickUpItem(Entities.Item item, int amount)
         {
-            //TODO change to have functions to handle different types of items like resources
             if (item.GetToolData() != null)
             {
                 ModuleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).AddTool(item.GetToolData(), amount);
@@ -91,28 +91,45 @@ namespace Player.Module
             }
             else
             {
-                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("Storage is full");
+
+                if (!ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("Storage is full", 5f))
+                {
+                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetHelpHideDelay(5f);
+                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetHelpWindowMode(HelpDisplay.DisplayModes.Inventory);
+                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).OpenWindow(UIController.WindowType.Help);
+                }
             }
         }
 
-        public void RemoveItem(ItemSO item, int amount = -1)
+        public int RemoveItem(ItemSO item, int amount = -1)
+        {
+            return RemoveItem((int)item.itemType, amount);
+        }
+
+        public int RemoveItem(int item, int amount = -1)
         {
             int toRemove = 0;
             
             if (amount == -1)
             {
-                itemsStored -= itemStorage[(int)item.itemType];
-                itemStorage[(int)item.itemType] = 0;
-                toRemove = itemStorage[(int)item.itemType];
+                itemsStored -= itemStorage[item];
+                itemStorage[item] = 0;
+                toRemove = itemStorage[item];
             }
             else
             {
-                toRemove = Mathf.Min(itemStorage[(int)item.itemType], amount);
+                toRemove = Mathf.Min(itemStorage[item], amount);
                 itemsStored -= toRemove;
-                itemStorage[(int)item.itemType] -= toRemove;
+                itemStorage[item] -= toRemove;
             }
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).RemoveItemFromInventory(item, toRemove);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
+            return toRemove; 
+        }
+
+        public void RemoveItemNoRet(ItemSO item, int amount = -1)
+        {
+            RemoveItem(item, amount);
         }
 
 

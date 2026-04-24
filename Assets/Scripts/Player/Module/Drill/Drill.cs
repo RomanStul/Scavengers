@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Entities;
 using HelpScripts;
 using ScriptableObjects.Material;
 using sounds;
@@ -32,12 +34,18 @@ namespace Player.Module.Drill
             public float drillOriginRotation = 1;
         }
 
+
+
         //================================================================EDITOR VARIABLES
         [SerializeField] protected DrillConstants drillConstants;
         [SerializeField] protected DrillController drillController;
         [SerializeField] protected Animator animator;
         [SerializeField] protected Transform[] laserOrigins;
+        [SerializeField] private Harpoon harpoon;
         public float laserExtended;
+        
+        
+
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
@@ -155,5 +163,28 @@ namespace Player.Module.Drill
         {
             drillController.PlayDrillSound(true, ModuleSounds.SoundName.DrillStart);
         }
-}
+
+
+
+
+
+        public void UseHarpoon(bool started)
+        {
+            if (started)
+                harpoon.UseHarpoon(this);
+            else
+                harpoon.Detach();
+        }
+
+        public void HarpoonIsRecalled(Item collectedItem)
+        {
+            drillController.HarpoonHasRecalled(collectedItem);
+        }
+
+        public void SetUpHarpoon(Rigidbody2D rb)
+        {
+            harpoon.gameObject.SetActive(true);
+            harpoon.SetModuleRb(rb);
+        }
+    }
 }

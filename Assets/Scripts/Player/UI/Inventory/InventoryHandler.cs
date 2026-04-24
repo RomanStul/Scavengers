@@ -144,12 +144,12 @@ namespace Player.UI.Inventory
         }
 
 
-        public void RemoveItem(ItemSO item, int amount)
+        public void RemoveItem(int item, int amount)
         {
             storedItems -= amount;
-            for (int i = itemFrames.Count - 1; i >= 0 && (int)itemFrames[i].GetFramedItem().itemType >= (int)item.itemType && amount > 0; i--)
+            for (int i = itemFrames.Count - 1; i >= 0 && (int)itemFrames[i].GetFramedItem().itemType >= item && amount > 0; i--)
             {
-                if ((int)itemFrames[i].GetFramedItem().itemType == (int)item.itemType)
+                if ((int)itemFrames[i].GetFramedItem().itemType == item)
                 {
                     int inFrame = (int)itemFrames[i].GetHeldItemsCount();
                     

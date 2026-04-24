@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
-  m_Name: Dash
+  m_Name: Fuel_generator
   m_EditorClassIdentifier: 
-  cost: 30
-  neededItems: []
-  neededUpgrades: 06000000
-  description: Allows module to quickly accelarate.
-  tag: 3
+  cost: 10
+  neededItems:
+  - item: {fileID: 11400000, guid: a78099620ac5e0b4cb25faf5ca531c72, type: 2}
+    amount: 2
+  neededUpgrades: 0f0000000b000000
+  description: When needed creates fuel from harvested pink mushrooms.
+  tag: 14

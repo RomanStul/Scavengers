@@ -17,6 +17,11 @@ public class Convertor : MonoBehaviour
         return new Vector3(vec2.x, vec2.y, 0);
     }
 
+    public static Vector2 RoundVector2(Vector2 vec2)
+    {
+        return new Vector2(Mathf.Round(vec2.x), Mathf.Round(vec2.y));
+    }
+
     public static void Lerp2D(Vector3 targetPosition, Transform toLerp, float speed)
     {
         Quaternion rotation = RotationConversion(targetPosition, toLerp);

@@ -165,6 +165,7 @@ namespace Milestones
             Environment.instance.damageMultiplier = 1;
             HealthBar healthBar = moduleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript);
             healthBar.SetHealth(0);
+            healthBar.SetMinimalDamage(2f);
         }   
 
         public void ModuleFinishTutorial()
@@ -175,6 +176,7 @@ namespace Milestones
             settings.evacuatePosition = Vector3.zero;
             Environment.instance.damageMultiplier = 0;
             HealthBar healthBar = moduleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript);
+            healthBar.SetMinimalDamage(0f);
             healthBar.HealHealth();
         }
 

@@ -50,6 +50,7 @@
     <Compile Include="Assets\Scripts\HelpScripts\ModuleManipulation.cs" />
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Destructible.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\ShipWreck.cs" />
     <Compile Include="Assets\Scripts\sounds\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Player\UI\News.cs" />
     <Compile Include="Assets\Scripts\Entities\HealthBar.cs" />
@@ -109,16 +110,19 @@
     <Compile Include="Assets\Scripts\Player\UI\Transmission.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SliderController.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
+    <Compile Include="Assets\Scripts\HelpScripts\MinimapTextureGenerator.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Interrogation.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Barricade.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UnlockNotification.cs" />
     <Compile Include="Assets\Scripts\Milestones\GlobalMilestoneManager.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Tools\RepairKit.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\OreHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemDBSO.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\PermanentGeyser.cs" />
     <Compile Include="Assets\Scripts\Milestones\MilestoneTriggers\CollisionTrigger.cs" />
     <Compile Include="Assets\Scripts\Menu\PlaySubmenu.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\Minimap.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Landmine.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\RepairShop.cs" />
     <Compile Include="Assets\Scripts\Entities\Item.cs" />
@@ -126,6 +130,7 @@
     <Compile Include="Assets\Scripts\story\StoryManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Movable.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ModuleTool.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Drill\Harpoon.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\UpgradeVisuals.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />

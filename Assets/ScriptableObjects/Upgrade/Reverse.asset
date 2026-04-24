@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
   m_Name: Reverse
   m_EditorClassIdentifier: 
-  cost: 30
+  cost: 10
   neededItems:
   - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
-    amount: 3
+    amount: 2
   neededUpgrades: 06000000
   description: Enables reverse thrust.
   tag: 0

@@ -45,6 +45,11 @@ namespace Entities
             healthBarConstants.currentHealth = health;
         }
         
+        public MaterialSO GetMaterial()
+        {
+            return material;
+        }
+        
         //================================================================FUNCTIONALITY
 
 

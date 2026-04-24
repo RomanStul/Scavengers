@@ -159,13 +159,20 @@ namespace Player.Module.Tools
 
         }
 
+        public void ChangeTool(ToolSO.ToolType toolType)
+        {
+            if (toolsCounts[(int)toolType].amount != 0)
+            {
+                currentTool = (int)toolType;
+                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetTool(toolsCounts[currentTool].tool, toolsCounts[currentTool].amount);
+                
+            }
+        }
+
         public int AddTool(ToolSO tool, int amount)
         {
             toolsCounts[(int)tool.toolType].amount += amount;
-            if (currentTool == -1)
-            {
-                ChangeTool(1);
-            }
+            ChangeTool(tool.toolType);
 
             if (currentTool == (int)tool.toolType)
             {

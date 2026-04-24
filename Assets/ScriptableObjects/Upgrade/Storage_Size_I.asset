@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Storage_Size_I
   m_EditorClassIdentifier: 
   cost: 10
-  neededItems:
-  - item: {fileID: 11400000, guid: e23567a2454bc1a43ad046905feebfa1, type: 2}
-    amount: 0
+  neededItems: []
   neededUpgrades: 06000000
-  description: Increase capacity of module storage by 5.
+  description: Increase capacity of module storage by 3.
   tag: 10

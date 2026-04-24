@@ -60,15 +60,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _colorTexture:
-        m_Texture: {fileID: 2800000, guid: d2c7ca077cd86cb4a81da922f0bf59a5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2bae909b1322aee40a5d6da02ba4db9f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _mask:
-        m_Texture: {fileID: 2800000, guid: d2c7ca077cd86cb4a81da922f0bf59a5, type: 3}
+        m_Texture: {fileID: 28268798066460806, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _overlay:
-        m_Texture: {fileID: 2800000, guid: ecb3e602148358849bdab3d3c6aa5986, type: 3}
+        m_Texture: {fileID: 28268798066460806, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -100,6 +100,6 @@ Material:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0, g: 0.13491178, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _offset: {r: 0.87, g: 0, b: 0, a: 0}
+    - _offset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Timers;
 using Player.UI;
+using ScriptableObjects.Item;
 using sounds;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -23,31 +24,12 @@ namespace Player.Module.Movement
         }
 
         [Serializable]
-        public class DashConstants
-        {
-            public float DashFuelConsumption;
-            public float DashPower;
-            public float DashLength;
-            public float DashCooldown;
-        }
-
-        [Serializable]
 
         public class StopConstants
         {
             public float fuelConsumptionMultiplier;
             public float stopLength;
             public float stopCooldown;
-        }
-
-        [Serializable]
-
-        public class MoveSidewaysConstants
-        {
-            public float strength;
-            public float fuelConsumption;
-            public float length;
-            public float cooldown;
         }
 
         [Serializable]
@@ -64,9 +46,7 @@ namespace Player.Module.Movement
         
         //================================================================EDITOR VARIABLES
         [SerializeField] protected MovementConstants movementVariables;
-        [SerializeField] protected DashConstants dashConstants;
         [SerializeField] protected StopConstants stopConstants;
-        [SerializeField] protected MoveSidewaysConstants moveSidewaysConstants;
         
         [SerializeField] protected ThrustVisuals thrustVisuals;
         [SerializeField] protected GameObject moduleBody;
@@ -101,16 +81,13 @@ namespace Player.Module.Movement
 
         protected Rigidbody2D Rigid;
         private float maxFuel;
+        private bool showedOutOfFuelLine = true;
 
         private bool takeInput = true,
-            dashReady = false,
             reverseAvailable = false,
             stopReady = false,
-            moveSidewaysReady = false,
-            moveSidewaysEneabled = false,
-            appliedUpgrades = false;
-        
-        private float sidewaysInput = 0f;
+            appliedUpgrades = false,
+            canFuelGenerate = false;
 
         public override void ApplyUpgrades()
         {
@@ -119,10 +96,9 @@ namespace Player.Module.Movement
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)maxFuel, UI.UIController.BarsNames.FuelBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
             
-            dashReady = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Dash);
             reverseAvailable = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Reverse);
             stopReady = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Stop);
-            moveSidewaysReady = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Sideways_Thrust);
+            canFuelGenerate = ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Fuel_Generator);
             if(!appliedUpgrades) Refuel();
             appliedUpgrades = true;
         }
@@ -137,8 +113,16 @@ namespace Player.Module.Movement
             
             if (currentFuel <= 0 && Environment.instance.fuelConsumptionMultiplier != 0)
             {
-                VisualizeThrust();
-                return;
+                if (!canFuelGenerate || !GenerateFuel())
+                {
+                    if (showedOutOfFuelLine)
+                    {
+                        ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("Out of fuel, I should probably evacuate");
+                        showedOutOfFuelLine = false;
+                    }
+                    VisualizeThrust();
+                    return;
+                }
             }
             
             if (ThrustInput > 0 || reverseAvailable && ThrustInput < 0)
@@ -158,20 +142,15 @@ namespace Player.Module.Movement
                 currentFuel -= Mathf.Abs(RotationInput) *movementVariables.fuelPerSecond * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
                 Rigid.AddTorque(-RotationInput * movementVariables.RotationThrust * Time.deltaTime);
             }
-
-            if (Mathf.Abs(sidewaysInput) > 0 && moveSidewaysEneabled)
-            {
-                currentFuel -= Mathf.Abs(sidewaysInput) * moveSidewaysConstants.fuelConsumption * Time.deltaTime * Environment.instance.fuelConsumptionMultiplier;
-                Rigid.AddForce(moduleBody.transform.right * (sidewaysInput * moveSidewaysConstants.strength * Time.deltaTime));
-            }
             
-            VisualizeThrust(ThrustInput, RotationInput, sidewaysInput);
+            VisualizeThrust(ThrustInput, RotationInput);
             
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
         }
 
         public void Refuel(float amount = -1)
         {
+            showedOutOfFuelLine = true;
             if (amount < 0)
             {
                 currentFuel = maxFuel;
@@ -184,33 +163,9 @@ namespace Player.Module.Movement
         }
         
 
-        public void Dash()
-        {
-            if (currentFuel >= dashConstants.DashFuelConsumption && dashReady && takeInput)
-                StartCoroutine(DashExecute());
-        }
-
-        private IEnumerator DashExecute()
-        {
-            VisualizeThrust(1.0f);
-            
-            dashReady = false;
-            takeInput = false;
-
-            currentFuel -= dashConstants.DashFuelConsumption * Environment.instance.fuelConsumptionMultiplier;
-            Rigid.AddForce(moduleBody.transform.up * (dashConstants.DashPower));
-            
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(dashConstants.DashCooldown, UIController.Cooldowns.Dash);
-            
-            yield return new WaitForSeconds(dashConstants.DashLength);
-            takeInput = true;
-            yield return new WaitForSeconds(dashConstants.DashCooldown - dashConstants.DashLength);
-            dashReady = true;
-        }
-
         public void Stop()
         {
-            if (currentFuel >= dashConstants.DashFuelConsumption && stopReady && takeInput)
+            if (stopReady && takeInput)
             {
                 StartCoroutine(StopExecute());
             }
@@ -267,38 +222,11 @@ namespace Player.Module.Movement
             thrustVisuals.rightFrontMotor.SetActive(rightSum < -0.4f);
             thrustVisuals.rightRearMotor.SetActive(rightSum < -0.4f);
         }
-        
-        
-        public void MoveSideways(Vector2 direction)
-        {
-            if (moveSidewaysReady)
-            {
-                StartCoroutine(MoveSidewaysExecute());
-            }
-
-            sidewaysInput = direction.x;
-        }
-
-        private IEnumerator MoveSidewaysExecute()
-        {
-            moveSidewaysReady = false;
-            moveSidewaysEneabled = true;
-            
-            //TODO start reverse visual cooldown
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartDuration(moveSidewaysConstants.length);
-            yield return new WaitForSeconds(moveSidewaysConstants.length);
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).StartCooldown(moveSidewaysConstants.cooldown, UIController.Cooldowns.SideDash);
-            moveSidewaysEneabled = false;
-            
-            yield return new WaitForSeconds(moveSidewaysConstants.cooldown - moveSidewaysConstants.length);
-            moveSidewaysReady = true;
-            
-        }
 
         //Passes parameters to prevent showing thrust when input is blocked (dashing, stopping)
-        private void VisualizeThrust(float thrustInputVar = 0.0f, float rotationInputVar = 0.0f, float sidewaysInputVar = 0.0f)
+        private void VisualizeThrust(float thrustInputVar = 0.0f, float rotationInputVar = 0.0f)
         {
-            if (thrustInputVar > 0 || thrustInputVar < 0 && reverseAvailable || rotationInputVar != 0 || sidewaysInputVar != 0 && moveSidewaysEneabled)
+            if (thrustInputVar > 0 || thrustInputVar < 0 && reverseAvailable || rotationInputVar != 0 )
             {
                 ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).PlaySound(ModuleSounds.SoundName.Thrusters, transform);
             }
@@ -309,11 +237,24 @@ namespace Player.Module.Movement
             thrustVisuals.backMotor.SetActive(thrustInputVar > 0);
             thrustVisuals.frontMotor.SetActive(thrustInputVar < 0 && reverseAvailable);
 
-            thrustVisuals.leftFrontMotor.SetActive(rotationInputVar > 0 || sidewaysInputVar > 0 && moveSidewaysEneabled);
-            thrustVisuals.rightRearMotor.SetActive(rotationInputVar > 0 || sidewaysInputVar < 0 && moveSidewaysEneabled);
+            thrustVisuals.leftFrontMotor.SetActive(rotationInputVar > 0);
+            thrustVisuals.rightRearMotor.SetActive(rotationInputVar > 0);
 
-            thrustVisuals.rightFrontMotor.SetActive(rotationInputVar < 0 || sidewaysInputVar < 0 && moveSidewaysEneabled);
-            thrustVisuals.leftRearMotor.SetActive(rotationInputVar < 0 || sidewaysInputVar > 0 && moveSidewaysEneabled);
+            thrustVisuals.rightFrontMotor.SetActive(rotationInputVar < 0);
+            thrustVisuals.leftRearMotor.SetActive(rotationInputVar < 0);
+        }
+
+        private bool GenerateFuel()
+        {
+            Storage st = ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript);
+
+            if (st.RemoveItem((int)ItemSO.Items.Purpura_Fungi, 1) == 1)
+            {
+                currentFuel += 10;
+                return true;
+            }
+
+            return false;
         }
         
         

@@ -1,4 +1,7 @@
 using System;
+using Entities;
+using Player.Module.Upgrades;
+using Player.UI;
 using UnityEngine;
 
 namespace Player.Module.Drill
@@ -18,7 +21,13 @@ namespace Player.Module.Drill
         //================================================================GETTER SETTER
         public Vector2 DrillTargetPosition { get; set; } = new Vector2(0,0);
         //================================================================FUNCTIONALITY
+        private bool canUseHarpoon;
 
+        public override void ApplyUpgrades()
+        {
+            canUseHarpoon = ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(ModuleUpgrades.Ups.Harpoon);
+            if(canUseHarpoon) drill.SetUpHarpoon(ModuleRef.GetMoveRb());
+        }
 
         private void FixedUpdate()
         {
@@ -43,6 +52,26 @@ namespace Player.Module.Drill
             {
                 ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).StopSound(sound);
             }
+        }
+
+        public void UseHarpoon(bool started)
+        {
+            if(!canUseHarpoon) return;
+
+            if(started)
+                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar(0, UIController.BarsNames.Harpoon);
+            drill.UseHarpoon(started);
+        }
+
+        public void HarpoonHasRecalled(Item item)
+        {
+            if (item != null)
+            {
+                ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).PickUpItem(item, 1);
+            }
+            
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar(1, UIController.BarsNames.Harpoon);
+
         }
     }
 }
