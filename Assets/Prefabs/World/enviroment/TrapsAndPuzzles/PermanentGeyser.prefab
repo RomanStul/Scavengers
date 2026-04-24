@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8701943633912377125}
   - component: {fileID: 271382694035185940}
   - component: {fileID: 1757608976556458456}
-  - component: {fileID: 4472736257538305332}
+  - component: {fileID: 3562917695035700268}
   m_Layer: 0
   m_Name: block
   m_TagString: Untagged
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0.021318436, y: -0.3210597}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -134,7 +134,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.75, y: 0.5}
+  m_Size: {x: 0.7073631, y: 0.3578806}
   m_EdgeRadius: 0
 --- !u!114 &1757608976556458456
 MonoBehaviour:
@@ -159,8 +159,32 @@ MonoBehaviour:
   onDestroyedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4472736257538305332}
-        m_TargetAssemblyTypeName: Entities.Environment.Destructible, Assembly-CSharp
+      - m_Target: {fileID: 3562917695035700268}
+        m_TargetAssemblyTypeName: Entities.ItemDropper, Assembly-CSharp
+        m_MethodName: DropItems
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3562917695035700268}
+        m_TargetAssemblyTypeName: Entities.ItemDropper, Assembly-CSharp
+        m_MethodName: DropItems
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3562917695035700268}
+        m_TargetAssemblyTypeName: Entities.ItemDropper, Assembly-CSharp
         m_MethodName: Destroy
         m_Mode: 1
         m_Arguments:
@@ -173,7 +197,7 @@ MonoBehaviour:
         m_CallState: 2
   healthLossSound: {fileID: 0}
   DestructionSound: {fileID: 0}
---- !u!114 &4472736257538305332
+--- !u!114 &3562917695035700268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,11 +206,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1127559616584870952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43495b20128169a4280004e5647ef254, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c126216345ed58469e7e515ca47416b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructibleId: 838523681
+  destructibleId: 1571744141
   respawns: 0
+  drops:
+  - item: {fileID: 11400000, guid: 4cfdd0bced855a640980f95b5b04e55a, type: 2}
+    amount: 1
 --- !u!1 &5446988093814475432
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +321,7 @@ MonoBehaviour:
   startDelay: 0
   duration: 0
   isBlocked: 1
-  block: {fileID: 4472736257538305332}
+  block: {fileID: 3562917695035700268}
 --- !u!1001 &4875516182589874562
 PrefabInstance:
   m_ObjectHideFlags: 0

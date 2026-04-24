@@ -34,15 +34,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "9aff7e73-24db-4125-837d-573859343c72",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Stop",
                     "type": "Button",
                     "id": "c87c545f-4945-44de-959d-37b658e9be80",
@@ -50,15 +41,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "MoveSideways",
-                    "type": "Value",
-                    "id": "646beee2-0ac5-4727-8c07-cdb8c14e0da7",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -100,6 +82,15 @@
                     "name": "useTool",
                     "type": "Button",
                     "id": "e2f34600-eb27-4c6e-8ec8-3cd565c7ae1e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Harpoon",
+                    "type": "Button",
+                    "id": "1afe33b9-5644-472b-becd-620357060c8a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -186,17 +177,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1f0d0143-0670-480e-9cb6-d507349b99c7",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "66fc74b4-3ed2-49b9-b3bf-5f9c0999d2f0",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -205,61 +185,6 @@
                     "action": "Stop",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "2D Vector",
-                    "id": "5409df64-a412-45f0-b1f6-a8786ea0a379",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveSideways",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "68faf666-b0ae-4415-a094-a06f04b05072",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveSideways",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "be531219-2856-473b-837b-75ba73ec7f81",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveSideways",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "3b479081-0c19-455c-84cd-b38451471372",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveSideways",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "15b17b6b-ea52-461f-9043-8246405c65a0",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveSideways",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -313,6 +238,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "useTool",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb55bd72-bfda-4184-9131-922d223fc00a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Harpoon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

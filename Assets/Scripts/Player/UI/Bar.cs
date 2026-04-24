@@ -37,6 +37,7 @@ namespace Player.UI
             fillImage.material.SetTexture("_mask", mask);
             fillImage.material.SetTexture("_overlay", background);
             fillImage.material.SetTexture("_colorTexture", color);
+            fillImage.material.SetVector("_overlayScale", new Vector4(1, 1, 0, 0));
             if (maxValue != 0)
             {
                 UpdateFill();

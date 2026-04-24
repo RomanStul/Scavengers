@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
 namespace Player.Module.Upgrades
@@ -21,6 +22,8 @@ namespace Player.Module.Upgrades
         [SerializeField] private SpriteRenderer acidRenderer;
 
         [SerializeField] private Sprite[] acidTextures;
+
+        [SerializeField] private Light2D baseLight;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 

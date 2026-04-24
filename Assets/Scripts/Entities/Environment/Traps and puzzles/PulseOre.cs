@@ -51,7 +51,7 @@ namespace Entities.Environment.Traps_and_puzzles
 
             filter.NoFilter();
 
-            Physics2D.OverlapCircle(Convertor.Vec3ToVec2(transform.position), 2.5f, filter, results);
+            Physics2D.OverlapCircle(Convertor.Vec3ToVec2(transform.position), 3f, filter, results);
 
             foreach (var res in results)
             {

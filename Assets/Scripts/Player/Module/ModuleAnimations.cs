@@ -68,6 +68,7 @@ namespace Player.Module
             yield return null;
             transform.position = positionToTransfer;
             ModuleRef.moveRb.linearVelocity = Vector2.zero;
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetUpMinimap();
         }
 
         public void IncrementDay()

@@ -13,6 +13,7 @@ using ScriptableObjects.Tools;
 using Unity.VisualScripting;
 using UnityEngine.Events;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 using Input = Player.Module.Input;
 
 namespace Player.UI
@@ -24,7 +25,8 @@ namespace Player.UI
             HealthBar,
             FuelBar,
             StorageBar,
-            Timer
+            Timer,
+            Harpoon
         }
 
         public enum Cooldowns
@@ -49,11 +51,12 @@ namespace Player.UI
         }
         
         //================================================================EDITOR VARIABLES
-        [SerializeField] private Bar HealthBar, FuelBar, StorageBar, timer;
-        [SerializeField] private Cooldown Dash, Stop, SideDash;
+        [SerializeField] private Bar HealthBar, FuelBar, StorageBar, timer, Harpoon;
+        [SerializeField] private Cooldown Stop;
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private ToolDisplay toolDisplay;
         [SerializeField] private GameObject helpTip;
+        [SerializeField] private Minimap minimap;
         [SerializeField] private TMPro.TextMeshProUGUI monologHelpText;
         
         [SerializeField] private TMPro.TextMeshProUGUI StartOfDayText;
@@ -70,14 +73,11 @@ namespace Player.UI
         {
             ModuleUpgrades upgradesScript = ModuleRef.GetScript<ModuleUpgrades>(Module.Module.ScriptNames.UpgradesScript);
             
-            Dash.transform.gameObject.SetActive(
-                upgradesScript.IsActive(ModuleUpgrades.Ups.Dash)
+            Harpoon.transform.gameObject.SetActive(
+                upgradesScript.IsActive(ModuleUpgrades.Ups.Harpoon)
                 );
             Stop.transform.gameObject.SetActive(
                 upgradesScript.IsActive(ModuleUpgrades.Ups.Stop)
-            );
-            SideDash.transform.gameObject.SetActive(
-                upgradesScript.IsActive(ModuleUpgrades.Ups.Sideways_Thrust)
             );
             
             toolDisplay.gameObject.SetActive(upgradesScript.IsActive(ModuleUpgrades.Ups.ToolsUnlock));
@@ -90,7 +90,12 @@ namespace Player.UI
             toolsShopWindow.SetStorage(ModuleRef.GetScript<Storage>(Module.Module.ScriptNames.StorageScript));
             toolsShopWindow.SetToolHolder(ModuleRef.GetScript<ToolHolder>(Module.Module.ScriptNames.ToolScript));
             toolsShopWindow.CreateToolButtons();
-            toolsShopWindow.UnlockTools(ModuleRef.GetScript<ModuleUpgrades>(Module.Module.ScriptNames.UpgradesScript).upgradesObject);
+            toolsShopWindow.UnlockTools(upgradesScript.upgradesObject);
+            if (upgradesScript.IsActive(ModuleUpgrades.Ups.Minimap))
+            {
+                SetUpMinimap();
+                minimap.gameObject.SetActive(true);
+            }
             
         }
 
@@ -148,7 +153,7 @@ namespace Player.UI
                     if (currentOppenedWindow != null)
                     {
                         currentWindowType = currentOppenedWindow.IsOpened() ? win : WindowType.None;
-                        
+                        monologHelpText.gameObject.SetActive(currentWindowType is WindowType.Help or WindowType.None);
                         ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
                     }
                     else
@@ -203,6 +208,9 @@ namespace Player.UI
                         case BarsNames.Timer:
                             targetBar = timer;
                             break;
+                        case BarsNames.Harpoon:
+                            targetBar = Harpoon;
+                            break;
                         default:
                             return;
                     }
@@ -223,14 +231,8 @@ namespace Player.UI
         
                     switch (cooldownName)
                     {
-                        case Cooldowns.Dash:
-                            targetCooldown = Dash;
-                            break;
                         case Cooldowns.Stop:
                             targetCooldown = Stop;
-                            break;
-                        case Cooldowns.SideDash:
-                            targetCooldown = SideDash;
                             break;
                         default:
                             return;
@@ -239,78 +241,81 @@ namespace Player.UI
                     targetCooldown.StartCooldown(time);
                 }
         
-                public void StartDuration(float time, Cooldowns cooldownName = Cooldowns.SideDash)
-                {
-                    SideDash.StartDuration(time);
-                }
 
         #endregion
 
         #region NonWindowUI
 
-        public void DisplayBalance(int balance)
+            public void DisplayBalance(int balance)
+            {
+                currencyDisplay.DisplayBalance(balance);
+            }
+    
+            public void ItemAmountChange(ItemSO item, int amount)
+            {
+                if (amount > 0)
                 {
-                    currencyDisplay.DisplayBalance(balance);
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
                 }
-        
-                public void ItemAmountChange(ItemSO item, int amount)
+            }
+    
+            public void ItemAmountChange(int item, int amount)
+            {
+                if (amount > 0)
                 {
-                    if (amount > 0)
-                    {
-                        ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
-                    }
+                    ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
                 }
-        
-                public void ItemAmountChange(int item, int amount)
-                {
-                    if (amount > 0)
-                    {
-                        ((InventoryHandler)windows[(int)WindowType.Inventory]).AddItem(item, amount);
-                    }
-                }
-        
-                public void SetStorageCapacity(int capacity)
-                {
-                    ((InventoryHandler)windows[(int)WindowType.Inventory]).SetStorageCapacity(capacity);
-                }
-        
-                public void RemoveAllItemsFromInventory()
-                {
-                    ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveAllItems();
-                }
-        
-                public void RemoveItemFromInventory(ItemSO item, int amount)
-                {
-                    ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveItem(item, amount);
-                }
+            }
+    
+            public void SetStorageCapacity(int capacity)
+            {
+                ((InventoryHandler)windows[(int)WindowType.Inventory]).SetStorageCapacity(capacity);
+            }
+    
+            public void RemoveAllItemsFromInventory()
+            {
+                ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveAllItems();
+            }
+    
+            public void RemoveItemFromInventory(int item, int amount)
+            {
+                ((InventoryHandler)windows[(int)WindowType.Inventory]).RemoveItem(item, amount);
+            }
 
-                public void SetNewDayNumber(int number)
-                {
-                    StartOfDayText.text = "Day " + number;
-                }
+            public void SetNewDayNumber(int number)
+            {
+                StartOfDayText.text = "Day " + number;
+            }
 
-                public void ShowHelpTip()
-                {
-                    ShowGO(helpTip, 5f);
-                }
+            public void ShowHelpTip()
+            {
+                ShowGO(helpTip, 5f);
+            }
 
-                public void ShowMonologHelp(string line)
-                {
-                    monologHelpText.text = line;
-                    ShowGO(monologHelpText.gameObject, 5f);
-                }
+            public bool ShowMonologHelp(string line, float duration = 5f)
+            {
+                if(monologHelpText.gameObject.activeSelf) return true;
+                monologHelpText.text = line;
+                ShowGO(monologHelpText.gameObject, duration);
+                return false;
+            }
 
-                private void ShowGO(GameObject go, float duration)
-                {
-                    go.SetActive(true);
-                    StartCoroutine(HideGO(go, duration));
-                }
+            private void ShowGO(GameObject go, float duration)
+            {
+                go.SetActive(true);
+                StartCoroutine(HideGO(go, duration));
+            }
 
-                private IEnumerator HideGO(GameObject go, float time)
-                {
-                    yield return new WaitForSeconds(time);
-                    go.SetActive(false);
-                }
+            private IEnumerator HideGO(GameObject go, float time)
+            {
+                yield return new WaitForSeconds(time);
+                go.SetActive(false);
+            }
+
+            public void SetUpMinimap()
+            {
+                minimap.SetupMinimap(ModuleRef);
+            }
 
         #endregion
 

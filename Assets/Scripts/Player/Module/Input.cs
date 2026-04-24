@@ -56,26 +56,12 @@ namespace Player.Module
             }
         }
 
-        public void DashInput(InputAction.CallbackContext context)
-        {
-            if (context.started)
-            {
-                ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Dash();
-            }
-        }
-
         public void StopInput(InputAction.CallbackContext context)
         {
             if (context.started)
             {
                 ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript).Stop();
             }
-        }
-
-        public void MoveSidewaysInput(InputAction.CallbackContext context)
-        {
-            ModuleRef.GetScript<Movement.Movement>(Module.ScriptNames.MovementScript)
-                .MoveSideways(context.ReadValue<Vector2>());
         }
 
         public void InteractInput(InputAction.CallbackContext context)
@@ -119,6 +105,13 @@ namespace Player.Module
             if(!context.started) return;
             
             ModuleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).UseTool();
+        }
+
+        public void UseHarpoon(InputAction.CallbackContext context)
+        {
+            if(context.performed) return;
+            
+            ModuleRef.GetScript<DrillController>(Module.ScriptNames.DrillScript).UseHarpoon(context.started);
         }
     }
 }

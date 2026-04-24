@@ -47,6 +47,27 @@ namespace Entities
         {
             spriteRenderer.sprite = sprite;
         }
+
+        public bool GetIsCollecting()
+        {
+            return _isCollecting;
+        }
+
+        public void TurnOffTriggers()
+        {
+            pickUpTrigger.enabled = false;
+            detectTrigger.enabled = false;
+        }
+
+        public void TurnOnTriggers()
+        {
+            detectTrigger.enabled = true;
+        }
+
+        public void IncreaseDetectTriggerSize(float mult)
+        {
+            ((BoxCollider2D)detectTrigger).size *= mult;
+        }
         //================================================================FUNCTIONALITY
         private bool _isCollecting = false;
         private Transform _pickUpTarget = null;

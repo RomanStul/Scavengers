@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Entities.Environment.Traps_and_puzzles
 {
@@ -6,7 +7,7 @@ namespace Entities.Environment.Traps_and_puzzles
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
-        [SerializeField] private Rigidbody2D rigidbody;
+        [FormerlySerializedAs("rigidbody")] [SerializeField] private Rigidbody2D rb;
         //================================================================GETTER SETTER
 
         public Vector2 SetSavedPosition()
@@ -15,7 +16,7 @@ namespace Entities.Environment.Traps_and_puzzles
             if (saved.position.x != Mathf.Infinity)
             {
                 transform.position = Convertor.Vec2ToVec3(saved.position);
-                rigidbody.linearVelocity = saved.velocity;
+                rb.linearVelocity = saved.velocity;
                 return saved.velocity;
             }
             return Vector2.zero;
@@ -28,7 +29,7 @@ namespace Entities.Environment.Traps_and_puzzles
 
         public Vector2 GetVelocity()
         {
-            return rigidbody.linearVelocity;
+            return rb.linearVelocity;
         }
         //================================================================FUNCTIONALITY
 
@@ -40,7 +41,7 @@ namespace Entities.Environment.Traps_and_puzzles
 
         public void SavePosition()
         {
-            DestructionManager.instance.AddMovable(destructibleId, Convertor.Vec3ToVec2(transform.position), rigidbody.linearVelocity, this);
+            DestructionManager.instance.AddMovable(destructibleId, Convertor.Vec3ToVec2(transform.position), rb.linearVelocity, this);
         }
 }
 }

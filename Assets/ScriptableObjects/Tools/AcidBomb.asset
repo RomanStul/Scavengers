@@ -20,5 +20,5 @@ MonoBehaviour:
   unlockUpgrade: 8
   neededItems:
   - item: {fileID: 11400000, guid: cc909385c20ffac4aaefb073a0209cbf, type: 2}
-    amount: 2
+    amount: 1
   executeObject: {fileID: 7449590244897591272, guid: 70055c30c777dae4b98425c2cf17d4df, type: 3}

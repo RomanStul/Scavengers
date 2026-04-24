@@ -15,7 +15,7 @@ namespace Player.UI
             OnlyMovement,
             OnlyDrill,
             OnlyTools,
-            OnlySide,
+            Map,
             OnlyDash,
             OnlyStop,
             Inventory,

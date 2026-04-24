@@ -1,0 +1,529 @@
+fileFormatVersion: 2
+guid: c9160c301fdc6294080cf63ee1949ba6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4313532461157459399
+    second: 2x2BoulderCrumble_0
+  - first:
+      213: 695165457363714278
+    second: 2x2BoulderCrumble_1
+  - first:
+      213: 7197557051520282802
+    second: 2x2BoulderCrumble_2
+  - first:
+      213: 1766982895002759058
+    second: 2x2BoulderCrumble_3
+  - first:
+      213: 248538121294185560
+    second: 2x2BoulderCrumble_4
+  - first:
+      213: -2076974273160474934
+    second: 2x2BoulderCrumble_5
+  - first:
+      213: 3082804297260646565
+    second: 2x2BoulderCrumble_6
+  - first:
+      213: 6704945000683633328
+    second: 2x2BoulderCrumble_7
+  - first:
+      213: -8628518394950699314
+    second: 2x2BoulderCrumble_8
+  - first:
+      213: -875874252855262772
+    second: 2x2BoulderCrumble_9
+  - first:
+      213: -2630790452754899206
+    second: 2x2BoulderCrumble_10
+  - first:
+      213: -5430788030056902929
+    second: 2x2BoulderCrumble_11
+  - first:
+      213: 94495720711385931
+    second: 2x2BoulderCrumble_12
+  - first:
+      213: 6245497311222649302
+    second: 2x2BoulderCrumble_13
+  - first:
+      213: 364458447273087
+    second: 2x2BoulderCrumble_14
+  - first:
+      213: -4817927646640283705
+    second: 2x2BoulderCrumble_15
+  - first:
+      213: -4438031472266298831
+    second: 2x2BoulderCrumble_16
+  - first:
+      213: -5202189223946211081
+    second: 2x2BoulderCrumble_17
+  - first:
+      213: -2496566202042127744
+    second: 2x2BoulderCrumble_18
+  - first:
+      213: -684764826682420777
+    second: 2x2BoulderCrumble_19
+  - first:
+      213: -3954983171834291853
+    second: 2x2BoulderCrumble_20
+  - first:
+      213: -2549928700938842952
+    second: 2x2BoulderCrumble_21
+  - first:
+      213: 5752873986207478477
+    second: 2x2BoulderCrumble_22
+  - first:
+      213: 944453121024693337
+    second: 2x2BoulderCrumble_23
+  - first:
+      213: -3276143541306697385
+    second: 2x2BoulderCrumble_24
+  - first:
+      213: -846169283286250488
+    second: 2x2BoulderCrumble_25
+  - first:
+      213: -5655637454845949617
+    second: 2x2BoulderCrumble_26
+  - first:
+      213: 4172097792969702567
+    second: 2x2BoulderCrumble_27
+  - first:
+      213: -876845284365423569
+    second: 2x2BoulderCrumble_28
+  - first:
+      213: 7865907785722456538
+    second: 2x2BoulderCrumble_29
+  - first:
+      213: -3245843721501340537
+    second: 2x2BoulderCrumble_30
+  - first:
+      213: 5944913695817439061
+    second: 2x2BoulderCrumble_31
+  - first:
+      213: 265103974535934977
+    second: 2x2BoulderCrumble_32
+  - first:
+      213: 6059212744023927602
+    second: 2x2BoulderCrumble_33
+  - first:
+      213: -4555135970231940438
+    second: 2x2BoulderCrumble_34
+  - first:
+      213: -3718833462109835986
+    second: 2x2BoulderCrumble_35
+  - first:
+      213: -3236496549362850940
+    second: 2x2BoulderCrumble_36
+  - first:
+      213: 4730612837767913693
+    second: 2x2BoulderCrumble_37
+  - first:
+      213: 3032557099827318622
+    second: 2x2BoulderCrumble_38
+  - first:
+      213: 8551607681365599792
+    second: 2x2BoulderCrumble_39
+  - first:
+      213: 950330059075316237
+    second: 2x2BoulderCrumble_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c5286a5beebcdb30800000000000000
+      internalID: 4313532461157459399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e04942ec49b5a900800000000000000
+      internalID: 695165457363714278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_2
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b0797a010cd2e360800000000000000
+      internalID: 7197557051520282802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_3
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 80
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29fa4d4c495958810800000000000000
+      internalID: 1766982895002759058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 40
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85402e0ca1cf27300800000000000000
+      internalID: 248538121294185560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_5
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 40
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ace05a027ea1d23e0800000000000000
+      internalID: -2076974273160474934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_6
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 40
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a0c44acc2258ca20800000000000000
+      internalID: 3082804297260646565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_7
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 40
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ba774c24ffbc0d50800000000000000
+      internalID: 6704945000683633328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec63a035c38514880800000000000000
+      internalID: -8628518394950699314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_9
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc1c6a2f10548d3f0800000000000000
+      internalID: -875874252855262772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_10
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afe1e01950e8d7bd0800000000000000
+      internalID: -2630790452754899206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 2x2BoulderCrumble_11
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feec30a6f07f1a4b0800000000000000
+      internalID: -5430788030056902929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 0ab7cfeb20e089c44b55d95c649ad5ae
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      2x2BoulderCrumble_0: 4313532461157459399
+      2x2BoulderCrumble_1: 695165457363714278
+      2x2BoulderCrumble_10: -2630790452754899206
+      2x2BoulderCrumble_11: -5430788030056902929
+      2x2BoulderCrumble_2: 7197557051520282802
+      2x2BoulderCrumble_3: 1766982895002759058
+      2x2BoulderCrumble_4: 248538121294185560
+      2x2BoulderCrumble_5: -2076974273160474934
+      2x2BoulderCrumble_6: 3082804297260646565
+      2x2BoulderCrumble_7: 6704945000683633328
+      2x2BoulderCrumble_8: -8628518394950699314
+      2x2BoulderCrumble_9: -875874252855262772
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

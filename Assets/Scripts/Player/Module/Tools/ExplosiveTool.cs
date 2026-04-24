@@ -25,6 +25,7 @@ namespace Player.Module.Tools
         [SerializeField] private ParticleSystem explosionRadiusPS;
         
         [SerializeField] private Animator animator;
+        [SerializeField] private GameObject lightGO;
 
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
@@ -87,6 +88,10 @@ namespace Player.Module.Tools
 
             if (ps != null)
             {
+                if (lightGO != null)
+                {
+                    lightGO.SetActive(true);
+                }
                 ps.Play();
                 var main = ps.main;
                 float totalDuration = main.duration + main.startLifetimeMultiplier;
@@ -105,6 +110,25 @@ namespace Player.Module.Tools
             if (explodeOnImpact)
             {
                 Detonate();
+            }
+            else
+            {
+                Entities.HealthBar healthBar = collision.transform.GetComponent<Entities.HealthBar>();
+                if (healthBar != null)
+                {
+                    MaterialSO mat = healthBar.GetMaterial();
+                    if(mat == null) return;
+
+                    foreach (MaterialSO.DamageMultiplier mult in mat.damageMultipliers)
+                    {
+                        if (mult.damageMultiplier >= 1 && damageType == mult.damageType)
+                        {
+                            rb.linearVelocity *= 0.25f;
+                            rb.angularVelocity *= 0.25f;
+                            return;
+                        }
+                    }
+                }
             }
         }
     }

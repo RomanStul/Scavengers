@@ -49,6 +49,7 @@
     <Compile Include="Assets\Scripts\Editor\UpgradesEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\ToolsHolderEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\OreHolderEditor.cs" />
+    <Compile Include="Assets\Scripts\Editor\MinimapGeneratorEditor.cs" />
     <Reference Include="UnityEngine">
       <HintPath>D:\Projektíky\UnityEditor\6000.0.65f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

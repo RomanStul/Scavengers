@@ -32,8 +32,14 @@ namespace Player.Module
             base.SetHealth(health);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
         }
+
+        public void SetMinimalDamage(float damage)
+        {
+            minimalDamage = damage;
+        }
         //================================================================FUNCTIONALITY
         protected Player.Module.Module ModuleRef;
+        private float minimalDamage = 0f;
         
         
         public override void ApplyUpgrades()
@@ -53,7 +59,7 @@ namespace Player.Module
 
         public override float TakeDamage(float damage, MaterialSO.DamageType damageType)
         {
-            if (!canTakeDamage) return healthBarConstants.currentHealth;
+            if (!canTakeDamage || damage < minimalDamage) return healthBarConstants.currentHealth;
 
             float health = base.TakeDamage(damage * Environment.instance.damageMultiplier, damageType);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);

@@ -38,6 +38,7 @@ namespace Player.Module.Tools
             Item dropped = ItemDropper.SpawnItemAtRandomOffset(transform.position);
             dropped.SetToolData(keyTool);
             dropped.SetSprite(dropSprite);
+            dropped.IncreaseDetectTriggerSize(3f);
             Destroy(gameObject);   
         }
 

@@ -147,7 +147,6 @@ namespace Entities.Environment.Traps_and_puzzles
 
             if (newPads.Count > 0)
             {
-                Debug.Log(newPads.Count);
                 foreach (PulsePad p in nearbyPads)
                 {
                     p.ResetBoulder(this);
@@ -165,6 +164,8 @@ namespace Entities.Environment.Traps_and_puzzles
 
                 return true;
             }
+
+            Debug.Log("found no pads " + transform.position);
 
             return false;
         }
