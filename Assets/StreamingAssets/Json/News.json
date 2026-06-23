@@ -18,7 +18,7 @@
             "day": 4,
             "Title": "Life outside the solar system?",
             "MainText": "Mysterious transmission are being reported across the entire solar system. Scientists dont rule out possibility of intelligent alien life and say more research needs to be done.",
-            "SecondaryText": "Pink mushrooms discovered on asteroid in sector 67 can potentially be refined into a form of fuel. This has potential solve fuel shortages across all parts of the solar system.",
+            "SecondaryText": "Pink mushrooms discovered on asteroid in sector 67 can potentially be refined into a form of fuel. This may possibly solve fuel shortages across all parts of the solar system.",
             "SecondaryTitle": "New fuel discovered"
           },
           {
@@ -34,6 +34,27 @@
             "MainText": "Yesterdays hijacking of a warp ship is a threat to the country and elections should be postponed until the matter is resolved. Said president XXX XXX to the press.",
             "SecondaryText": "National research institute succeeded in growing fungi found in sector 67. Production is now in full throttle and prices are dropping rapidly.",
             "SecondaryTitle": "Growable fuel and polymer"
+          },
+          {
+            "day": 7,
+            "Title": "",
+            "MainText": "",
+            "SecondaryText": "A mysterious message has been broadcast, claiming that empires gold reserves are running out. It contains details like yearly expenditure which gives it credibility.",
+            "SecondaryTitle": "Gold reserves are running out"
+          },
+          {
+            "day": 8,
+            "Title": "",
+            "MainText": "",
+            "SecondaryText": "In a press conference the Chairman of the National Treasury claimed that there is enough gold. He also said that they are investigating the information leak.",
+            "SecondaryTitle": "National treasury has enough gold"
+          },
+          {
+            "day": 9,
+            "Title": "",
+            "MainText": "",
+            "SecondaryText": "After thorough investigation the national treasury captured the source of information leak. The culprit was an employee that wanted to enrich himself.",
+            "SecondaryTitle": "Gold scare culprit captured"
           }
         ]
 }

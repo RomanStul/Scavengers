@@ -27,15 +27,21 @@ namespace Player.UI
         {
             StoryManager.News newsObject = StoryManager.instance.GetNewsForDay();
 
-            if (newsObject == null)
+            if (newsObject != null)
             {
-                ToggleWindow();
-                return;
+                headline.text = newsObject.Title;
+                mainText.text = newsObject.MainText;
+                secondaryText.text = newsObject.SecondaryText;
+                secondaryHeadline.text = newsObject.SecondaryTitle;
             }
-            headline.text = newsObject.Title;
-            mainText.text = newsObject.MainText;
-            secondaryText.text = newsObject.SecondaryText;
-            secondaryHeadline.text = newsObject.SecondaryTitle;
+            else
+            {
+                headline.text = "";
+                mainText.text = "";
+                secondaryText.text = "";
+                secondaryHeadline.text = "";
+            }
+            
             WriteEconomics();
         }
 

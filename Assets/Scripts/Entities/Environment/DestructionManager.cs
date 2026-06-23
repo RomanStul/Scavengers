@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Entities.Environment.Traps_and_puzzles;
 using JetBrains.Annotations;
@@ -21,44 +22,22 @@ namespace Entities.Environment
 
         public int[] GetDestroyedOresArray()
         {
-            int index = 0;
-            int[] ores = new int [oreHashSet.Count];
-            
-            foreach (int ore in oreHashSet)
-            {
-                ores[index] = ore;
-                index++;
-            }
-
-            return ores;
+            return MakeIdArray(oreHashSet);
         }
-        
+
         public int[] GetDestroyedRespawnOresArray()
         {
-            int index = 0;
-            int[] ores = new int [dayHashSet.Count];
-            
-            foreach (int ore in dayHashSet)
-            {
-                ores[index] = ore;
-                index++;
-            }
-
-            return ores;
+            return MakeIdArray(dayHashSet);
         }
 
         public int[] GetDestroyedObjectsArray()
         {
-            int index = 0;
-            int[] objects = new int [destructiblesSet.Count];
-            
-            foreach (int ore in destructiblesSet)
-            {
-                objects[index] = ore;
-                index++;
-            }
+            return MakeIdArray(destructiblesSet);
+        }
 
-            return objects;
+        public int[] GetBarricadeArray()
+        {
+            return MakeIdArray(openedBaricades);
         }
 
         public SavesManager.MovableStateToSave[] GetMovablePositionsArray()
@@ -89,7 +68,7 @@ namespace Entities.Environment
                 oreHashSet.Add(oreId);
             }
         }
-        
+
         public void SetDestroyedRespawnOres([NotNull] int[] ores)
         {
             foreach (int oreId in ores)
@@ -110,11 +89,21 @@ namespace Entities.Environment
         {
             for (int i = 0; i < movableStateArray.Length; i++)
             {
-                movablePositions.Add(movableStateArray[i].id, new MovableState(){position = movableStateArray[i].position, velocity = movableStateArray[i].velocity});
+                movablePositions.Add(movableStateArray[i].id,
+                    new MovableState()
+                        { position = movableStateArray[i].position, velocity = movableStateArray[i].velocity });
             }
         }
 
-        //================================================================FUNCTIONALITY
+        public void SetOpenedBarricades([NotNull] int[] barricades)
+        {
+            foreach (int barricadeId in barricades)
+            {
+                openedBaricades.Add(barricadeId);
+            }
+        }
+
+    //================================================================FUNCTIONALITY
         public static DestructionManager instance;
         
         //TODO change to check by scenes
@@ -122,6 +111,7 @@ namespace Entities.Environment
         private HashSet<int> destructiblesSet = new HashSet<int>();
         private HashSet<int> dayHashSet = new HashSet<int>();
         private Dictionary<int, MovableState> movablePositions = new Dictionary<int, MovableState>();
+        private HashSet<int> openedBaricades = new HashSet<int>();
         
         
         private void Awake()
@@ -141,6 +131,11 @@ namespace Entities.Environment
         public void AddOre(int ore)
         {
             oreHashSet.Add(ore);
+        }
+
+        public void RemoveOre(int ore)
+        {
+            oreHashSet.Remove(ore);
         }
 
         public void AddRespawnOres(int ore)
@@ -183,9 +178,37 @@ namespace Entities.Environment
             return new MovableState(){position = Vector2.positiveInfinity, velocity = Vector2.zero};
         }
 
-        public void ResetDayHashSet()
+        public void AddBarricade(int id)
         {
+            openedBaricades.Add(id);
+        }
+
+        public bool CheckForBarricade(int id)
+        {
+            return openedBaricades.Contains(id);
+        }
+
+        public void PushDaySetToPermanent()
+        {
+            foreach (int ore in dayHashSet)
+            {
+                oreHashSet.Add(ore);
+            }
             dayHashSet.Clear();
+        }
+
+        private int[] MakeIdArray(HashSet<int> ids)
+        {
+            int index = 0;
+            int[] objects = new int [ids.Count];
+
+            foreach (int ore in ids)
+            {
+                objects[index] = ore;
+                index++;
+            }
+
+            return objects;
         }
         
         

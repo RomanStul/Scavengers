@@ -47,14 +47,16 @@ namespace Entities.Environment.Traps_and_puzzles
                 RaycastHit2D hit = MyRaycast.RaycastCollider(transform.position, -velocity, Mathf.Infinity, ~LayerMask.GetMask("Player"));
                 lastUsedPad = hit.collider.GetComponent<PulsePad>();
             }
-            FindNearbyPads(false);            
+            else
+            {
+                FindNearbyPads(false);            
+            }
         }
 
         private void TransferVelocity(Vector2 direction, RigidbodyConstraints2D constraints, Boulder originBoulder)
         {
             if (!isMoving)
             {
-                Debug.Log(direction);
                 SetToMove(null, direction);
                 rb.constraints = constraints;
                 Push();
@@ -165,7 +167,6 @@ namespace Entities.Environment.Traps_and_puzzles
                 return true;
             }
 
-            Debug.Log("found no pads " + transform.position);
 
             return false;
         }

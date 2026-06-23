@@ -220,8 +220,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c126216345ed58469e7e515ca47416b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructibleId: 0
+  Id: 1
   respawns: 1
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyLoad:
+    m_PersistentCalls:
+      m_Calls: []
   drops:
   - item: {fileID: 11400000, guid: a78099620ac5e0b4cb25faf5ca531c72, type: 2}
     amount: 1
+  RespawnChance: 0.2

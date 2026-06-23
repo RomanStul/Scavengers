@@ -1,6 +1,7 @@
 using System.Collections;
 using HelpScripts;
 using Menu;
+using Milestones;
 using Player.UI;
 using story;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Player.Module
         private Vector3 interactablePosition;
 
         private bool gameOverEndOfDay = false;
+        private bool endingEndOfDay = false;
         
 
 
@@ -78,7 +80,9 @@ namespace Player.Module
 
         public void EndBranchWithDeath()
         {
-            SavesManager.Instance.EndBranchWithDeath();
+            //2 because when interrogation is started the day increments and this can be called only after it finishes => 2 == 1
+            if(StoryManager.instance.GetDayNumber() != 2)
+                SavesManager.Instance.EndBranchWithDeath();
         }
 
         
@@ -87,7 +91,7 @@ namespace Player.Module
         {
             //ASK story manager for what to do in object with all the info
 
-            if (StoryManager.instance.GetDayNumber() == 1 || ((Storage)ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript)).Currency < 0)
+            if (ChooseInterrogationText() != -1)
             {
                 //interrogation start -> branches into all other interrogations (game over, day one, some endings)
                 ModuleRef.moduleAnimator.SetTrigger("interrogation");
@@ -99,23 +103,47 @@ namespace Player.Module
             }
         }
         
-        public void PlayInterrogation()
+        private int ChooseInterrogationText()
         {
             //Reference story manager object about day end
             
             if (StoryManager.instance.GetDayNumber() == 1)
             {
-                interrogationWindow.Write(Interrogation.InterrogationName.Day0, ModuleRef);
+                interrogationWindow.SetInterrogationToWrite(Interrogation.InterrogationName.Day0);
                 gameOverEndOfDay = false;
-                return;
+                return (int)Interrogation.InterrogationName.Day0;
             }
 
             if (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency < 0)
             {
-                interrogationWindow.Write(Interrogation.InterrogationName.FailedToPay, ModuleRef);
+                interrogationWindow.SetInterrogationToWrite(Interrogation.InterrogationName.FailedToPay);
                 gameOverEndOfDay = true;
-                return;
+                return (int)Interrogation.InterrogationName.FailedToPay;
             }
+
+            if (GlobalMilestoneManager.instance.UnclaimedMilestones.Contains(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.Entered, 5)))
+            {
+                interrogationWindow.SetInterrogationToWrite(Interrogation.InterrogationName.FoundRuins);
+                gameOverEndOfDay = true;
+                endingEndOfDay = true;
+                return (int)Interrogation.InterrogationName.FoundRuins;
+            }
+            else
+            {
+                Debug.Log("unclaimed count " + GlobalMilestoneManager.instance.UnclaimedMilestones.Count);
+                foreach (var VARIABLE in GlobalMilestoneManager.instance.UnclaimedMilestones)
+                {
+                    Debug.Log(VARIABLE.action + "  " + VARIABLE.originID);
+                }
+                Debug.Log("not in unclaimed");
+            }
+
+            return -1;
+        }
+
+        public void WriteInterrogation()
+        {
+            interrogationWindow.Write(ModuleRef);
         }
 
         public void PlayNextInterrogationAnimation()
@@ -123,7 +151,14 @@ namespace Player.Module
             //Reference story manager object about day end
             if (gameOverEndOfDay)
             {
-                ModuleRef.moduleAnimator.SetTrigger("gameOver");
+                if (endingEndOfDay)
+                {
+                    ModuleRef.moduleAnimator.SetTrigger("ending");
+                }
+                else
+                {
+                    ModuleRef.moduleAnimator.SetTrigger("gameOver");
+                }
             }
             else
             {

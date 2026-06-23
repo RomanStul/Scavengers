@@ -16,6 +16,7 @@ namespace sounds
         {
             public AudioSource source;
             public bool shouldPlay;
+            public bool sharpCutOff = false;
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] private AudioSource audioSourceFX;
@@ -72,7 +73,7 @@ namespace sounds
             Destroy(instancedSFX.gameObject, clip.length);
         }
 
-        public void PlayPersistentSound(AudioClip clip, float volume, Transform parent, string soundName)
+        public void PlayPersistentSound(AudioClip clip, float volume, Transform parent, string soundName, bool sharpCutoff = false)
         {
             PersistentSound targetPersistentSound;
             if (!persistentSounds.ContainsKey(soundName))
@@ -80,6 +81,7 @@ namespace sounds
                 targetPersistentSound = new PersistentSound();
                 targetPersistentSound.source = InstantiateAudioSource(clip, volume, Vector3.zero, parent);
                 targetPersistentSound.source.loop = true;
+                targetPersistentSound.sharpCutOff = sharpCutoff;
                 
                 persistentSounds.Add(soundName, targetPersistentSound);
             }
@@ -98,9 +100,20 @@ namespace sounds
 
         public void StopPersistentSounds(string soundName)
         {
-            if (persistentSounds.ContainsKey(soundName) && persistentSounds[soundName].shouldPlay)
+            if(!persistentSounds.TryGetValue(soundName, out PersistentSound ps)) return;
+
+            if (ps.shouldPlay)
             {
-                StartCoroutine(FadePersistentSound(persistentSounds[soundName]));
+
+                if (ps.sharpCutOff)
+                {
+                    ps.source.Stop();
+                }
+                else
+                {
+                    StartCoroutine(FadePersistentSound(persistentSounds[soundName]));
+                }
+
             }
         }
 

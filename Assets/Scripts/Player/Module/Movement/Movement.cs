@@ -92,7 +92,7 @@ namespace Player.Module.Movement
         public override void ApplyUpgrades()
         {
             maxFuel = movementVariables.MaxFuel;
-            if (ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Fuel_Capacity_I)) maxFuel += 20;
+            if (ModuleRef.GetScript<Upgrades.ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Fuel_Capacity_I)) maxFuel *= 1.3f;
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)maxFuel, UI.UIController.BarsNames.FuelBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
             
@@ -160,6 +160,8 @@ namespace Player.Module.Movement
                 currentFuel += amount;
             }
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFuel, UI.UIController.BarsNames.FuelBar);
+            
+            
         }
         
 
@@ -250,7 +252,7 @@ namespace Player.Module.Movement
 
             if (st.RemoveItem((int)ItemSO.Items.Purpura_Fungi, 1) == 1)
             {
-                currentFuel += 10;
+                Refuel(10);
                 return true;
             }
 

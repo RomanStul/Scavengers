@@ -15,5 +15,5 @@ MonoBehaviour:
   cost: 20
   neededItems: []
   neededUpgrades: 06000000
-  description: Increases fuel capacity by 20%.
-  tag: 0
+  description: Increases fuel capacity by 30%.
+  tag: 11

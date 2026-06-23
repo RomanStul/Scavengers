@@ -16,6 +16,7 @@ namespace Player.Module
             public float volume;
             public SoundName name;
             public bool persistent;
+            public bool persistentSharpCutoff = false;
         }
 
         public enum SoundName
@@ -23,7 +24,11 @@ namespace Player.Module
             Thrusters,
             DrillUse,
             DrillStart,
-            Timer
+            Timer,
+            Repair,
+            DrillDamage,
+            Sell,
+            Refuel
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] private SoundClip[] soundClips;
@@ -39,7 +44,7 @@ namespace Player.Module
                 {
                     if (soundClips[i].persistent)
                     {
-                        SoundManager.instance.PlayPersistentSound(soundClips[i].clip, soundClips[i].volume, parent, soundClips[i].name.ToString());
+                        SoundManager.instance.PlayPersistentSound(soundClips[i].clip, soundClips[i].volume, parent, soundClips[i].name.ToString(), soundClips[i].persistentSharpCutoff);
                     }
                     else
                     {

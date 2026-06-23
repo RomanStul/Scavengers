@@ -5,16 +5,16 @@ using UnityEditor;
 namespace Editor
 {
     
-    [CustomEditor(typeof(OreHolder))]
+    [CustomEditor(typeof(SavedObjectHolder))]
     public class OreHolderEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI(){
             DrawDefaultInspector();
             
-            OreHolder holder = (OreHolder)target;
+            SavedObjectHolder holder = (SavedObjectHolder)target;
             
             if(GUILayout.Button("Randomize Ids")){
-                holder.SetOreIds();
+                holder.SetId();
             }
         }
     }

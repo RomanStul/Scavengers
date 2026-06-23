@@ -6,12 +6,12 @@ using Random = UnityEngine.Random;
 
 namespace Entities.Environment
 {
-    public class Destructible : MonoBehaviour
+    public class Destructible : SaveIDDistibutor
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
 
-        [SerializeField] protected int destructibleId = 1;
+        
 
         [SerializeField] protected bool respawns = false;
 
@@ -20,17 +20,11 @@ namespace Entities.Environment
         [SerializeField] private UnityEvent onDestroyLoad;
         //================================================================GETTER SETTER
 
-        public void SetId()
-        {
-#if UNITY_EDITOR
-            EditorUtility.SetDirty(this);
-#endif
-            destructibleId = Random.Range(0, Int32.MaxValue);
-        }
+
 
         public bool CheckIfShouldBeDestroyed()
         {
-            bool isSaved = DestructionManager.instance.CheckForDestructible(destructibleId);
+            bool isSaved = DestructionManager.instance.CheckForDestructible(Id);
             if (isSaved)
             {
                 if (onDestroyLoad.GetPersistentEventCount() == 0)
@@ -49,7 +43,7 @@ namespace Entities.Environment
         
         private void Reset()
         {
-            destructibleId = Random.Range(0, Int32.MaxValue);
+            Id = Random.Range(0, Int32.MaxValue);
         }
 
         public virtual void Awake()
@@ -59,7 +53,7 @@ namespace Entities.Environment
 
         public void SaveDestructible()
         {
-            DestructionManager.instance.AddDestructible(destructibleId);
+            DestructionManager.instance.AddDestructible(Id);
         }
 
         public virtual void Destroy()

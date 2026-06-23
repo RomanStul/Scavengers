@@ -29,5 +29,11 @@ namespace Menu
             playSubmenu.CreateSaveTree(saveName.text);
             playSubmenu.HideNewSave();
         }
+
+        public void Delete()
+        {
+            playSubmenu.DeleteSave(saveName.text);
+            Destroy(gameObject);
+        }
     }
 }

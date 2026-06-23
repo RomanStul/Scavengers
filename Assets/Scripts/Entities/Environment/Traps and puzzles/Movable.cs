@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace Entities.Environment.Traps_and_puzzles
 {
-    public class Movable : Destructible
+    public class Movable : SaveIDDistibutor
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
@@ -12,10 +12,10 @@ namespace Entities.Environment.Traps_and_puzzles
 
         public Vector2 SetSavedPosition()
         {
-            DestructionManager.MovableState saved = DestructionManager.instance.GetMovableState(destructibleId);
+            DestructionManager.MovableState saved = DestructionManager.instance.GetMovableState(Id);
             if (saved.position.x != Mathf.Infinity)
             {
-                transform.position = Convertor.Vec2ToVec3(saved.position);
+                transform.position = Convertor.Vec2ToVec3(saved.position) - Vector3.forward ;
                 rb.linearVelocity = saved.velocity;
                 return saved.velocity;
             }
@@ -33,15 +33,9 @@ namespace Entities.Environment.Traps_and_puzzles
         }
         //================================================================FUNCTIONALITY
 
-
-        public override void Awake()
-        {
-
-        }
-
         public void SavePosition()
         {
-            DestructionManager.instance.AddMovable(destructibleId, Convertor.Vec3ToVec2(transform.position), rb.linearVelocity, this);
+            DestructionManager.instance.AddMovable(Id, Convertor.Vec3ToVec2(transform.position), rb.linearVelocity, this);
         }
 }
 }

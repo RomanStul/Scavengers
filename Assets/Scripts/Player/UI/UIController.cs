@@ -102,71 +102,71 @@ namespace Player.UI
         #region WindowFunctions
 
         public UIWindow OpenWindow(WindowType win)
-                {
-                    if (currentOppenedWindow != null)
-                    {
-                        currentOppenedWindow.CloseWindow();
-                        ModuleManipulation.run = false;
-                    }
-                        
-        
-                    if (win == currentWindowType)
-                    {
-                        currentWindowType = WindowType.None;
-                        currentOppenedWindow = null;
-                        ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
-                        return null;
-                    }
-                    
-                    switch (win)
-                    {
-                        case WindowType.Inventory:
-                            InventoryHandler invHand = ((InventoryHandler)windows[(int)win]);
-                            invHand.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
-                            currentOppenedWindow = invHand.IsOpened() ? invHand : null;
-                            break;
-                        
-                        case WindowType.Resources:
-                            InventoryHandler resHand = ((InventoryHandler)windows[(int)win]);
-                            resHand.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
-                            currentOppenedWindow = resHand.IsOpened() ? resHand : null;
-                            break;
-                        
-                        case WindowType.None:
-                            currentOppenedWindow = null;
-                            break;
-                        
-                        case WindowType.Help:
-                            windows[(int)win].ToggleWindow();
-                            currentOppenedWindow = windows[(int)win].IsOpened() ? windows[(int)win] : null;
-                            if (currentOppenedWindow != null) StartCoroutine(HideHelp());
-                            break;
-                        
-                        default:
-                            windows[(int)win].ToggleWindow();
-                            currentOppenedWindow = windows[(int)win].IsOpened() ? windows[(int)win] : null;
-                            break;
-                    }
-                    
-                    
-                    
-                    if (currentOppenedWindow != null)
-                    {
-                        currentWindowType = currentOppenedWindow.IsOpened() ? win : WindowType.None;
-                        monologHelpText.gameObject.SetActive(currentWindowType is WindowType.Help or WindowType.None);
-                        ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
-                    }
-                    else
-                    {
-                        ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
-                        currentWindowType = WindowType.None;
-                    }
-                    
-                    Time.timeScale = currentWindowType == WindowType.Pause ? 0 : 1;
+        {
+            if (currentOppenedWindow != null)
+            {
+                currentOppenedWindow.CloseWindow();
+                ModuleManipulation.run = false;
+            }
+                
 
-        
-                    return currentOppenedWindow;
-                }
+            if (win == currentWindowType)
+            {
+                currentWindowType = WindowType.None;
+                currentOppenedWindow = null;
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
+                return null;
+            }
+            
+            switch (win)
+            {
+                case WindowType.Inventory:
+                    InventoryHandler invHand = ((InventoryHandler)windows[(int)win]);
+                    invHand.ToggleInventory(InventoryHandler.WindowTypes.Inventory);
+                    currentOppenedWindow = invHand.IsOpened() ? invHand : null;
+                    break;
+                
+                case WindowType.Resources:
+                    InventoryHandler resHand = ((InventoryHandler)windows[(int)win]);
+                    resHand.ToggleInventory(InventoryHandler.WindowTypes.ResourceShop);
+                    currentOppenedWindow = resHand.IsOpened() ? resHand : null;
+                    break;
+                
+                case WindowType.None:
+                    currentOppenedWindow = null;
+                    break;
+                
+                case WindowType.Help:
+                    windows[(int)win].ToggleWindow();
+                    currentOppenedWindow = windows[(int)win].IsOpened() ? windows[(int)win] : null;
+                    if (currentOppenedWindow != null) StartCoroutine(HideHelp());
+                    break;
+                
+                default:
+                    windows[(int)win].ToggleWindow();
+                    currentOppenedWindow = windows[(int)win].IsOpened() ? windows[(int)win] : null;
+                    break;
+            }
+            
+            
+            
+            if (currentOppenedWindow != null)
+            {
+                currentWindowType = currentOppenedWindow.IsOpened() ? win : WindowType.None;
+                monologHelpText.gameObject.SetActive(monologHelpText.IsActive() && currentWindowType is WindowType.Help or WindowType.None);
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(!currentOppenedWindow.blocksInput);
+            }
+            else
+            {
+                ModuleRef.GetScript<Input>(Module.Module.ScriptNames.InputScript).SetTakeInput(true);
+                currentWindowType = WindowType.None;
+            }
+            
+            Time.timeScale = currentWindowType == WindowType.Pause ? 0 : 1;
+
+
+            return currentOppenedWindow;
+        }
 
         public void OpenWindowFromEvent(int windowID)
         {
@@ -294,7 +294,7 @@ namespace Player.UI
 
             public bool ShowMonologHelp(string line, float duration = 5f)
             {
-                if(monologHelpText.gameObject.activeSelf) return true;
+                if(monologHelpText.gameObject.activeSelf || currentWindowType != WindowType.Help && currentWindowType != WindowType.None) return true;
                 monologHelpText.text = line;
                 ShowGO(monologHelpText.gameObject, duration);
                 return false;

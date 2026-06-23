@@ -1,6 +1,7 @@
 using System;
 using ScriptableObjects.Item;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ScriptableObjects.Day
 {

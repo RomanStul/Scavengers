@@ -16,6 +16,6 @@ MonoBehaviour:
   neededItems:
   - item: {fileID: 11400000, guid: 408d82833ec24c540bc378f2600d5cd6, type: 2}
     amount: 1
-  neededUpgrades: 07000000
+  neededUpgrades: 06000000
   description: Displays slightly extended view of your surrounding on your panel.
   tag: 4
