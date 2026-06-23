@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed938bfd5fcd424b910035f4fc0294e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 1
   activateBarricade:
     m_PersistentCalls:
       m_Calls:
@@ -461,6 +462,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   triggers: []
+  isPermanentOpen: 1
 --- !u!1 &5848214630422153151
 GameObject:
   m_ObjectHideFlags: 0

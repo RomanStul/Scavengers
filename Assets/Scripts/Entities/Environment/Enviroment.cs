@@ -1,3 +1,4 @@
+using HelpScripts;
 using Player.Module;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace Entities.Environment
         [SerializeField] private Vector2 moduleSpawnLocation = new Vector2(0,0);
         [SerializeField] private Sprite minimap;
         [SerializeField] private Vector2Int minimapCenter;
+        [SerializeField] private MinimapTextureGenerator minimapGenerator;
 
         [SerializeField] public GameObject module;
         //================================================================GETTER SETTER
@@ -29,6 +31,11 @@ namespace Entities.Environment
         public Sprite GetMinimap()
         {
             return minimap;
+        }
+
+        public Texture2D GetObjectTexture()
+        {
+            return minimapGenerator.GetObjectTextures();
         }
 
         public Module GetModuleRef()

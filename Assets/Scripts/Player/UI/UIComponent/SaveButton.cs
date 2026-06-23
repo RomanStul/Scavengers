@@ -47,6 +47,11 @@ namespace Player.UI.UIComponent
             }
             
         }
+
+        public void SetConnectorVisibility(bool visibility)
+        {
+            branchConnector.enabled = visibility;
+        }
         //================================================================FUNCTIONALITY
         
 

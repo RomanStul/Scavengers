@@ -110,13 +110,10 @@ namespace Player.UI.Upgrades
                         buttons[i].gameObject.SetActive(false);
                         break;
                     }
-                    else
-                    {
-                        if (!previouslyActive && !gameObject.activeSelf)
-                        {
-                            notificationPopUp.AddToNotification(buttons[i].GetUpgrade().tag.ToString().Replace("_", " "), false);
-                        }
-                    }
+                }
+                if (!previouslyActive && buttons[i].gameObject.activeSelf)
+                {
+                    notificationPopUp.AddToNotification(buttons[i].GetUpgrade().tag.ToString().Replace("_", " "), false);
                 }
             }
         }

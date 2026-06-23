@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec7c3491342b2e40996d74fc543923a, type: 3}
+  m_Name: mushrooms
+  m_EditorClassIdentifier: 
+  texture:
+  - {fileID: -1608123147, guid: 24c8918ca84128d46846a41f59ca1d7a, type: 3}
+  - {fileID: -1936966917, guid: 24c8918ca84128d46846a41f59ca1d7a, type: 3}
+  - {fileID: -1255832412, guid: 24c8918ca84128d46846a41f59ca1d7a, type: 3}
+  - {fileID: -1562416309, guid: 24c8918ca84128d46846a41f59ca1d7a, type: 3}
+  - {fileID: -1475462142, guid: 24c8918ca84128d46846a41f59ca1d7a, type: 3}
+  colorRows:
+  - row:
+    - {r: 0.24705884, g: 0.2392157, b: 0.54509807, a: 1}

@@ -27,7 +27,8 @@ namespace ScriptableObjects.Tools
         public ModuleUpgrades.Ups unlockUpgrade;
         public ItemCost[] neededItems;
         public ModuleTool executeObject;
-        
+        public Sprite droppedIcon;
+
 
     }
 }

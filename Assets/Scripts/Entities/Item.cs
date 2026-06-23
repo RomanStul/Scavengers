@@ -30,7 +30,7 @@ namespace Entities
         public void SetToolData(ToolSO tool)
         {
             toolData = tool;
-            spriteRenderer.sprite = tool.icon;
+            spriteRenderer.sprite = tool.droppedIcon;
         }
 
         public ItemSO GetItemData()

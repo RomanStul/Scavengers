@@ -88,10 +88,12 @@ namespace Player.Module.Tools
 
             if (ps != null)
             {
+                transform.parent = null;
                 if (lightGO != null)
                 {
                     lightGO.SetActive(true);
                 }
+                
                 ps.Play();
                 var main = ps.main;
                 float totalDuration = main.duration + main.startLifetimeMultiplier;

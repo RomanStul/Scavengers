@@ -56,30 +56,16 @@ namespace story
 
         public float GetRepairMult()
         {
-            if (repairCostMult < 0)
-            {
-                repairCostMult = CalculateRepairMultiplier();
-            }
-
             return repairCostMult;
         }
         
         public float GetRefuelMult()
         {
-            if (refuelCostMult < 0)
-            {
-                refuelCostMult = CalculateRefuelMultiplier();
-            }
-
             return refuelCostMult;
         }
 
         public int GetStartOfDayPayment()
         {
-            if (startOfDayPayment < 0)
-            {
-                startOfDayPayment = CalculateStartOfDay();
-            }
             return startOfDayPayment;
         }
 
@@ -130,7 +116,7 @@ namespace story
                 
             }
             
-            DestructionManager.instance.ResetDayHashSet();
+            DestructionManager.instance.PushDaySetToPermanent();
         }
 
         public void LoadDay(int dayNumber)
@@ -158,58 +144,6 @@ namespace story
             {
                 Destroy(gameObject);
             }
-        }
-        
-        
-        public float CalculateRepairMultiplier()
-        {
-            Debug.Log("calculate");
-            if (days.Length <= currentDay) return 1;
-
-            float mult = 1;
-            for (int i = currentDaySOIndex; i >= 0; i--)
-            {
-                if (days[i].repairCostMultiplier > 0)
-                {
-                    mult = days[i].repairCostMultiplier;
-                }
-            }
-
-            return mult;
-        }
-
-        public float CalculateRefuelMultiplier()
-        {
-            Debug.Log("calculate");
-            if (days.Length <= currentDay) return 1;
-
-            float mult = 1;
-            for (int i = currentDaySOIndex; i >= 0; i--)
-            {
-                if (days[i].refuelCostMultiplier > 0)
-                {
-                    mult = days[i].refuelCostMultiplier;
-                }
-            }
-
-            return mult;
-        }
-
-        public int CalculateStartOfDay()
-        {
-            Debug.Log("calculate");
-            if (days.Length <= currentDay) return 1;
-
-            int payment = 1;
-            for (int i = currentDaySOIndex; i >= 0; i--)
-            {
-                if (days[i].startOfDayPayment > 0)
-                {
-                    payment = days[i].startOfDayPayment;
-                }
-            }
-
-            return payment;
         }
     }
 }

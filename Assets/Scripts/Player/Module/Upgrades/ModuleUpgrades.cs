@@ -32,7 +32,8 @@ namespace Player.Module.Upgrades
             ImpossibleUpgrade,
             Lights_unlock,
             Fuel_Generator,
-            Fuel_Generator_Unlock
+            Fuel_Generator_Unlock,
+            Storage_Size_II,
         }
 
         [Serializable]
@@ -61,7 +62,7 @@ namespace Player.Module.Upgrades
                 return false;
             }
 
-            for (int i = 0; i < upgradesObject.Length; i++)
+            for (int i = 0; i < Mathf.Min(upgradesObject.Length, loaded.Length); i++)
             {
                 upgradesObject[i] = new UpgradeObject(Enum.GetNames(typeof(Ups))[i], loaded[i] || upgradesObject[i].unlocked);
             }

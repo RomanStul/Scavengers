@@ -31,6 +31,7 @@ namespace Player.Module
             ToolScript,
             AnimationFunctionsScript,
             SoundsScript,
+            CameraShakeScript,
         }
 
         [Serializable]
@@ -142,6 +143,7 @@ namespace Player.Module
             {
                 return;
             }
+            CreateStateObject(evacuateSettings.sceneName, evacuateSettings.evacuatePosition);
             PrepareForSceneTransfer(evacuateSettings.evacuatePosition, evacuateSettings.sceneName, transform.position);
             GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency((int)(StoryManager.instance.GetEvacuateCost() * evacuateSettings.costMultiplier), true);
         }

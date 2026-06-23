@@ -31,14 +31,14 @@ namespace Player.UI.UIComponent
         {
             rows = new List<HorizontalLayoutGroup>();
             rows.Add(Instantiate(rowPrefab, transform));
-            rows[0].padding.left = (int)(((RectTransform)saveButtonPrefab.transform).rect.width + rowPrefab.spacing);
+            rows[0].padding.left = (int)(rowPrefab.spacing);
             ((RectTransform)rows[0].transform).SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 60);
         }
 
         public void CreateRow(int column, int numberOfDays, int branch, string saveName, int sourceOffset, bool endsWithDeath)
         {
             rows.Add(Instantiate(rowPrefab, transform));
-            (rows[^1]).padding.left = (int)(column * (((RectTransform)saveButtonPrefab.transform).rect.width + rowPrefab.spacing));
+            (rows[^1]).padding.left = (int)((column-1) * ((RectTransform)saveButtonPrefab.transform).rect.width + rowPrefab.spacing * column);
 
             for (int i = maxDays; i < numberOfDays + column; i++)
             {

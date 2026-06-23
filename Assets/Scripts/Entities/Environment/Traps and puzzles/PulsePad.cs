@@ -61,7 +61,6 @@ namespace Entities.Environment.Traps_and_puzzles
                 yield return null;
             }
             
-            Debug.Log("recall ended");
                 
         }
         

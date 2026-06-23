@@ -20,6 +20,7 @@ namespace Player.Module
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] private CollisionConstants collisionConstants;
+        [SerializeField] private LineRenderer lineRenderer, ln;
         //================================================================GETTER SETTER
         public void IncreaseAcid(float value, bool increase)
         {
@@ -67,12 +68,12 @@ namespace Player.Module
             {
                 return;
             }
-            //TODO add point to calculate collision magnitude from, take one that's closer to point of impact
-            Vector2 relativePosition = (Convertor.Vec3ToVec2(transform.position) - collision.GetContact(0).point).normalized;
-            Vector2 velocity = collision.relativeVelocity;
-            float magnitude = Mathf.Abs(Vector2.Dot(velocity, relativePosition));
+            
+            float magnitude = Mathf.Abs(Vector2.Dot(collision.relativeVelocity, collision.contacts[0].normal));
+            
             ModuleRef.GetScript<HealthBar>(Module.ScriptNames.HealthBarScript).TakeDamage(magnitude * (collisionConstants.collisionDamageMultiplier), MaterialSO.DamageType.Kinetic);
-
+            ModuleRef.GetScript<CameraShake>(Module.ScriptNames.CameraShakeScript).ShakeCamera(magnitude, 0.15f);
+            
             Entities.HealthBar bar = collision.gameObject.transform.GetComponent<Entities.HealthBar>();
             if(bar != null) bar.TakeDamage(magnitude, MaterialSO.DamageType.Kinetic);
         }

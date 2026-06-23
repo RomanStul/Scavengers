@@ -83,14 +83,14 @@ namespace Player.UI.RepairRefuel
         {
             Movement mw = parameters.moduleRef.GetScript<Movement>(Module.Module.ScriptNames.MovementScript);
 
-            return Mathf.Min(currency, (parameters.refuelCost) * mw.GetMissingFuel());
+            return Mathf.Max(Mathf.Min(currency, (parameters.refuelCost) * mw.GetMissingFuel()), 0);
         }
         
         private Single CalculateMaxRepair()
         {
             HealthBar hb = parameters.moduleRef.GetScript<HealthBar>(Module.Module.ScriptNames.HealthBarScript);
 
-            return Mathf.Min(Mathf.Min(currency, (parameters.repairCost) * hb.GetMissingHealth()));
+            return Mathf.Max(Mathf.Min(currency, (parameters.repairCost) * hb.GetMissingHealth()), 0);
         }
         
         

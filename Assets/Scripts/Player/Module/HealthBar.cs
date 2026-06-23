@@ -1,7 +1,10 @@
 using System.Collections;
 using Entities.Environment;
+using Menu;
+using Player.Module.Tools;
 using Player.UI;
 using ScriptableObjects.Material;
+using ScriptableObjects.Tools;
 using UnityEngine;
 
 namespace Player.Module
@@ -59,6 +62,9 @@ namespace Player.Module
 
         public override float TakeDamage(float damage, MaterialSO.DamageType damageType)
         {
+            if(SavesManager.Instance != null)
+                damage *= SavesManager.Instance.GetDifficulty().damageTakenMultiplier;
+            
             if (!canTakeDamage || damage < minimalDamage) return healthBarConstants.currentHealth;
 
             float health = base.TakeDamage(damage * Environment.instance.damageMultiplier, damageType);
@@ -68,9 +74,19 @@ namespace Player.Module
 
             if (health <= 0)
             {
-                ModuleRef.Evacuate();
-                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
-                return 0;
+                ToolHolder th = ModuleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript);
+                if (th.GetAmountOfToolType(ToolSO.ToolType.Repair_kit) > 0)
+                {
+                    th.UseTool(ToolSO.ToolType.Repair_kit);
+                    return healthBarConstants.currentHealth;
+                }
+                else
+                {
+                    ModuleRef.Evacuate();
+                    ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
+                    return 0;
+                }
+
             }
             return health;
         }
@@ -85,6 +101,7 @@ namespace Player.Module
         {
             base.HealHealth(health);
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)healthBarConstants.currentHealth, UIController.BarsNames.HealthBar);
+            ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).PlaySound(ModuleSounds.SoundName.Repair, transform);
         }
     }
 }

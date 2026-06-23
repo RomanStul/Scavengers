@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9096934302553967979}
   - component: {fileID: 4952558504862923845}
-  - component: {fileID: 7199934271986284497}
   - component: {fileID: 6011598861063725292}
   - component: {fileID: 899281334681535610}
   - component: {fileID: 4821773612271105788}
@@ -91,20 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7199934271986284497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500844472727401582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43495b20128169a4280004e5647ef254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destructibleId: 2014266910
-  respawns: 0
 --- !u!114 &6011598861063725292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,13 +102,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed938bfd5fcd424b910035f4fc0294e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 1
   activateBarricade:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7199934271986284497}
-        m_TargetAssemblyTypeName: Entities.Environment.Destructible, Assembly-CSharp
-        m_MethodName: Destroy
-        m_Mode: 1
+      - m_Target: {fileID: 899281334681535610}
+        m_TargetAssemblyTypeName: UnityEngine.BoxCollider2D, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -144,7 +130,35 @@ MonoBehaviour:
           m_StringArgument: crumble
           m_BoolArgument: 0
         m_CallState: 2
+  alreadyActivatedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 899281334681535610}
+        m_TargetAssemblyTypeName: UnityEngine.BoxCollider2D, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4952558504862923845}
+        m_TargetAssemblyTypeName: UnityEngine.SpriteRenderer, UnityEngine
+        m_MethodName: set_sprite
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: -5430788030056902929, guid: c9160c301fdc6294080cf63ee1949ba6, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   triggers: []
+  isPermanentOpen: 1
 --- !u!61 &899281334681535610
 BoxCollider2D:
   m_ObjectHideFlags: 0

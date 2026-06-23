@@ -21,6 +21,8 @@ namespace Entities
         private static Item _itemPrefab;
         //================================================================EDITOR VARIABLES
         [SerializeField] protected Drop[] drops;
+
+        [SerializeField] private float RespawnChance;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
@@ -28,7 +30,7 @@ namespace Entities
         {
             if (!respawns)
             {
-                if (DestructionManager.instance.CheckForOre(destructibleId))
+                if (DestructionManager.instance.CheckForOre(Id))
                 {
                     Destroy(gameObject);
                     return;
@@ -36,10 +38,22 @@ namespace Entities
             }
             else
             {
-                if (DestructionManager.instance.CheckForRespawnOres(destructibleId))
+                if (DestructionManager.instance.CheckForRespawnOres(Id))
                 {
                     Destroy(gameObject);
-                    return;
+                }
+                else
+                {
+                    if (DestructionManager.instance.CheckForOre(Id))
+                    {
+                        float random = Random.Range(0f, 1f);
+                        if (random < RespawnChance)
+                        {
+                            gameObject.SetActive(true);
+                            DestructionManager.instance.RemoveOre(Id);
+                        }
+                        
+                    }
                 }
             }
 
@@ -50,10 +64,10 @@ namespace Entities
             }
         }
 
-        public void DropItems()
+        public virtual void DropItems()
         {
-            if(!respawns) DestructionManager.instance.AddOre(destructibleId);   
-            else DestructionManager.instance.AddRespawnOres(destructibleId);
+            if(!respawns) DestructionManager.instance.AddOre(Id);   
+            else DestructionManager.instance.AddRespawnOres(Id);
             
             foreach (var drop in drops)
             {

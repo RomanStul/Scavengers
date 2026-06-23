@@ -20,3 +20,7 @@ MonoBehaviour:
   priceChanges:
   - item: 1
     multiplier: 2.5
+  - item: 3
+    multiplier: 0.5
+  - item: 2
+    multiplier: 0.5

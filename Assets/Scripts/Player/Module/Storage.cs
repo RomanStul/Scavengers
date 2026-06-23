@@ -5,6 +5,7 @@ using Player.Module.Tools;
 using Player.Module.Upgrades;
 using Player.UI;
 using ScriptableObjects.Item;
+using story;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -53,12 +54,20 @@ namespace Player.Module
             }
         }
 
+        public int GetFreeSpace()
+        {
+            return storageCapacity - itemsStored;
+        }
+
         //================================================================FUNCTIONALITY
         private int storageCapacity;
         public override void ApplyUpgrades()
         {
+            ModuleUpgrades upgradeScript = ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript);
+            
             storageCapacity = baseStorageCapacity;
-            if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(ModuleUpgrades.Ups.Storage_Size_I)) storageCapacity += 3;
+            if (upgradeScript.IsActive(ModuleUpgrades.Ups.Storage_Size_I)) storageCapacity += 3;
+            if (upgradeScript.IsActive(ModuleUpgrades.Ups.Storage_Size_II)) storageCapacity += 3;
             
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(storageCapacity, UI.UIController.BarsNames.StorageBar, true);
             ModuleRef.GetScript<UI.UIController>(Module.ScriptNames.UIControlsScript).SetBar(itemsStored, UI.UIController.BarsNames.StorageBar);
@@ -70,7 +79,7 @@ namespace Player.Module
         
         public void PickUpItem(Entities.Item item, int amount)
         {
-            if (item.GetToolData() != null)
+            if (item.GetToolData() != null && item.StartCollecting(transform))
             {
                 ModuleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).AddTool(item.GetToolData(), amount);
                 Destroy(item.gameObject);
@@ -91,7 +100,6 @@ namespace Player.Module
             }
             else
             {
-
                 if (!ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("Storage is full", 5f))
                 {
                     ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetHelpHideDelay(5f);
@@ -198,7 +206,7 @@ namespace Player.Module
                 int total = 0;
                 for (int i = 0; i < itemStorage.Length; i++)
                 {
-                    total += itemStorage[i] * itemDBSO.items[i].price;
+                    total += (int)(itemStorage[i] * itemDBSO.items[i].price * StoryManager.instance.GetOreMultiplier(itemDBSO.items[i].itemType));
                 }
                 AddCurrency(total);
                 RemoveAllItems();
@@ -207,15 +215,17 @@ namespace Player.Module
             {
                 if (amount == -1)
                 {
-                    AddCurrency(item.price * itemStorage[(int)item.itemType]);
+                    AddCurrency((int)(item.price * itemStorage[(int)item.itemType]* StoryManager.instance.GetOreMultiplier(item.itemType)));
                     
                 }
                 else
                 {
-                    AddCurrency(item.price * amount);
+                    AddCurrency((int)(item.price * amount* StoryManager.instance.GetOreMultiplier(item.itemType)));
                 }
                 RemoveItem(item, amount);
             }
+            
+            ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).PlaySound(ModuleSounds.SoundName.Sell, transform);
         }
 
         public bool HasAtLeast(int item, int amount)

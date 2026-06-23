@@ -908,11 +908,11 @@
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Aseprite.Editor">
-      <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.2D.Aseprite.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Multiplayer.Center.Editor">
       <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.Multiplayer.Center.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Aseprite.Editor">
+      <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.2D.Aseprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
       <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
@@ -1048,6 +1048,10 @@
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{91f2dd1b-dc92-eb6e-de60-12c462c8a644}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="ExportProjectToZip.csproj">
+      <Project>{1b0c2c68-1e75-cfe3-e7b5-80aee8cbd9c1}</Project>
+      <Name>ExportProjectToZip</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

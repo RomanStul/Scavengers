@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8fc5ecc83455a246b8896d125e5a76c, type: 3}
   m_Name: Storage_Size_I
   m_EditorClassIdentifier: 
-  cost: 10
+  cost: 20
   neededItems: []
   neededUpgrades: 06000000
   description: Increase capacity of module storage by 3.
