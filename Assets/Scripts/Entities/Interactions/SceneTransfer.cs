@@ -10,15 +10,20 @@ namespace Entities.Interactions
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
-        [SerializeField] private string sceneToLoad;
-        [FormerlySerializedAs("position")] [SerializeField] private Vector2 positionToSpawn = Vector2.zero;
+        [SerializeField] protected string sceneToLoad;
+        [FormerlySerializedAs("position")] [SerializeField] protected Vector2 positionToSpawn = Vector2.zero;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
         public void LoadScene(Module module)
         {
-            module.CreateStateObject(sceneToLoad, positionToSpawn);
-            module.PrepareForSceneTransfer(positionToSpawn, sceneToLoad, transform.position);
+            LoadScene(module, positionToSpawn, sceneToLoad);
+        }
+
+        protected void LoadScene(Module module, Vector2 position, string scene)
+        {
+            module.CreateStateObject(scene, position);
+            module.PrepareForSceneTransfer(position, scene, transform.position);
         }
     }
 }

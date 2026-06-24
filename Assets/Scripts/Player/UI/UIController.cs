@@ -47,7 +47,8 @@ namespace Player.UI
             Pause,
             Transmission,
             Help,
-            News
+            News,
+            Portal
         }
         
         //================================================================EDITOR VARIABLES

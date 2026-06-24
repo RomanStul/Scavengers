@@ -52,6 +52,7 @@ namespace Menu
             public int[] DestroyedRespawnOres;
             public int[] DestroyedObjects;
             public MovableStateToSave[] MovablePositions;
+            public DestructionManager.PermanentObject[] PermanentObjects;
             //changes on market
         }
         
@@ -267,6 +268,7 @@ namespace Menu
             currentSave.EnvironmentData.DestroyedOres = DestructionManager.instance.GetDestroyedOresArray();
             currentSave.EnvironmentData.DestroyedRespawnOres = DestructionManager.instance.GetDestroyedRespawnOresArray();
             currentSave.EnvironmentData.MovablePositions = DestructionManager.instance.GetMovablePositionsArray();
+            currentSave.EnvironmentData.PermanentObjects = DestructionManager.instance.GetPermanentObjects();
             
             //Milestone Data
             
@@ -324,6 +326,7 @@ namespace Menu
             DestructionManager.instance.SetDestroyedObjects(currentSave.EnvironmentData.DestroyedObjects);
             DestructionManager.instance.SetMovablePositions(currentSave.EnvironmentData.MovablePositions);
             DestructionManager.instance.SetDestroyedRespawnOres(currentSave.EnvironmentData.DestroyedRespawnOres);
+            DestructionManager.instance.SetDestroyedObjects(currentSave.EnvironmentData.DestroyedObjects);
             
 
             

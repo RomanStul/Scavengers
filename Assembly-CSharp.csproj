@@ -57,11 +57,13 @@
     <Compile Include="Assets\Scripts\HelpScripts\MyRaycast.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\DestructionManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\ResourceShop.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\PortalWindow\AnchorButton.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SaveButtonsGrid.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\DoorController.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Geyser.cs" />
     <Compile Include="Assets\ScriptableObjects\Upgrade\UpgradeSO.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\UpgradesShop.cs" />
+    <Compile Include="Assets\Scripts\Entities\Interactions\OutpostPortal.cs" />
     <Compile Include="Assets\Scripts\Player\Module\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Player\Module\BaseClass.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleSounds.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\PulseOre.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\ItemFrame.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Boulder.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\Tools\GravityAnchor.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ToolHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\InteractionHandler.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Module.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Assets\Scripts\Entities\Interactions\ToolsShop.cs" />
     <Compile Include="Assets\Scripts\Player\Module\CollisionHandler.cs" />
     <Compile Include="Assets\Scripts\Milestones\SceneMilestoneManager.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\PortalWindow\PortalWindow.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeSelectButton.cs" />
     <Compile Include="Assets\Scripts\Player\UI\HelpDisplay.cs" />

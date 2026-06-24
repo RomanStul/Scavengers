@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Entities.Environment.Traps_and_puzzles;
 using JetBrains.Annotations;
 using Menu;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Entities.Environment
 {
@@ -16,7 +19,33 @@ namespace Entities.Environment
             public Vector2 velocity;
             public Movable movableRef;
         }
+
+        
+
+        
+        public class PermanentObject
+        {
+
+            public enum permanentObjectType
+            {
+                GravityAnchor
+            }
+            
+            public string Scene;
+            public GameObject GameObject;
+            public permanentObjectType Type;
+            public Vector2 Position;
+
+            public PermanentObject(string scene, GameObject gameObject, permanentObjectType type, Vector2 position)
+            {
+                Scene = scene;
+                GameObject = gameObject;
+                Type = type;
+                Position = position;
+            }
+        }
         //================================================================EDITOR VARIABLES
+        [SerializeField] private GameObject[] permanentObjectReferences;
         //================================================================GETTER SETTER
 
         public int[] GetDestroyedOresArray()
@@ -59,6 +88,11 @@ namespace Entities.Environment
             }
 
             return objects;
+        }
+
+        public PermanentObject[] GetPermanentObjects()
+        {
+            return permanentObjects.Values.ToArray();
         }
 
         public SavesManager.MovableStateToSave[] GetMovablePositionsArray()
@@ -114,6 +148,16 @@ namespace Entities.Environment
             }
         }
 
+        public void SetPermanentObjects(PermanentObject[] permanentObjects)
+        {
+            foreach (PermanentObject po in permanentObjects)
+            {
+                GameObject inst = Instantiate(permanentObjectReferences[(int)po.Type], po.Position, Quaternion.identity);
+                this.permanentObjects.Add(inst, new PermanentObject(po.Scene, inst, po.Type, po.Position));
+                inst.SetActive(SceneManager.GetActiveScene().name == po.Scene);
+            }
+        }
+
         //================================================================FUNCTIONALITY
         public static DestructionManager instance;
         
@@ -122,6 +166,7 @@ namespace Entities.Environment
         private HashSet<int> destructiblesSet = new HashSet<int>();
         private HashSet<int> dayHashSet = new HashSet<int>();
         private Dictionary<int, MovableState> movablePositions = new Dictionary<int, MovableState>();
+        private Dictionary<GameObject, PermanentObject> permanentObjects = new Dictionary<GameObject, PermanentObject>();
         
         
         private void Awake()
@@ -186,6 +231,27 @@ namespace Entities.Environment
         public void ResetDayHashSet()
         {
             dayHashSet.Clear();
+        }
+
+        public void AddPermanentObject(GameObject objectToAdd, PermanentObject.permanentObjectType type)
+        {
+            permanentObjects.Add(objectToAdd, new PermanentObject(SceneManager.GetActiveScene().name, objectToAdd, type, Convertor.Vec3ToVec2(objectToAdd.transform.position)));
+            objectToAdd.transform.parent = transform;
+        }
+
+        public void RemovePermanentObject(GameObject objectToRemove)
+        {
+            objectToRemove.transform.parent = null;
+            permanentObjects.Remove(objectToRemove);
+            
+        }
+
+        public void ShowPermanentObjects(String sceneName)
+        {
+            foreach (KeyValuePair<GameObject, PermanentObject> perm in permanentObjects)
+            {
+                perm.Value.GameObject.SetActive(perm.Value.Scene == sceneName);
+            }
         }
         
         

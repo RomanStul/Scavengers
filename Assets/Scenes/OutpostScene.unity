@@ -37990,6 +37990,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destructibleId: 1984556107
   respawns: 0
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyLoad:
+    m_PersistentCalls:
+      m_Calls: []
   drops:
   - item: {fileID: 11400000, guid: b0aafed1a06909b43a5327799921e666, type: 2}
     amount: 1
@@ -47408,6 +47414,18 @@ PrefabInstance:
       propertyPath: stopModule
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4633916471595169002, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
+      propertyPath: onUse.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9109130585106445607}
+    - target: {fileID: 4633916471595169002, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
+      propertyPath: onUse.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Use
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633916471595169002, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
+      propertyPath: onUse.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Entities.Interactions.OutpostPortal, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5225783407460786490, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -47452,11 +47470,34 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 68019345524198254, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7875771310865043, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9109130585106445607}
   m_SourcePrefab: {fileID: 100100000, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
+--- !u!1 &9109130585106445606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7875771310865043, guid: 3b781e10c1d798b429adefe72c943b2d, type: 3}
+  m_PrefabInstance: {fileID: 9109130585106445605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9109130585106445607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109130585106445606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69499519386df304cad94c953cc25e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: Layer0
+  positionToSpawn: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

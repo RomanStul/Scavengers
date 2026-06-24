@@ -1,5 +1,6 @@
 using Player.Module;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Entities.Environment
 {
@@ -51,6 +52,8 @@ namespace Entities.Environment
             {
                 moduleRef = GameObject.FindGameObjectsWithTag("Player")[0].GetComponent<Module>();
             }
+
+            DestructionManager.instance.ShowPermanentObjects(SceneManager.GetActiveScene().name);
         }
         
     }
