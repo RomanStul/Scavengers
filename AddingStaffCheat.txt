@@ -9,7 +9,8 @@ Ore
 - ItemSo drop
 - ore prefab
 - add to ItemDBSo
--increase size of module storage array
+- increase size of module storage array
+- minimap textures SO
 
 Upgrade
 

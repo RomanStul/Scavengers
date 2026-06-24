@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarConstants:
-    maxHealth: 20
+    maxHealth: 5
     currentHealth: 0
     maxAsStarting: 1
   material: {fileID: 0}
@@ -159,18 +159,6 @@ MonoBehaviour:
   onDestroyedEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3562917695035700268}
-        m_TargetAssemblyTypeName: Entities.ItemDropper, Assembly-CSharp
-        m_MethodName: DropItems
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3562917695035700268}
         m_TargetAssemblyTypeName: Entities.ItemDropper, Assembly-CSharp
         m_MethodName: DropItems
@@ -209,11 +197,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c126216345ed58469e7e515ca47416b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructibleId: 1571744141
+  Id: 1
   respawns: 0
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyLoad:
+    m_PersistentCalls:
+      m_Calls: []
   drops:
   - item: {fileID: 11400000, guid: 4cfdd0bced855a640980f95b5b04e55a, type: 2}
     amount: 1
+  RespawnChance: 0
 --- !u!1 &5446988093814475432
 GameObject:
   m_ObjectHideFlags: 0

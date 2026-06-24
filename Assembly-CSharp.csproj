@@ -50,7 +50,6 @@
     <Compile Include="Assets\Scripts\HelpScripts\ModuleManipulation.cs" />
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Destructible.cs" />
-    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\ShipWreck.cs" />
     <Compile Include="Assets\Scripts\sounds\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Player\UI\News.cs" />
     <Compile Include="Assets\Scripts\Entities\HealthBar.cs" />
@@ -70,14 +69,17 @@
     <Compile Include="Assets\Scripts\Player\Module\ModuleState.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Drill\Drill.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Layer0Boulder.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\SavedObjectHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Storage.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SaveButton.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\KeySpawner.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\ExplosiveTool.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleAnimations.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeWindowController.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Upgrades\ModuleUpgrades.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Enviroment.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\PulseOre.cs" />
+    <Compile Include="Assets\ScriptableObjects\Difficulty\DifficultySO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\ItemFrame.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\Boulder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\GravityAnchor.cs" />
@@ -98,19 +100,23 @@
     <Compile Include="Assets\ScriptableObjects\Day\DaySO.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\SceneTransfer.cs" />
     <Compile Include="Assets\ScriptableObjects\Tools\ToolSO.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\SaveIDDistibutor.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\ToolsShop.cs" />
     <Compile Include="Assets\Scripts\Player\Module\CollisionHandler.cs" />
     <Compile Include="Assets\Scripts\Milestones\SceneMilestoneManager.cs" />
     <Compile Include="Assets\Scripts\Player\UI\PortalWindow\PortalWindow.cs" />
+    <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\CollisionEventTrigger.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Upgrades\UpgradeSelectButton.cs" />
     <Compile Include="Assets\Scripts\Player\UI\HelpDisplay.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Tools\ToolsFrame.cs" />
     <Compile Include="Assets\Scripts\Player\Module\ModuleBaseScript.cs" />
+    <Compile Include="Assets\Scripts\Entities\SpecifiedItemDropper.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\Player\UI\RepairRefuel\RepairRefuel.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\DoorKey.cs" />
     <Compile Include="Assets\Scripts\Milestones\MilestoneTriggers\MilestoneTrigger.cs" />
+    <Compile Include="Assets\ScriptableObjects\MapTextures\MapTextureSO.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Transmission.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SliderController.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\Interactable.cs" />
@@ -120,7 +126,6 @@
     <Compile Include="Assets\Scripts\Player\UI\UnlockNotification.cs" />
     <Compile Include="Assets\Scripts\Milestones\GlobalMilestoneManager.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Tools\RepairKit.cs" />
-    <Compile Include="Assets\Scripts\Entities\Environment\OreHolder.cs" />
     <Compile Include="Assets\Scripts\Player\Module\Input.cs" />
     <Compile Include="Assets\ScriptableObjects\Item\ItemDBSO.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\PermanentGeyser.cs" />
@@ -139,6 +144,7 @@
     <Compile Include="Assets\Scripts\Player\Module\Drill\DrillController.cs" />
     <Compile Include="Assets\Scripts\HelpScripts\Convertor.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\GeyserSystem.cs" />
+    <Compile Include="Assets\Scripts\Player\Module\CameraShake.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIWindow.cs" />
     <Compile Include="Assets\Scripts\Player\UI\Inventory\InventoryHandler.cs" />
     <Compile Include="Assets\Scripts\Player\UI\ToolDisplay.cs" />
@@ -157,6 +163,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Packages\ca.tim-cstj.export-project-to-zip\package.json" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
@@ -977,11 +984,11 @@
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Aseprite.Editor">
-      <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.2D.Aseprite.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Multiplayer.Center.Editor">
       <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.Multiplayer.Center.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Aseprite.Editor">
+      <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.2D.Aseprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics.Editor">
       <HintPath>D:\Projektíky\Unity\Scavenger\Library\ScriptAssemblies\Unity.Mathematics.Editor.dll</HintPath>
@@ -1114,6 +1121,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="ExportProjectToZip.csproj">
+      <Project>{1b0c2c68-1e75-cfe3-e7b5-80aee8cbd9c1}</Project>
+      <Name>ExportProjectToZip</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

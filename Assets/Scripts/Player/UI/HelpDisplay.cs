@@ -19,6 +19,7 @@ namespace Player.UI
             OnlyDash,
             OnlyStop,
             Inventory,
+            Reverse
 
         }
         [Serializable]
@@ -31,6 +32,7 @@ namespace Player.UI
         
         //================================================================EDITOR VARIABLES
         [SerializeField] private DisplayModeComponent[] helpModeComponents;
+        [SerializeField] private GameObject texts;
         
 
         public float HideDelay = 5f;
@@ -45,6 +47,7 @@ namespace Player.UI
                 {
                     dmc.helpObject.SetActive(dmc.unlocked || dmc.upgradeToUnlock == -1);
                 }
+                texts.SetActive(true);
                 return;
             }
             
@@ -52,7 +55,7 @@ namespace Player.UI
             {
                 helpModeComponents[i].helpObject.SetActive(i+1 == (int)mode);
             }
-            
+            texts.SetActive(false);
         }
 
         public void UnlockHelpComponent(ModuleUpgrades upgradeScript)

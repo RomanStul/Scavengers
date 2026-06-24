@@ -125,12 +125,17 @@ namespace Player.Module.Drill
         //Called from drill animation 'Using'
         public void DamageTarget()
         {
-            if (_target == null) return;
+            if (_target == null)
+            {
+                drillController.PlayDrillSound(false, ModuleSounds.SoundName.DrillDamage);
+                return;
+            }
 
             Entities.HealthBar healthBar = _target.GetComponent<Entities.HealthBar>();
             if (healthBar != null)
             {
-                healthBar.TakeDamage(drillConstants.damage, MaterialSO.DamageType.Plasma);
+                float remainingHP = healthBar.TakeDamage(drillConstants.damage, MaterialSO.DamageType.Plasma);
+                drillController.PlayDrillSound(remainingHP > 0, ModuleSounds.SoundName.DrillDamage);
             }
         }
 
@@ -157,6 +162,7 @@ namespace Player.Module.Drill
         public void StopDrillSound()
         {
             drillController.PlayDrillSound(false, ModuleSounds.SoundName.DrillUse);
+            drillController.PlayDrillSound(false, ModuleSounds.SoundName.DrillDamage);
         }
 
         public void PlayStartSound()

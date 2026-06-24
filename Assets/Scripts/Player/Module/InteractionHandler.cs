@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Entities;
-using Entities.Environment;
 using Entities.Interactions;
+using Menu;
 using Milestones;
 using Player.Module.Upgrades;
 using Player.UI;
 using story;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Environment = Entities.Environment.Environment;
 
 namespace Player.Module
 {
@@ -25,11 +27,20 @@ namespace Player.Module
             Portal,
             EndOfDay
         }
+
+        [Serializable]
+        public class TimerConstants
+        {
+            public float baseTimerLenght;
+            public float maxTimerLenght;
+            public float increasePerDay;
+            public int firstIncreaseDay;
+        }
         
         //================================================================EDITOR VARIABLES
         
         [SerializeField] private List<bool> availableInteractions;
-        [SerializeField] private float interactionTimerLength;
+        [SerializeField] private TimerConstants timerConstants;
         
         //================================================================GETTER SETTER
 
@@ -53,9 +64,10 @@ namespace Player.Module
             set
             {
                 timerValue = value;
-                if ((!Mathf.Approximately(value, interactionTimerLength) || SceneManager.GetActiveScene().name != "OutpostScene") && !timerIsRunning)
+                CalculateCurrentFullTimer();
+                ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)currentFullTimer, UIController.BarsNames.Timer, true);
+                if ((!Mathf.Approximately(value, currentFullTimer) || SceneManager.GetActiveScene().name != "OutpostScene") && !timerIsRunning)
                 {
-                    timerIsRunning = true;
                     StartCoroutine(TimerCountdown());
                 }
             }
@@ -68,25 +80,21 @@ namespace Player.Module
         private float timerValue = -99;
         private bool timerIsRunning = false;
         private bool endOfDayWarned = false;
+        private bool inventoryFullWarned = false;
+        private float currentFullTimer = 0;
 
         public override void ApplyUpgrades()
         {
-            if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Portal_passkey))
-            {
-                availableInteractions[(int)InteractionType.Portal] = true;
-                availableInteractions[(int)InteractionType.Resources] = true;
-                availableInteractions[(int)InteractionType.Repair] = true;
-            }
+            bool passkey = ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.Portal_passkey);
+                availableInteractions[(int)InteractionType.Portal] = passkey && timerValue < -50 || availableInteractions[(int)InteractionType.Portal];
+                availableInteractions[(int)InteractionType.Resources] = passkey;
+                availableInteractions[(int)InteractionType.Repair] = passkey;
 
-            if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.ToolsUnlock))
-            {
-                availableInteractions[(int)InteractionType.Items] = true;
-            }
+            bool toolsUnlock = ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.ToolsUnlock);
+                availableInteractions[(int)InteractionType.Items] = toolsUnlock;
 
-            if (ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.EndOfDay))
-            {
-                availableInteractions[(int)InteractionType.EndOfDay] = true;
-            }
+            bool endOfDay = ModuleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).IsActive(Upgrades.ModuleUpgrades.Ups.EndOfDay);
+                availableInteractions[(int)InteractionType.EndOfDay] = endOfDay;
         }
 
         private void SetUpInteractableEntity(Interactable interaction)
@@ -95,13 +103,18 @@ namespace Player.Module
             {
                 return;
             }
-            //TODO add logic to unlock interactable items with upgrades
             if (currentInteractableEntity != null)
             {
                 currentInteractableEntity.Activate(false, ModuleRef);
             }
             currentInteractableEntity = interaction;
             currentInteractableEntity.Activate(true, ModuleRef);
+        }
+
+        private float CalculateCurrentFullTimer()
+        {
+            currentFullTimer = Mathf.Min(timerConstants.baseTimerLenght + timerConstants.increasePerDay * (StoryManager.instance.GetDayNumber() - timerConstants.firstIncreaseDay), timerConstants.maxTimerLenght);
+            return currentFullTimer * SavesManager.Instance.GetDifficulty().dayLengthMultiplier;
         }
 
         public void UseEntity()
@@ -121,6 +134,13 @@ namespace Player.Module
                         ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("I should refuel first");
                         return;
                     }
+
+                    if (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).GetFreeSpace() == 0 && !inventoryFullWarned && SceneManager.GetActiveScene().name == "OutpostScene")
+                    {
+                        inventoryFullWarned = true;
+                        ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowMonologHelp("I should sell something first");
+                        return;
+                    }
                     if(!timerIsRunning)
                         StartCoroutine(TimerCountdown());
                 }
@@ -138,6 +158,11 @@ namespace Player.Module
                     ResetTimer();
                     
                 }
+
+                if (currentInteractableEntity.InteractionType == InteractionType.Resources)
+                {
+                    inventoryFullWarned = false;
+                }
                 currentInteractableEntity.Use();
             }
         }
@@ -145,11 +170,11 @@ namespace Player.Module
 
         public void ResetTimer()
         {
-            timerValue = interactionTimerLength;
+            timerValue = CalculateCurrentFullTimer();
             availableInteractions[(int)InteractionType.Portal] = true;
             timerIsRunning = false;
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)interactionTimerLength, UIController.BarsNames.Timer);
-            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)interactionTimerLength, UIController.BarsNames.Timer, true);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)timerValue, UIController.BarsNames.Timer, true);
+            ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)timerValue, UIController.BarsNames.Timer);
         }
 
         private IEnumerator TimerCountdown()
@@ -160,14 +185,14 @@ namespace Player.Module
             }
 
             timerIsRunning = true;
-            float nextThreshold = interactionTimerLength * 0.75f;
+            float nextThreshold = timerValue * 0.75f;
             while (timerValue >  0 && timerIsRunning)
             {
                 timerValue -= Time.deltaTime * Environment.instance.timerMultiplier;
                 ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetBar((int)timerValue, UIController.BarsNames.Timer, false);
                 if (timerValue < nextThreshold)
                 {
-                    nextThreshold = nextThreshold - interactionTimerLength * 0.25f;
+                    nextThreshold = nextThreshold - timerConstants.baseTimerLenght * 0.25f;
                     ModuleRef.GetScript<ModuleSounds>(Module.ScriptNames.SoundsScript).PlaySound(ModuleSounds.SoundName.Timer, transform);
                 }
                 yield return null;
@@ -180,7 +205,7 @@ namespace Player.Module
                 currentInteractableEntity = null;
             }
 
-            if (StoryManager.instance.GetDayNumber() == 1 && shouldInvokeTimerMilestone)
+            if (shouldInvokeTimerMilestone)
             {
                 SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.TimerRanOut, 1));
             }

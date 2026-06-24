@@ -8,6 +8,7 @@ using Player.Module;
 using Player.Module.Movement;
 using Player.Module.Tools;
 using Player.Module.Upgrades;
+using ScriptableObjects.Difficulty;
 using story;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -54,6 +55,7 @@ namespace Menu
             public MovableStateToSave[] MovablePositions;
             public DestructionManager.PermanentObject[] PermanentObjects;
             //changes on market
+            public int[] openedBarricades;
         }
         
         [Serializable]
@@ -98,6 +100,7 @@ namespace Menu
             public string name;
             public SaveBranch[] branches;
             public int lastSaveBranch = -1;
+            public string difficultyName = "";
         }
 
         [Serializable]
@@ -109,7 +112,18 @@ namespace Menu
             public int totalDays;
             public bool endsWithDeath = false;
         }
+        
+        [Serializable]
+        public class DifficultyData
+        {
+            public DifficultySO[] difficulties;
+            public DifficultySO currentDifficulty;
+        }
+
+        
         //================================================================EDITOR VARIABLES
+        [SerializeField] private DifficultyData difficultyData;
+
 
         //================================================================GETTER SETTER
         public string CurrentSaveName { get { return currentSaveName; } }
@@ -125,6 +139,11 @@ namespace Menu
         public List<string> GetSaveNames()
         {
             return saveNames;
+        }
+
+        public DifficultySO GetDifficulty()
+        {
+            return difficultyData.currentDifficulty;
         }
         //================================================================FUNCTIONALITY
     
@@ -147,11 +166,11 @@ namespace Menu
             saveNames = LoadSaveNames();
         }
 
-        public void WriteSaveIntoFile(Save saveToWrite)
+        public void WriteSaveIntoFile(Save saveToWrite, string difficultyName = "")
         {
             if (!Directory.Exists("saves/" + saveToWrite.Name))
             {
-                CreateNewSaveDirectory(saveToWrite.Name);
+                CreateNewSaveDirectory(saveToWrite.Name, difficultyName);
             }
 
             currentSaveStructure.lastSaveBranch = currentBranch;
@@ -183,6 +202,7 @@ namespace Menu
             {
                 savePath = SaveFilePathCompositor(saveToWrite.Name, currentBranch, saveToWrite.StoryData.dayNumber);
             }
+
             StreamWriter saveFile = File.CreateText(savePath);
             saveFile.Write(json);
             saveFile.Close();
@@ -191,7 +211,7 @@ namespace Menu
                 
         }
 
-        public void CreateNewSaveDirectory(string saveName)
+        public void CreateNewSaveDirectory(string saveName, string difficultyName = "")
         {
             Directory.CreateDirectory(Path.Combine("saves/" + saveName));
             SavesStructure saveStructure = new SavesStructure();
@@ -204,6 +224,8 @@ namespace Menu
                 startDay = 1,
                 totalDays = 1
             };
+            saveStructure.difficultyName = difficultyName;
+            
             currentBranch = 0;
             currentSaveStructure = saveStructure;
             WriteSaveStructureToFile(saveName);
@@ -239,6 +261,9 @@ namespace Menu
             currentSave.Name = save;
             currentSave.DatetimeString = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
             currentSave.isDayStart = isDayStartSave;
+            
+            currentSave.ModuleData.Scene = scene;
+            currentSave.ModuleData.Position = position;
 
             if (moduleRef == null)
             {
@@ -257,8 +282,7 @@ namespace Menu
             currentSave.ModuleData.StoredItems = moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).ItemStorage;
             currentSave.ModuleData.Currency = moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency;
             currentSave.ModuleData.Upgrades = moduleRef.GetScript<ModuleUpgrades>(Module.ScriptNames.UpgradesScript).GetUpgrades();
-            currentSave.ModuleData.Scene = scene;
-            currentSave.ModuleData.Position = position;
+      
             currentSave.ModuleData.TimerValue = moduleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).TimerValue;
             currentSave.ModuleData.Tools = moduleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).GetToolAmounts();
         
@@ -269,6 +293,7 @@ namespace Menu
             currentSave.EnvironmentData.DestroyedRespawnOres = DestructionManager.instance.GetDestroyedRespawnOresArray();
             currentSave.EnvironmentData.MovablePositions = DestructionManager.instance.GetMovablePositionsArray();
             currentSave.EnvironmentData.PermanentObjects = DestructionManager.instance.GetPermanentObjects();
+            currentSave.EnvironmentData.openedBarricades = DestructionManager.instance.GetBarricadeArray();
             
             //Milestone Data
             
@@ -300,6 +325,9 @@ namespace Menu
 
         public void LoadSaveIntoModule(Module moduleRef)
         {
+            //Load before test because is not part of a saveFile but a save tree (Save can be invalid and this is still correct)
+            moduleRef.moveRb.linearDamping *= difficultyData.currentDifficulty.frictionMultiplier;
+            
             if (currentSave == null || !currentSave.valid)
             {
                 return;
@@ -314,7 +342,8 @@ namespace Menu
             moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).ItemStorage = currentSave.ModuleData.StoredItems;
             moduleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency = currentSave.ModuleData.Currency;
             moduleRef.transform.position = new Vector3(currentSave.ModuleData.Position.x, currentSave.ModuleData.Position.y, 0);
-            moduleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).TimerValue = currentSave.ModuleData.TimerValue;
+            if(!currentSave.isDayStart)// if is day start => timer will set automatically and this can break the max timer value
+                moduleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).TimerValue = currentSave.ModuleData.TimerValue;
             moduleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).SetToolAmounts(currentSave.ModuleData.Tools);
 
             if (currentSave.isDayStart)
@@ -327,6 +356,7 @@ namespace Menu
             DestructionManager.instance.SetMovablePositions(currentSave.EnvironmentData.MovablePositions);
             DestructionManager.instance.SetDestroyedRespawnOres(currentSave.EnvironmentData.DestroyedRespawnOres);
             DestructionManager.instance.SetDestroyedObjects(currentSave.EnvironmentData.DestroyedObjects);
+            DestructionManager.instance.SetOpenedBarricades(currentSave.EnvironmentData.openedBarricades);
             
 
             
@@ -367,6 +397,12 @@ namespace Menu
             return loadedNames;
         }
 
+        public void DeleteSave(string saveName)
+        {
+            saveNames.Remove(saveName);
+            if(Directory.Exists("saves/" + saveName)){Directory.Delete("saves/" + saveName, true);}
+        }
+
         public SavesStructure LoadSaveStructure(string saveName)
         {
             currentSaveStructure = JsonUtility.FromJson<SavesStructure>(File.ReadAllText("saves/" + saveName + "/structure"));
@@ -392,10 +428,25 @@ namespace Menu
             }
 
             currentSave = JsonUtility.FromJson<Save>(File.ReadAllText(currentSavePath));
-
             currentBranch = branch;
+            
+            FindDifficultyData(currentSaveStructure.difficultyName);
 
             SceneManager.LoadScene(currentSave.ModuleData.Scene);
+        }
+
+        private void FindDifficultyData(string diffName)
+        {
+            foreach (DifficultySO dso in difficultyData.difficulties)
+            {
+                if (dso.name == diffName)
+                {
+                    difficultyData.currentDifficulty = dso;
+                    return;
+                }
+            }
+
+            Debug.Log("cant match " + diffName);
         }
 
         public static string SaveFilePathCompositor(string saveName, int branch, int day)

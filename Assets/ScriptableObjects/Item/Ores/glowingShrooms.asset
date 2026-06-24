@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 21300000, guid: 3d9af0cba0387ce47a3f802f6807ce5c, type: 3}
   itemType: 3
-  price: 8
+  price: 6

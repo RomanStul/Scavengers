@@ -23,7 +23,8 @@ namespace Player.UI
         public enum InterrogationName
         {
             Day0,
-            FailedToPay
+            FailedToPay,
+            FoundRuins,
         }
         //================================================================EDITOR VARIABLES
         [SerializeField] private TextMeshProUGUI paragraphPrefab;
@@ -37,19 +38,25 @@ namespace Player.UI
         {
             scroll = false;
         }
+
+        public void SetInterrogationToWrite(InterrogationName toWrite)
+        {
+            interrogationToWrite = toWrite;
+        }
         //================================================================FUNCTIONALITY
         private InterrogationTexts interrogationTexts;
         private float targetOffset = 0;
         private bool scroll = true;
+        private InterrogationName interrogationToWrite;
 
         private void Start()
         {
             interrogationTexts = JsonUtility.FromJson<InterrogationTexts>(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Json/InterrogationTexts.json")));
         }
 
-        public void Write(InterrogationName textId, Module.Module moduleRef)
+        public void Write(Module.Module moduleRef)
         {
-            StartCoroutine(Printing(interrogationTexts.texts[(int)textId], moduleRef));
+            StartCoroutine(Printing(interrogationTexts.texts[(int)interrogationToWrite], moduleRef));
         }
 
         private IEnumerator Printing(string text, Module.Module moduleRef)
@@ -79,7 +86,7 @@ namespace Player.UI
                 
             }
             
-            ((ModuleAnimations)moduleRef.GetScript<ModuleAnimations>(Module.Module.ScriptNames.AnimationFunctionsScript)).PlayNextInterrogationAnimation();
+            moduleRef.GetScript<ModuleAnimations>(Module.Module.ScriptNames.AnimationFunctionsScript).PlayNextInterrogationAnimation();
         }
 
         public void ShowButtons()
@@ -109,8 +116,7 @@ namespace Player.UI
 
                 yield return null;
             }
-
-            Debug.Log("scroll ended");
+            
         }
     }
 }

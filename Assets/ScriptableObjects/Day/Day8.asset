@@ -15,8 +15,8 @@ MonoBehaviour:
   dayNumber: 8
   refuelCostMultiplier: -1
   repairCostMultiplier: -1
-  evacuateCost: 15
+  evacuateCost: 5
   startOfDayPayment: -1
   priceChanges:
   - item: 1
-    multiplier: 0.5
+    multiplier: 0.25

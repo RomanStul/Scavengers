@@ -166,7 +166,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -810303221
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 5347bd871239cf447814c44edcc31b54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -289,6 +289,7 @@ Transform:
   m_Children:
   - {fileID: 7798340441450876532}
   - {fileID: 712054561222841077}
+  - {fileID: 7970785040165485708}
   m_Father: {fileID: 6032530911398820215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7563059809046132596
@@ -383,6 +384,37 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.58, y: 4.9}
   m_Direction: 0
+--- !u!1 &5376415598795267481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7970785040165485708}
+  m_Layer: 10
+  m_Name: MandibleCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7970785040165485708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5376415598795267481}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.027000427, y: -2.3450017, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3646512672768536893}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5687779639421417118
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +460,8 @@ GameObject:
   - component: {fileID: 4604003585230881940}
   - component: {fileID: 8403695289454336320}
   - component: {fileID: 6117237547916060270}
+  - component: {fileID: 1825522443712811629}
+  - component: {fileID: 1575025045105289386}
   m_Layer: 10
   m_Name: Attack
   m_TagString: Untagged
@@ -489,10 +523,12 @@ MonoBehaviour:
   grabberConstants:
     delayBeforeAttack: 0
     delayAfterAttack: 0
-    damage: 20
-    throwForce: 200
+    damage: 15
+    throwForce: 150
+    maxRangeGrab: 0.65
     damageType: 0
   lookingForTarget: 1
+  mandibleCenter: {fileID: 7970785040165485708}
 --- !u!50 &8403695289454336320
 Rigidbody2D:
   serializedVersion: 5
@@ -557,6 +593,63 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -3.39}
   m_Size: {x: 5, y: 5}
   m_Direction: 0
+--- !u!114 &1825522443712811629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6560739226150264601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43495b20128169a4280004e5647ef254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 323019054
+  respawns: 0
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyLoad:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1575025045105289386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6560739226150264601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab0ee2398b74a047b5860a0641abc68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarConstants:
+    maxHealth: 20
+    currentHealth: 0
+    maxAsStarting: 1
+  material: {fileID: 11400000, guid: c24e23df0b29c014db42c976bfe660e6, type: 2}
+  onHealthChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1825522443712811629}
+        m_TargetAssemblyTypeName: Entities.Environment.Destructible, Assembly-CSharp
+        m_MethodName: Destroy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  healthLossSound: {fileID: 0}
+  DestructionSound: {fileID: 0}
 --- !u!1 &7573030223804658231
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,9 +724,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -810303221
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0

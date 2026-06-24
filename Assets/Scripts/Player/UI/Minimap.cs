@@ -10,7 +10,7 @@ namespace Player.UI
     {
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
-        [SerializeField] private Image minimapTexture;
+        [SerializeField] private Image minimapTexture, objectImage;
         [SerializeField] private Texture overlay;
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
@@ -33,6 +33,9 @@ namespace Player.UI
             minimapTexture.material.SetTexture("_overlay", overlay);
             minimapTexture.material.SetTexture("_colorTexture", Environment.instance.GetMinimap().texture);
             minimapTexture.material.SetVector("_overlayScale", new Vector4(1, ((float)Environment.instance.GetMinimap().texture.height * 8)/((float)overlay.height * 3), 0, 0));
+            
+            Texture2D objectTexture = Environment.instance.GetObjectTexture();
+            objectImage.sprite = Sprite.Create(objectTexture, new Rect(0,0, objectTexture.width, objectTexture.height ), new Vector2(0.5f, 0.5f));
            
             minimapTexture.rectTransform.sizeDelta = new Vector2(Environment.instance.GetMinimap().texture.width, Environment.instance.GetMinimap().texture.height) * 8; 
             ((RectTransform)minimapTexture.transform).anchoredPosition = -initialPosition - ((Convertor.Vec3ToVec2(moduleRef.transform.position) - initialWorldsPos) / 1.25f) * 8f;

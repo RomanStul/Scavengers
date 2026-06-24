@@ -19,3 +19,4 @@ MonoBehaviour:
   unlockUpgrade: 12
   neededItems: []
   executeObject: {fileID: 1723783822653005087, guid: 4a2d8c4da35d1e84bbba17384832b83d, type: 3}
+  droppedIcon: {fileID: 21300000, guid: f21c4728820a5f64bb1c972907d47390, type: 3}

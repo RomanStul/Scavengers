@@ -17,6 +17,4 @@ MonoBehaviour:
   repairCostMultiplier: 1.1
   evacuateCost: -1
   startOfDayPayment: 5
-  priceChanges:
-  - item: 1
-    multiplier: 0.5
+  priceChanges: []

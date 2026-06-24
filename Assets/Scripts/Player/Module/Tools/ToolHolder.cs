@@ -96,7 +96,7 @@ namespace Player.Module.Tools
         {
             if (ShowPlaceholder && currentTool != -1)
             {
-                RaycastHit2D rh2d = MyRaycast.RaycastCollider(toolSpawnPoint.position, toolSpawnPoint.position - transform.position, 4f);
+                RaycastHit2D rh2d = MyRaycast.RaycastCollider(toolSpawnPoint.position, toolSpawnPoint.position - transform.position, 4f, ~LayerMask.GetMask("Player"));
                 if(rh2d.collider != null)
                     toolPlaceholder.transform.position = rh2d.point;
                 else
@@ -130,6 +130,13 @@ namespace Player.Module.Tools
                     ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetTool(toolsCounts[currentTool].tool, toolsCounts[currentTool].amount);
                 }
             }
+        }
+
+        public void UseTool(ToolSO.ToolType tool)
+        {
+            ChangeTool(tool);
+            if(currentTool == (int)tool) 
+                UseTool();
         }
 
 

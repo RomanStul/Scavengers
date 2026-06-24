@@ -15,7 +15,7 @@ namespace Entities.Environment.Traps_and_puzzles
         public class GrabberConstants
         {
 
-        public float delayBeforeAttack, delayAfterAttack, damage, throwForce;
+        public float delayBeforeAttack, delayAfterAttack, damage, throwForce, maxRangeGrab;
         public MaterialSO.DamageType damageType;
         }
         //================================================================EDITOR VARIABLES
@@ -23,11 +23,14 @@ namespace Entities.Environment.Traps_and_puzzles
         [SerializeField] private Animator animator;
         [SerializeField] private GrabberConstants grabberConstants;
         [SerializeField] private bool lookingForTarget = true;
+        [SerializeField] private Transform mandibleCenter;
         
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
         
         private Transform target;
+        private Transform snatchedObject;
+        private Rigidbody2D snatchedRigidbody2D;
         
         public void OnTriggerStay2D(Collider2D other)
         {
@@ -42,17 +45,35 @@ namespace Entities.Environment.Traps_and_puzzles
         public void OnCollisionEnter2D(Collision2D other)
         {
             Module m = other.transform.GetComponent<Module>();
-            if (m == null)
+            if (m)
             {
-                return;
+                HealthBar hb = m.GetScript<Player.Module.HealthBar>(Module.ScriptNames.HealthBarScript);
+                float health = hb.TakeDamage(grabberConstants.damage, grabberConstants.damageType);
+                // -up  because texture is oriented upside down
+                if (health > 0)
+                {
+                    m.GetMoveRb().AddForce(-transform.up * grabberConstants.throwForce);
+                }
             }
-            HealthBar hb = m.GetScript<Player.Module.HealthBar>(Module.ScriptNames.HealthBarScript);
-            float health = hb.TakeDamage(grabberConstants.damage, grabberConstants.damageType);
-            // -up  because texture is oriented upside down
-            if (health > 0)
+            else
             {
-                m.GetMoveRb().AddForce(-transform.up * grabberConstants.throwForce);
+                if (other.gameObject.layer != LayerMask.NameToLayer("Player") && Vector2.Distance(Convertor.Vec3ToVec2(mandibleCenter.position), Convertor.Vec3ToVec2(other.transform.position)) < grabberConstants.maxRangeGrab)
+                {
+                    other.transform.position = mandibleCenter.position;
+                    other.transform.parent = mandibleCenter;
+                    Rigidbody2D rb = other.gameObject.GetComponent<Rigidbody2D>();
+                    if (rb != null)
+                    {
+                        rb.bodyType = RigidbodyType2D.Static;
+                        snatchedRigidbody2D = rb;
+                    }
+                }
+                else
+                {
+                    Debug.Log(other.gameObject.layer + " " + Vector3.Distance(mandibleCenter.position, other.transform.position));
+                }
             }
+
         }
 
         public void AdjustRotation()
@@ -69,6 +90,17 @@ namespace Entities.Environment.Traps_and_puzzles
         public void SetLookingForTarget()
         {
             lookingForTarget = true;
+            if (snatchedObject != null)
+            {
+                snatchedObject.parent = null;
+                if (snatchedRigidbody2D != null)
+                {
+                    snatchedRigidbody2D.bodyType = RigidbodyType2D.Dynamic;
+                }
+
+                snatchedObject = null;
+                snatchedRigidbody2D = null;
+            }
         }
     }
 

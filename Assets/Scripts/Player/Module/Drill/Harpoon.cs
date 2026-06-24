@@ -53,6 +53,7 @@ namespace Player.Module.Drill
         private bool shouldAttach = true;
         private Vector3 lastDrillPosition = Vector3.zero;
         private Rigidbody2D moduleRb;
+        private float harpoonDistance;
         
         public void UseHarpoon(Drill drill)
         {
@@ -71,8 +72,7 @@ namespace Player.Module.Drill
             if (target == null || target.GetIsCollecting())
             {
                 Item secondTarget = CircleDetection(Convertor.Vec3ToVec2(transform.position + transform.up * (harpoonConstants.primaryDetectionCircleRadius * 2 + harpoonConstants.secondaryDetectionCircleRadius) ), harpoonConstants.secondaryDetectionCircleRadius);
-                if (target == null ||
-                    target.GetIsCollecting() && secondTarget != null && !secondTarget.GetIsCollecting())
+                if (target == null || target.GetIsCollecting() && secondTarget != null && !secondTarget.GetIsCollecting())
                 {
                     target = secondTarget;
                 }
@@ -146,17 +146,12 @@ namespace Player.Module.Drill
             
             if (status == HarpoonStatus.Recalling)
             {
-                Vector3 drillMove = drillRef.transform.position - lastDrillPosition;
-    
-                Vector3 direction = (drillRef.transform.position - transform.position).normalized;
-                Vector3 recallMove = direction * (harpoonConstants.recallSpeed * Time.fixedDeltaTime);
-
-
-                transform.position += drillMove + recallMove;
+                if (harpoonDistance > Vector3.Distance(transform.position, drillRef.transform.position))
+                {
+                    harpoonDistance = Vector3.Distance(transform.position, drillRef.transform.position);
+                }
                 
-                lastDrillPosition = drillRef.transform.position;
-                
-                if (Vector3.Distance(transform.position, drillRef.transform.position) < 0.1f)
+                if (harpoonDistance < 0.1f)
                 {
                     status = HarpoonStatus.Ready;
                     
@@ -175,9 +170,18 @@ namespace Player.Module.Drill
                     }
                     collectedItem = null;
                 }
+                
+                transform.position = drillRef.transform.position + (transform.position - drillRef.transform.position).normalized * Mathf.Max(harpoonDistance - (harpoonConstants.recallSpeed*Time.fixedDeltaTime), 0);
+                harpoonDistance = Vector3.Distance(drillRef.transform.position, transform.position);
+                
             }
             
             if (status == HarpoonStatus.Launched && Vector3.Distance(transform.position, launchPoint) > harpoonConstants.range)
+            {
+                StartRecalling();
+            }
+
+            if (status == HarpoonStatus.Attached && joint.enabled == false)
             {
                 StartRecalling();
             }
@@ -206,13 +210,9 @@ namespace Player.Module.Drill
             }
         }
 
-        private void OnJointBreak2D(Joint2D brokenJoint)
-        {
-            StartRecalling();
-        }
-
         private void StartRecalling()
         {
+            harpoonDistance = Vector3.Distance(drillRef.transform.position, transform.position);
             lastDrillPosition = drillRef.transform.position;
             status = HarpoonStatus.Recalling;
             trigger.enabled = false;
@@ -241,14 +241,25 @@ namespace Player.Module.Drill
             if (collision.gameObject.layer == LayerMask.NameToLayer("Item"))
             {
                 collectedItem = collision.gameObject.GetComponent<Item>();
-                collectedItem.transform.parent = transform;
-                collectedItem.transform.localPosition = Vector3.zero;
-                collectedItem.TurnOffTriggers();
-                StartRecalling();
+                if (collectedItem)
+                {
+                    collectedItem.transform.parent = transform;
+                    collectedItem.transform.localPosition = Vector3.zero;
+                    collectedItem.TurnOffTriggers();
+                    StartRecalling();
+                }
+
             }
             else
             {
-                if(collision.isTrigger || !shouldAttach || Vector3.Distance(transform.position, drillRef.transform.position) > harpoonConstants.maxAttachDistance) return;
+                if(collision.isTrigger) return;
+
+                if (!shouldAttach || Vector3.Distance(transform.position, drillRef.transform.position) >
+                    harpoonConstants.maxAttachDistance)
+                {
+                    StartRecalling();
+                    return;
+                }
                 
                 status = HarpoonStatus.Attached;
                 joint.connectedAnchor = Convertor.Vec3ToVec2(transform.position);

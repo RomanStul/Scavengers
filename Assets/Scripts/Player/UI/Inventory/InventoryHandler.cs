@@ -43,7 +43,7 @@ namespace Player.UI.Inventory
         [SerializeField] private Text itemName;
         [SerializeField] private Image itemIcon;
         [SerializeField] private Text sliderCount, totalWorthText;
-        [SerializeField] private SliderController countSlider;
+        [SerializeField] private Slider countSlider;
         [SerializeField] private GameObject highlightItem;
 
         //================================================================GETTER SETTER
@@ -260,7 +260,7 @@ namespace Player.UI.Inventory
             itemIcon.sprite = frame.GetFramedItem().image;
             currentlySelectedItemFrame = frame;
             ToggleHighlightedItem();
-            countSlider.SetMaxValue(frame.GetHeldItemsCount());
+            countSlider.maxValue = frame.GetHeldItemsCount();
             SetSliderCount(1);
         }
 
@@ -290,6 +290,7 @@ namespace Player.UI.Inventory
             selectedAmount = (int)value;
             SetSliderCountText();
             SetTotalWorthText();
+            countSlider.value = value;
         }
 
 
