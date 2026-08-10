@@ -34,6 +34,9 @@ namespace Player.Module.Upgrades
             Fuel_Generator,
             Fuel_Generator_Unlock,
             Storage_Size_II,
+            GravityAnchorUnlock,
+            Blue_Key_Unlock,
+            Yellow_Key_Unlock,
         }
 
         [Serializable]

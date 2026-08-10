@@ -65,7 +65,7 @@ namespace Menu
         public void StartNewGame()
         {
             SavesManager.Instance.WriteSaveIntoFile(SavesManager.Instance.CreateSaveObject(null, "OutpostScene", new Vector2(0,0), saveForm.saveNameInputField.text), difficulty.options[difficulty.value].text);
-            SavesManager.Instance.PlaySave(-1, -1);
+            SavesManager.Instance.PlaySave(0, -1);
         }
 
         public void CreateSavesButtons()

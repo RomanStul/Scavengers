@@ -22,7 +22,7 @@ namespace Entities.Environment
 
         
 
-        
+        [Serializable]
         public class PermanentObject
         {
 
@@ -132,7 +132,7 @@ namespace Entities.Environment
         {
             foreach (PermanentObject po in permanentObjects)
             {
-                GameObject inst = Instantiate(permanentObjectReferences[(int)po.Type], po.Position, Quaternion.identity);
+                GameObject inst = Instantiate(permanentObjectReferences[(int)po.Type], po.Position, Quaternion.identity, transform);
                 this.permanentObjects.Add(inst, new PermanentObject(po.Scene, inst, po.Type, po.Position));
                 inst.SetActive(SceneManager.GetActiveScene().name == po.Scene);
             }
@@ -261,6 +261,8 @@ namespace Entities.Environment
             {
                 perm.Value.GameObject.SetActive(perm.Value.Scene == sceneName);
             }
+        }    
+
         private int[] MakeIdArray(HashSet<int> ids)
         {
             int index = 0;

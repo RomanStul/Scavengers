@@ -150,7 +150,7 @@ namespace Menu
         public static SavesManager Instance;
         private Save[] saves;
         private string currentSaveName;
-        private int currentBranch;
+        public int currentBranch;
         private Save currentSave;
         private List<string> saveNames;
         private SavesStructure currentSaveStructure;
@@ -357,6 +357,7 @@ namespace Menu
             DestructionManager.instance.SetDestroyedRespawnOres(currentSave.EnvironmentData.DestroyedRespawnOres);
             DestructionManager.instance.SetDestroyedObjects(currentSave.EnvironmentData.DestroyedObjects);
             DestructionManager.instance.SetOpenedBarricades(currentSave.EnvironmentData.openedBarricades);
+            DestructionManager.instance.SetPermanentObjects(currentSave.EnvironmentData.PermanentObjects);
             
 
             

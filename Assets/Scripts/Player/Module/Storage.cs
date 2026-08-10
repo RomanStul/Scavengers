@@ -82,6 +82,7 @@ namespace Player.Module
             if (item.GetToolData() != null && item.StartCollecting(transform))
             {
                 ModuleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).AddTool(item.GetToolData(), amount);
+                SceneMilestoneManager.currentInstance.CompletedMilestone(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.PickedUpTool, (int)item.GetToolData().toolType));
                 Destroy(item.gameObject);
                 return;
             }

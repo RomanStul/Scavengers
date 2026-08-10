@@ -83,6 +83,7 @@ namespace Player.Module
             //2 because when interrogation is started the day increments and this can be called only after it finishes => 2 == 1
             if(StoryManager.instance.GetDayNumber() != 2)
                 SavesManager.Instance.EndBranchWithDeath();
+            else ModuleRef.Save(true);
         }
 
         
@@ -114,13 +115,6 @@ namespace Player.Module
                 return (int)Interrogation.InterrogationName.Day0;
             }
 
-            if (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency < 0)
-            {
-                interrogationWindow.SetInterrogationToWrite(Interrogation.InterrogationName.FailedToPay);
-                gameOverEndOfDay = true;
-                return (int)Interrogation.InterrogationName.FailedToPay;
-            }
-
             if (GlobalMilestoneManager.instance.UnclaimedMilestones.Contains(new GlobalMilestoneManager.Milestone(GlobalMilestoneManager.MilestoneAction.Entered, 5)))
             {
                 interrogationWindow.SetInterrogationToWrite(Interrogation.InterrogationName.FoundRuins);
@@ -128,15 +122,16 @@ namespace Player.Module
                 endingEndOfDay = true;
                 return (int)Interrogation.InterrogationName.FoundRuins;
             }
-            else
+            
+            if (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript).Currency < 0)
             {
-                Debug.Log("unclaimed count " + GlobalMilestoneManager.instance.UnclaimedMilestones.Count);
-                foreach (var VARIABLE in GlobalMilestoneManager.instance.UnclaimedMilestones)
-                {
-                    Debug.Log(VARIABLE.action + "  " + VARIABLE.originID);
-                }
-                Debug.Log("not in unclaimed");
+                interrogationWindow.SetInterrogationToWrite(Interrogation.InterrogationName.FailedToPay);
+                gameOverEndOfDay = true;
+                return (int)Interrogation.InterrogationName.FailedToPay;
             }
+
+
+
 
             return -1;
         }
