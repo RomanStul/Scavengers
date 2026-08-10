@@ -15,8 +15,10 @@ MonoBehaviour:
   description: Mysterious pad. Seems to be differetiated by color.
   icon: {fileID: 21300000, guid: af14069fb60ef7644916cc7a66867bea, type: 3}
   toolType: 5
-  price: 0
-  unlockUpgrade: 12
-  neededItems: []
+  price: 15
+  unlockUpgrade: 19
+  neededItems:
+  - item: {fileID: 11400000, guid: 4cfdd0bced855a640980f95b5b04e55a, type: 2}
+    amount: 1
   executeObject: {fileID: 1723783822653005087, guid: 4a2d8c4da35d1e84bbba17384832b83d, type: 3}
   droppedIcon: {fileID: 21300000, guid: f21c4728820a5f64bb1c972907d47390, type: 3}

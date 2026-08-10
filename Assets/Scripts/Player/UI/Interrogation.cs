@@ -56,6 +56,7 @@ namespace Player.UI
 
         public void Write(Module.Module moduleRef)
         {
+            
             StartCoroutine(Printing(interrogationTexts.texts[(int)interrogationToWrite], moduleRef));
         }
 

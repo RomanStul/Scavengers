@@ -12505,6 +12505,64 @@ MonoBehaviour:
             m_CallState: 2
       wait: 0
     completed: 0
+  - milestone:
+      action: 4
+      originID: 6
+    completionEventList:
+    - completeEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 719041771}
+            m_TargetAssemblyTypeName: Milestones.SceneMilestoneManager, Assembly-CSharp
+            m_MethodName: ModuleUnlockUpgrade
+            m_Mode: 3
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 17
+              m_FloatArgument: 0
+              m_StringArgument: 0_AcidBombUnlocked
+              m_BoolArgument: 0
+            m_CallState: 2
+      wait: 0
+    completed: 0
+  - milestone:
+      action: 6
+      originID: 6
+    completionEventList:
+    - completeEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 719041771}
+            m_TargetAssemblyTypeName: Milestones.SceneMilestoneManager, Assembly-CSharp
+            m_MethodName: ModuleShowDialog
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 18
+              m_FloatArgument: 0
+              m_StringArgument: 0_BlueKeyUnlock
+              m_BoolArgument: 0
+            m_CallState: 2
+      wait: 1
+    - completeEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 719041771}
+            m_TargetAssemblyTypeName: Milestones.SceneMilestoneManager, Assembly-CSharp
+            m_MethodName: ModuleUnlockUpgrade
+            m_Mode: 3
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 18
+              m_FloatArgument: 0
+              m_StringArgument: 0_AcidBombUnlocked
+              m_BoolArgument: 0
+            m_CallState: 2
+      wait: 0
+    completed: 0
 --- !u!1 &767397069
 GameObject:
   m_ObjectHideFlags: 0

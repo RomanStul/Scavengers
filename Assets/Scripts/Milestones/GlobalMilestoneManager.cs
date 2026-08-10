@@ -19,7 +19,8 @@ namespace Milestones
             Destroyed,
             Upgraded,
             Day,
-            TimerRanOut
+            TimerRanOut,
+            PickedUpTool
         }
         
         [Serializable]

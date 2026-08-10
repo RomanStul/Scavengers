@@ -26,6 +26,15 @@
       "from": "Rick",
       "image": "Rick"
     },
+
+    {
+      "key": "BlueKeyUnlock",
+      "text": [
+        "What did you find??\nIt has some really specific structure. Anyway now that its scanned I can make more if you need any by chance."
+      ],
+      "from": "Rick",
+      "image": "Rick"
+    },
     {
       "key": "TimerRanOut",
       "text": [
