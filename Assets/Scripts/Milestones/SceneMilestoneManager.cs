@@ -10,6 +10,7 @@ using UnityEngine.TestTools;
 using Environment = Entities.Environment.Environment;
 using Milestones;
 using Player.Module.Upgrades;
+using story;
 
 namespace Milestones
 {
@@ -30,6 +31,7 @@ namespace Milestones
             public GlobalMilestoneManager.Milestone milestone;
             public List<EventListElement> completionEventList;
             public bool completed = false;
+            public bool repeatable = false;
         }
         
         //================================================================EDITOR VARIABLES
@@ -52,7 +54,7 @@ namespace Milestones
             {
                 foreach (MilestoneEvent me in milestones)
                 {
-                    me.completed = GlobalMilestoneManager.instance.IsMilestoneCompleted(me.milestone);
+                        me.completed = GlobalMilestoneManager.instance.IsMilestoneCompleted(me.milestone);
                 }
             }
             
@@ -72,8 +74,11 @@ namespace Milestones
                 {
                     if (!me.completed)
                     {
-                        me.completed = true;
-                        GlobalMilestoneManager.instance.AddCompletedMilestone(me.milestone);
+                        if (!me.repeatable)
+                        {
+                            me.completed = true;
+                            GlobalMilestoneManager.instance.AddCompletedMilestone(me.milestone);
+                        }
                         StartCoroutine(InvokeMilestoneEvents(me));
                     }
                     
@@ -217,6 +222,16 @@ namespace Milestones
         public void ShowHelpTip()
         {
             moduleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).ShowHelpTip();
+        }
+
+        public void DecreaseHint(int action)
+        {
+            moduleRef.GetScript<HintSystem>(Module.ScriptNames.HintScript).DecrementHint(action);
+        }
+
+        public void DeactivateHint(int action)
+        {
+            moduleRef.GetScript<HintSystem>(Module.ScriptNames.HintScript).DeactivateHint(action);
         }
     }
 }

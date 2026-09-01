@@ -23,7 +23,7 @@ namespace Entities.Interactions
         protected void LoadScene(Module module, Vector2 position, string scene)
         {
             module.CreateStateObject(scene, position);
-            module.PrepareForSceneTransfer(position, scene, transform.position);
+            module.PrepareForSceneTransfer(position, scene, transform.position, false);
         }
     }
 }

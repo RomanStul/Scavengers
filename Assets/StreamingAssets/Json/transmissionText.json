@@ -42,6 +42,18 @@
       ],
       "from": "Rick",
       "image": "Rick"
+    },
+    {
+      "key": "Hint",
+      "text": [
+        "You still haven't blown up that boulder. Just throw the explosives at it.",
+        "Some of the boulders here have mushroom growing through and through. I bet they will crumble the second you break those mushrooms.",
+        "Every geyser seems to be fed from some reservoir, and each opened geyser reduces pressure.",
+        "There seems to be opening at the back bottom part of the cave. Just throw some acid at the mushrooms in the way.",
+        "The dark spots on the walls seem to be from a material that absorbs energy. It may release it back if its overcharged."
+      ],
+      "from": "Rick",
+      "image": "Rick"
     }
   ]
   

@@ -56,6 +56,7 @@
     <Compile Include="Assets\Scripts\HelpScripts\MyRaycast.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\DestructionManager.cs" />
     <Compile Include="Assets\Scripts\Entities\Interactions\ResourceShop.cs" />
+    <Compile Include="Assets\Scripts\story\HintSystem.cs" />
     <Compile Include="Assets\Scripts\Player\UI\PortalWindow\AnchorButton.cs" />
     <Compile Include="Assets\Scripts\Player\UI\UIComponent\SaveButtonsGrid.cs" />
     <Compile Include="Assets\Scripts\Entities\Environment\Traps and puzzles\DoorController.cs" />

@@ -57,6 +57,7 @@ namespace Player.UI
         [SerializeField] private CurrencyDisplay currencyDisplay;
         [SerializeField] private ToolDisplay toolDisplay;
         [SerializeField] private GameObject helpTip;
+        [SerializeField] private Animator transmissionNotification;
         [SerializeField] private Minimap minimap;
         [SerializeField] private TMPro.TextMeshProUGUI monologHelpText;
         
@@ -336,6 +337,12 @@ namespace Player.UI
         public void ShowTransmission(string message)
         {
             ((Transmission)windows[(int)WindowType.Transmission]).WriteMessage(message);
+        }
+
+        public void BufferTransmission(string message)
+        {
+            transmissionNotification.SetTrigger("Change");
+            ((Transmission)windows[(int)WindowType.Transmission]).BufferMessage(message);
         }
 
         public void SetHelpWindowMode(HelpDisplay.DisplayModes mode)
