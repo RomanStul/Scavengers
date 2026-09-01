@@ -43,6 +43,7 @@ namespace Menu
             public Vector2 Position;
             public float TimerValue;
             public int[] Tools;
+            public int[] Hints;
         }
 
         [Serializable]
@@ -285,6 +286,7 @@ namespace Menu
       
             currentSave.ModuleData.TimerValue = moduleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).TimerValue;
             currentSave.ModuleData.Tools = moduleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).GetToolAmounts();
+            currentSave.ModuleData.Hints = moduleRef.GetScript<HintSystem>(Module.ScriptNames.HintScript).GerHintsRemaining();
         
             //Environment data
             currentSave.EnvironmentData.Day = 0;
@@ -345,6 +347,7 @@ namespace Menu
             if(!currentSave.isDayStart)// if is day start => timer will set automatically and this can break the max timer value
                 moduleRef.GetScript<InteractionHandler>(Module.ScriptNames.InteractionScript).TimerValue = currentSave.ModuleData.TimerValue;
             moduleRef.GetScript<ToolHolder>(Module.ScriptNames.ToolScript).SetToolAmounts(currentSave.ModuleData.Tools);
+            moduleRef.GetScript<HintSystem>(Module.ScriptNames.HintScript).SetHintRemaining(currentSave.ModuleData.Hints);
 
             if (currentSave.isDayStart)
             {

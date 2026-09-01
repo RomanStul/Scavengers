@@ -14,6 +14,8 @@ namespace Player.Module
         //================================================================CLASSES
         //================================================================EDITOR VARIABLES
         [SerializeField] private Interrogation interrogationWindow;
+
+        [SerializeField] private GameObject evacuatePortal;
         //================================================================GETTER SETTER
 
 
@@ -45,12 +47,13 @@ namespace Player.Module
             (ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript)).SetNewDayNumber(StoryManager.instance.GetDayNumber());
             (ModuleRef.GetScript<Storage>(Module.ScriptNames.StorageScript)).PayWithCurrency((int)(StoryManager.instance.GetStartOfDayPayment()), true);
         }
-        public void StartSceneTransferAnimation(Vector3 position, string scene, Vector3 stopAt)
+        public void StartSceneTransferAnimation(Vector3 position, string scene, Vector3 stopAt, bool evacuate)
         {
             sceneName = scene;
             positionToTransfer = position;
             ModuleRef.moduleAnimator.SetTrigger("sceneTransfer");
             interactablePosition = stopAt;
+            evacuatePortal.SetActive(evacuate);
         }
 
         public void TransferToScene()
@@ -68,6 +71,7 @@ namespace Player.Module
         private IEnumerator SetPositionAfterTransfer()
         {
             yield return null;
+            evacuatePortal.SetActive(false);
             transform.position = positionToTransfer;
             ModuleRef.moveRb.linearVelocity = Vector2.zero;
             ModuleRef.GetScript<UIController>(Module.ScriptNames.UIControlsScript).SetUpMinimap();

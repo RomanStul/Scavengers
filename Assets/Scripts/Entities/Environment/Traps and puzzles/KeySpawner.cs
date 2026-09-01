@@ -17,7 +17,7 @@ namespace Entities.Environment.Traps_and_puzzles
         //================================================================GETTER SETTER
         //================================================================FUNCTIONALITY
 
-        private void Awake()
+        public override void Awake()
         {
             if (!DestructionManager.instance.CheckForOre(Id))
             {
@@ -26,7 +26,7 @@ namespace Entities.Environment.Traps_and_puzzles
                 dropped.IncreaseDetectTriggerSize(3f);
                 DestructionManager.instance.AddOre(Id);
             }
-            Destroy(gameObject);
+            
 
         }
     }

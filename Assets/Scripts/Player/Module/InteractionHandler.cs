@@ -114,7 +114,7 @@ namespace Player.Module
         private float CalculateCurrentFullTimer()
         {
             currentFullTimer = Mathf.Min(timerConstants.baseTimerLenght + timerConstants.increasePerDay * (StoryManager.instance.GetDayNumber() - timerConstants.firstIncreaseDay), timerConstants.maxTimerLenght);
-            return currentFullTimer * SavesManager.Instance.GetDifficulty().dayLengthMultiplier;
+            return currentFullTimer * (!SavesManager.Instance ? 1 : SavesManager.Instance.GetDifficulty().dayLengthMultiplier);
         }
 
         public void UseEntity()

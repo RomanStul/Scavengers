@@ -46,12 +46,25 @@ namespace Player.UI
          private TransmissionWrapper transmissions;
          private Sprite[] images;
          private Coroutine writeCoroutine;
+         private string bufferedTransmission;
 
          private void Awake()
          {
              transmissions = JsonUtility.FromJson<TransmissionWrapper>(File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Json/transmissionText.json")));
              images = Resources.LoadAll<Sprite>("TransmissionImages");
              
+         }
+         
+         public override bool ToggleWindow()
+         {
+            bool open = base.ToggleWindow();
+            if (open && bufferedTransmission != null)
+            {
+                WriteMessage(bufferedTransmission);
+                bufferedTransmission = null;
+            }
+            
+            return open;
          }
 
          public void WriteMessage(string messageName)
@@ -85,6 +98,11 @@ namespace Player.UI
                 }
              }
 
+         }
+
+         public void BufferMessage(string messageName)
+         {
+             bufferedTransmission = messageName;
          }
 
          private void SetImage(string imageName)

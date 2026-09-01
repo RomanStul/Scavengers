@@ -32,6 +32,7 @@ namespace Player.Module
             AnimationFunctionsScript,
             SoundsScript,
             CameraShakeScript,
+            HintScript,
         }
 
         [Serializable]
@@ -129,10 +130,10 @@ namespace Player.Module
             }
         }
 
-        public void PrepareForSceneTransfer(Vector3 position, string sceneName, Vector3 interactablePosition)
+        public void PrepareForSceneTransfer(Vector3 position, string sceneName, Vector3 interactablePosition, bool evacuate)
         {
             moveRb.linearVelocity = Vector2.zero;
-            ((ModuleAnimations)baseScripts[(int)ScriptNames.AnimationFunctionsScript]).StartSceneTransferAnimation(position, sceneName, interactablePosition);
+            ((ModuleAnimations)baseScripts[(int)ScriptNames.AnimationFunctionsScript]).StartSceneTransferAnimation(position, sceneName, interactablePosition, evacuate);
         }
         
         
@@ -144,7 +145,7 @@ namespace Player.Module
                 return;
             }
             CreateStateObject(evacuateSettings.sceneName, evacuateSettings.evacuatePosition);
-            PrepareForSceneTransfer(evacuateSettings.evacuatePosition, evacuateSettings.sceneName, transform.position);
+            PrepareForSceneTransfer(evacuateSettings.evacuatePosition, evacuateSettings.sceneName, transform.position, true);
             GetScript<Storage>(ScriptNames.StorageScript).PayWithCurrency((int)(StoryManager.instance.GetEvacuateCost() * evacuateSettings.costMultiplier), true);
         }
 

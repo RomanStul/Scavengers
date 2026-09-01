@@ -52,6 +52,10 @@ namespace Entities
                             gameObject.SetActive(true);
                             DestructionManager.instance.RemoveOre(Id);
                         }
+                        else
+                        {
+                            gameObject.SetActive(false);
+                        }
                         
                     }
                 }
